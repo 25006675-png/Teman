@@ -191,3 +191,89 @@ def read_bill_image(path):
                              [f"could not read the image: {e}"], "",
                              status="error")
     return extract_bill_fields(text)
+
+# ---------------------------------------------------------------
+# Part 2: preset (demo) bills and the ONE function the backend calls
+# ---------------------------------------------------------------
+import json
+
+BILLS_FILE = os.path.join(
+    os.path.dirname(os.path.abspath(__file__)), "data", "bills.json")
+
+
+def load_preset_bills(path=BILLS_FILE):
+    """Read data/bills.json. Raises ValueError with a clear reason if broken."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            bills = json.load(f)
+    except FileNotFoundError:
+        raise ValueError(f"preset bills file not found: {path}")
+    except json.JSONDecodeError as e:
+        raise ValueError(f"preset bills file is not valid JSON: {e}")
+    if not isinstance(bills, list):
+        raise ValueError("preset bills file must contain a list")
+    for bill in bills:
+        if (not isinstance(bill, dict) or "id" not in bill
+                or not isinstance(bill.get("lines"), list)):
+            raise ValueError("every preset bill needs an 'id' and a 'lines' list")
+    return bills
+
+
+def get_preset_bill(preset_id, path=BILLS_FILE):
+    """Preset id -> the same dictionary as OCR, labelled as a preset."""
+    try:
+        bills = load_preset_bills(path)
+    except ValueError as e:
+        return _build_result(None, None, None, [str(e)], "", status="error")
+    for bill in bills:
+        if bill["id"] == preset_id:
+            result = extract_bill_fields("\n".join(bill["lines"]))
+            result["source"] = "preset"
+            return result
+    return _build_result(None, None, None,
+                         [f"unknown preset id: {preset_id}"], "",
+                         status="error")
+
+
+def analyze_bill(image_path=None, preset_id=None, fallback_preset_id=None):
+    """The ONE function the backend should call. Always returns 10 keys.
+
+    - preset_id: use that preset on purpose (for the demo).
+    - image_path: read the image with OCR.
+    - fallback_preset_id: ONLY if OCR fails AND this is given, return that
+      preset, clearly labelled as a fallback. Otherwise OCR failure is
+      returned as an error. A sample bill is never swapped in silently.
+    """
+    def finish(result, source, used_preset=None, ocr_failed=False):
+        out = dict(result)
+        out["source"] = source
+        out["preset_id"] = used_preset
+        out["ocr_failed"] = ocr_failed
+        return out
+
+    if preset_id:
+        return finish(get_preset_bill(preset_id), "preset", preset_id)
+
+    if not image_path:
+        no_input = _build_result(None, None, None,
+                                 ["no image or preset id was given"], "",
+                                 status="error")
+        return finish(no_input, "none")
+
+    result = read_bill_image(image_path)
+    nothing_read = not any((result["payee"], result["amount"],
+                            result["due_date"]))
+    if result["status"] != "error" and not nothing_read:
+        return finish(result, "ocr")          # read at least something
+
+    # OCR failed. Use a sample ONLY if the caller allowed it.
+    if fallback_preset_id:
+        sample = get_preset_bill(fallback_preset_id)
+        if sample["status"] != "error":
+            sample["status"] = "fallback"
+            sample["problems"] = (
+                ["we could not read your photo; these are SAMPLE bill "
+                 "details, not your bill"] + result["problems"])
+            return finish(sample, "preset_fallback", fallback_preset_id,
+                          ocr_failed=True)
+    return finish(result, "ocr", ocr_failed=True)
