@@ -76,3 +76,82 @@ def match_command(text):
     if len(hits) == 1:
         return hits[0]
     return UNCLEAR
+
+# ---------------------------------------------------------------
+# Part 2: from an audio file to a safe command
+# ---------------------------------------------------------------
+import os
+import re
+
+# STARTING GUESSES - tune them with real recordings, never to look good
+LOW_CONFIDENCE = -1.0
+NO_SPEECH_MAX = 0.6
+REPEATED_CHAR = re.compile(r"(.)\1{3,}")   # the same character 4+ times
+
+_models = {}   # loaded Whisper models, so we load each one only once
+
+
+def get_model(model_size="large-v3", device="cpu", compute_type="int8"):
+    """Load Whisper the first time it is needed, then reuse it."""
+    key = (model_size, device, compute_type)
+    if key not in _models:
+        from faster_whisper import WhisperModel
+        _models[key] = WhisperModel(model_size, device=device,
+                                    compute_type=compute_type)
+    return _models[key]
+
+
+def transcribe_audio(path, language="yue", model_size="large-v3",
+                     device="cpu", compute_type="int8"):
+    """Audio file -> {"text", "status", "problems", "avg_logprob"}.
+    status is "ok", "unreliable" or "error". "ok" only means no warning
+    sign was found. It does NOT mean the text is correct."""
+    result = {"text": "", "status": "ok", "problems": [], "avg_logprob": None}
+
+    if not os.path.exists(path):
+        result["status"] = "error"
+        result["problems"].append("audio file not found")
+        return result
+
+    try:
+        model = get_model(model_size, device, compute_type)
+        segments, _info = model.transcribe(path, language=language)
+        segments = list(segments)   # the work happens while we loop
+    except Exception as e:
+        result["status"] = "error"
+        result["problems"].append(f"transcription failed: {e}")
+        return result
+
+    result["text"] = "".join(s.text for s in segments).strip()
+    if not result["text"]:
+        result["problems"].append("empty transcript")
+    else:
+        if REPEATED_CHAR.search(result["text"]):
+            result["problems"].append("same character repeated 4+ times")
+        logprobs = [s.avg_logprob for s in segments]
+        result["avg_logprob"] = round(sum(logprobs) / len(logprobs), 2)
+        if result["avg_logprob"] < LOW_CONFIDENCE:
+            result["problems"].append("low confidence")
+        if max(s.no_speech_prob for s in segments) > NO_SPEECH_MAX:
+            result["problems"].append("probably not speech")
+
+    if result["problems"]:
+        result["status"] = "unreliable"
+    return result
+
+
+def listen_for_command(path, **options):
+    """Audio file -> a safe command. This NEVER pays and never calls the bank.
+    Only a clean transcript can produce a command. Everything else is "unclear"."""
+    heard = transcribe_audio(path, **options)
+    if heard["status"] == "ok":
+        command = match_command(heard["text"])
+    else:
+        command = UNCLEAR
+    return {
+        "command": command,                 # confirm / cancel / repeat / unclear
+        "text": heard["text"],              # what Whisper wrote (for the log)
+        "status": heard["status"],
+        "problems": heard["problems"],
+        "avg_logprob": heard["avg_logprob"],
+    }
