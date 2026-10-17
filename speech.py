@@ -155,3 +155,5 @@ def listen_for_command(path, **options):
         "problems": heard["problems"],
         "avg_logprob": heard["avg_logprob"],
     }
+    
+    
