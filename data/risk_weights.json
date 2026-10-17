@@ -1,0 +1,19 @@
+{
+    "config_version": "2026-10-17.1",
+    "weights": {
+        "PAYEE_UNKNOWN": 40,
+        "OVER_LIMIT": 40,
+        "AMOUNT_HIGH": 20
+    },
+    "message_rule": "Use the highest-weight fired rule for the displayed risk message; retain every fired rule and weight in the decision record.",
+    "equal_weight_tie_breaker": "FIRST_FIRED_IN_CONFIGURED_RULE_ORDER_AS_SPECIFIED_IN_PROPOSAL",
+    "decision_record_fields": [
+        "rules_fired",
+        "weights",
+        "total_score",
+        "outcome_band",
+        "risk_code_shown",
+        "config_version",
+        "timestamp"
+    ]
+}

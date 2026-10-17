@@ -1,0 +1,88 @@
+{
+    "config_version": "2026-10-17.1",
+    "currency": "MYR",
+    "money_unit": "minor_units",
+    "blocking_rules": [
+        {
+            "id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "risk_code": "DATA_INSUFFICIENT",
+            "outcome": "ASK_AGAIN",
+            "required_fields": [
+                "payee",
+                "amount_minor"
+            ]
+        },
+        {
+            "id": "BLOCK_SCAM_KEYWORD",
+            "risk_code": "SCAM_SIGNAL",
+            "outcome": "BLOCK",
+            "guardian_can_override": false
+        },
+        {
+            "id": "BLOCK_BLACKLISTED_PAYEE",
+            "risk_code": "SCAM_SIGNAL",
+            "outcome": "BLOCK",
+            "guardian_can_override": false
+        },
+        {
+            "id": "BLOCK_OVER_HARD_CAP",
+            "risk_code": "OVER_HARD_CAP",
+            "outcome": "BLOCK",
+            "maximum_amount_minor": 50000,
+            "guardian_can_override": false
+        }
+    ],
+    "history_limits": {
+        "minimum_bill_count_for_median": 3,
+        "fallback_auto_pay_limit_minor": 5000,
+        "auto_pay_limit_median_multiplier": 1.5,
+        "high_amount_median_multiplier": 1.2,
+        "skip_high_amount_rule_below_minimum_history": true
+    },
+    "risk_score_bands": [
+        {
+            "minimum_inclusive": 0,
+            "maximum_exclusive": 20,
+            "outcome": "APPROVE"
+        },
+        {
+            "minimum_inclusive": 20,
+            "maximum_exclusive": 40,
+            "outcome": "WARN"
+        },
+        {
+            "minimum_inclusive": 40,
+            "maximum_exclusive": null,
+            "outcome": "REVIEW"
+        }
+    ],
+    "approval_expiry": {
+        "check_on_transaction_read": true,
+        "scheduler_required": false,
+        "transaction_ttl_seconds": 600,
+        "guardian_ttl_seconds": 1800,
+        "ttl_values_status": "HARD_ENFORCED_BY_TRANSACTIONS_SERVICE_SECONDS"
+    },
+    "transaction_states": [
+        "PENDING",
+        "AWAITING_GUARDIAN",
+        "DONE",
+        "CANCELLED",
+        "BLOCKED",
+        "REJECTED",
+        "EXPIRED"
+    ],
+    "allowed_transitions": {
+        "PENDING": [
+            "DONE",
+            "CANCELLED",
+            "BLOCKED",
+            "AWAITING_GUARDIAN"
+        ],
+        "AWAITING_GUARDIAN": [
+            "DONE",
+            "REJECTED",
+            "EXPIRED"
+        ]
+    }
+}

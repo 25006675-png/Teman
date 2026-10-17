@@ -1,0 +1,76 @@
+{
+    "config_version": "2026-10-17.1",
+    "data_status": "ALL_RECORDS_ARE_SYNTHETIC_DEMO_FIXTURES_NOT_REAL_USER_TRANSACTIONS",
+    "records": [
+        {
+            "id": "demo_hist_tnb_001",
+            "occurred_at": "2026-07-28T09:00:00Z",
+            "payee_id": "tnb",
+            "payee_name": "Tenaga Nasional Berhad",
+            "category": "utilities",
+            "amount_minor": 3150,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_tnb_002",
+            "occurred_at": "2026-08-28T09:00:00Z",
+            "payee_id": "tnb",
+            "payee_name": "Tenaga Nasional Berhad",
+            "category": "utilities",
+            "amount_minor": 3840,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_tnb_003",
+            "occurred_at": "2026-09-28T09:00:00Z",
+            "payee_id": "tnb",
+            "payee_name": "Tenaga Nasional Berhad",
+            "category": "utilities",
+            "amount_minor": 4200,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_air_001",
+            "occurred_at": "2026-09-15T09:00:00Z",
+            "payee_id": "air_selangor",
+            "payee_name": "Air Selangor",
+            "category": "utilities",
+            "amount_minor": 1820,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_grocery_001",
+            "occurred_at": "2026-10-04T10:00:00Z",
+            "payee_id": null,
+            "payee_name": "Local market",
+            "category": "groceries",
+            "amount_minor": 6800,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_grocery_002",
+            "occurred_at": "2026-10-08T10:00:00Z",
+            "payee_id": null,
+            "payee_name": "Local market",
+            "category": "groceries",
+            "amount_minor": 7200,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        },
+        {
+            "id": "demo_hist_medical_001",
+            "occurred_at": "2026-10-10T11:00:00Z",
+            "payee_id": null,
+            "payee_name": "Kedai Ubat Tong Sheng",
+            "category": "medical",
+            "amount_minor": 14500,
+            "source": "SYNTHETIC_DEMO",
+            "synthetic": true
+        }
+    ]
+}
