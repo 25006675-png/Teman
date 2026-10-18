@@ -19,17 +19,17 @@
 
 ## 2. Solution
 
-DialectGuard is an AI finance assistant that lives **inside the chat app the elderly user already uses**. She talks in her own dialect or taps big buttons. The agent budgets, reads bills, gives spending insights and pays safe bills for her, within strict permission limits. Risky payments need a family member's approval, and scams are blocked outright.
+DialectGuard is an **elder-first AI finance app**: one simple screen with big text, big buttons and Cantonese voice, and an AI assistant inside that she can simply talk to. She talks in her own dialect or taps big buttons. Banks can also embed it as an **elder mode** inside their own app. The agent budgets, reads bills, gives spending insights and pays safe bills for her, within strict permission limits. Risky payments need a family member's approval, and scams are blocked outright.
 
 ```
- Ah Por's chat app  ──►  DialectGuard (ours)  ──►  Her bank (via API — sandbox)
+ Ah Por's DialectGuard app  ──►  DialectGuard engine (ours)  ──►  Her bank (via API — sandbox)
  voice / tap             understands + decides       holds and moves the money
                                  │
                                  ▼
-                     Son's chat app (approves / is alerted)
+                     Son's DialectGuard Family app (approves / is alerted)
 ```
 
-**We are not a bank and not a new banking app.** We sit between the chat and the bank, and we never touch the bank's UI.
+**We are not a bank and not a full banking app.** DialectGuard does a few things simply; the bank still holds the money, and we only send it requests through its API.
 
 ## 3. Three design rules
 
@@ -39,7 +39,7 @@ DialectGuard is an AI finance assistant that lives **inside the chat app the eld
 
 ## 4. User experience (elderly side)
 
-- **Chat-native.** The bot's **bottom menu** (WeChat Official Account menu / WhatsApp buttons) is the home screen: **📷 Snap bill · 💰 Today's budget · 📊 Weekly report**. Every result is a **card with big buttons** inside the chat. One card does one thing.
+- **One simple screen.** The app's **bottom menu** is the home screen: **📷 Snap bill · 💰 Today's budget · 📊 Weekly report**, plus a box to talk to the assistant. Every result is a **card with big buttons**. One card does one thing. (A chat app like WhatsApp can't control text size and shows only a few buttons, which is why this is an app.)
 - **Big and clear.** Body text ≥ 18pt. Amount and payee in extra-large text. High contrast. Fixed icons: 💡 electricity · 💧 water · 🛒 groceries · 💊 medical · ✅ OK · ⚠️ careful · 🛑 stop. Every icon comes with words; we never rely on colour alone.
 - **🔊 Read aloud** on result, budget and report cards (text-to-speech). If text-to-speech fails, the text is still there.
 - **🎤 Voice in two places only:** asking about a bill, and on the confirm card ("confirm / cancel / say again"), using keyword matching. If no keyword is recognised: *"I didn't catch that, please tap a button."* It never guesses or executes.
@@ -237,7 +237,7 @@ Split screen: **Ah Por's chat · DialectGuard engine + bank sandbox · Son's cha
 | Whisper on dialect clips | **Real**, numbers in the evaluation table |
 | OCR | Real, with preset bills as fallback |
 | Bank | **Simulated sandbox** (mock ledger shaped like an Open Banking API) |
-| Chat apps | Simulated chat UI. Real deployment route: WhatsApp Business API (Malaysia) / WeChat Official Account |
+| Elder app | Demo web app in a phone frame. Real deployment: a mobile app, or an elder mode embedded in a partner bank's app. WhatsApp: roadmap, for reminders and alerts only |
 | Push to son's phone | Simulated: both phones share one backend state on screen |
 
 ## 12. Scope decisions (original idea → lean version)
@@ -289,7 +289,7 @@ Daily 15-minute check-in, every evening: what works, what's blocked, what to cut
 
 ## 16. Likely judge questions
 
-- **Can this really run in WhatsApp/WeChat?** WhatsApp Business API is the realistic route in Malaysia; WeChat needs an Official Account. The demo simulates the chat UI.
+- **Why an app, not WhatsApp?** A chat app can't control text size, shows only a few buttons, and has no room for family settings or approvals. Her son installs it once from the official store (or her bank turns on elder mode), so she only has one screen to learn. WhatsApp is on the roadmap for reminders.
 - **Who holds the money?** The bank. We only send requests through its API, and today that's a sandbox.
 - **What if Whisper mishears?** Voice only matches confirm/cancel keywords; everything else uses buttons. Amounts come from the bill, never from speech.
 - **Did you train a model?** No, and that was deliberate. We measured off-the-shelf models on our own dialect test set (show the table).

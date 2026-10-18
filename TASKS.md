@@ -44,7 +44,7 @@ The demo is a **split screen**: Ah Por's phone (left) · DialectGuard engine + b
 **Frontend & submission tasks**
 - [ ] Update `dialectguard-mockup.html`:
   - Split the middle column into "DialectGuard Engine (ours)" + "Ah Por's Bank (API sandbox)"
-  - Chat bottom menu: 📷 Snap bill · 💰 Today's budget · 📊 Weekly report
+  - App bottom menu: 📷 Snap bill · 💰 Today's budget · 📊 Weekly report
   - Help bar on risk cards: 🛑 Don't pay yet · 📞 Ask my child · 🏦 Check officially
   - Switch to the 5 scenarios above. The scam scenario has **no** approve button
   - Remove fake log lines (e.g. "QLoRA"); logs come from `/logs`
@@ -144,7 +144,7 @@ Note: every dialect part gets **English subtitles**; amounts on screen must be r
 | 2:00–6:00 | Demo / video: the 5 scenarios |
 | 6:00–7:30 | Security design: three tiers + "even her son can't approve a scam" |
 | 7:30–8:30 | Technical depth: dialect test numbers + 8 tests + honest real-vs-simulated table |
-| 8:30–9:30 | Business model + roadmap (sandbox → dialect fine-tuning → bank partner + WhatsApp Business API) |
+| 8:30–9:30 | Business model + roadmap (sandbox → dialect fine-tuning → elder mode inside a partner bank's app; WhatsApp reminders) |
 | 9:30–10:00 | Closing: back to Ah Por — "This time, she didn't get scammed." |
 
 **The three permission tiers**
@@ -163,7 +163,7 @@ Note: every dialect part gets **English subtitles**; amounts on screen must be r
 - Who holds the money? → The bank; we only send requests through its API (sandbox for now)
 - What if the dialect is misheard? → Voice only matches confirm/cancel; amounts come from the bill; if unclear, she taps a button
 - What if she has no child to ask? → "Don't pay yet" and "Check officially" are always available
-- Can it run in a real chat app? → WhatsApp Business API in Malaysia / WeChat Official Account; the demo uses a simulated chat UI
+- Why an app and not WhatsApp? → A chat app can't control text size or show family settings and approvals; her son installs it once (or her bank turns on elder mode). WhatsApp is roadmap, for reminders only
 
 **Don't say** (judges will catch it): ~~"verifies whether a bill is genuine"~~ → "can't confirm it's genuine, please check" · ~~"freezes funds"~~ → "payment held, not sent to the bank" · ~~"zero hallucination"~~ → "the AI can't authorise payments" · ~~"we fine-tuned a model"~~ (unless we actually did)
 
