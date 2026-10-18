@@ -483,6 +483,30 @@ def confirm_transaction(
         )
 
 
+def pay_with_family_mandate(
+    connection: Any,
+    tx_id: str,
+    *,
+    authorization_validator: AuthorizationValidator | None,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    """Pay automatically inside a family-signed limit. Only fully safe (APPROVE) bills qualify."""
+    moment = _as_utc(now)
+    with atomic(connection):
+        row, expired = _get_live(connection, tx_id, moment)
+        if expired:
+            return {"ok": False, "error": "EXPIRED", "transaction": _payload(row)}
+        decision = _decision(row)
+        if _is_blocked(row, decision):
+            raise TransactionFlowError("BLOCKED", http_status=403)
+        if row["status"] != "PENDING" or row["outcome_band"] != "APPROVE":
+            raise TransactionFlowError("INVALID_STATE")
+        _verify(authorization_validator, row, "FAMILY_MANDATE", "mandate")
+        return _execute(
+            connection, row, expected_status="PENDING", role="FAMILY_MANDATE", method="mandate", now=moment
+        )
+
+
 def approve_transaction(
     connection: Any,
     tx_id: str,

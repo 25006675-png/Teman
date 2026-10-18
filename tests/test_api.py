@@ -146,7 +146,9 @@ class ApiTests(unittest.TestCase):
         self.assertEqual(self.client.post("/reset").json()["balance_minor"], self.opening)
         state = self.client.get("/state").json()
         self.assertEqual((state["transactions"], state["payments"]), ([], []))
-        self.assertEqual(self.client.get("/logs").json()["event_count"], 0)
+        # Only the setup events remain: the family's spending limits being signed again.
+        events = {log["event"] for log in self.client.get("/logs").json()["logs"]}
+        self.assertEqual(events, {"family_mandate_signed"})
         self.assertEqual(self.analyze("tnb_normal")["outcome_band"], "APPROVE")
 
     def test_unknown_preset_and_unknown_tx(self):

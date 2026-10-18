@@ -15,7 +15,7 @@ from typing import Any, Iterator
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 DEFAULT_DB_PATH = ROOT / "instance" / "dialectguard.sqlite3"
-SCHEMA_VERSION = 2
+SCHEMA_VERSION = 3
 BUSY_TIMEOUT_MS = 10_000
 _savepoint_ids = count(1)
 
@@ -160,7 +160,7 @@ def _schema_sql() -> str:
         amount_minor INTEGER NOT NULL CHECK (amount_minor >= 0),
         currency TEXT NOT NULL DEFAULT 'MYR' CHECK (currency = 'MYR'),
         executed_at TEXT NOT NULL,
-        method TEXT NOT NULL CHECK (method IN ('tap', 'voice', 'guardian')),
+        method TEXT NOT NULL CHECK (method IN ('tap', 'voice', 'guardian', 'mandate')),
         FOREIGN KEY (tx_id) REFERENCES transactions(id) ON UPDATE RESTRICT ON DELETE RESTRICT
     );
 
@@ -170,7 +170,7 @@ def _schema_sql() -> str:
         tx_id TEXT,
         event TEXT NOT NULL,
         risk_code TEXT,
-        method TEXT CHECK (method IN ('voice', 'tap', 'system', 'guardian') OR method IS NULL),
+        method TEXT CHECK (method IN ('voice', 'tap', 'system', 'guardian', 'agent', 'mandate') OR method IS NULL),
         status TEXT,
         details_json TEXT NOT NULL DEFAULT '{}'
     );
@@ -197,6 +197,11 @@ def _schema_sql() -> str:
             OR (mandate_type = 'PRESENT' AND tx_id IS NOT NULL)
         ),
         FOREIGN KEY (tx_id) REFERENCES transactions(id) ON UPDATE RESTRICT ON DELETE RESTRICT
+    );
+
+    CREATE TABLE IF NOT EXISTS settings (
+        key TEXT PRIMARY KEY NOT NULL,
+        value TEXT NOT NULL
     );
 
     CREATE TABLE IF NOT EXISTS scam_reports (
@@ -315,6 +320,7 @@ def initialize_database(
     """Create/verify the schema, enable WAL, and optionally seed synthetic history."""
     database_path = _database_path(path)
     connection = connect_db(database_path)
+    needs_rebuild = False
     try:
         connection.execute("PRAGMA journal_mode = WAL")
         connection.execute("PRAGMA wal_autocheckpoint = 1000")
@@ -330,10 +336,11 @@ def initialize_database(
                     (SCHEMA_VERSION, utc_now()),
                 )
             elif schema_row[0] < SCHEMA_VERSION:
-                connection.execute(
-                    "UPDATE schema_info SET schema_version = ?, initialized_at = ? WHERE id = 1",
-                    (SCHEMA_VERSION, utc_now()),
-                )
+                needs_rebuild = True
+        if needs_rebuild:
+            connection.close()
+            # Older demo databases can't gain the new CHECK values in place.
+            return reset_database(database_path)
         version = connection.execute(
             "SELECT schema_version FROM schema_info WHERE id = 1"
         ).fetchone()[0]
@@ -357,7 +364,7 @@ def reset_database(path: str | os.PathLike[str] | None = None) -> str:
     try:
         connection.execute("PRAGMA foreign_keys = OFF")
         with atomic(connection):
-            for table in ("sandbox_payments", "mandates", "logs", "budget_limits", "scam_reports",
+            for table in ("sandbox_payments", "mandates", "logs", "budget_limits", "scam_reports", "settings",
                           "history", "transactions", "schema_info"):
                 connection.execute(f"DROP TABLE IF EXISTS {table}")
     finally:

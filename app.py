@@ -9,7 +9,7 @@ The frontend only ever sends a tx_id; amount and payee come from the database.
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, timedelta
 import os
 from typing import Any, Literal
 
@@ -18,18 +18,17 @@ from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-import ai_analyst
+import agent
 import audit
 import bank
 import budget
 import community
 import db
 import mandates
-import risk_model
-from rules import MESSAGES, is_official_biller
+import services
+from rules import is_official_biller
 from transactions import (
     TransactionFlowError,
-    analyze_transaction,
     approve_transaction,
     ask_child,
     cancel_transaction,
@@ -48,8 +47,15 @@ if APPROVAL_MODE not in ("signed", "basic"):
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
-    db.initialize_database()
+    _setup_demo()
     yield
+
+
+def _setup_demo() -> None:
+    """Create the database and sign the family's demo spending limits."""
+    db.initialize_database()
+    with db.db_session() as connection:
+        mandates.seed_family_mandates(connection)
 
 
 app = FastAPI(title="DialectGuard", lifespan=lifespan)
@@ -105,13 +111,6 @@ class VoiceRequest(BaseModel):
     acknowledge_warning: bool = False
 
 
-def _preset(preset_id: str) -> dict[str, Any]:
-    for record in db.load_config("preset_bills.json")["records"]:
-        if record["id"] == preset_id:
-            return record
-    raise HTTPException(status_code=404, detail="Unknown preset bill")
-
-
 def _validator(connection: Any, tx_id: str, role: str, method: str, payable_status: str):
     """Sign an approval for the stored transaction, then hand back its verifier."""
     if APPROVAL_MODE == "basic":
@@ -126,67 +125,14 @@ def _validator(connection: Any, tx_id: str, role: str, method: str, payable_stat
 @app.post("/analyze")
 def analyze(body: AnalyzeRequest) -> dict[str, Any]:
     if body.preset_id:
-        bill = _preset(body.preset_id)
-        fields = {
-            "payee_id": bill["payee_id"], "payee_name": bill["payee_name"],
-            "amount_minor": bill["amount_minor"], "due_date": bill["due_date"],
-            "source_type": bill["kind"], "source_text": bill["ocr_text"],
-        }
+        bill = services.preset(body.preset_id)
+        if bill is None:
+            raise HTTPException(status_code=404, detail="Unknown preset bill")
+        fields = services.preset_fields(bill)
     else:
         fields = body.model_dump(exclude={"preset_id"})
     with db.db_session() as connection:
-        history = []
-        if fields["payee_id"]:
-            history = [row["amount_minor"] for row in db.get_history_for_payee(connection, fields["payee_id"])]
-        reports = community.report_count(connection, community.payee_key(fields["payee_id"], fields["payee_name"]))
-        recent_transfers = community.recent_transfer_count(connection) if fields["source_type"] == "TRANSFER" else 0
-        ai = _ai_assessment(connection, fields, history, recent_transfers)
-        result = analyze_transaction(
-            connection, history_amounts_minor=history, community_report_count=reports,
-            recent_transfer_count=recent_transfers, ai_suspicious=ai["suspicious"] is True, **fields,
-        )
-        result["ai_assessment"] = ai
-        if result["tx_id"]:
-            db.append_log(connection, event="ai_assessment", tx_id=result["tx_id"], status=ai["status"].upper(),
-                          details={key: ai[key] for key in ("suspicious", "tactics", "model", "errors")})
-            result["shadow_model"] = _shadow_score(connection, result["tx_id"], fields)
-    result["message_zh_yue"] = MESSAGES[result["template_code"]]["zh_yue_draft"]
-    return result
-
-
-def _ai_assessment(connection: Any, fields: dict[str, Any], history: list[int], recent_transfers: int) -> dict[str, Any]:
-    """Ask the AI analyst; skipped when key details are missing (the rules ask again anyway)."""
-    if not (fields["payee_id"] or fields["payee_name"]) or not fields["amount_minor"]:
-        return ai_analyst.skipped("missing payee or amount")
-    balance = bank.balance_minor(connection)
-    return ai_analyst.assess({
-        "source_type": fields["source_type"],
-        "source_text": fields["source_text"],
-        "payee_name": fields["payee_name"] or fields["payee_id"],
-        "amount_minor": fields["amount_minor"],
-        "official_biller": is_official_biller(fields["payee_id"], fields["payee_name"]),
-        "paid_before": bool(history),
-        "share_of_balance": fields["amount_minor"] / balance if balance > 0 else 1.0,
-        "recent_transfers": recent_transfers,
-    })
-
-
-MALAYSIA_TIME = timezone(timedelta(hours=8))
-
-
-def _shadow_score(connection: Any, tx_id: str, fields: dict[str, Any]) -> dict[str, Any] | None:
-    """Log the shadow model's score. It runs after the decision and can never change it."""
-    try:
-        shadow = risk_model.score(
-            source_type=fields["source_type"], amount_minor=fields["amount_minor"],
-            balance_minor=bank.balance_minor(connection), hour=datetime.now(MALAYSIA_TIME).hour,
-        )
-        db.append_log(connection, event="shadow_risk_score", tx_id=tx_id, status="SHADOW", details=shadow)
-        return shadow
-    except Exception as error:  # a shadow model must never break the real flow
-        db.append_log(connection, event="shadow_model_error", tx_id=tx_id, status="SHADOW",
-                      details={"error": type(error).__name__})
-        return None
+        return services.analyze(connection, fields)
 
 
 @app.post("/tx/{tx_id}/confirm")
@@ -275,9 +221,16 @@ def state() -> dict[str, Any]:
         )]
         balance = bank.balance_minor(connection)
         reports = community.list_reports(connection)
+        paused = agent.is_paused(connection)
+        limits = mandates.family_mandates(connection)
+        inbox = services.bills_inbox(connection)
+    names = {p["id"]: p["display_name"] for p in db.load_config("whitelist.json")["payees"]}
     return {
         "balance_minor": balance,
         "scam_reports": reports,
+        "agent_paused": paused,
+        "family_mandates": [{**limit, "payee_name": names.get(limit["payee_id"], limit["payee_id"])} for limit in limits],
+        "bills_inbox": inbox,
         "approval_mode": APPROVAL_MODE,
         "transactions": transactions,
         "awaiting_guardian": [t for t in transactions if t["status"] == "AWAITING_GUARDIAN"],
@@ -286,6 +239,37 @@ def state() -> dict[str, Any]:
         ],
         "payments": payments,
     }
+
+
+class AgentChatRequest(BaseModel):
+    message: str
+    history: list[dict[str, str]] = []  # recent turns: {"role": "user"|"agent", "text": ...}
+
+
+class PauseRequest(BaseModel):
+    paused: bool
+
+
+@app.post("/agent/chat")
+def agent_chat(body: AgentChatRequest) -> dict[str, Any]:
+    """Ah Por talks to the assistant agent (its guardrails are in agent.py)."""
+    with db.db_session() as connection:
+        return agent.run(connection, body.message[:2000], body.history)
+
+
+@app.post("/agent/morning_check")
+def agent_morning_check() -> dict[str, Any]:
+    """The daily check-in: pays bills inside family limits and reports the budget."""
+    with db.db_session() as connection:
+        return agent.run(connection, agent.MORNING_CHECK_MESSAGE)
+
+
+@app.post("/agent/pause")
+def agent_pause(body: PauseRequest) -> dict[str, Any]:
+    """Ah Ming's switch. When paused, Ah Por uses the normal buttons."""
+    with db.db_session() as connection:
+        agent.set_paused(connection, body.paused)
+        return {"paused": agent.is_paused(connection)}
 
 
 @app.get("/logs")
@@ -317,6 +301,7 @@ def report() -> dict[str, Any]:
 @app.post("/reset")
 def reset() -> dict[str, Any]:
     db.reset_database()
+    _setup_demo()
     with db.db_session() as connection:
         balance = bank.balance_minor(connection)
     return {"ok": True, "balance_minor": balance}

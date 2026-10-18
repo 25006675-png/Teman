@@ -1,0 +1,17 @@
+{
+    "config_version": "2026-10-18.1",
+    "data_status": "SYNTHETIC_DEMO_SETUP; in a real launch the family sets these with Ah Por's consent and signs them on their own phones.",
+    "valid_days": 365,
+    "mandates": [
+        {
+            "payee_id": "tnb",
+            "limit_per_bill_minor": 8000,
+            "max_payments_per_month": 1
+        },
+        {
+            "payee_id": "air_selangor",
+            "limit_per_bill_minor": 4000,
+            "max_payments_per_month": 1
+        }
+    ]
+}

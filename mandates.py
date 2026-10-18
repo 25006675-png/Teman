@@ -25,7 +25,7 @@ from cryptography.exceptions import InvalidSignature
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import ec
 
-from db import ROOT, append_log, atomic
+from db import ROOT, append_log, atomic, load_config
 
 
 KEY_DIR = Path(os.environ.get("DIALECTGUARD_KEY_DIR", ROOT / "instance" / "keys"))
@@ -170,6 +170,130 @@ def signed_validator(connection: Any, approval: Mapping[str, Any] | None, *, now
     """Adapt verify_approval to the validator shape transactions.py expects."""
     def validator(transaction: Mapping[str, Any], role: str, method: str) -> bool:
         return verify_approval(connection, approval, transaction, role, method, now=now)
+    return validator
+
+
+# ---- Delegated approvals: limits the family signs once at setup -------------
+# "DialectGuard may pay TNB up to RM 80 per bill, once a month." The assistant
+# agent can pay a bill by itself only inside one of these signed limits.
+
+DELEGATED_FIELDS = (
+    "mandate_type", "payee_id", "limit_per_bill_minor", "max_payments_per_month",
+    "role", "issued_at", "expires_at", "nonce",
+)
+
+
+def _delegated_bytes(record: Mapping[str, Any]) -> bytes:
+    payload = {field: record.get(field) for field in DELEGATED_FIELDS}
+    return json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8")
+
+
+def issue_delegated(
+    connection: Any,
+    *,
+    payee_id: str,
+    limit_per_bill_minor: int,
+    max_payments_per_month: int,
+    valid_days: int,
+    now: datetime | None = None,
+) -> dict[str, Any]:
+    moment = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    record = {
+        "mandate_type": "DELEGATED",
+        "payee_id": payee_id,
+        "limit_per_bill_minor": limit_per_bill_minor,
+        "max_payments_per_month": max_payments_per_month,
+        "role": "FAMILY_SETUP",
+        "issued_at": _timestamp(moment),
+        "expires_at": _timestamp(moment + timedelta(days=valid_days)),
+        "nonce": secrets.token_hex(16),
+    }
+    signature = base64.b64encode(
+        _private_key("FAMILY_SETUP").sign(_delegated_bytes(record), ec.ECDSA(hashes.SHA256()))
+    ).decode("ascii")
+    with atomic(connection):
+        connection.execute(
+            """INSERT INTO mandates
+               (id, mandate_type, tx_id, payee_id, amount_minor, decision, role, method,
+                created_at, expires_at, nonce, algorithm, signature, status, record_json)
+               VALUES (?, 'DELEGATED', NULL, ?, ?, 'APPROVE', 'FAMILY_SETUP', 'setup',
+                       ?, ?, ?, ?, ?, 'ISSUED', ?)""",
+            (record["nonce"], payee_id, limit_per_bill_minor, record["issued_at"], record["expires_at"],
+             record["nonce"], ALGORITHM, signature, _delegated_bytes(record).decode("utf-8")),
+        )
+        append_log(connection, event="family_mandate_signed", status="ISSUED", method="system",
+                   details={"payee_id": payee_id, "limit_per_bill_minor": limit_per_bill_minor,
+                            "max_payments_per_month": max_payments_per_month})
+    return {**record, "signature": signature}
+
+
+def seed_family_mandates(connection: Any) -> int:
+    """Sign the demo family's limits once (after setup or /reset)."""
+    if connection.execute("SELECT 1 FROM mandates WHERE mandate_type = 'DELEGATED' LIMIT 1").fetchone():
+        return 0
+    config = load_config("family_mandates.json")
+    for item in config["mandates"]:
+        issue_delegated(connection, valid_days=config["valid_days"], **item)
+    return len(config["mandates"])
+
+
+def _delegated_signature_ok(row: Mapping[str, Any]) -> tuple[bool, dict[str, Any]]:
+    """Re-check the stored record against its signature, so an edited limit is rejected."""
+    try:
+        record = json.loads(row["record_json"])
+        _private_key("FAMILY_SETUP").public_key().verify(
+            base64.b64decode(row["signature"], validate=True),
+            _delegated_bytes(record), ec.ECDSA(hashes.SHA256()),
+        )
+    except (InvalidSignature, ValueError, TypeError, KeyError):
+        return False, {}
+    return True, record
+
+
+def _month_start(moment: datetime) -> str:
+    return _timestamp(moment.replace(day=1, hour=0, minute=0, second=0, microsecond=0))
+
+
+def family_mandates(connection: Any, now: datetime | None = None) -> list[dict[str, Any]]:
+    """Family limits with their signature status and use this month (for the dashboard)."""
+    moment = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    result = []
+    for row in connection.execute(
+        "SELECT * FROM mandates WHERE mandate_type = 'DELEGATED' AND status = 'ISSUED' ORDER BY created_at"
+    ):
+        valid, record = _delegated_signature_ok(row)
+        used = connection.execute(
+            """SELECT COUNT(*) FROM sandbox_payments
+               WHERE method = 'mandate' AND payee_id = ? AND executed_at >= ?""",
+            (row["payee_id"], _month_start(moment)),
+        ).fetchone()[0]
+        result.append({
+            "payee_id": row["payee_id"],
+            "limit_per_bill_minor": record.get("limit_per_bill_minor", row["amount_minor"]),
+            "max_payments_per_month": record.get("max_payments_per_month"),
+            "used_this_month": used,
+            "expires_at": row["expires_at"],
+            "signature_valid": valid,
+        })
+    return result
+
+
+def delegated_validator(connection: Any, *, now: datetime | None = None):
+    """Allow an automatic payment only inside a valid, signed family limit."""
+    def validator(transaction: Mapping[str, Any], role: str, method: str) -> bool:
+        if role != "FAMILY_MANDATE" or method != "mandate" or transaction["outcome_band"] != "APPROVE":
+            return False
+        moment = (now or datetime.now(timezone.utc)).astimezone(timezone.utc)
+        for limit in family_mandates(connection, moment):
+            if (
+                limit["payee_id"] == transaction["payee_id"]
+                and limit["signature_valid"]
+                and _parse(limit["expires_at"]) > moment
+                and transaction["amount_minor"] <= limit["limit_per_bill_minor"]
+                and limit["used_this_month"] < limit["max_payments_per_month"]
+            ):
+                return True
+        return False
     return validator
 
 
