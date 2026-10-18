@@ -108,7 +108,7 @@ def transcribe_audio(path, language="yue", model_size="large-v3",
     sign was found. It does NOT mean the text is correct."""
     result = {"text": "", "status": "ok", "problems": [], "avg_logprob": None}
 
-    if not os.path.exists(path):
+    if isinstance(path, str) and not os.path.exists(path):
         result["status"] = "error"
         result["problems"].append("audio file not found")
         return result
@@ -155,5 +155,24 @@ def listen_for_command(path, **options):
         "problems": heard["problems"],
         "avg_logprob": heard["avg_logprob"],
     }
-    
+
+    # ---------------------------------------------------------------
+# Part 3: the team's API contract (final)
+#   match_keyword(audio_bytes) -> "confirm" | "cancel" | None
+# ---------------------------------------------------------------
+import io
+
+
+def match_keyword(audio_bytes, **options):
+    """Returns ONLY "confirm", "cancel" or None. Never an amount or payee.
+    None means "please tap a button". Speech never pays by itself."""
+    if not isinstance(audio_bytes, (bytes, bytearray)) or len(audio_bytes) == 0:
+        return None
+    try:
+        # BytesIO keeps the audio in memory, so speech.py never saves it
+        heard = listen_for_command(io.BytesIO(bytes(audio_bytes)), **options)
+    except Exception:
+        return None
+    command = heard["command"]
+    return command if command in (CONFIRM, CANCEL) else None
     

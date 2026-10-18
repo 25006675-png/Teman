@@ -17,12 +17,14 @@ DEFAULT_WINDOWS_TESSERACT = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 # STARTER LIST - the names must match Tech 2's whitelist. Ask them.
 KNOWN_PAYEES = {
     "TNB": ("tenaga nasional", "tnb"),
+    "Air Selangor": ("air selangor",),
 }
 
 # Lines containing these words are the ones we trust for the amount / date
 AMOUNT_KEYWORDS = ("amount due", "total amount", "amount payable",
                    "total due", "jumlah")
-DUE_KEYWORDS = ("due date", "pay by", "tarikh akhir", "bayar sebelum")
+DUE_PATTERN = re.compile(
+    r"\bdue\b|pay by|tarikh akhir|bayar sebelum", re.IGNORECASE)
 
 MONTHS = {"jan": 1, "feb": 2, "mar": 3, "apr": 4, "may": 5, "jun": 6,
           "jul": 7, "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12}
@@ -36,7 +38,9 @@ DATE_WORDS = re.compile(r"\b(\d{1,2})\s+([A-Za-z]{3,9})\.?,?\s+(\d{4})\b")
 PAYEE_LABEL = re.compile(
     r"\b(?:pay\s*to|payee|biller)\b\s*[:\-]\s*(.+)", re.IGNORECASE)
 OCR_DIGIT_FIXES = str.maketrans("OoIl", "0011")
-
+def _segments(text):
+    """Split text into pieces at line breaks and semicolons."""
+    return [s.strip() for s in re.split(r"[\n;]+", text) if s.strip()]
 
 def _build_result(payee, amount, due_date, problems, raw_text, status=None):
     """Every function returns the same dictionary shape."""
@@ -67,7 +71,7 @@ def find_payee(text):
     known = _known_payee(text)
     if known:
         candidates.add(known)
-    for line in text.splitlines():
+    for line in _segments(text):
         match = PAYEE_LABEL.search(line)
         if match:
             value = match.group(1).strip()[:60]
@@ -93,7 +97,7 @@ def _clean_amount(token):
 
 def find_amount(text):
     keyword_values, all_values, fixed_values = set(), set(), set()
-    for line in text.splitlines():
+    for line in _segments(text):
         has_keyword = any(k in line.lower() for k in AMOUNT_KEYWORDS)
         for token in AMOUNT_PATTERN.findall(line):
             cleaned, was_fixed = _clean_amount(token)
@@ -128,8 +132,8 @@ def _make_iso(day, month, year):
 
 def find_due_date(text):
     valid, invalid = set(), []
-    for line in text.splitlines():
-        if not any(k in line.lower() for k in DUE_KEYWORDS):
+    for line in _segments(text):
+        if not DUE_PATTERN.search(line):
             continue   # we never use the "Bill Date" as the due date
         for d, m, y in DATE_NUMERIC.findall(line):
             iso = _make_iso(d, m, y)
@@ -277,3 +281,79 @@ def analyze_bill(image_path=None, preset_id=None, fallback_preset_id=None):
             return finish(sample, "preset_fallback", fallback_preset_id,
                           ocr_failed=True)
     return finish(result, "ocr", ocr_failed=True)
+
+# ---------------------------------------------------------------
+# Part 3: the team's API contract (final)
+#   extract(image_bytes) -> a dict with EXACTLY six keys
+# ---------------------------------------------------------------
+import io
+import logging
+
+# The ids must match data/whitelist.json exactly. Check after reading it.
+PAYEE_INFO = {
+    "TNB": ("tnb", "Tenaga Nasional Berhad"),
+    "Air Selangor": ("air_selangor", "Air Selangor"),
+}
+
+
+def _empty_contract(text=""):
+    """Nothing could be read. The server will say: retake / type it in."""
+    return {
+        "payee_id": None,
+        "payee_name": None,
+        "amount_minor": None,
+        "due_date": None,
+        "source_type": "BILL",
+        "source_text": text,
+    }
+
+
+def _to_minor_units(amount_text):
+    """'42.50' -> 4250 (sen). Decimal, not float, so no rounding surprises."""
+    try:
+        return int(Decimal(amount_text) * 100)
+    except (InvalidOperation, TypeError, ValueError):
+        return None
+
+
+def extract_from_text(text):
+    """Text -> the six-key contract dictionary (no image needed)."""
+    if not isinstance(text, str) or not text.strip():
+        return _empty_contract("")
+    fields = extract_bill_fields(text)
+
+    payee = fields["payee"]
+    if payee in PAYEE_INFO:
+        payee_id, payee_name = PAYEE_INFO[payee]
+    else:
+        payee_id, payee_name = None, payee    # an unknown name, or None
+
+    amount = fields["amount"]
+    if any("look like digits" in p for p in fields["problems"]):
+        amount = None    # we had to repair letters; the contract says do not guess
+
+    return {
+        "payee_id": payee_id,
+        "payee_name": payee_name,
+        "amount_minor": _to_minor_units(amount) if amount else None,
+        "due_date": fields["due_date"],
+        "source_type": "BILL",    # TODO: confirm the rule with the Technical Lead
+        "source_text": text,      # untrusted; the server scans it for scam words
+    }
+
+
+def extract(image_bytes):
+    """THE CONTRACT. Image bytes -> dict with exactly six keys.
+    It never raises, and it never swaps in a sample bill."""
+    if not isinstance(image_bytes, (bytes, bytearray)) or len(image_bytes) == 0:
+        return _empty_contract()
+    try:
+        import pytesseract
+        from PIL import Image
+        setup_tesseract(pytesseract)
+        with Image.open(io.BytesIO(bytes(image_bytes))) as image:
+            text = pytesseract.image_to_string(image)
+    except Exception as e:
+        logging.warning("ocr.extract failed: %s", e)   # visible in server logs
+        return _empty_contract()
+    return extract_from_text(text)
