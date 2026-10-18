@@ -156,6 +156,7 @@ def _payment_outcome(turn: Turn, result: dict[str, Any], *, may_auto_pay: bool) 
                     step["stale"] = True
             today = budget.calculate_budget(available_balance_minor=bank.balance_minor(turn.connection))
             turn.note_amount(today["daily_limit_minor"])
+            summary.pop("reason", None)  # the "shall I pay?" template no longer applies
             return {**summary, "status": "paid_automatically", "authority": "family-signed limit",
                     "today_after_payment": rm(today["daily_limit_minor"]) if today["daily_limit_minor"] is not None else None}
         except TransactionFlowError as error:
@@ -380,7 +381,20 @@ def _split_reply(text: str) -> tuple[str, str]:
 
 # ---- the agent loop ----------------------------------------------------------
 
-def run(connection: Any, message: str, history: list[dict[str, str]] | None = None) -> dict[str, Any]:
+def _rule_based_morning_check(turn: Turn) -> None:
+    """Backup when the AI is down: pay unpaid bills (inside family limits), then check the budget."""
+    for bill in _run_tool(turn, "list_bills", {})["bills"]:
+        if bill["status"] == "unpaid":
+            _run_tool(turn, "pay_bill", {"bill_id": bill["bill_id"]})
+    _run_tool(turn, "get_budget", {})
+
+
+def morning_check(connection: Any) -> dict[str, Any]:
+    return run(connection, MORNING_CHECK_MESSAGE, fallback_plan=_rule_based_morning_check)
+
+
+def run(connection: Any, message: str, history: list[dict[str, str]] | None = None,
+        fallback_plan: Callable[[Turn], None] | None = None) -> dict[str, Any]:
     if is_paused(connection):
         return {"paused": True, "reply_yue": "屋企人暫停咗助手，請用下面嘅按鈕。",
                 "reply_en": "The assistant is paused by your family. Please use the buttons.",
@@ -418,6 +432,10 @@ def run(connection: Any, message: str, history: list[dict[str, str]] | None = No
     else:
         guardrail = {"fact_check": "fallback", "reason": "AI disabled"}
 
+    if not reply_text and not turn.steps and fallback_plan is not None:
+        fallback_plan(turn)
+        guardrail = {"fact_check": "fallback", "reason": f"{guardrail['reason']}; ran the rule-based plan"}
+
     if reply_text:
         problem = _fact_check(turn, reply_text)
         if problem:
@@ -440,6 +458,6 @@ def run(connection: Any, message: str, history: list[dict[str, str]] | None = No
         cards.append(card)
     return {"paused": False, "reply_yue": reply_yue, "reply_en": reply_en, "model": model, "guardrail": guardrail,
             "steps": [{"tool": s["tool"], "args": s["args"], "status": s["status"],
-                       "summary": {k: v for k, v in s["result"].items() if k in ("payee", "amount", "status", "reason", "note", "today", "today_after_payment", "error", "authority")}}
+                       "summary": {k: v for k, v in s["result"].items() if k in ("tx_id", "payee", "amount", "status", "reason", "note", "today", "today_after_payment", "error", "authority")}}
                       for s in turn.steps],
             "cards": cards}

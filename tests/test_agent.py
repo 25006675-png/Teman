@@ -216,6 +216,15 @@ class AgentApiTests(unittest.TestCase):
         self.assertEqual(switched["model"], "model-b")
         self.assertIn("model-b", post.call_args_list[2].args[0])
 
+    def test_morning_check_still_works_when_the_ai_is_down(self):
+        with mock.patch("httpx.post", side_effect=httpx.ConnectTimeout("down")):
+            result = self.client.post("/agent/morning_check").json()
+        self.assertEqual(result["guardrail"]["fact_check"], "fallback")
+        self.assertEqual([s["tool"] for s in result["steps"]], ["list_bills", "pay_bill", "pay_bill", "get_budget"])
+        self.assertEqual(self.state()["balance_minor"], self.opening - 4250 - 1920)
+        self.assertIn("今日仲可以使", result["reply_yue"])
+        self.assertTrue(result["steps"][1]["summary"]["tx_id"])
+
     def test_son_can_pause_the_assistant(self):
         self.assertEqual(self.client.post("/agent/pause", json={"paused": True}).json(), {"paused": True})
         self.assertTrue(self.state()["agent_paused"])

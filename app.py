@@ -261,7 +261,7 @@ def agent_chat(body: AgentChatRequest) -> dict[str, Any]:
 def agent_morning_check() -> dict[str, Any]:
     """The daily check-in: pays bills inside family limits and reports the budget."""
     with db.db_session() as connection:
-        return agent.run(connection, agent.MORNING_CHECK_MESSAGE)
+        return agent.morning_check(connection)
 
 
 @app.post("/agent/pause")
