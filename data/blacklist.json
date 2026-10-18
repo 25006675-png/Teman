@@ -1,0 +1,24 @@
+{
+    "config_version": "2026-10-17.1",
+    "payees": [
+        {
+            "id": "demo_scam_account_9910",
+            "match_values": [
+                "Acct #9910-SCAM"
+            ],
+            "reason_code": "SCAM_SIGNAL",
+            "source": "SYNTHETIC_DEMO_FIXTURE",
+            "is_real_world_report": false
+        }
+    ],
+    "matching": {
+        "normalization": [
+            "unicode_nfkc",
+            "trim",
+            "casefold",
+            "collapse_whitespace"
+        ],
+        "match_is_blocking": true,
+        "guardian_can_override": false
+    }
+}

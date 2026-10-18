@@ -1,0 +1,55 @@
+{
+    "config_version": "2026-10-17.1",
+    "currency": "MYR",
+    "money_unit": "minor_units",
+    "monthly_income_total_minor": 150000,
+    "demo_fixture_status": "SYNTHETIC_ASSUMPTIONS_FOR_DEMO_ONLY_NOT_FACTS_FROM_THE_PROPOSAL",
+    "income_sources": [
+        {
+            "id": "str_aid",
+            "name": "STR government aid",
+            "amount_minor": 50000,
+            "expected_arrival_date": "2026-10-01",
+            "data_status": "SYNTHETIC_DEMO_ASSUMPTION"
+        },
+        {
+            "id": "son_allowance",
+            "name": "Son's allowance",
+            "amount_minor": 100000,
+            "expected_arrival_date": "2026-10-05",
+            "data_status": "SYNTHETIC_DEMO_ASSUMPTION"
+        }
+    ],
+    "fixed_costs": [
+        {
+            "id": "other_fixed_costs",
+            "name": "Other fixed costs",
+            "amount_minor": 25000,
+            "data_status": "SYNTHETIC_DEMO_ASSUMPTION_NOT_A_PROPOSAL_FACT"
+        }
+    ],
+    "fixed_costs_data_status": "SYNTHETIC_DEMO_FIXTURE; replace with user-approved values outside the demo.",
+    "allocation_reserves": [
+        {
+            "id": "medical",
+            "name": "Medical reserve",
+            "amount_minor": 30000,
+            "amount_status": "DEMO_FIXTURE_FROM_TASKS_AND_EXISTING_MOCKUP_NOT_A_PROPOSAL_REQUIREMENT"
+        },
+        {
+            "id": "utilities",
+            "name": "Utilities reserve",
+            "amount_minor": 20000,
+            "amount_status": "DEMO_FIXTURE_FROM_TASKS_AND_EXISTING_MOCKUP_NOT_A_PROPOSAL_REQUIREMENT"
+        }
+    ],
+    "daily_limit": {
+        "formula": "remaining_money_minor divided by days_left",
+        "rounding": "ROUND_DOWN_TO_MINOR_UNIT",
+        "demo_display_amount_minor": 2500,
+        "demo_display_note": "Illustrative value used by the requested demo scenario; runtime calculation must use current income, fixed costs, reserves, and days left."
+    },
+    "weekly_category_budgets_minor": {},
+    "weekly_category_budgets_status": "UNSPECIFIED_BY_PROPOSAL; populate with team-approved category limits before automatic high-spend warnings are enabled",
+    "budget_gap_behavior": "If fixed costs exceed income, return a budget gap and do not produce a balanced budget."
+}

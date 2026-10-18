@@ -1,0 +1,27 @@
+{
+    "config_version": "2026-10-17.1",
+    "contacts": [
+        {
+            "id": "malaysia_nsrc",
+            "institution": "National Scam Response Centre (NSRC)",
+            "channel_type": "phone",
+            "number": "997",
+            "purpose": "Report online financial fraud, including money transferred after being deceived.",
+            "source_url": "https://nfcc.jpm.gov.my/index.php/en/component/content/article/nsrc-info-link?catid=11&Itemid=114",
+            "source_note": "Official NFCC NSRC information page states victims are encouraged to contact their bank hotline or NSRC via 997.",
+            "verified_at": "2026-10-17",
+            "display_caution": "For an immediate payment concern, contact the bank using the number in its official app or on the back of the bank card."
+        },
+        {
+            "id": "issuing_bank",
+            "institution": "The user's bank",
+            "channel_type": "official_app_or_card_number",
+            "number": null,
+            "purpose": "Ask the bank to check a suspicious payment or account activity.",
+            "source_url": null,
+            "source_note": "The proposal does not identify the user's bank; show only the number published in that bank's official app or on the bank card.",
+            "verified_at": null
+        }
+    ],
+    "policy": "Never invent, infer, or display an unsourced institution phone number."
+}

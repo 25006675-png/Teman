@@ -1,0 +1,45 @@
+{
+    "config_version": "2026-10-17.1",
+    "currency": "MYR",
+    "payees": [
+        {
+            "id": "tnb",
+            "display_name": "Tenaga Nasional Berhad",
+            "aliases": [
+                "TNB",
+                "Tenaga Nasional",
+                "Tenaga Nasional Berhad (40092)"
+            ],
+            "official_biller_id": "40092",
+            "category": "utilities",
+            "whitelisted": true,
+            "delegated_limit_minor": null,
+            "delegated_limit_note": "Set and sign the per-biller family mandate during setup; runtime auto-pay limit is derived from history per limits.json.",
+            "fixture_status": "DEMO_CONFIG_NOT_A_BANK_VERIFICATION"
+        },
+        {
+            "id": "air_selangor",
+            "display_name": "Air Selangor",
+            "aliases": [
+                "Pengurusan Air Selangor",
+                "Air Selangor Water Bill"
+            ],
+            "official_biller_id": null,
+            "category": "utilities",
+            "whitelisted": true,
+            "delegated_limit_minor": null,
+            "delegated_limit_note": "Set and sign the per-biller family mandate during setup; runtime auto-pay limit is derived from history per limits.json.",
+            "fixture_status": "DEMO_CONFIG_NOT_A_BANK_VERIFICATION"
+        }
+    ],
+    "matching": {
+        "normalization": [
+            "unicode_nfkc",
+            "trim",
+            "casefold",
+            "collapse_whitespace"
+        ],
+        "fuzzy_match_may_authorize_payment": false,
+        "ambiguous_or_partial_match_result": "PAYEE_UNKNOWN"
+    }
+}

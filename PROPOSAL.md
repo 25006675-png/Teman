@@ -74,8 +74,11 @@ Every request passes three checkpoints, and the AI never controls any of them:
 | Condition | Risk code | Outcome | Buttons she sees |
 |---|---|---|---|
 | Required field missing | `DATA_INSUFFICIENT` | Ask again | 📷 Retake / ✏️ Type it in |
-| Scam keyword (e.g. "safe account", "prize fee", "unfreeze") **or** blacklisted payee | `SCAM_SIGNAL` | **Decline**. Son is *alerted*, not asked | ❌ Cancel · 🏦 Check officially |
+| Scam keyword (e.g. "safe account", "prize fee", "unfreeze") | `SCAM_SIGNAL` | **Decline**. Son is *alerted*, not asked | ❌ Cancel · 🏦 Check officially |
+| Blacklisted payee | `SCAM_SIGNAL` | **Decline**. Son is *alerted*, not asked | ❌ Cancel · 🏦 Check officially |
 | Amount > hard cap (RM 500) | `OVER_HARD_CAP` | **Decline** | ❌ Cancel · 🏦 Check officially |
+
+Checks run in this order and short-circuit on the first match: missing required fields → scam keyword → blacklisted payee → amount over hard cap. A blocked result never proceeds to scoring or guardian approval.
 
 **Step 2 — risk score** (sum of the weights of every rule that fires):
 
@@ -87,11 +90,14 @@ Every request passes three checkpoints, and the AI never controls any of them:
 
 | Score | Outcome | Buttons she sees |
 |---|---|---|
-| 0–19 | **Approve**: she confirms | ✅ Confirm / ❌ Cancel |
-| 20–39 | **Warn**: she can still pay | ✅ Pay anyway (with warning) / ❌ Cancel |
-| ≥ 40 | **Review**: needs her son | 📞 Ask my child / ❌ Cancel |
+| $0 \leq score < 20$ | **Approve**: she confirms | ✅ Confirm / ❌ Cancel |
+| $20 \leq score < 40$ | **Warn**: she can still pay | ✅ Pay anyway (with warning) / ❌ Cancel |
+| $score \geq 40$ | **Review**: needs her son | 📞 Ask my child / ❌ Cancel |
 
 - The message she sees uses the highest-weight rule that fired. All fired rules are logged.
+- **Score precision:** add all fired weights using decimal arithmetic and round the final score to two decimal places before applying the bands.
+- **Outcome flow:** $0 \leq score < 20$ routes to confirm/cancel; $20 \leq score < 40$ requires an explicit "Pay anyway" acknowledgement or cancel; $score \geq 40$ routes to ask-child/cancel, then the son can approve/reject only while the transaction remains in Review. Cancellation, confirmation, warning acknowledgement, guardian decision, and expiry must use their corresponding server-side state transitions. The Technical Lead must finalize how explicit warning acknowledgement is represented in the API contract.
+- **Equal-weight rules:** when multiple fired rules share the highest weight, the first rule in the listed scoring order supplies the displayed risk code; all fired rules and weights remain in the decision record. In the unknown-payee demo, `PAYEE_UNKNOWN` is listed before `OVER_LIMIT` and is the displayed code when both weigh 40.
 - **Auto-pay limit per payee** = 1.5 × her median of past bills from that payee. With fewer than 3 past bills: a flat RM 50, and `AMOUNT_HIGH` is skipped ("not enough history to compare").
 - **The son's approval can only resolve a "Review" outcome.** It can never unlock a blocking rule (scam, blacklist, over hard cap). The approve endpoint refuses those on the server side.
 - All weights, bands, limits, whitelists and keyword lists live in `data/*.json`. The AI cannot change them.
@@ -117,12 +123,12 @@ A payment never executes on a plain button press. It executes on a **signed appr
 | Double charge | `tx_id` is the primary key; `UPDATE … WHERE id=? AND status IN ('PENDING','AWAITING_GUARDIAN')`. 0 rows affected → not executed |
 | Prompt injection in the bill text | OCR text is only used for field extraction and keyword scanning, never as instructions. The payment path never reads model output |
 | Misheard dialect words | Big-text confirm card. Voice only matches keywords. Low confidence → "please tap a button" |
-| Approval never answered | When a transaction is read, check its age. Past the time-to-live it becomes `EXPIRED`: money doesn't move and she is told. No scheduler needed |
+| Approval never answered | User confirmation expires exactly 10 minutes after transaction creation; guardian review expires exactly 30 minutes after `ask_child`. Check on every transaction read/action; at the deadline status becomes `EXPIRED`, no money moves, and she is told. The server caps stored expiries to these fixed UTC deadlines; no scheduler needed |
 | No child available | Help bar always offers Cancel and Check officially |
 | Forged or replayed approval | Signature check + single-use nonce + expiry (6d) |
 | Audit | Append-only log: `tx_id`, time, event, risk code, method (`voice`/`tap`), status. No unnecessary personal data |
 
-**Transaction states:** `PENDING` → `DONE` / `CANCELLED` / `BLOCKED` · `PENDING` → `AWAITING_GUARDIAN` → `DONE` / `REJECTED` / `EXPIRED`
+**Transaction states:** `PENDING` → `DONE` / `CANCELLED` / `BLOCKED` / `EXPIRED` · `PENDING` → `AWAITING_GUARDIAN` → `DONE` / `REJECTED` / `EXPIRED`
 
 ### 6f. Standards alignment (security report only, one line each)
 
