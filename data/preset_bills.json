@@ -35,6 +35,17 @@
             "genuineness_claim": false
         },
         {
+            "id": "clinic_new_payee",
+            "kind": "BILL",
+            "payee_id": null,
+            "payee_name": "Klinik Baru (demo)",
+            "amount_minor": 12000,
+            "due_date": "2026-10-25",
+            "ocr_text": "Klinik Baru (demo); consultation and medicine; amount RM 120.00; due 25/10/2026",
+            "fixture_purpose": "DEMO_SCENARIO_3_UNKNOWN_PAYEE_NEEDS_GUARDIAN_REVIEW",
+            "genuineness_claim": false
+        },
+        {
             "id": "scam_prize_transfer",
             "kind": "TRANSFER",
             "payee_id": null,

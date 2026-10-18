@@ -1,0 +1,8 @@
+{
+    "config_version": "2026-10-18.1",
+    "currency": "MYR",
+    "money_unit": "minor_units",
+    "account_holder": "Ah Por (demo)",
+    "opening_balance_minor": 85000,
+    "data_status": "SYNTHETIC_DEMO_ASSUMPTION; balance = opening balance - sandbox payments. Chosen so RM 850 - RM 500 reserves leaves about RM 25/day for the rest of October."
+}

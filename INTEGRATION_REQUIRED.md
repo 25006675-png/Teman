@@ -7,25 +7,26 @@
 
 ## 1. Technical Lead -> Tech 2
 
-### Technical Lead: provide these items
+### Supplied by the Technical Lead (18 Oct, branch `integrate-core`)
 
-1. **API contract and routes:** endpoint request/response fields, error mapping, role binding, and the `app.py`/FastAPI route skeleton.
-2. **Startup and reset:** database connection ownership, seed data, and `/reset` behavior.
-3. **Balance evidence:** source and test/reset interface for the current sandbox balance.
-4. **Frontend contract:** `/state`, `/logs`, `/budget`, `/report`, and transaction actions. The UI must render server decisions, not recompute them.
-5. **Warn/Review behavior:** represent Warn's explicit "Pay anyway" confirmation; clarify whether Cancel is allowed after `ask_child`.
-6. **Signed approvals (Stage 2):** implement `mandates.py` using ECDSA P-256, canonical signed records, field/role/expiry checks, and one-time nonce enforcement. Payments remain fail-closed until supplied.
-7. **Audit anchor (optional Stage 2):** own `anchor.py` and testnet work. This must not block the core demo.
+- **`app.py`:** every §7 endpoint wired to Tech 2's services. Roles are bound per endpoint (`AH_POR`: analyze/confirm/cancel/ask_child/voice; `GUARDIAN`: approve/reject). Errors return `{error, message}` with Tech 2's HTTP statuses. Run with `uvicorn app:app`.
+- **Startup/reset:** the app initializes the DB on startup; `POST /reset` drops and rebuilds all tables (`db.reset_database()`).
+- **Balance:** `bank.py` = `data/bank.json` opening balance (RM 850, synthetic) minus sandbox payments.
+- **Warn:** "Pay anyway" = `POST /tx/{id}/confirm` with `{"acknowledge_warning": true}`.
+- **Signed approvals:** `mandates.py` (ECDSA P-256, canonical record, field/role/expiry checks, single-use nonce). The server signs at confirm/approve time and verifies inside the payment transaction. Backup without signatures: `DIALECTGUARD_APPROVAL_MODE=basic`.
+- **Tests:** `tests/test_mandates.py` (Stage 2 tests 9–10 with real signatures) and `tests/test_api.py` (all 5 demo scenarios, core tests 2/6/8 over HTTP, reset).
+
+### Technical Lead: still to provide
+
+1. **Frontend:** connect the mockup to `/state`, `/logs`, `/budget`, `/report` and the transaction actions. The UI must render server decisions, not recompute them.
+2. **Cancel after `ask_child`:** currently not allowed (only `PENDING` can be cancelled). Confirm this is intended.
+3. **Delegated (per-biller) mandates:** not implemented; only per-payment signed approvals exist.
+4. **Audit anchor (optional Stage 2):** own `anchor.py` and testnet work. This must not block the core demo.
 
 ### Tech 2: next actions
 
-1. **Wire services:** connect Tech 2's transaction, budget, report, and audit-export services to the agreed routes; replace fake endpoint behavior without changing the Lead-owned contract.
-2. **Keep values server-owned:** accept `tx_id` plus only agreed method/acknowledgement fields. Load amount, payee, decision, expiry, and status from the database; bind `AH_POR`/`GUARDIAN` roles server-side.
-3. **Map responses:** use agreed HTTP statuses and error shapes; map incomplete analysis (`tx_id: null`) to the retake/type-in flow.
-4. **Wire `/logs`:** use `audit.build_logs_export()` or `audit.export_logs_json()` and preserve event order and decision records.
-5. **Integrate signed approvals:** once the real verifier is supplied, pass it to the service and test signature, tampering, expiry, role, and replay checks. Never use a permissive callback.
-6. **Verify timeout balance:** once the balance source is supplied, assert both `EXPIRED` and unchanged account balance.
-7. **Run integration tests:** test the endpoints, reset path, and full Tech 2 suite against the integrated app.
+1. **Review the integration:** check `app.py` and `mandates.py` against your service contract.
+2. **Map responses in the frontend contract:** incomplete analysis (`tx_id: null`) goes to the retake/type-in flow.
 
 ## 2. Tech 1 -> Tech 2
 

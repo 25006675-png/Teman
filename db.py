@@ -338,6 +338,23 @@ def initialize_database(
         connection.close()
 
 
+def reset_database(path: str | os.PathLike[str] | None = None) -> str:
+    """Drop every table and rebuild the demo state (for POST /reset).
+
+    Logs and payments block DELETE, but DROP TABLE skips those triggers.
+    """
+    connection = connect_db(path)
+    try:
+        connection.execute("PRAGMA foreign_keys = OFF")
+        with atomic(connection):
+            for table in ("sandbox_payments", "mandates", "logs", "budget_limits",
+                          "history", "transactions", "schema_info"):
+                connection.execute(f"DROP TABLE IF EXISTS {table}")
+    finally:
+        connection.close()
+    return initialize_database(path)
+
+
 def append_log(
     connection: sqlite3.Connection,
     *,
