@@ -1,0 +1,5 @@
+# Only needed to retrain the shadow risk model; the app itself doesn't use these.
+pandas==3.0.3
+scikit-learn==1.8.0
+lightgbm==4.6.0
+kagglehub==1.0.1

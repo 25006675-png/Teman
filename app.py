@@ -9,7 +9,7 @@ The frontend only ever sends a tx_id; amount and payee come from the database.
 from __future__ import annotations
 
 from contextlib import asynccontextmanager
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 import os
 from typing import Any, Literal
 
@@ -22,6 +22,7 @@ import bank
 import budget
 import db
 import mandates
+import risk_model
 from rules import MESSAGES
 from transactions import (
     TransactionFlowError,
@@ -113,8 +114,28 @@ def analyze(body: AnalyzeRequest) -> dict[str, Any]:
         if fields["payee_id"]:
             history = [row["amount_minor"] for row in db.get_history_for_payee(connection, fields["payee_id"])]
         result = analyze_transaction(connection, history_amounts_minor=history, **fields)
+        if result["tx_id"]:
+            result["shadow_model"] = _shadow_score(connection, result["tx_id"], fields)
     result["message_zh_yue"] = MESSAGES[result["template_code"]]["zh_yue_draft"]
     return result
+
+
+MALAYSIA_TIME = timezone(timedelta(hours=8))
+
+
+def _shadow_score(connection: Any, tx_id: str, fields: dict[str, Any]) -> dict[str, Any] | None:
+    """Log the shadow model's score. It runs after the decision and can never change it."""
+    try:
+        shadow = risk_model.score(
+            source_type=fields["source_type"], amount_minor=fields["amount_minor"],
+            balance_minor=bank.balance_minor(connection), hour=datetime.now(MALAYSIA_TIME).hour,
+        )
+        db.append_log(connection, event="shadow_risk_score", tx_id=tx_id, status="SHADOW", details=shadow)
+        return shadow
+    except Exception as error:  # a shadow model must never break the real flow
+        db.append_log(connection, event="shadow_model_error", tx_id=tx_id, status="SHADOW",
+                      details={"error": type(error).__name__})
+        return None
 
 
 @app.post("/tx/{tx_id}/confirm")

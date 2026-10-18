@@ -1,0 +1,76 @@
+{
+  "model_version": "paysim-logreg-2026-10-18",
+  "mode": "shadow",
+  "feature_names": [
+    "is_transfer",
+    "log_amount_to_balance",
+    "empties_balance",
+    "night_hour"
+  ],
+  "means": [
+    0.19685304,
+    1.37748367,
+    0.00167901,
+    0.02714996
+  ],
+  "scales": [
+    0.39762032,
+    1.0612557,
+    0.04094133,
+    0.16252027
+  ],
+  "coefficients": [
+    1.6517224,
+    -0.13909777,
+    0.39064424,
+    0.29966757
+  ],
+  "intercept": -11.23318695,
+  "threshold": 0.841346,
+  "training_data": {
+    "name": "PaySim: Synthetic Financial Datasets For Fraud Detection",
+    "source": "https://www.kaggle.com/datasets/ealaxi/paysim1",
+    "authors": "E. A. Lopez-Rojas, A. Elmir, S. Axelsson (2016)",
+    "license": "CC BY-SA 4.0",
+    "rows_used": 2684404,
+    "types_used": [
+      "PAYMENT",
+      "TRANSFER"
+    ],
+    "fraud_rows": 4097,
+    "split": "by time: first 70% of hours train, next 15% threshold, last 15% test"
+  },
+  "test_results": [
+    {
+      "model": "logistic_regression",
+      "pr_auc": 0.9608,
+      "roc_auc": 0.9995,
+      "threshold": 0.841346,
+      "precision": 0.984,
+      "recall": 0.9496,
+      "f1": 0.9665,
+      "flagged": 1933
+    },
+    {
+      "model": "lightgbm",
+      "pr_auc": 0.8976,
+      "roc_auc": 0.9794,
+      "threshold": 0.973522,
+      "precision": 0.9528,
+      "recall": 0.9576,
+      "f1": 0.9552,
+      "flagged": 2013
+    },
+    {
+      "model": "paysim_builtin_rule",
+      "pr_auc": 0.0114,
+      "roc_auc": 0.5032,
+      "threshold": 0.5,
+      "precision": 1.0,
+      "recall": 0.0065,
+      "f1": 0.0129,
+      "flagged": 13
+    }
+  ],
+  "limitations": "Simulated mobile-money data, not elderly bill payments in Malaysia. Shadow mode only: the score never changes a decision."
+}
