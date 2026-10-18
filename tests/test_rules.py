@@ -121,6 +121,27 @@ class RuleEvaluationTests(unittest.TestCase):
         self.assertEqual((result["outcome"], result["risk_score"]), ("WARN", "20.00"))
         self.assertEqual(result["risk_code_shown"], "AMOUNT_HIGH")
 
+    def test_scam_variants_spacing_and_payee_name_are_caught(self):
+        variants = [
+            {"source_text": "请转账到安全户口"},
+            {"source_text": "請轉去安全帳戶"},
+            {"source_text": "转去安全 账户"},
+            {"source_text": "奖金已解冻"},
+            {"source_text": "move it to a safe-account now"},
+            {"source_text": "safe​account"},
+            {"payee_id": None, "payee_name": "Safe Account Department"},
+        ]
+        for overrides in variants:
+            with self.subTest(overrides=overrides):
+                self.assertEqual(self.evaluate(**overrides)["risk_code_shown"], "SCAM_SIGNAL")
+        normal = self.evaluate(source_text="Tenaga Nasional Berhad; amount RM 42.50; due 28/10/2026")
+        self.assertEqual(normal["outcome"], "APPROVE")
+
+    def test_zero_amount_is_treated_as_missing(self):
+        result = self.evaluate(amount_minor=0)
+        self.assertEqual(result["outcome"], "DATA_INSUFFICIENT")
+        self.assertEqual(result["missing_fields"], ["amount_minor"])
+
     def test_fixed_templates_cannot_be_mutated_at_runtime(self):
         with self.assertRaises(TypeError):
             rules.MESSAGES["PAYMENT_CONFIRMATION"]["en"] = "Changed"

@@ -200,14 +200,24 @@ def _blacklist_matches(payee_id: str | None, payee_name: str | None) -> tuple[st
     return tuple(matches)
 
 
+def _compact(value: str) -> str:
+    """Letters and digits only, so "安全 账户", "safe-account" and hidden zero-width spaces still match."""
+    return "".join(character for character in value if character.isalnum())
+
+
 def _scam_matches(source_text: str) -> tuple[str, ...]:
     normalized_text = _normalize(source_text)
     if not normalized_text:
         return ()
+    compact_text = _compact(normalized_text)
     return tuple(
         str(group["id"])
         for group in CONFIG["scam_words"]["groups"]
-        if any(_normalize(str(phrase)) in normalized_text for phrase in group["phrases"])
+        if any(
+            _normalize(str(phrase)) in normalized_text
+            or _compact(_normalize(str(phrase))) in compact_text
+            for phrase in group["phrases"]
+        )
     )
 
 
@@ -357,7 +367,7 @@ def evaluate_transaction(
         isinstance(payee_name, str) and payee_name.strip()
     ):
         missing.append("payee")
-    if not _valid_amount_minor(amount_minor):
+    if not _valid_amount_minor(amount_minor) or amount_minor == 0:
         missing.append("amount_minor")
     trace(
         "BLOCK_MISSING_REQUIRED_FIELDS", "DATA_INSUFFICIENT", bool(missing),
@@ -371,7 +381,7 @@ def evaluate_transaction(
         result["missing_fields"] = missing
         return result
 
-    scam_group_ids = _scam_matches(source_text)
+    scam_group_ids = _scam_matches(f"{source_text}\n{payee_name or ''}")
     trace(
         "BLOCK_SCAM_KEYWORD", "SCAM_SIGNAL", bool(scam_group_ids),
         phase="blocking", match_count=len(scam_group_ids),

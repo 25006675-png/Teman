@@ -10,7 +10,10 @@
                 "safe account",
                 "transfer to the safe account",
                 "安全账户",
-                "安全戶口"
+                "安全戶口",
+                "安全户口",
+                "安全帳戶",
+                "安全帐户"
             ]
         },
         {
@@ -31,7 +34,9 @@
                 "unfreeze prize",
                 "pay to unfreeze",
                 "解冻奖金",
-                "解凍獎金"
+                "解凍獎金",
+                "解冻",
+                "解凍"
             ]
         },
         {
