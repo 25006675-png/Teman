@@ -15,12 +15,16 @@ from rules import CONFIG_VERSION, MESSAGES, evaluate_transaction, record_decisio
 
 _TTL_CONFIG = load_config("limits.json")["approval_expiry"]
 USER_CONFIRMATION_TTL_SECONDS = 600
-GUARDIAN_APPROVAL_TTL_SECONDS = 1800
+# Fail-safe guardian timer: her son has 2 minutes to decide, or the payment is
+# stopped. "Call Mum" extends it once by 5 minutes while they talk.
+GUARDIAN_APPROVAL_TTL_SECONDS = 120
+GUARDIAN_CALL_EXTENSION_SECONDS = 300
 if (
     _TTL_CONFIG.get("transaction_ttl_seconds") != USER_CONFIRMATION_TTL_SECONDS
     or _TTL_CONFIG.get("guardian_ttl_seconds") != GUARDIAN_APPROVAL_TTL_SECONDS
+    or _TTL_CONFIG.get("guardian_call_extension_seconds") != GUARDIAN_CALL_EXTENSION_SECONDS
 ):
-    raise RuntimeError("Approval TTL config must remain fixed at 600 and 1800 seconds")
+    raise RuntimeError("Approval TTL config must remain fixed at 600, 120 and 300 seconds")
 
 BLOCKING_RISK_CODES = frozenset({"SCAM_SIGNAL", "OVER_HARD_CAP"})
 BLOCKING_RULE_IDS = frozenset({
@@ -73,8 +77,10 @@ def _parse_timestamp(value: str) -> datetime:
     return parsed.astimezone(timezone.utc)
 
 
-def _ttl_for(status: str) -> int:
-    return GUARDIAN_APPROVAL_TTL_SECONDS if status == "AWAITING_GUARDIAN" else USER_CONFIRMATION_TTL_SECONDS
+def _ttl_for(status: str, extended: bool = False) -> int:
+    if status == "AWAITING_GUARDIAN":
+        return GUARDIAN_APPROVAL_TTL_SECONDS + (GUARDIAN_CALL_EXTENSION_SECONDS if extended else 0)
+    return USER_CONFIRMATION_TTL_SECONDS
 
 
 def _payload(row: Mapping[str, Any]) -> dict[str, Any]:
@@ -90,6 +96,7 @@ def _payload(row: Mapping[str, Any]) -> dict[str, Any]:
         "outcome_band": row["outcome_band"],
         "decision_record": json.loads(row["decision_json"] or "{}"),
         "expires_at": row["approval_expires_at"],
+        "guardian_extended": bool(row["guardian_extended"]),
     }
 
 
@@ -123,7 +130,8 @@ def _expire_if_stale(
     invalid_expiry = False
     anchor_field = "updated_at" if status == "AWAITING_GUARDIAN" else "created_at"
     try:
-        hard_deadline = _parse_timestamp(row[anchor_field]) + timedelta(seconds=_ttl_for(status))
+        hard_deadline = _parse_timestamp(row[anchor_field]) + timedelta(
+            seconds=_ttl_for(status, bool(row["guardian_extended"])))
     except (TypeError, ValueError):
         invalid_expiry = True
         hard_deadline = now
@@ -505,6 +513,28 @@ def pay_with_family_mandate(
         return _execute(
             connection, row, expected_status="PENDING", role="FAMILY_MANDATE", method="mandate", now=moment
         )
+
+
+def extend_for_call(connection: Any, tx_id: str, *, now: datetime | None = None) -> dict[str, Any]:
+    """Son taps "Call Mum": the 2-minute window gets 5 more minutes, once."""
+    moment = _as_utc(now)
+    with atomic(connection):
+        row, expired = _get_live(connection, tx_id, moment)
+        if expired:
+            return {"ok": False, "error": "EXPIRED", "transaction": _payload(row)}
+        if row["status"] != "AWAITING_GUARDIAN":
+            raise TransactionFlowError("INVALID_STATE")
+        expiry = _timestamp(moment + timedelta(seconds=GUARDIAN_CALL_EXTENSION_SECONDS))
+        cursor = connection.execute(
+            """UPDATE transactions SET guardian_extended = 1, approval_expires_at = ?
+               WHERE id = ? AND status = 'AWAITING_GUARDIAN' AND guardian_extended = 0""",
+            (expiry, tx_id),
+        )
+        if cursor.rowcount != 1:
+            raise TransactionFlowError("INVALID_STATE")  # already extended once
+        append_log(connection, event="guardian_call_extension", tx_id=tx_id, method="guardian",
+                   risk_code=row["risk_code"], status="AWAITING_GUARDIAN", details={"expires_at": expiry})
+        return {"ok": True, "transaction": _payload(get_transaction(connection, tx_id))}
 
 
 def approve_transaction(

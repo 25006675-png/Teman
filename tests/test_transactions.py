@@ -291,7 +291,7 @@ class TransactionFlowTests(unittest.TestCase):
             "EXPIRED",
         )
 
-    def test_guardian_request_expires_at_fixed_1800_second_boundary(self):
+    def test_guardian_request_expires_at_fixed_boundary(self):
         tx_id = self.create_unknown()["tx_id"]
         ask_child(self.connection, tx_id, now=self.now)
         expired = get_transaction_state(

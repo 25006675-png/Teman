@@ -66,8 +66,10 @@
         "check_on_transaction_read": true,
         "scheduler_required": false,
         "transaction_ttl_seconds": 600,
-        "guardian_ttl_seconds": 1800,
-        "ttl_values_status": "HARD_ENFORCED_BY_TRANSACTIONS_SERVICE_SECONDS"
+        "guardian_ttl_seconds": 120,
+        "ttl_values_status": "HARD_ENFORCED_BY_TRANSACTIONS_SERVICE_SECONDS",
+        "guardian_call_extension_seconds": 300,
+        "guardian_policy": "Fail-safe: no answer from the son within the window means the payment is stopped (EXPIRED)."
     },
     "transaction_states": [
         "PENDING",

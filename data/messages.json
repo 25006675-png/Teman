@@ -39,8 +39,8 @@
             "zh_yue_draft": "我聽唔清楚，請按一下按鈕。"
         },
         "APPROVAL_EXPIRED": {
-            "en": "This request expired. No money was sent. Please start again if you still want to pay.",
-            "zh_yue_draft": "呢個付款要求已經過期，冇扣到錢。如果仍然想付款，請重新開始。"
+            "en": "For your safety, the time to check this payment ran out. The money has not been sent. You can try again later.",
+            "zh_yue_draft": "為咗你嘅安全，核對呢筆付款嘅時間已經過咗。啲錢冇俾出去，你可以遲啲再試。"
         },
         "BUDGET_GAP": {
             "en": "Serious budget gap: fixed costs exceed income by RM {gap}. This plan is not balanced. Review or reduce costs before setting a daily spending limit.",

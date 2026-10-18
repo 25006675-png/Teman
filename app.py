@@ -36,6 +36,7 @@ from transactions import (
     cancel_transaction,
     confirm_transaction,
     dispatch_voice_keyword,
+    extend_for_call,
     get_transaction_state,
     reject_transaction,
 )
@@ -225,6 +226,13 @@ def approve(tx_id: str) -> dict[str, Any]:
             connection, tx_id, actor_role="GUARDIAN",
             authorization_validator=_validator(connection, tx_id, "GUARDIAN", "guardian", "AWAITING_GUARDIAN"),
         )
+
+
+@app.post("/tx/{tx_id}/call_extension")
+def call_extension(tx_id: str) -> dict[str, Any]:
+    """Son taps "Call Mum": 5 more minutes to decide while they talk (once)."""
+    with db.db_session() as connection:
+        return extend_for_call(connection, tx_id)
 
 
 @app.post("/tx/{tx_id}/reject")

@@ -123,7 +123,7 @@ A payment never executes on a plain button press. It executes on a **signed appr
 | Double charge | `tx_id` is the primary key; `UPDATE … WHERE id=? AND status IN ('PENDING','AWAITING_GUARDIAN')`. 0 rows affected → not executed |
 | Prompt injection in the bill text | OCR text is only used for field extraction and keyword scanning, never as instructions. The payment path never reads model output |
 | Misheard dialect words | Big-text confirm card. Voice only matches keywords. Low confidence → "please tap a button" |
-| Approval never answered | User confirmation expires exactly 10 minutes after transaction creation; guardian review expires exactly 30 minutes after `ask_child`. Check on every transaction read/action; at the deadline status becomes `EXPIRED`, no money moves, and she is told. The server caps stored expiries to these fixed UTC deadlines; no scheduler needed |
+| Approval never answered | Fail-safe timers. Ah Por's confirmation expires 10 minutes after the request is created. Her son has **2 minutes** after `ask_child` to decide ("a quick 2-minute safety check"); tapping **Call Mum** extends it once by 5 minutes while they talk. No answer means the payment is stopped (`EXPIRED`), no money moves, and she is told calmly. Checked on every read/action; no scheduler needed |
 | No child available | Help bar always offers Cancel and Check officially |
 | Forged or replayed approval | Signature check + single-use nonce + expiry (6d) |
 | Audit | Append-only log: `tx_id`, time, event, risk code, method (`voice`/`tap`), status. No unnecessary personal data |

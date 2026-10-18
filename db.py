@@ -15,7 +15,7 @@ from typing import Any, Iterator
 ROOT = Path(__file__).resolve().parent
 DATA_DIR = ROOT / "data"
 DEFAULT_DB_PATH = ROOT / "instance" / "dialectguard.sqlite3"
-SCHEMA_VERSION = 3
+SCHEMA_VERSION = 4
 BUSY_TIMEOUT_MS = 10_000
 _savepoint_ids = count(1)
 
@@ -127,7 +127,8 @@ def _schema_sql() -> str:
         fields_json TEXT NOT NULL DEFAULT '{}',
         config_version TEXT NOT NULL,
         approval_expires_at TEXT,
-        completed_at TEXT
+        completed_at TEXT,
+        guardian_extended INTEGER NOT NULL DEFAULT 0 CHECK (guardian_extended IN (0, 1))
     );
 
     CREATE TABLE IF NOT EXISTS history (
