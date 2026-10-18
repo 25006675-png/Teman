@@ -3,394 +3,464 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>DialectGuard Command Center</title>
+<title>DialectGuard Live Demo</title>
 <link rel="icon" href="data:," />
 <style>
+  /* ===================== tokens ===================== */
   :root {
-    --page: #E6E7EA;
-    --ink: #141414;
-    --muted: #5F6368;
-    --line: #D9D9D9;
-    --wx-green: #07C160;
-    --wx-green-dark: #058A45;
-    --wx-bg: #EDEDED;
-    --wx-bar: #F7F7F7;
-    --wx-bubble: #95EC69;
-    --lime: #A6CE39;
-    --graphite: #1B1B1B;
-    --ok: #0B6B34;      --ok-bg: #E3F5EA;   --ok-line: #3BA569;
-    --warn: #7A4E00;    --warn-bg: #FFF3CF; --warn-line: #E0A800;
-    --review: #8A3A00;  --review-bg: #FFE6D2; --review-line: #E8771E;
-    --block: #A1001C;   --block-bg: #FDE5E9; --block-line: #D7263D;
-    --info: #3C4043;    --info-bg: #EEF0F3; --info-line: #9AA0A6;
-    --bank: #0F2D52;    --bank-accent: #3B82F6;
-    --mono: "Cascadia Mono", "Consolas", "SFMono-Regular", ui-monospace, monospace;
-    --sans: "Segoe UI", "Microsoft JhengHei", "PingFang HK", "Noto Sans HK", "Microsoft YaHei", system-ui, sans-serif;
+    --bg: oklch(0.945 0.007 250);
+    --surface: oklch(1 0 0);
+    --surface-2: oklch(0.973 0.005 250);
+    --surface-3: oklch(0.955 0.007 250);
+    --line: oklch(0.89 0.008 250);
+    --line-2: oklch(0.83 0.01 250);
+    --ink: oklch(0.22 0.02 255);
+    --ink-2: oklch(0.40 0.02 255);
+    --ink-3: oklch(0.50 0.018 255);
+
+    --brand: oklch(0.48 0.11 168);
+    --brand-hover: oklch(0.42 0.11 168);
+    --brand-soft: oklch(0.95 0.03 168);
+    --brand-line: oklch(0.82 0.06 168);
+
+    --ok: oklch(0.45 0.12 150);
+    --ok-soft: oklch(0.95 0.04 150);
+    --ok-line: oklch(0.78 0.09 150);
+    --warn: oklch(0.47 0.10 70);
+    --warn-soft: oklch(0.965 0.05 88);
+    --warn-line: oklch(0.82 0.12 82);
+    --warn-fill: oklch(0.84 0.15 82);
+    --review: oklch(0.48 0.13 48);
+    --review-soft: oklch(0.955 0.035 55);
+    --review-line: oklch(0.80 0.09 55);
+    --block: oklch(0.52 0.19 25);
+    --block-ink: oklch(0.45 0.17 25);
+    --block-soft: oklch(0.955 0.025 20);
+    --block-line: oklch(0.80 0.08 20);
+    --info: oklch(0.38 0.02 255);
+    --info-soft: oklch(0.96 0.006 250);
+
+    --agent: oklch(0.46 0.15 285);
+    --agent-soft: oklch(0.955 0.025 285);
+    --agent-line: oklch(0.84 0.05 285);
+    --family: oklch(0.45 0.13 255);
+    --family-soft: oklch(0.955 0.02 255);
+    --bank: oklch(0.29 0.05 255);
+    --bank-soft: oklch(0.965 0.012 255);
+
+    --head: oklch(0.21 0.015 255);
+    --log-bg: oklch(0.19 0.02 260);
+    --log-line: oklch(0.30 0.02 260);
+
+    --sans: "Segoe UI", "Microsoft JhengHei", "PingFang HK", "Noto Sans HK", system-ui, sans-serif;
+    --mono: "Cascadia Mono", Consolas, ui-monospace, monospace;
+
+    --r-sm: 8px; --r-md: 12px; --r-lg: 16px;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+
+    --phone-l: 384px; --phone-r: 352px; --gap: 18px;
+    --z-sheet: 10; --z-drawer: 30; --z-toast: 40;
   }
+  @media (min-width: 1800px) { :root { --phone-l: 440px; --phone-r: 404px; --gap: 28px; } }
+  @media (max-width: 1360px) { :root { --phone-l: 352px; --phone-r: 322px; --gap: 12px; } }
+
   * { box-sizing: border-box; }
   html, body { height: 100%; margin: 0; }
-  body { background: var(--page); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow: hidden; }
-  button { font-family: inherit; cursor: pointer; }
-  button:disabled { cursor: not-allowed; opacity: .55; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; overflow: hidden; font-variant-numeric: tabular-nums; }
+  button { font-family: inherit; cursor: pointer; color: inherit; }
+  button:disabled { cursor: not-allowed; opacity: .5; }
+  button:focus-visible, input:focus-visible, textarea:focus-visible { outline: 3px solid oklch(0.62 0.14 250); outline-offset: 2px; }
   .mono { font-family: var(--mono); }
-  .thin::-webkit-scrollbar { width: 7px; height: 7px; }
-  .thin::-webkit-scrollbar-thumb { background: rgba(120,120,120,.4); border-radius: 4px; }
-  .noscroll::-webkit-scrollbar { display: none; }
-  .noscroll { scrollbar-width: none; }
+  .scroll { overflow-y: auto; scrollbar-width: thin; scrollbar-color: oklch(0.75 0.01 250) transparent; }
+  .scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+  .scroll::-webkit-scrollbar-thumb { background: oklch(0.78 0.01 250); border-radius: 3px; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .pop { animation: rise .24s var(--ease) both; }
+  @keyframes flash { 0% { background: oklch(0.93 0.09 95); } 100% { background: transparent; } }
+  @media (prefers-reduced-motion: reduce) { .pop, .flash { animation: none !important; } * { transition: none !important; } }
 
-  /* ---------- app shell ---------- */
-  .app { height: 100vh; display: grid; grid-template-rows: auto minmax(0,1fr) 150px;  grid-template-columns: minmax(0, 1fr); }
-  .app > *, .mid, .mid > *, .eng > *, .col { min-width: 0; }
-  header.top { background: #111; color: #fff; display: flex; align-items: center; gap: 16px; padding: 8px 18px; border-bottom: 1px solid #000; }
-  .brand { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
-  .brand > div:last-child { min-width: 0; }
-  .logo { width: 36px; height: 36px; border-radius: 9px; background: var(--lime); color: #111; display: grid; place-items: center; font-size: 20px; flex: none; }
-  .brand h1 { margin: 0; font-size: 16px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .brand p { margin: 1px 0 0; font-size: 11.5px; color: rgba(255,255,255,.6); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .top-right { margin-left: 8px; display: flex; align-items: center; gap: 10px; flex: none; }
-  .pill { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; white-space: nowrap; }
-  .pill.dark { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.14); color: #fff; }
-  .pill.lime { background: var(--lime); color: #111; }
-  .pill.bad { background: #D7263D; color: #fff; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); display: inline-block; }
-  .pill.bad .dot { background: #fff; }
-  .btn-reset { background: transparent; color: var(--lime); border: 1.5px solid var(--lime); border-radius: 9px; padding: 7px 14px; font-weight: 700; font-size: 13px; }
-  .btn-reset:hover { background: var(--lime); color: #111; }
+  /* ===================== shell ===================== */
+  .app { height: 100vh; display: grid; grid-template-rows: auto minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); padding-bottom: 40px; }
+  .app > *, .mid, .mid > *, .col { min-width: 0; }
+  header.top { background: var(--head); color: oklch(0.98 0 0); display: flex; align-items: center; gap: 20px; padding: 10px 22px; }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+  .logo { width: 38px; height: 38px; border-radius: 10px; background: var(--brand); display: grid; place-items: center; font-size: 20px; flex: none; }
+  .brand h1 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: -.01em; white-space: nowrap; }
+  .brand p { margin: 2px 0 0; font-size: 14px; color: oklch(0.85 0.01 255); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .brand > div { min-width: 0; }
+  .top-actions { display: flex; align-items: center; gap: 10px; flex: none; }
+  .badge-mode { font-size: 13px; font-weight: 600; color: oklch(0.88 0.04 168); border: 1px solid oklch(0.45 0.05 168); border-radius: 999px; padding: 5px 12px; white-space: nowrap; }
+  .badge-off { font-size: 13px; font-weight: 700; background: var(--block); color: #fff; border-radius: 999px; padding: 5px 12px; }
+  .hbtn { border: 0; border-radius: 10px; padding: 9px 16px; font-size: 14px; font-weight: 700; white-space: nowrap; transition: background .15s var(--ease); }
+  .hbtn.sun { background: oklch(0.86 0.13 85); color: oklch(0.25 0.04 70); }
+  .hbtn.sun:hover { background: oklch(0.81 0.14 82); }
+  .hbtn.ghost { background: transparent; color: oklch(0.95 0 0); border: 1.5px solid oklch(0.45 0.015 255); }
+  .hbtn.ghost:hover { background: oklch(0.28 0.015 255); }
 
-  main.grid { min-height: 0; display: grid; grid-template-columns: 400px minmax(0,1fr) 360px; gap: 16px; padding: 10px 16px; }
-  @media (max-width: 1380px) { main.grid { grid-template-columns: 368px minmax(0,1fr) 330px; gap: 12px; padding: 10px 12px; } .bankbody { grid-template-columns: 180px minmax(0,1fr) !important; } .bal { font-size: 30px !important; } table.pay .tm { display: none; } }
-  .col { min-height: 0; display: flex; flex-direction: column; gap: 6px; }
-  .col-label { text-align: center; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #4A4A4A; }
+  main.grid { min-height: 0; display: grid; grid-template-columns: var(--phone-l) minmax(0, 1fr) var(--phone-r); gap: var(--gap); padding: 12px var(--gap) 12px; }
+  .col { min-height: 0; display: flex; flex-direction: column; gap: 8px; }
+  .col-label { text-align: center; font-size: 13.5px; font-weight: 600; color: var(--ink-2); }
+  .col-label b { color: var(--ink); }
 
-  /* ---------- phone shell ---------- */
-  .phone { flex: 1; min-height: 0; border-radius: 40px; background: #0E0E0E; padding: 8px; box-shadow: 0 24px 60px -24px rgba(0,0,0,.5); }
-  .screen { position: relative; height: 100%; border-radius: 33px; overflow: hidden; background: var(--wx-bg); display: flex; flex-direction: column; }
-  .statusbar { height: 30px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 13px; font-weight: 700; position: relative; }
-  .statusbar .notch { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); width: 90px; height: 22px; border-radius: 999px; background: #000; }
-  .navbar { height: 44px; flex: none; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #D4D4D4; padding: 0 12px; position: relative; }
-  .navbar .t { font-size: 16px; font-weight: 700; text-align: center; line-height: 1.15; }
-  .navbar .t small { display: block; font-size: 11.5px; font-weight: 500; color: var(--muted); }
-  .chat { flex: 1; min-height: 0; overflow-y: auto; padding: 12px 10px 16px; display: flex; flex-direction: column; gap: 14px; }
-  .homebar { height: 16px; flex: none; background: var(--wx-bar); display: grid; place-items: center; }
-  .homebar i { width: 110px; height: 4px; border-radius: 4px; background: rgba(0,0,0,.75); }
+  /* ===================== phone frame ===================== */
+  .phone { flex: 1; min-height: 0; border-radius: 42px; background: oklch(0.17 0.01 255); padding: 8px; box-shadow: 0 18px 40px -22px oklch(0.2 0.02 255 / .55); }
+  .screen { position: relative; height: 100%; border-radius: 35px; overflow: hidden; background: var(--surface-2); display: flex; flex-direction: column; }
+  .statusbar { height: 30px; flex: none; display: flex; align-items: center; justify-content: space-between; padding: 0 26px; font-size: 13px; font-weight: 700; position: relative; background: var(--surface); }
+  .statusbar .notch { position: absolute; left: 50%; top: 6px; transform: translateX(-50%); width: 88px; height: 22px; border-radius: 999px; background: oklch(0.15 0 0); }
+  .homebar { height: 18px; flex: none; display: grid; place-items: center; background: var(--surface); }
+  .homebar i { width: 108px; height: 4px; border-radius: 4px; background: oklch(0.2 0 0 / .8); }
+  .appbar { flex: none; display: flex; align-items: center; gap: 10px; padding: 8px 14px 10px; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .appbar .mark { width: 32px; height: 32px; border-radius: 9px; display: grid; place-items: center; font-size: 17px; flex: none; color: #fff; }
+  .appbar .t { font-size: 18px; font-weight: 700; line-height: 1.15; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .appbar .t small { display: block; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+  .appbar .homebtn { margin-left: auto; flex: none; border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 6px 11px; font-size: 14px; font-weight: 700; white-space: nowrap; }
 
-  /* bottom menu (big buttons) */
-  .menu { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--wx-bar); border-top: 1px solid #D4D4D4; }
-  .menu button { border: 0; border-right: 1px solid #DDD; background: transparent; padding: 6px 2px 5px; font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.15; }
-  .menu button:last-child { border-right: 0; }
-  .menu button small { display: block; font-size: 13px; font-weight: 500; color: var(--muted); margin-top: 2px; }
-  .menu button:hover { background: #ECECEC; }
-  .menu button.on { background: #E2F4E9; }
+  /* ===================== Ah Por app ===================== */
+  .por-scroll { flex: 1; min-height: 0; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 14px; }
+  .por-scroll > * { flex: none; }
+  .hello .hi { font-size: 26px; font-weight: 700; letter-spacing: -.01em; }
+  .hello .hi-en { font-size: 16px; color: var(--ink-2); margin-top: 2px; }
+  .spend { background: var(--brand); color: #fff; border-radius: var(--r-lg); padding: 16px 16px 14px; display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: end; }
+  .spend .l { grid-column: 1 / -1; font-size: 18px; font-weight: 600; }
+  .spend .n { font-size: 44px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+  .spend .s { grid-column: 1 / -1; font-size: 15px; opacity: .92; }
+  .spend.gap { background: var(--block); }
+  .spend .say { border: 0; background: oklch(1 0 0 / .18); color: #fff; border-radius: 12px; padding: 8px 10px; font-size: 22px; line-height: 1; }
+  .spend .say small { display: block; font-size: 12px; font-weight: 700; margin-top: 3px; color: #fff; }
+  .spend.loading .n { opacity: .5; }
+  .sec-h { font-size: 18px; font-weight: 700; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+  .sec-h small { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+  .bills { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+  .bills li { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 12px 14px; }
+  .bills li + li { border-top: 1px solid var(--line); }
+  .bills .ic { font-size: 26px; }
+  .bills .nm { font-size: 18px; font-weight: 700; line-height: 1.2; }
+  .bills .dd { font-size: 14px; color: var(--ink-2); margin-top: 2px; }
+  .bills .rt { text-align: right; }
+  .bills .am { font-size: 19px; font-weight: 800; white-space: nowrap; }
+  .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 13.5px; font-weight: 700; border-radius: 999px; padding: 3px 9px; white-space: nowrap; }
+  .pill.paid { background: var(--ok-soft); color: var(--ok); }
+  .pill.unpaid { background: var(--warn-soft); color: var(--warn); }
+  .paybtn { margin-top: 5px; border: 0; background: var(--brand); color: #fff; border-radius: 999px; padding: 5px 14px; font-size: 15px; font-weight: 700; }
+  .paybtn:hover { background: var(--brand-hover); }
+  .tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .tile { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r-lg); padding: 12px 6px 10px; text-align: center; font-size: 17px; font-weight: 700; line-height: 1.2; transition: border-color .15s var(--ease), background .15s var(--ease); }
+  .tile:hover { border-color: var(--brand-line); background: var(--brand-soft); }
+  .tile .i { display: block; font-size: 28px; margin-bottom: 4px; }
+  .tile small { display: block; font-size: 15px; font-weight: 600; color: var(--ink-2); margin-top: 2px; }
+  .feed-h { display: flex; align-items: baseline; justify-content: space-between; font-size: 18px; font-weight: 700; padding-top: 4px; border-top: 1px solid var(--line); margin-top: 2px; padding-top: 14px; }
+  .feed-h small { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+  .feed { display: flex; flex-direction: column; gap: 12px; }
+  .feed > * { flex: none; }
+  .feed-empty { font-size: 16px; color: var(--ink-2); background: var(--surface); border: 1px dashed var(--line-2); border-radius: var(--r-md); padding: 14px; line-height: 1.45; }
 
-  /* messages */
-  .row { display: flex; gap: 8px; align-items: flex-start; }
-  .row.out { flex-direction: row-reverse; }
-  .avatar { width: 38px; height: 38px; flex: none; border-radius: 6px; display: grid; place-items: center; font-weight: 700; color: #fff; font-size: 17px; }
-  .avatar.bot { background: var(--wx-green); font-size: 19px; }
-  .avatar.por { background: #E9A14A; }
-  .avatar.guard { background: #2B2B2B; color: var(--lime); }
-  .bubble { position: relative; background: #fff; border-radius: 6px; padding: 10px 12px; font-size: 18px; line-height: 1.45; max-width: 82%; word-break: break-word; }
-  .row.out .bubble { background: var(--wx-bubble); }
-  .bubble .en { display: block; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(0,0,0,.1); font-size: 15px; color: #444; }
-  .sys { align-self: center; font-size: 13px; color: #666; background: rgba(0,0,0,.07); border-radius: 5px; padding: 3px 9px; }
+  /* feed: messages */
+  .msg { display: flex; flex-direction: column; max-width: 88%; }
+  .msg.me { align-self: flex-end; align-items: flex-end; }
+  .msg .who { font-size: 13px; font-weight: 700; color: var(--ink-3); margin: 0 4px 3px; }
+  .bubble { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 10px 13px; font-size: 18px; line-height: 1.45; word-break: break-word; }
+  .msg.me .bubble { background: var(--brand-soft); border-color: var(--brand-line); border-bottom-right-radius: 6px; }
+  .msg.bot .bubble { border-bottom-left-radius: 6px; }
+  .bubble .en { display: block; margin-top: 4px; font-size: 15px; color: var(--ink-2); }
+  .msg.agent .who { color: var(--agent); }
+  .msg.agent .bubble { background: var(--agent-soft); border-color: var(--agent-line); border-bottom-left-radius: 6px; }
+  .msg.agent .yue { font-size: 20px; font-weight: 600; }
+  .bubble .paused { margin-top: 6px; font-size: 15px; font-weight: 700; color: var(--review); }
+  .sys { align-self: center; font-size: 14px; font-weight: 600; color: var(--ink-2); background: var(--surface-3); border-radius: 999px; padding: 4px 12px; }
+  .typing i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--agent); margin: 0 2px; animation: blink 1.2s infinite; }
+  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
+  @keyframes blink { 0%, 80%, 100% { opacity: .2; } 40% { opacity: 1; } }
+  .billpic { align-self: flex-end; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-md); padding: 10px 12px; width: 240px; font-size: 14px; color: var(--ink-2); transform: rotate(-1deg); }
+  .billpic b { color: var(--ink); font-size: 15px; }
+  .billpic .amt { display: flex; justify-content: space-between; border-top: 1px dashed var(--line-2); margin-top: 6px; padding-top: 6px; font-weight: 800; color: var(--ink); font-size: 17px; }
+  .billpic .cap { font-size: 12.5px; margin-top: 4px; }
+  .fwd { align-self: flex-end; max-width: 90%; background: var(--surface); border: 1px solid var(--line-2); border-radius: 16px; border-bottom-right-radius: 6px; padding: 10px 13px; font-size: 16px; line-height: 1.4; }
+  .fwd .h { font-size: 13px; font-weight: 700; color: var(--ink-3); margin-bottom: 4px; }
+  .fwd .to { margin-top: 8px; padding-top: 7px; border-top: 1px solid var(--line); font-size: 15px; color: var(--ink-2); }
 
-  .billpic { background: #d8d3c8; padding: 7px; border-radius: 6px; transform: rotate(-1.2deg); width: 230px; }
-  .billpic .paper { background: #FBFAF6; padding: 10px 11px; border-radius: 2px; font-size: 13px; color: #333; }
-  .billpic .paper b { font-size: 14px; }
-  .billpic .amt { display: flex; justify-content: space-between; align-items: baseline; border-top: 1px dashed #bbb; margin-top: 6px; padding-top: 6px; font-weight: 700; }
-  .billpic .amt span:last-child { font-family: var(--mono); font-size: 18px; }
-  .billpic .cap { font-size: 12px; color: #666; margin-top: 4px; }
-  .fwd { background: #fff; border-radius: 6px; padding: 10px 12px; max-width: 86%; font-size: 16px; line-height: 1.4; }
-  .fwd .h { font-size: 12.5px; color: #888; margin-bottom: 4px; }
-  .fwd .to { margin-top: 8px; padding-top: 7px; border-top: 1px solid #EEE; font-size: 14px; color: #555; }
-
-  /* Ah Por's cards: big text */
-  .card { background: #fff; border-radius: 12px; overflow: hidden; width: 100%; box-shadow: 0 1px 2px rgba(0,0,0,.08); border: 2px solid transparent; }
-  .card.selected { border-color: #5B8DEF; }
-  .card .band { display: flex; align-items: center; gap: 8px; padding: 7px 12px; font-size: 18px; font-weight: 800; }
-  .band.ok { background: var(--ok-bg); color: var(--ok); }
-  .band.warn { background: var(--warn-bg); color: var(--warn); }
-  .band.review { background: var(--review-bg); color: var(--review); }
-  .band.block { background: var(--block-line); color: #fff; }
-  .band.info { background: var(--info-bg); color: var(--info); }
-  .band .zh { font-weight: 700; opacity: .9; white-space: nowrap; }
-  .card .band { flex-wrap: wrap; row-gap: 0; }
-  .card .body { padding: 10px 12px 2px; }
-  .amtrow { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+  /* feed: result cards */
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; transition: border-color .15s var(--ease), box-shadow .15s var(--ease); }
+  .card.selected { border-color: var(--family); box-shadow: 0 0 0 2px oklch(0.45 0.13 255 / .25); }
+  .band { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; padding: 9px 14px; font-size: 18px; font-weight: 800; }
+  .band .zh { font-weight: 700; }
+  .band.ok { background: var(--ok-soft); color: var(--ok); }
+  .band.warn { background: var(--warn-soft); color: var(--warn); }
+  .band.review { background: var(--review-soft); color: var(--review); }
+  .band.block { background: var(--block); color: #fff; }
+  .band.info { background: var(--info-soft); color: var(--info); }
+  .card .body { padding: 12px 14px 4px; }
+  .amtrow { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
   .payee { font-size: 22px; font-weight: 800; line-height: 1.2; }
-  .amount { white-space: nowrap; font-family: var(--mono); font-size: 36px; font-weight: 700; letter-spacing: -.02em; line-height: 1.15; margin-top: 2px; }
-  .meta { font-size: 16px; color: var(--muted); margin-top: 2px; }
-  .msg-zh { font-size: 20px; line-height: 1.4; margin-top: 6px; font-weight: 600; }
-  .msg-en { font-size: 18px; line-height: 1.35; margin-top: 4px; color: #333; }
-  .speak { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; border: 2px solid #CFCFCF; background: #FAFAFA; border-radius: 999px; padding: 6px 14px; font-size: 17px; font-weight: 700; }
-  .speak:hover { background: #F0F0F0; }
-  .speak.round { flex: none; margin-top: 2px; flex-direction: column; gap: 0; border-radius: 14px; padding: 6px 8px; font-size: 24px; line-height: 1.1; }
-  .speak.round small { font-size: 12px; font-weight: 700; }
-  .actions { padding: 10px 12px 10px; display: grid; gap: 7px; }
-  .pair { display: grid; grid-template-columns: 2fr 1fr; gap: 7px; }
-  .bigbtn { border: 0; border-radius: 12px; padding: 10px 8px; font-size: 19px; font-weight: 800; line-height: 1.2; min-height: 56px; }
-  .bigbtn small { display: block; font-size: 16px; font-weight: 600; opacity: .92; margin-top: 2px; }
-  .bigbtn.primary { background: var(--wx-green); color: #fff; }
-  .bigbtn.primary:hover { background: var(--wx-green-dark); }
-  .bigbtn.warn { background: #F2B705; color: #241800; }
-  .bigbtn.ghost { background: #F1F1F1; color: var(--ink); border: 2px solid #D6D6D6; }
-  .bigbtn.ghost:hover { background: #E8E8E8; }
-  .helpbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(96px, 1fr)); gap: 6px; }
-  .helpbar .bigbtn { font-size: 16px; padding: 10px 6px; min-height: 64px; }
-  .helpbar .bigbtn small { font-size: 14px; }
-  .helpbar .stop { background: #FDE5E9; color: var(--block); border: 2px solid #F3B4BF; }
-  .helpbar .child { background: #E6EEFF; color: #1F3F8A; border: 2px solid #B8CBF5; }
-  .helpbar .official { background: #EEF0F3; color: #2B2F33; border: 2px solid #CDD2D8; }
-  .voicebox { margin: 0 12px 8px; border: 2px dashed #B9C3D3; border-radius: 10px; padding: 5px 6px 6px; background: #F7F9FC; }
-  .voicebox .lbl { font-size: 11.5px; font-weight: 800; letter-spacing: .04em; color: #4C5A70; margin-bottom: 4px; }
-  .voicebox .vrow { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
-  .voicebox button { border: 1.5px solid #B9C3D3; background: #fff; border-radius: 8px; padding: 4px 2px; font-size: 17px; font-weight: 700; white-space: nowrap; line-height: 1.15; }
-  .voicebox button small { display: block; font-size: 12px; font-weight: 600; color: #4C5A70; }
-  .proof { margin: 0 12px 10px; text-align: right; }
-  .proof button { border: 0; background: none; color: #5A6B85; font-size: 13px; text-decoration: underline; padding: 0; }
-  .status { margin: 4px 12px 12px; border-radius: 10px; padding: 12px; font-size: 19px; font-weight: 800; line-height: 1.35; }
+  .amount { font-size: 38px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; white-space: nowrap; margin-top: 2px; }
+  .meta { font-size: 15px; color: var(--ink-2); margin-top: 2px; }
+  .msg-zh { font-size: 20px; line-height: 1.45; margin-top: 8px; font-weight: 600; }
+  .msg-en { font-size: 18px; line-height: 1.4; margin-top: 4px; color: var(--ink-2); }
+  .say { flex: none; border: 1px solid var(--line-2); background: var(--surface-2); border-radius: 14px; padding: 7px 9px; font-size: 22px; line-height: 1; text-align: center; }
+  .say small { display: block; font-size: 12px; font-weight: 700; margin-top: 3px; color: var(--ink-2); }
+  .say:hover { background: var(--surface-3); }
+  .say-line { margin-top: 10px; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line-2); background: var(--surface-2); border-radius: 999px; padding: 6px 14px; font-size: 16px; font-weight: 700; }
+  .actions { padding: 10px 14px 12px; display: grid; gap: 8px; }
+  .pair { display: grid; grid-template-columns: 2fr 1fr; gap: 8px; }
+  .bigbtn { border: 0; border-radius: var(--r-md); padding: 10px 8px; font-size: 19px; font-weight: 800; line-height: 1.2; min-height: 58px; transition: background .15s var(--ease), transform .1s var(--ease); }
+  .bigbtn:active { transform: scale(.98); }
+  .bigbtn small { display: block; font-size: 16px; font-weight: 600; margin-top: 2px; }
+  .bigbtn.primary { background: var(--brand); color: #fff; }
+  .bigbtn.primary:hover { background: var(--brand-hover); }
+  .bigbtn.warn { background: var(--warn-fill); color: oklch(0.25 0.05 70); }
+  .bigbtn.ghost { background: var(--surface-2); border: 1.5px solid var(--line-2); }
+  .bigbtn.ghost:hover { background: var(--surface-3); }
+  .helpbar { display: grid; grid-template-columns: repeat(auto-fit, minmax(92px, 1fr)); gap: 6px; }
+  .helpbar .bigbtn { font-size: 16px; padding: 9px 6px; min-height: 64px; }
+  .helpbar .bigbtn small { font-size: 15px; }
+  .helpbar .stop { background: var(--block-soft); color: var(--block-ink); border: 1.5px solid var(--block-line); }
+  .helpbar .child { background: var(--family-soft); color: var(--family); border: 1.5px solid oklch(0.82 0.05 255); }
+  .helpbar .official { background: var(--surface-2); color: var(--ink); border: 1.5px solid var(--line-2); }
+  .voicebox { margin: 0 14px 12px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; font-size: 13px; font-weight: 700; color: var(--ink-3); }
+  .voicebox button { border: 1px solid var(--line-2); background: var(--surface); border-radius: 999px; padding: 4px 11px; font-size: 15px; font-weight: 700; }
+  .voicebox button small { font-size: 12px; font-weight: 600; color: var(--ink-3); margin-left: 3px; }
+  .status { margin: 4px 14px 14px; border-radius: var(--r-md); padding: 12px; font-size: 19px; font-weight: 800; line-height: 1.35; }
   .status small { display: block; font-size: 16px; font-weight: 600; margin-top: 3px; }
-  .status.ok { background: var(--ok-bg); color: var(--ok); border: 2px solid var(--ok-line); }
-  .status.wait { background: #E6EEFF; color: #1F3F8A; border: 2px solid #B8CBF5; }
-  .status.neutral { background: var(--info-bg); color: var(--info); border: 2px solid var(--info-line); }
-  .status.bad { background: var(--block-bg); color: var(--block); border: 2px solid var(--block-line); }
-  .note { margin: 0 14px 12px; font-size: 16px; line-height: 1.4; background: #F4F6F8; border-radius: 8px; padding: 8px 10px; }
-  .err { margin: 0 14px 12px; font-size: 16px; line-height: 1.4; background: var(--block-bg); color: var(--block); border-radius: 8px; padding: 8px 10px; border: 1px solid #F3B4BF; }
-  .bignum { font-family: var(--mono); font-size: 48px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
-  .bignum-sub { font-size: 20px; font-weight: 700; margin-top: 4px; }
-  .catrow { display: flex; justify-content: space-between; gap: 8px; font-size: 18px; padding: 6px 0; border-top: 1px solid #F0F0F0; }
-  .catrow span:last-child { font-family: var(--mono); font-weight: 700; white-space: nowrap; }
-  .official-item { padding: 10px 0; border-top: 1px solid #EEE; }
-  .official-item .num { font-family: var(--mono); font-size: 34px; font-weight: 800; }
+  .status.ok { background: var(--ok-soft); color: var(--ok); }
+  .status.wait { background: var(--family-soft); color: var(--family); }
+  .status.neutral { background: var(--info-soft); color: var(--info); }
+  .status.bad { background: var(--block-soft); color: var(--block-ink); }
+  .note { margin: 0 14px 12px; font-size: 16px; line-height: 1.45; background: var(--surface-2); border-radius: var(--r-sm); padding: 8px 10px; }
+  .err { margin: 0 14px 12px; font-size: 16px; line-height: 1.4; background: var(--block-soft); color: var(--block-ink); border-radius: var(--r-sm); padding: 8px 10px; }
+  .bignum { font-size: 44px; font-weight: 800; letter-spacing: -.02em; line-height: 1.05; }
+  .catrow { display: flex; justify-content: space-between; gap: 8px; font-size: 18px; padding: 6px 0; border-top: 1px solid var(--line); }
+  .catrow span:last-child { font-weight: 700; white-space: nowrap; }
+  .official-item { padding: 10px 0; border-top: 1px solid var(--line); }
+  .official-item .num { font-size: 34px; font-weight: 800; }
   .official-item .inst { font-size: 18px; font-weight: 800; }
-  .official-item .p { font-size: 16px; color: #444; margin-top: 2px; }
-  .caution { font-size: 15px; color: #6B4A00; background: #FFF6DB; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
+  .official-item .p { font-size: 16px; color: var(--ink-2); margin-top: 2px; }
+  .caution { font-size: 15px; color: var(--warn); background: var(--warn-soft); border-radius: var(--r-sm); padding: 8px 10px; margin-top: 8px; }
 
-  /* bottom sheet (inside phone) */
-  .sheet-wrap { position: absolute; inset: 0; background: rgba(0,0,0,.42); display: flex; align-items: flex-end; z-index: 20; }
-  .sheet { background: #fff; width: 100%; max-height: 88%; overflow-y: auto; border-radius: 18px 18px 0 0; padding: 14px 14px 18px; }
-  .sheet h3 { margin: 0 0 2px; font-size: 20px; }
-  .sheet .sub { font-size: 14px; color: var(--muted); margin-bottom: 10px; }
-  .sheet-close { float: right; border: 0; background: #EEE; border-radius: 999px; padding: 6px 12px; font-size: 15px; font-weight: 700; }
-  .preset { width: 100%; text-align: left; display: flex; gap: 10px; align-items: center; border: 2px solid #E3E3E3; background: #FAFAFA; border-radius: 12px; padding: 10px 12px; margin-bottom: 8px; }
-  .preset:hover { border-color: var(--wx-green); background: #F3FBF6; }
+  /* composer (talk to assistant) */
+  .composer { flex: none; background: var(--surface); border-top: 1px solid var(--line); padding: 8px 10px 9px; display: grid; gap: 7px; }
+  .chips { display: none; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+  .chips.open { display: flex; }
+  .chips button { flex: none; border: 1px solid var(--agent-line); background: var(--agent-soft); border-radius: 12px; padding: 5px 11px; font-size: 16px; font-weight: 700; line-height: 1.2; text-align: left; max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .chips button small { display: block; font-size: 12.5px; font-weight: 500; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; }
+  .chips .scamchip { border-color: var(--block-line); background: var(--block-soft); }
+  .inputrow { display: flex; gap: 6px; align-items: stretch; }
+  .comp-h { display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 14.5px; font-weight: 700; color: var(--agent); white-space: nowrap; }
+  .comp-h span { overflow: hidden; text-overflow: ellipsis; }
+  .ideas { flex: none; border: 1px solid var(--line-2); background: var(--surface-2); border-radius: 999px; padding: 3px 11px; font-size: 14px; font-weight: 700; color: var(--ink); }
+  .ideas.on { background: var(--agent-soft); border-color: var(--agent-line); color: var(--agent); }
+  .inputrow input { flex: 1; min-width: 0; font-size: 18px; padding: 10px 12px; border: 1.5px solid var(--line-2); border-radius: 12px; font-family: inherit; background: var(--surface); color: var(--ink); }
+  .inputrow input::placeholder { color: var(--ink-3); }
+  .send { flex: none; border: 0; border-radius: 12px; background: var(--agent); color: #fff; font-size: 16px; font-weight: 800; padding: 0 14px; }
+
+  /* bottom sheet */
+  .sheet-wrap { position: absolute; inset: 0; background: oklch(0.2 0.02 255 / .45); display: flex; align-items: flex-end; z-index: var(--z-sheet); }
+  .sheet { background: var(--surface); width: 100%; max-height: 88%; border-radius: 20px 20px 0 0; padding: 16px 14px 18px; animation: rise .24s var(--ease) both; }
+  .sheet h3 { margin: 0 0 2px; font-size: 21px; }
+  .sheet .sub { font-size: 14px; color: var(--ink-2); margin-bottom: 12px; }
+  .sheet-close { float: right; border: 0; background: var(--surface-3); border-radius: 999px; padding: 6px 12px; font-size: 15px; font-weight: 700; }
+  .preset { width: 100%; text-align: left; display: flex; gap: 10px; align-items: center; border: 1px solid var(--line); background: var(--surface-2); border-radius: var(--r-md); padding: 10px 12px; margin-bottom: 8px; }
+  .preset:hover { border-color: var(--brand-line); background: var(--brand-soft); }
   .preset .ic { font-size: 28px; flex: none; }
   .preset .pn { font-size: 17px; font-weight: 800; }
-  .preset .pa { font-family: var(--mono); font-size: 17px; font-weight: 700; }
-  .preset .px { font-size: 13px; color: #666; margin-top: 2px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-  .preset .pid { font-family: var(--mono); font-size: 11px; color: #999; }
+  .preset .pa { font-size: 17px; font-weight: 800; white-space: nowrap; }
+  .preset .px { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13.5px; color: var(--ink-2); margin-top: 2px; }
   .form label { display: block; font-size: 16px; font-weight: 700; margin: 10px 0 4px; }
-  .form input, .form textarea { width: 100%; font-size: 18px; padding: 10px; border: 2px solid #CFCFCF; border-radius: 10px; font-family: inherit; }
+  .form input, .form textarea { width: 100%; font-size: 18px; padding: 10px; border: 1.5px solid var(--line-2); border-radius: 10px; font-family: inherit; color: var(--ink); }
   .form textarea { min-height: 84px; resize: vertical; }
   .seg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-  .seg button { border: 2px solid #CFCFCF; background: #fff; border-radius: 10px; padding: 10px; font-size: 16px; font-weight: 700; }
-  .seg button.on { border-color: var(--wx-green); background: #E3F5EA; color: var(--ok); }
-  .form .ferr { color: var(--block); font-size: 15px; margin-top: 8px; font-weight: 600; }
+  .seg button { border: 1.5px solid var(--line-2); background: var(--surface); border-radius: 10px; padding: 10px; font-size: 16px; font-weight: 700; }
+  .seg button.on { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); }
+  .ferr { color: var(--block-ink); font-size: 15px; margin-top: 8px; font-weight: 600; }
 
-  /* ---------- middle column ---------- */
-  .mid { min-height: 0; display: grid; grid-template-rows: minmax(0, 2.1fr) minmax(0, 1fr); gap: 10px; }
-  .panel { min-height: 0; border-radius: 22px; padding: 8px; display: flex; flex-direction: column; box-shadow: 0 20px 50px -26px rgba(0,0,0,.55); }
-  .panel.engine { background: linear-gradient(135deg, #2E2E2E, #141414); }
-  .panel.bank { background: linear-gradient(135deg, #17406F, #0B1F3A); }
-  .panel-head { display: flex; align-items: center; gap: 10px; padding: 3px 8px 7px; color: #fff; }
-  .panel-head h2 { margin: 0; font-size: 15px; font-weight: 800; }
-  .panel-head .tag { font-size: 10.5px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; border-radius: 4px; padding: 2px 6px; }
-  .panel.engine .tag { background: var(--lime); color: #111; }
-  .panel.bank .tag { background: #9CC3FF; color: #0B1F3A; }
-  .panel-head .cap { font-size: 11.5px; color: rgba(255,255,255,.62); margin-left: auto; text-align: right; }
-  .panel-body { flex: 1; min-height: 0; background: #fff; border-radius: 15px; overflow-y: auto; }
+  /* ===================== middle panels ===================== */
+  .mid { min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+  .panel { min-height: 0; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); display: flex; flex-direction: column; overflow: hidden; }
+  .ph { flex: none; display: flex; align-items: center; gap: 14px; padding: 12px 18px; border-bottom: 1px solid var(--line); }
+  .ph h2 { margin: 0; font-size: 19px; font-weight: 800; letter-spacing: -.01em; display: flex; align-items: center; gap: 8px; }
+  .ph p { margin: 2px 0 0; font-size: 14px; color: var(--ink-2); }
+  .ph .tag { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 9px; }
+  .engine .ph .tag { background: var(--brand-soft); color: var(--brand); }
+  .bank .ph { background: var(--bank); color: #fff; border-bottom: 0; }
+  .bank .ph p { color: oklch(0.88 0.02 255); }
+  .bank .ph .tag { background: oklch(1 0 0 / .15); color: #fff; }
+  .tabs { margin-left: auto; display: flex; background: var(--surface-3); border-radius: 10px; padding: 3px; flex: none; }
+  .tabs button { border: 0; background: transparent; border-radius: 8px; padding: 7px 14px; font-size: 14.5px; font-weight: 700; color: var(--ink-2); white-space: nowrap; }
+  .tabs button.on { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px oklch(0.2 0.02 255 / .15); }
+  .tabs .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--agent); margin-left: 6px; vertical-align: middle; }
+  .pb { flex: 1; min-height: 0; }
+  .pad { padding: 14px 18px 16px; }
+  .empty-state { padding: 30px 20px; text-align: center; color: var(--ink-2); font-size: 16px; line-height: 1.5; }
 
-  .eng { padding: 10px 12px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 10px 14px; }
-  .eng-empty { padding: 30px 20px; text-align: center; color: var(--muted); font-size: 15px; }
-  .outcome { grid-column: 1 / -1; border-radius: 12px; padding: 7px 12px; display: flex; align-items: center; gap: 12px; border: 2px solid; }
-  .outcome .big { font-size: 22px; font-weight: 900; letter-spacing: .01em; }
-  .outcome .why { font-size: 13px; font-weight: 600; }
-  .outcome .txs { margin-left: auto; text-align: right; font-size: 13px; }
-  .outcome .txs b { font-size: 20px; font-family: var(--mono); display: block; }
-  .outcome.ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok-line); }
-  .outcome.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-line); }
-  .outcome.review { background: var(--review-bg); color: var(--review); border-color: var(--review-line); }
-  .outcome.block { background: var(--block-line); color: #fff; border-color: #8E0016; animation: pulse 1.4s ease-in-out 3; }
-  .outcome.info { background: var(--info-bg); color: var(--info); border-color: var(--info-line); }
-  @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(215,38,61,.55); } 50% { box-shadow: 0 0 0 10px rgba(215,38,61,0); } }
-  .sec h4 { margin: 0 0 6px; font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: #777; font-weight: 800; }
-  table.rules { width: 100%; border-collapse: collapse; font-size: 12.5px; table-layout: fixed; }
-  table.rules td { padding: 3px 4px; border-bottom: 1px solid #F0F0F0; vertical-align: middle; }
-  table.rules tr.fired td { background: #FFF7E8; font-weight: 700; }
-  table.rules tr.fired.blk td { background: #FDE5E9; color: var(--block); }
-  table.rules .ph { font-size: 10px; font-weight: 800; letter-spacing: .06em; border-radius: 3px; padding: 1px 5px; background: #EEE; color: #555; white-space: nowrap; }
-  table.rules .res { white-space: nowrap; text-align: right; }
+  /* engine: plain words */
+  .verdict { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 4px 14px; border-radius: var(--r-md); padding: 12px 16px; }
+  .verdict .vi { font-size: 30px; }
+  .verdict .vt { font-size: 22px; font-weight: 800; line-height: 1.2; }
+  .verdict .vs { font-size: 15px; font-weight: 600; margin-top: 2px; }
+  .verdict .vr { text-align: right; font-size: 16px; font-weight: 800; }
+  .verdict .vr small { display: block; font-size: 13.5px; font-weight: 600; }
+  .verdict.ok { background: var(--ok-soft); color: var(--ok); }
+  .verdict.warn { background: var(--warn-soft); color: var(--warn); }
+  .verdict.review { background: var(--review-soft); color: var(--review); }
+  .verdict.block { background: var(--block); color: #fff; }
+  .verdict.info { background: var(--info-soft); color: var(--info); }
+  .checks { list-style: none; margin: 12px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 6px 14px; }
+  .checks li { display: flex; gap: 9px; align-items: flex-start; font-size: 16.5px; line-height: 1.35; padding: 7px 10px; border-radius: var(--r-sm); background: var(--surface-2); }
+  .checks li .ci { flex: none; }
+  .checks li.bad { background: var(--block-soft); color: var(--block-ink); font-weight: 700; }
+  .checks li.warn { background: var(--warn-soft); color: var(--warn); font-weight: 700; }
+  .checks li.ai { grid-column: 1 / -1; }
+  .checks li small { display: block; font-size: 14px; font-weight: 600; opacity: .9; margin-top: 2px; }
+  .disclose { margin-top: 12px; border: 0; background: none; padding: 4px 0; font-size: 14.5px; font-weight: 700; color: var(--family); }
+  .tech { margin-top: 8px; border-top: 1px solid var(--line); padding-top: 12px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 12px 18px; font-size: 13px; }
+  .tech > * { min-width: 0; }
+  .tech h4 { margin: 0 0 6px; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+  table.rules { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
+  table.rules td { padding: 4px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  table.rules tr.fired td { background: var(--warn-soft); font-weight: 700; }
+  table.rules tr.fired.blk td { background: var(--block-soft); color: var(--block-ink); }
+  table.rules .ph2 { font-size: 10.5px; font-weight: 800; border-radius: 4px; padding: 1px 5px; background: var(--surface-3); color: var(--ink-2); }
+  table.rules .res { text-align: right; white-space: nowrap; }
   table.rules .code { font-family: var(--mono); font-size: 11px; }
-  table.rules td.lbl { line-height: 1.25; }
-  .skipnote { font-size: 12.5px; color: #8E0016; margin-top: 6px; font-weight: 600; }
-  .scorebox { display: flex; align-items: baseline; gap: 8px; }
-  .scorebox .s { font-family: var(--mono); font-size: 30px; font-weight: 800; }
-  .scale { position: relative; height: 22px; margin-top: 6px; border-radius: 6px; overflow: hidden; display: grid; grid-template-columns: 20fr 20fr 60fr; font-size: 10.5px; font-weight: 800; }
+  .kv { font-size: 13px; line-height: 1.6; color: var(--ink-2); }
+  .kv b { color: var(--ink); font-family: var(--mono); font-weight: 600; }
+  .scale { position: relative; height: 22px; margin-top: 6px; border-radius: 6px; overflow: hidden; display: grid; grid-template-columns: 20fr 20fr 60fr; font-size: 11px; font-weight: 800; }
   .scale > div { display: flex; align-items: center; justify-content: center; }
-  .scale .a { background: var(--ok-bg); color: var(--ok); } .scale .w { background: var(--warn-bg); color: var(--warn); } .scale .r { background: var(--review-bg); color: var(--review); }
-  .scale-l { display: grid; grid-template-columns: 20fr 20fr 60fr; font-size: 10px; font-weight: 800; color: #666; margin-top: 2px; }
-  .scale-l span { text-align: center; }
-  .scale .marker { position: absolute; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: #111; border-radius: 2px; }
-  .kv { font-size: 13px; line-height: 1.55; }
-  .kv b { font-family: var(--mono); }
-  .box { border: 1px solid #E6E6E6; border-radius: 10px; padding: 7px 10px; margin-top: 8px; font-size: 13px; }
-  .box.ai.sus { border-color: var(--review-line); background: #FFF6EE; }
-  .box.shadow { background: #F6F7F9; border-style: dashed; }
-  .chip { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 8px; margin: 2px 3px 2px 0; background: #FFE6D2; color: var(--review); }
-  .chip.zh { background: #FFF; border: 1px solid #F0C8A8; }
-  .ai-chips { display: grid; gap: 4px; margin-top: 6px; }
-  .ai-chip { display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; background: #FFE6D2; color: var(--review); border-left: 4px solid var(--review-line); border-radius: 6px; padding: 4px 8px; font-size: 13px; font-weight: 700; }
-  .ai-chip .z { font-weight: 600; color: #6B2E00; }
-  .ai-chips.big .ai-chip { font-size: 14px; }
-  .aiwide { grid-column: 1 / -1; margin-top: 0; }
-  .aiwide .ai-chips { grid-template-columns: 1fr 1fr; }
-  .ai-head { margin-top: 8px; font-size: 13.5px; font-weight: 800; color: var(--review); }
-  .community { margin-top: 6px; font-size: 14px; font-weight: 800; color: var(--block); background: var(--block-bg); border-radius: 6px; padding: 5px 8px; }
-  .shadow-tag { font-size: 10.5px; font-weight: 800; letter-spacing: .06em; background: #DDE1E6; color: #3C4043; border-radius: 3px; padding: 1px 6px; }
-  .reqs { grid-column: 1 / -1; }
-  .reqlist { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
-  .req { flex: none; border: 1.5px solid #E2E2E2; background: #FAFAFA; border-radius: 9px; padding: 5px 9px; font-size: 12px; text-align: left; max-width: 190px; }
-  .req.sel { border-color: #5B8DEF; background: #EEF3FF; }
-  .req .rp { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .stchip { display: inline-block; font-size: 11px; font-weight: 800; border-radius: 4px; padding: 1px 6px; font-family: var(--mono); }
-  .st-DONE { background: var(--ok-bg); color: var(--ok); }
-  .st-PENDING { background: #E6EEFF; color: #1F3F8A; }
-  .st-AWAITING_GUARDIAN { background: var(--review-bg); color: var(--review); }
-  .st-BLOCKED { background: var(--block-line); color: #fff; }
-  .st-CANCELLED, .st-EXPIRED { background: #ECEDEF; color: #555; }
-  .st-REJECTED { background: var(--block-bg); color: var(--block); }
+  .scale .a { background: var(--ok-soft); color: var(--ok); } .scale .w { background: var(--warn-soft); color: var(--warn); } .scale .r { background: var(--review-soft); color: var(--review); }
+  .scale .marker { position: absolute; top: 0; bottom: 0; width: 4px; margin-left: -2px; background: var(--ink); border-radius: 2px; }
+  .tbox { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 10px; margin-top: 8px; }
+  .tbox.dashed { border-style: dashed; background: var(--surface-2); }
+  .tag-shadow { font-size: 11px; font-weight: 800; background: var(--surface-3); color: var(--ink-2); border-radius: 4px; padding: 1px 6px; }
+  .proofbtn { margin-top: 8px; border: 1px solid var(--line-2); background: var(--surface); border-radius: var(--r-sm); padding: 6px 10px; font-size: 13.5px; font-weight: 700; }
+  .reqs { margin-top: 14px; display: flex; align-items: center; gap: 8px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: thin; }
+  .reqs .rl { font-size: 13.5px; font-weight: 700; color: var(--ink-2); flex: none; }
+  .req { flex: none; border: 1px solid var(--line); background: var(--surface-2); border-radius: 999px; padding: 5px 12px; font-size: 13.5px; font-weight: 600; white-space: nowrap; }
+  .req.sel { border-color: var(--family); background: var(--family-soft); color: var(--family); }
+  .chip-ai { display: inline-block; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 2px 9px; margin: 2px 4px 2px 0; background: var(--review-soft); color: var(--review); }
+  .stchip { display: inline-block; font-size: 11.5px; font-weight: 800; border-radius: 4px; padding: 1px 6px; }
+  .st-DONE { background: var(--ok-soft); color: var(--ok); }
+  .st-PENDING { background: var(--family-soft); color: var(--family); }
+  .st-AWAITING_GUARDIAN { background: var(--review-soft); color: var(--review); }
+  .st-BLOCKED { background: var(--block); color: #fff; }
+  .st-CANCELLED, .st-EXPIRED { background: var(--surface-3); color: var(--ink-2); }
+  .st-REJECTED { background: var(--block-soft); color: var(--block-ink); }
 
-  .bankbody { padding: 10px 14px; display: grid; grid-template-columns: 210px minmax(0, 1fr); gap: 14px; }
-  .bal-l { font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #777; }
-  .bal { font-family: var(--mono); font-size: 36px; font-weight: 800; letter-spacing: -.02em; margin-top: 2px; border-radius: 8px; transition: background .4s; }
-  .bal.flash { animation: balflash 1.6s ease-out 1; }
-  @keyframes balflash { 0% { background: #FFE58F; } 100% { background: transparent; } }
-  .delta { font-family: var(--mono); font-weight: 800; color: var(--block); font-size: 16px; min-height: 20px; }
-  .acct { font-size: 12px; color: #666; margin-top: 4px; line-height: 1.45; }
-  table.pay { width: 100%; border-collapse: collapse; font-size: 13px; table-layout: fixed; }
-  table.pay .tm { width: 66px; } table.pay .c-am { width: 92px; } table.pay .c-by { width: 104px; }
-  table.pay th { text-align: left; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: #888; border-bottom: 1px solid #EEE; padding: 4px 6px; }
-  table.pay td { border-bottom: 1px solid #F4F4F4; padding: 4px 6px; white-space: nowrap; }
-  table.pay td.pn span { display: block; overflow: hidden; text-overflow: ellipsis; }
-  table.pay td.r, table.pay th.r { text-align: right; }
-  .meth { font-size: 10.5px; white-space: nowrap; font-weight: 800; border-radius: 4px; padding: 1px 6px; background: #EEF0F3; color: #333; }
-  .meth.guardian { background: #E6EEFF; color: #1F3F8A; }
-  .meth.voice { background: #F2E8FF; color: #5B21B6; }
-  .empty { color: #888; font-size: 13px; padding: 10px 6px; }
+  /* engine: agent */
+  .agcap { font-size: 15px; color: var(--agent); background: var(--agent-soft); border-radius: var(--r-sm); padding: 8px 12px; font-weight: 600; line-height: 1.4; }
+  .agreq { margin-top: 12px; font-size: 16px; line-height: 1.4; }
+  .gbadge { margin-top: 10px; border-radius: var(--r-sm); padding: 9px 12px; font-size: 16px; font-weight: 700; }
+  .gbadge.ok { background: var(--ok-soft); color: var(--ok); }
+  .gbadge.warn { background: var(--warn-soft); color: var(--warn); }
+  .gbadge.info { background: var(--info-soft); color: var(--info); }
+  ol.steps { list-style: none; margin: 12px 0 0; padding: 0; counter-reset: st; display: grid; gap: 6px; }
+  ol.steps li { counter-increment: st; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: 16px; line-height: 1.4; }
+  ol.steps li::before { content: counter(st); width: 26px; height: 26px; border-radius: 50%; background: var(--agent-soft); color: var(--agent); font-size: 13px; font-weight: 800; display: grid; place-items: center; }
+  ol.steps .sw b { font-weight: 700; }
+  ol.steps .snote { font-size: 14px; color: var(--ink-2); }
+  .schip { display: inline-block; font-size: 13px; font-weight: 800; border-radius: 999px; padding: 1px 9px; margin-left: 6px; }
+  .schip.ok { background: var(--ok-soft); color: var(--ok); } .schip.review { background: var(--review-soft); color: var(--review); }
+  .schip.block { background: var(--block); color: #fff; } .schip.info { background: var(--family-soft); color: var(--family); } .schip.neutral { background: var(--surface-3); color: var(--ink-2); }
+  .rawargs { font-family: var(--mono); font-size: 12px; color: var(--ink-2); margin-top: 4px; word-break: break-word; }
 
-  /* ---------- son's phone ---------- */
-  .son-feed { flex: 1; min-height: 0; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 10px; }
-  .son-feed > *, .chat > * { flex: none; }
-  .son-sec { font-size: 11.5px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #666; margin: 2px 2px -2px; }
-  .scard { background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,.08); border: 2px solid transparent; }
-  .scard.selected { border-color: #5B8DEF; }
-  .scard .sh { padding: 7px 11px; font-size: 14px; font-weight: 800; display: flex; align-items: center; gap: 6px; }
-  .scard .sh.review { background: var(--review-bg); color: var(--review); }
-  .scard .sh.block { background: var(--block-line); color: #fff; }
-  .scard .sh.ok { background: var(--ok-bg); color: var(--ok); }
-  .scard .sh.info { background: var(--info-bg); color: var(--info); }
-  .scard .sb { padding: 9px 11px; font-size: 15px; line-height: 1.4; }
-  .scard .samt { font-family: var(--mono); font-size: 26px; font-weight: 800; }
-  .scard .spayee { font-size: 16px; font-weight: 800; }
-  .scard ul { margin: 6px 0 0; padding-left: 18px; font-size: 14px; }
-  .scard .exp { font-size: 13px; color: var(--review); font-weight: 700; margin-top: 6px; }
-  .scard .nobtn { font-size: 13px; color: #555; background: #F4F4F4; border-radius: 6px; padding: 6px 8px; margin-top: 8px; }
-  .sbtns { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #EEE; }
-  .sbtns button { border: 0; border-right: 1px solid #EEE; background: #fff; padding: 11px 4px; font-size: 15px; font-weight: 800; }
-  .sbtns button:hover { background: #F6F6F6; }
-  .sbtns button.full { grid-column: 1 / -1; border-top: 1px solid #EEE; border-right: 0; color: var(--block); }
-  .sbtns .ap { color: var(--ok); } .sbtns .rj { color: var(--block); border-right: 0; }
-  .sdone { border-top: 1px solid #EEE; padding: 9px 11px; font-size: 14px; font-weight: 800; text-align: center; }
-  .serr { margin: 0 11px 9px; font-size: 13px; color: var(--block); background: var(--block-bg); border-radius: 6px; padding: 6px 8px; }
-  .act { font-size: 13.5px; background: #fff; border-radius: 8px; padding: 8px 10px; line-height: 1.4; display: flex; gap: 8px; align-items: baseline; }
-  .act .am { font-family: var(--mono); font-weight: 800; margin-left: auto; white-space: nowrap; }
-  .son-menu { flex: none; display: grid; grid-template-columns: 1.25fr 1fr 1fr; background: var(--wx-bar); border-top: 1px solid #D4D4D4; }
-  .son-menu button { border: 0; border-right: 1px solid #DDD; background: transparent; padding: 9px 3px; font-size: 13.5px; font-weight: 800; line-height: 1.2; }
-  .son-menu button.on { background: #E2F4E9; color: var(--ok); }
-  .badge { display: inline-block; min-width: 20px; border-radius: 999px; background: #D7263D; color: #fff; font-size: 12px; padding: 0 6px; margin-left: 4px; }
+  /* bank */
+  .bank-grid { display: grid; grid-template-columns: minmax(200px, .7fr) minmax(0, 1.7fr); gap: 20px; }
+  .bal-l { font-size: 14px; font-weight: 700; color: var(--ink-2); }
+  .bal { font-size: 46px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; margin-top: 2px; border-radius: 8px; white-space: nowrap; }
+  @media (max-width: 1600px) { .bal { font-size: 38px; } .bank-grid { grid-template-columns: 200px minmax(0, 1fr) !important; } }
+  .bal.flash { animation: flash 1.6s var(--ease) 1; }
+  .delta { font-size: 17px; font-weight: 800; color: var(--block-ink); min-height: 24px; }
+  .po-h { font-size: 14px; font-weight: 700; color: var(--ink-2); margin: 12px 0 6px; }
+  .flow-col .po-h { margin-top: 0; }
+  .paidout { list-style: none; margin: 0; padding: 0; font-size: 14px; }
+  .paidout li { display: grid; grid-template-columns: auto 1fr auto; gap: 8px; padding: 5px 0; border-top: 1px solid var(--line); }
+  .paidout .t { color: var(--ink-3); }
+  .paidout .p { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .paidout .a { font-weight: 800; white-space: nowrap; }
+  .flows { display: grid; gap: 8px; }
+  .flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 7px 10px; border-radius: var(--r-md); background: var(--bank-soft); font-size: 14.5px; cursor: pointer; }
+  .flow-col, .flow { min-width: 0; }
+  .flow .fs { display: inline-block; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 4px 11px; font-weight: 600; white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+  .flow .fs.req-chip { max-width: 290px; display: inline-block; }
+  .flow .fs.ok { color: var(--ok); border-color: var(--ok-line); }
+  .flow .fs.go { background: var(--ok); color: #fff; border-color: var(--ok); font-weight: 800; }
+  .flow .fs.stop { background: var(--block-soft); color: var(--block-ink); border-color: var(--block-line); font-weight: 800; }
+  .flow .fs.wait { background: var(--review-soft); color: var(--review); border-color: var(--review-line); }
+  .flow .arr { color: var(--ink-3); font-weight: 800; }
 
-  /* ---------- logs ---------- */
-  .logs { min-height: 0; background: #0B1220; border-top: 1px solid #1E293B; display: flex; flex-direction: column; }
-  .logs-head { flex: none; display: flex; align-items: center; gap: 12px; padding: 5px 16px; border-bottom: 1px solid #1E293B; color: #CBD5E1; font-family: var(--mono); font-size: 12px; font-weight: 700; }
-  .logs-head .live { width: 7px; height: 7px; border-radius: 50%; background: #34D399; }
-  .logs-head label { display: inline-flex; gap: 6px; align-items: center; font-weight: 500; cursor: pointer; }
-  .logs-head a, .logs-head .lbtn { color: #CBD5E1; border: 1px solid #334155; border-radius: 5px; padding: 2px 8px; text-decoration: none; background: none; font: inherit; font-weight: 500; }
-  .logs-head .sp { margin-left: auto; display: flex; gap: 10px; align-items: center; }
-  .loglist { flex: 1; min-height: 0; overflow-y: auto; padding: 4px 16px 6px; font-family: var(--mono); font-size: 12.5px; line-height: 1.6; color: #94A3B8; }
+  /* ===================== Ah Ming app ===================== */
+  .switchrow { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+  .switchrow .sl { font-size: 15px; font-weight: 700; line-height: 1.25; }
+  .switchrow .sl small { display: block; font-size: 13px; font-weight: 600; }
+  .switchrow .sl small.on { color: var(--ok); } .switchrow .sl small.off { color: var(--review); }
+  .switchrow button { flex: none; border: 1.5px solid var(--line-2); background: var(--surface-2); border-radius: 999px; padding: 6px 12px; font-size: 14px; font-weight: 800; white-space: nowrap; }
+  .switchrow button.resume { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .son-feed { flex: 1; min-height: 0; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+  .son-feed > * { flex: none; }
+  .son-sec { font-size: 15px; font-weight: 800; color: var(--ink); margin: 4px 2px 0; display: flex; align-items: center; gap: 6px; }
+  .son-sec .n { font-size: 13px; font-weight: 800; border-radius: 999px; background: var(--surface-3); color: var(--ink-2); padding: 0 8px; }
+  .scard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+  .scard.selected { border-color: var(--family); box-shadow: 0 0 0 2px oklch(0.45 0.13 255 / .2); }
+  .scard .sh { padding: 8px 12px; font-size: 15px; font-weight: 800; }
+  .scard .sh.review { background: var(--review-soft); color: var(--review); }
+  .scard .sh.block { background: var(--block); color: #fff; }
+  .scard .sh.ok { background: var(--ok-soft); color: var(--ok); }
+  .scard .sh.bad { background: var(--block-soft); color: var(--block-ink); }
+  .scard .sb { padding: 10px 12px; font-size: 15px; line-height: 1.45; }
+  .scard .samt { font-size: 28px; font-weight: 800; letter-spacing: -.01em; }
+  .scard .spayee { font-size: 16.5px; font-weight: 800; }
+  .scard ul { margin: 6px 0 0; padding-left: 18px; font-size: 14.5px; }
+  .scard .exp { font-size: 13.5px; color: var(--review); font-weight: 700; margin-top: 6px; }
+  .scard .lock { font-size: 13.5px; color: var(--ink-2); background: var(--surface-2); border-radius: var(--r-sm); padding: 7px 9px; margin-top: 8px; }
+  .scard .community { margin-top: 6px; font-size: 14.5px; font-weight: 800; color: var(--block-ink); background: var(--block-soft); border-radius: var(--r-sm); padding: 5px 8px; }
+  .ai-head { margin-top: 8px; font-size: 14px; font-weight: 800; color: var(--review); }
+  .ai-chips { display: grid; gap: 4px; margin-top: 5px; }
+  .ai-chip { display: flex; flex-wrap: wrap; gap: 0 8px; align-items: baseline; background: var(--review-soft); color: var(--review); border-radius: var(--r-sm); padding: 5px 9px; font-size: 14px; font-weight: 700; }
+  .ai-chip .z { font-weight: 600; }
+  .sbtns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; padding: 0 12px 12px; }
+  .sbtns button { border: 1.5px solid var(--line-2); background: var(--surface); border-radius: var(--r-sm); padding: 10px 4px; font-size: 15.5px; font-weight: 800; }
+  .sbtns .ap { background: var(--ok); border-color: var(--ok); color: #fff; }
+  .sbtns .rj { color: var(--block-ink); }
+  .sbtns .full { grid-column: 1 / -1; color: var(--block-ink); border-color: var(--block-line); background: var(--block-soft); }
+  .sdone { padding: 0 12px 12px; font-size: 14.5px; font-weight: 800; color: var(--block-ink); }
+  .serr { margin: 0 12px 10px; font-size: 13.5px; color: var(--block-ink); background: var(--block-soft); border-radius: var(--r-sm); padding: 6px 8px; }
+  .act { font-size: 14.5px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); padding: 8px 10px; line-height: 1.4; display: flex; gap: 8px; align-items: baseline; }
+  .act .am { font-weight: 800; margin-left: auto; white-space: nowrap; }
+  .act.muted { color: var(--ink-2); }
+  .tabbar { flex: none; display: grid; grid-template-columns: repeat(3, 1fr); background: var(--surface); border-top: 1px solid var(--line); }
+  .tabbar button { border: 0; background: transparent; padding: 7px 2px 6px; font-size: 13px; font-weight: 700; color: var(--ink-3); line-height: 1.2; position: relative; }
+  .tabbar button .ti { display: block; font-size: 20px; margin-bottom: 1px; }
+  .tabbar button.on { color: var(--family); }
+  .tabbar .badge { position: absolute; top: 3px; left: calc(50% + 8px); min-width: 18px; border-radius: 999px; background: var(--block); color: #fff; font-size: 11.5px; padding: 0 5px; }
+
+  /* ===================== audit log strip + drawer ===================== */
+  .logstrip { position: fixed; left: 0; right: 0; bottom: 0; height: 40px; z-index: var(--z-drawer); background: var(--log-bg); color: oklch(0.86 0.01 260); display: flex; align-items: center; gap: 14px; padding: 0 22px; font-size: 14px; border-top: 1px solid var(--log-line); }
+  .logstrip b { color: #fff; }
+  .logstrip .latest { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-family: var(--mono); font-size: 13px; color: oklch(0.8 0.02 260); }
+  .logstrip button { border: 1px solid var(--log-line); background: transparent; color: #fff; border-radius: 8px; padding: 4px 12px; font-size: 13.5px; font-weight: 700; }
+  .drawer { position: fixed; left: 0; right: 0; bottom: 40px; height: min(44vh, 380px); z-index: var(--z-drawer); background: var(--log-bg); border-top: 1px solid var(--log-line); box-shadow: 0 -12px 30px -12px oklch(0.1 0.02 260 / .6); display: none; flex-direction: column; }
+  .drawer.open { display: flex; animation: rise .22s var(--ease) both; }
+  .logs-head { flex: none; display: flex; align-items: center; gap: 14px; padding: 8px 22px; border-bottom: 1px solid var(--log-line); color: oklch(0.86 0.01 260); font-size: 13px; font-weight: 600; }
+  .logs-head label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+  .logs-head a, .logs-head .lbtn { color: #fff; border: 1px solid var(--log-line); border-radius: 6px; padding: 3px 10px; text-decoration: none; background: none; font: inherit; font-weight: 700; }
+  .logs-head .sp { margin-left: auto; display: flex; gap: 12px; align-items: center; }
+  .loglist { flex: 1; min-height: 0; padding: 6px 22px 8px; font-family: var(--mono); font-size: 12.5px; line-height: 1.65; color: oklch(0.75 0.02 260); }
   .lg { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .lg .t { color: #64748B; }
-  .lg .ev { display: inline-block; min-width: 200px; font-weight: 700; color: #7DD3FC; }
-  .lg .tx { color: #A5B4FC; cursor: pointer; }
-  .lg .rc { color: #FCD34D; }
-  .lg .stt { color: #E2E8F0; }
-  .lg.hl-pay .ev, .lg.hl-pay .stt { color: #4ADE80; }
-  .lg.hl-pay { background: rgba(74,222,128,.08); }
-  .lg.hl-block .ev, .lg.hl-block .stt { color: #F87171; }
-  .lg.hl-block { background: rgba(248,113,113,.12); }
-  .lg.hl-sign .ev { color: var(--lime); }
-  .lg.hl-shadow .ev { color: #94A3B8; font-style: italic; }
-  .lg.hl-ai .ev { color: #22D3EE; }
-  .lg.hl-ai { background: rgba(34,211,238,.07); }
-  .lg.hl-report .ev { color: #FB923C; }
-  .lg.hl-report { background: rgba(251,146,60,.1); }
-  .lg.hl-guard .ev { color: #FBBF24; }
-  .lg.hl-guard { background: rgba(251,191,36,.08); }
-  .lg.hl-fired .ev { color: #FDE68A; }
+  .lg .t { color: oklch(0.58 0.02 260); }
+  .lg .ev { display: inline-block; min-width: 210px; font-weight: 700; color: oklch(0.82 0.08 230); }
+  .lg .tx { color: oklch(0.78 0.08 280); cursor: pointer; }
+  .lg .rc { color: oklch(0.86 0.12 90); }
+  .lg .stt { color: oklch(0.93 0.01 260); }
+  .lg.hl-pay { background: oklch(0.6 0.15 150 / .12); } .lg.hl-pay .ev, .lg.hl-pay .stt { color: oklch(0.82 0.15 150); }
+  .lg.hl-block { background: oklch(0.6 0.18 25 / .15); } .lg.hl-block .ev, .lg.hl-block .stt { color: oklch(0.75 0.15 25); }
+  .lg.hl-sign .ev { color: oklch(0.85 0.14 130); }
+  .lg.hl-shadow .ev { color: oklch(0.7 0.02 260); font-style: italic; }
+  .lg.hl-ai { background: oklch(0.7 0.12 210 / .1); } .lg.hl-ai .ev { color: oklch(0.82 0.12 210); }
+  .lg.hl-report { background: oklch(0.7 0.15 55 / .12); } .lg.hl-report .ev { color: oklch(0.8 0.14 55); }
+  .lg.hl-guard { background: oklch(0.8 0.14 85 / .08); } .lg.hl-guard .ev { color: oklch(0.85 0.13 85); }
+  .lg.hl-fired .ev { color: oklch(0.88 0.1 95); }
+  .lg.hl-agent { background: oklch(0.65 0.15 285 / .14); } .lg.hl-agent .ev { color: oklch(0.82 0.1 285); }
   .lg.dim { opacity: .55; }
-  .lg.hl-agent .ev { color: #C4B5FD; }
-  .lg.hl-agent { background: rgba(167,139,250,.12); }
 
-  /* assistant agent */
-  .btn-morning { background: #FFD45C; color: #2B1D00; border: 0; border-radius: 9px; padding: 8px 14px; font-weight: 800; font-size: 13px; }
-  .btn-morning:hover { background: #FFC61A; }
-  .composer { flex: none; background: var(--wx-bar); border-top: 1px solid #D4D4D4; padding: 6px 8px 6px; display: grid; gap: 6px; }
-  .chips { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; }
-  .chips button { flex: none; border: 1.5px solid #C9D7CE; background: #fff; border-radius: 14px; padding: 4px 10px; font-size: 15px; font-weight: 700; line-height: 1.2; text-align: left; max-width: 230px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .chips button small { display: block; font-size: 11.5px; font-weight: 500; color: #666; overflow: hidden; text-overflow: ellipsis; }
-  .chips button:hover { border-color: var(--wx-green); }
-  .chips .scamchip { border-color: #F3B4BF; background: #FFF7F8; }
-  .inputrow { display: flex; gap: 6px; }
-  .inputrow input { flex: 1; min-width: 0; font-size: 18px; padding: 9px 12px; border: 2px solid #CFCFCF; border-radius: 12px; font-family: inherit; background: #fff; }
-  .inputrow input:focus { outline: none; border-color: var(--wx-green); }
-  .send { flex: none; border: 0; border-radius: 12px; background: var(--wx-green); color: #fff; font-size: 20px; font-weight: 800; padding: 2px 14px; line-height: 1.05; }
-  .send small { display: block; font-size: 12px; font-weight: 700; }
-  .bubble.agent { background: #fff; border-left: 4px solid #6C5CE7; max-width: 86%; }
-  .bubble.agent .agtag { font-size: 12.5px; font-weight: 800; color: #4B3FB8; margin-bottom: 3px; }
-  .bubble.agent .yue { font-size: 20px; font-weight: 600; line-height: 1.4; }
-  .bubble.agent .en { font-size: 15px; }
-  .bubble .paused { margin-top: 6px; font-size: 14px; font-weight: 800; color: var(--review); }
-  .avatar.agent { background: #6C5CE7; font-size: 19px; }
-  .typing i { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #999; margin: 0 2px; animation: blink 1.2s infinite; }
-  .typing i:nth-child(2) { animation-delay: .2s; } .typing i:nth-child(3) { animation-delay: .4s; }
-  @keyframes blink { 0%,80%,100% { opacity: .2; } 40% { opacity: 1; } }
-  .etabs { position: sticky; top: 0; z-index: 2; display: flex; gap: 4px; padding: 6px 10px 0; background: #fff; border-bottom: 1px solid #EEE; }
-  .etabs button { border: 0; background: none; padding: 6px 10px 7px; font-size: 13px; font-weight: 800; color: #666; border-bottom: 3px solid transparent; }
-  .etabs button.on { color: #111; border-bottom-color: #6C5CE7; }
-  .etabs .new { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #6C5CE7; margin-left: 5px; vertical-align: middle; }
-  .agent-pane { padding: 10px 12px; font-size: 13px; }
-  .agcap { font-size: 12.5px; color: #3D3480; background: #F0EEFF; border-radius: 8px; padding: 6px 9px; font-weight: 600; }
-  .agreq { margin-top: 8px; font-size: 13.5px; }
-  .gbadge { margin-top: 8px; border-radius: 8px; padding: 7px 10px; font-size: 13.5px; font-weight: 700; border: 1.5px solid; }
-  .gbadge.ok { background: var(--ok-bg); color: var(--ok); border-color: var(--ok-line); }
-  .gbadge.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn-line); }
-  .gbadge.info { background: var(--info-bg); color: var(--info); border-color: var(--info-line); }
-  ol.steps { list-style: none; margin: 8px 0 0; padding: 0; counter-reset: st; }
-  ol.steps li { counter-increment: st; position: relative; padding: 6px 8px 6px 24px; border-left: 2px solid #D9D5FF; margin-left: 12px; }
-  ol.steps li::before { content: counter(st); position: absolute; left: -12px; top: 5px; width: 22px; height: 22px; border-radius: 50%; background: #6C5CE7; color: #fff; font-size: 12px; font-weight: 800; display: grid; place-items: center; }
-  ol.steps .stool { font-weight: 800; }
-  ol.steps .sargs { font-family: var(--mono); font-size: 11px; color: #777; }
-  ol.steps .snote { font-size: 12px; color: #555; margin-top: 2px; }
-  .schip { display: inline-block; font-size: 11.5px; font-weight: 800; border-radius: 4px; padding: 1px 7px; margin-left: 4px; }
-  .schip.ok { background: var(--ok-bg); color: var(--ok); } .schip.review { background: var(--review-bg); color: var(--review); }
-  .schip.block { background: var(--block-line); color: #fff; } .schip.info { background: #E6EEFF; color: #1F3F8A; } .schip.neutral { background: #ECEDEF; color: #444; }
-  #sonAgentBar .agentbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 10px; background: #F0EEFF; border-bottom: 1px solid #D9D5FF; font-size: 13.5px; font-weight: 800; color: #3D3480; }
-  #sonAgentBar .agentbar.paused { background: var(--review-bg); color: var(--review); border-bottom-color: #F0C8A8; }
-  #sonAgentBar button { border: 1.5px solid currentColor; background: #fff; color: inherit; border-radius: 8px; padding: 4px 9px; font-size: 13px; font-weight: 800; white-space: nowrap; }
-  .meth.mandate { background: #F0EEFF; color: #3D3480; white-space: normal; }
-  .toast { position: fixed; left: 50%; bottom: 164px; transform: translateX(-50%); background: #111; color: #fff; padding: 9px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; z-index: 100; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
-  .toast.bad { background: #A1001C; }
-  @keyframes pop { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-  .pop { animation: pop .25s ease-out both; }
+  .toast { position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%); background: var(--head); color: #fff; padding: 10px 18px; border-radius: 12px; font-size: 15px; font-weight: 600; z-index: var(--z-toast); box-shadow: 0 8px 20px -8px oklch(0.1 0.02 255 / .5); }
+  .toast.bad { background: var(--block); }
 </style>
 </head>
 <body>
@@ -399,39 +469,47 @@
     <div class="brand">
       <div class="logo" aria-hidden="true">🛡️</div>
       <div>
-        <h1>DialectGuard <span style="opacity:.5;font-weight:400">—</span> <span style="font-weight:500;opacity:.9">An AI that pays Grandma's bills in her own dialect, and can't be talked into paying a scammer</span></h1>
-        <p>Live demo · Ah Por's chat · DialectGuard engine + bank sandbox · Ah Ming's chat · every panel reads the real API</p>
+        <h1>DialectGuard</h1>
+        <p>One AI acts, a second AI checks, fixed rules decide, and family approves.</p>
       </div>
     </div>
-    <div class="top-right">
-      <span id="modeBadge" class="pill dark">Approvals: …</span>
-      <span id="connBadge" class="pill dark"><span class="dot"></span> Connecting…</span>
-      <button id="morningBtn" class="btn-morning" data-act="morning" title="POST /agent/morning_check: the assistant checks bills and pays those inside family-signed limits">☀️ Run morning check</button>
-      <button id="resetBtn" class="btn-reset" data-act="reset">↺ Reset demo</button>
+    <div class="top-actions">
+      <span id="offBadge" class="badge-off" hidden>⚠️ Server unreachable, retrying</span>
+      <span id="modeBadge" class="badge-mode">Approvals</span>
+      <button id="morningBtn" class="hbtn sun" data-act="morning" title="The assistant checks the bills and pays those inside family-signed limits">☀️ Run morning check</button>
+      <button id="resetBtn" class="hbtn ghost" data-act="reset">↺ Reset demo</button>
     </div>
   </header>
 
   <main class="grid">
-    <!-- Ah Por -->
+    <!-- Ah Por's app -->
     <section class="col">
-      <div class="col-label">👵 Ah Por's phone (Mdm Tan, 72)</div>
-      <div class="phone"><div class="screen" id="porScreen">
+      <div class="col-label"><b>Ah Por's app</b> · Mdm Tan, 72 · Cantonese</div>
+      <div class="phone"><div class="screen">
         <div class="statusbar"><span class="clock">--:--</span><span class="notch"></span><span>📶 🔋</span></div>
-        <div class="navbar"><div class="t">DialectGuard 理財助手 ✓<small>Finance helper · 粵語 Cantonese</small></div></div>
-        <div class="chat thin" id="porChat"></div>
+        <div class="appbar">
+          <div class="mark" style="background:var(--brand)">🛡️</div>
+          <div class="t">DialectGuard 理財助手<small>粵語 · Cantonese</small></div>
+          <button class="homebtn" data-act="go-home">🏠 Home</button>
+        </div>
+        <div class="por-scroll scroll" id="porScroll">
+          <div id="porHome"></div>
+          <div class="feed-h">動態 · Activity <small>newest at the bottom</small></div>
+          <div class="feed" id="porChat"></div>
+          <div id="porEmpty" class="feed-empty">Nothing yet today. Tap a button above, a bill, or talk to your assistant below.<br><span lang="zh-HK">撳上面嘅掣，或者同助手講。</span></div>
+        </div>
         <div class="composer">
-          <div class="chips thin">
+          <div class="comp-h"><span>🎤 同助手講 · Talk to your assistant</span><button class="ideas" id="ideasBtn" data-act="chips-toggle" aria-expanded="false" title="Show things you can say">💡 Ideas</button></div>
+          <div class="chips" id="porChips">
             <button data-act="chip" data-text="我啲單交咗未？">我啲單交咗未？<small>Are my bills paid?</small></button>
             <button data-act="chip" data-text="今日可以使幾多？">今日可以使幾多？<small>How much can I spend today?</small></button>
             <button data-act="chip" data-text="幫我交電費">幫我交電費<small>Pay my electricity bill</small></button>
             <button class="scamchip" data-act="chip" data-text="Inspector Lim from Bukit Aman called. He said my IC was used for money laundering and I must transfer RM 300 to Lim Holdings 5521 today to protect my savings, and not tell my family. Please send it.">Inspector Lim叫我轉RM300去Lim Holdings…<small>"Inspector Lim" told me to transfer RM 300</small></button>
           </div>
-          <div class="inputrow"><input id="porInput" placeholder="同助手講… Talk to your assistant" autocomplete="off" maxlength="2000" /><button id="porSend" class="send" data-act="agent-send">➤<small>Send</small></button></div>
-        </div>
-        <div class="menu">
-          <button data-act="open-snap">📷 Snap bill<small>影張單</small></button>
-          <button data-act="budget">💰 Today's budget<small>今日預算</small></button>
-          <button data-act="report-por">📊 Weekly report<small>每週報告</small></button>
+          <div class="inputrow">
+            <input id="porInput" placeholder="打字或者講嘢 · Type or speak" autocomplete="off" maxlength="2000" aria-label="Talk to your assistant" />
+            <button id="porSend" class="send" data-act="agent-send">Send<br>傳送</button>
+          </div>
         </div>
         <div class="homebar"><i></i></div>
         <div id="porSheet"></div>
@@ -441,43 +519,56 @@
     <!-- middle -->
     <section class="mid">
       <div class="panel engine">
-        <div class="panel-head"><h2>DialectGuard Engine</h2><span class="tag">ours</span>
-          <span class="cap">Fixed rules + risk score decide · AI only adds risk, never approves · UI shows the server's decision record</span></div>
-        <div class="panel-body thin" id="engine"></div>
+        <div class="ph">
+          <div><h2>DialectGuard engine <span class="tag">ours</span></h2><p>Fixed rules decide. The AI can raise a flag, never approve.</p></div>
+          <div class="tabs" id="engTabs"></div>
+        </div>
+        <div class="pb scroll" id="engine"></div>
       </div>
       <div class="panel bank">
-        <div class="panel-head"><h2>Ah Por's Bank</h2><span class="tag">API sandbox</span>
-          <span class="cap">Simulated Open Banking ledger · the bank holds the money; DialectGuard only sends requests</span></div>
-        <div class="panel-body thin" id="bank"></div>
+        <div class="ph">
+          <div><h2>🏦 Partner bank <span class="tag">sandbox</span></h2><p>The bank holds the money. DialectGuard only sends requests.</p></div>
+        </div>
+        <div class="pb scroll" id="bank"></div>
       </div>
     </section>
 
-    <!-- Ah Ming -->
+    <!-- Ah Ming's app -->
     <section class="col">
-      <div class="col-label">👨 Ah Ming's phone (son, in Singapore)</div>
+      <div class="col-label"><b>Ah Ming's Family app</b> · son, in Singapore</div>
       <div class="phone"><div class="screen">
         <div class="statusbar"><span class="clock">--:--</span><span class="notch"></span><span>📶 🔋</span></div>
-        <div class="navbar"><div class="t">DialectGuard Family<small>Guardian for Mdm Tan (Mum)</small></div></div>
+        <div class="appbar">
+          <div class="mark" style="background:var(--family)">👨‍👩‍👦</div>
+          <div class="t">DialectGuard Family<small>For Mum · Mdm Tan</small></div>
+        </div>
         <div id="sonAgentBar"></div>
-        <div class="son-feed thin" id="sonFeed"></div>
-        <div class="son-menu" id="sonMenu"></div>
+        <div class="son-feed scroll" id="sonFeed"></div>
+        <div class="tabbar" id="sonMenu"></div>
         <div class="homebar"><i></i></div>
       </div></div>
     </section>
   </main>
+</div>
 
-  <section class="logs">
-    <div class="logs-head">
-      <span class="live"></span> LIVE AUDIT LOG · GET /logs (append-only, polled every second)
-      <span id="logCount" style="color:#64748B;font-weight:500"></span>
-      <span class="sp">
-        <label><input type="checkbox" id="showAll" /> show rule checks</label>
-        <label><input type="checkbox" id="autoScroll" checked /> follow newest</label>
-        <a href="/logs" target="_blank" rel="noopener">⇩ JSON export</a>
-      </span>
-    </div>
-    <div class="loglist thin" id="logList"></div>
-  </section>
+<div class="drawer" id="logDrawer" aria-label="Audit log">
+  <div class="logs-head">
+    <span>Audit log from GET /logs · append-only (the database refuses edits and deletes)</span>
+    <span id="logCount"></span>
+    <span class="sp">
+      <label><input type="checkbox" id="showAll" /> show rule checks</label>
+      <label><input type="checkbox" id="autoScroll" checked /> follow newest</label>
+      <button class="lbtn" data-act="double-tap-selected" title="Sends two confirm taps for the same payment at the same moment">🧪 Double-tap test</button>
+      <a href="/logs" target="_blank" rel="noopener">⇩ JSON export</a>
+    </span>
+  </div>
+  <div class="loglist scroll" id="logList"></div>
+</div>
+<div class="logstrip" id="logStrip">
+  <span>📜 <b>Audit log</b> (append-only)</span>
+  <span id="logStripCount">0 events</span>
+  <span class="latest" id="logStripLatest"></span>
+  <button data-act="log-toggle" id="logToggle" aria-expanded="false">Expand ▴</button>
 </div>
 <div id="toast"></div>
 
@@ -494,7 +585,7 @@ const esc = (v) => String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&':
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 function rm(minor) {
-  if (minor == null || isNaN(minor)) return 'RM —';
+  if (minor == null || isNaN(minor)) return 'RM –';
   const n = Math.round(Number(minor));
   const sign = n < 0 ? '−' : '';
   const a = Math.abs(n);
@@ -514,7 +605,7 @@ function parseRmToSen(text) {
   if (!m) return { ok: false };
   return { ok: true, value: parseInt(m[1], 10) * 100 + parseInt((m[2] || '0').padEnd(2, '0'), 10) };
 }
-const shortId = (id) => (id ? String(id).slice(0, 8) : '—');
+const shortId = (id) => (id ? String(id).slice(0, 8) : '–');
 function clockOf(iso, ms) {
   if (!iso) return '';
   const d = new Date(iso);
@@ -522,10 +613,20 @@ function clockOf(iso, ms) {
   const t = d.toLocaleTimeString('en-GB', { hour12: false });
   return ms ? `${t}.${String(d.getMilliseconds()).padStart(3, '0')}` : t;
 }
+function hhmm(iso) {
+  const d = new Date(iso);
+  return isNaN(d) ? '' : d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
 function countdown(iso) {
   if (!iso) return '';
   const left = Math.max(0, Math.floor((new Date(iso) - Date.now()) / 1000));
   return `${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+}
+function payeeIcon(name) {
+  if (/tenaga|tnb/i.test(name || '')) return '💡';
+  if (/air selangor|water/i.test(name || '')) return '💧';
+  if (/klinik|clinic/i.test(name || '')) return '💊';
+  return '🧾';
 }
 
 /* fetch wrapper: never throws; errors become {ok:false, data:{error, message}} */
@@ -575,7 +676,7 @@ function speak(text) {
   if (!window.speechSynthesis || !text) return;
   loadVoices();
   const v = pickVoice();
-  if (!v) { toast('No Cantonese/Chinese voice on this computer. The text stays on screen.'); return; }
+  if (!v) { toast('No Cantonese voice on this computer. The text stays on screen.'); return; }
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
@@ -593,29 +694,29 @@ const RULE_LABELS = {
   BLOCK_OVER_HARD_CAP: 'Over RM 500 hard cap',
   PAYEE_UNKNOWN: 'Payee not recognised',
   OVER_LIMIT: 'Over payee auto-pay limit',
-  AMOUNT_HIGH: '> 1.2× her usual bill',
+  AMOUNT_HIGH: 'More than 1.2× her usual bill',
   COMMUNITY_REPORTED: 'Reported by other families',
   RAPID_TRANSFERS: 'Many transfers today',
   AI_SCAM_SUSPECTED: 'AI spotted scam tactics',
 };
 const SON_REASONS = {
-  PAYEE_UNKNOWN: 'New payee — not on her recognised list',
+  PAYEE_UNKNOWN: 'New payee, not on her recognised list',
   OVER_LIMIT: "Above this payee's auto-pay limit",
   AMOUNT_HIGH: 'Much higher than her usual bill',
   COMMUNITY_REPORTED: 'Reported as a scam by other DialectGuard families',
   RAPID_TRANSFERS: 'She has made several transfers today',
-  AI_SCAM_SUSPECTED: 'AI spotted scam tactics in the message',
+  AI_SCAM_SUSPECTED: 'The AI check spotted scam tactics',
   BLOCK_SCAM_KEYWORD: 'Scam phrases in the message (e.g. "safe account", "unfreeze")',
   BLOCK_BLACKLISTED_PAYEE: 'Payee is on the scam blacklist',
   BLOCK_COMMUNITY_REPORTED: 'Payee was reported as a scam by many families',
   BLOCK_OVER_HARD_CAP: 'Amount is over the RM 500 hard cap',
 };
 const OUTCOME_UI = {
-  APPROVE: { cls: 'ok', icon: '✅', word: 'APPROVE', why: 'Recognised payee, normal amount — she can confirm herself', por: 'Safe to pay', porZh: '可以交' },
-  WARN: { cls: 'warn', icon: '⚠️', word: 'WARN', why: 'She may pay only after an explicit "pay anyway" acknowledgement', por: 'Please be careful', porZh: '小心啲' },
-  REVIEW: { cls: 'review', icon: '📞', word: 'REVIEW', why: "Needs Ah Ming's approval before any money moves", por: 'Ask your child first', porZh: '要問仔女' },
-  BLOCK: { cls: 'block', icon: '🛑', word: 'BLOCK', why: 'Blocking rule matched — nobody can approve this, not even her son', por: 'Stopped — do not pay', porZh: '已經停咗，唔好俾錢' },
-  DATA_INSUFFICIENT: { cls: 'info', icon: '❓', word: 'ASK AGAIN', why: 'Required details missing — nothing was created', por: 'I need more details', porZh: '資料唔夠' },
+  APPROVE: { cls: 'ok', icon: '✅', word: 'APPROVE', por: 'Safe to pay', porZh: '可以交', title: 'Safe to pay' },
+  WARN: { cls: 'warn', icon: '⚠️', word: 'WARN', por: 'Please be careful', porZh: '小心啲', title: 'Pay with care' },
+  REVIEW: { cls: 'review', icon: '📞', word: 'REVIEW', por: 'Ask your child first', porZh: '要問仔女', title: 'Needs Ah Ming' },
+  BLOCK: { cls: 'block', icon: '🛑', word: 'BLOCK', por: 'Stopped. Do not pay', porZh: '已經停咗，唔好俾錢', title: 'Blocked' },
+  DATA_INSUFFICIENT: { cls: 'info', icon: '❓', word: 'ASK AGAIN', por: 'I need more details', porZh: '資料唔夠', title: 'Details missing' },
 };
 const outcomeOf = (resp, tx) => (resp && resp.outcome) || (tx && tx.decision_record && tx.decision_record.outcome) ||
   (tx && tx.status === 'BLOCKED' ? 'BLOCK' : tx && tx.outcome_band) || 'DATA_INSUFFICIENT';
@@ -631,23 +732,20 @@ const S = {
   logs: [],             // last GET /logs .logs
   logSig: '',
   online: null,
-  chat: [],             // Ah Por's chat items
+  chat: [],             // Ah Por's activity feed items
   txCache: {},          // tx_id -> /analyze response (has shadow_model / ai_assessment)
   selected: null,       // tx_id or "item:<id>"
   sheet: null,          // null | 'presets' | 'form'
   form: { kind: 'BILL', payee: '', amount: '', text: '', err: '' },
   presets: null, presetsErr: null,
+  budget: null, budgetErr: null,
   son: { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, seenAwaiting: {} },
   agentHistory: [], agentBusy: false, agentLast: null, agentSeen: true, engineTab: 'decision', pauseBusy: false,
+  techOpen: false, logOpen: false, chipsOpen: false,
   lastBalance: null, balanceDelta: null,
 };
 let seq = 0;
 const nid = () => ++seq;
-
-function welcome() {
-  S.chat = [{ id: nid(), type: 'bot', zh: '早晨婆婆！我係你嘅理財助手 🛡️ 按下面嘅掣就得，唔使打字。', en: "Good morning, Grandma! I'm your finance helper. Just tap a button below — no typing needed." }];
-}
-welcome();
 
 function stateTx(txId) {
   return S.state && S.state.transactions ? S.state.transactions.find((t) => t.tx_id === txId) : null;
@@ -657,7 +755,47 @@ function paymentFor(txId) {
 }
 function addChat(item) { S.chat.push({ id: nid(), ...item }); render(); }
 
-/* ---------- Ah Por: rendering ---------- */
+/* ---------- Ah Por: home screen ---------- */
+function renderHome() {
+  const b = S.budget;
+  let h = `<div class="hello"><div class="hi" lang="zh-HK">${greetingZh()}，阿婆</div><div class="hi-en">${greetingEn()}, Mdm Tan</div></div>`;
+  if (b && b.status === 'BUDGET_GAP') {
+    h += `<div class="spend gap"><div class="l">⚠️ 預算有缺口 · Budget gap</div><div class="n">${rm(b.fixed_cost_gap_minor)}</div>
+      <button class="say" data-act="speak-budget" title="Read aloud">🔊<small>Read</small></button><div class="s">${esc(b.message || '')}</div></div>`;
+  } else {
+    h += `<div class="spend ${b ? '' : 'loading'}"><div class="l">今日可以使 · You can spend today</div>
+      <div class="n">${b ? rm(b.daily_limit_minor) : 'RM …'}</div>
+      <button class="say" data-act="speak-budget" title="Read aloud">🔊<small>Read</small></button>
+      <div class="s">${S.budgetErr ? `⚠️ ${esc(S.budgetErr)}` : b && b.days_left_in_month != null ? `${esc(b.days_left_in_month)} days left this month · 呢個月仲有 ${esc(b.days_left_in_month)} 日` : 'Loading…'}</div></div>`;
+  }
+  const bills = (S.state && S.state.bills_inbox) || [];
+  const unpaid = bills.filter((x) => x.status !== 'paid').length;
+  h += `<div class="sec-h"><span>待交嘅單 · Bills waiting</span><small>${bills.length ? `${unpaid} unpaid` : ''}</small></div>`;
+  if (!bills.length) h += `<div class="feed-empty">No bills waiting. 冇單要交。</div>`;
+  else {
+    h += `<ul class="bills">`;
+    bills.forEach((x) => {
+      const paid = x.status === 'paid';
+      h += `<li><span class="ic">${payeeIcon(x.payee_name)}</span><div><div class="nm">${esc(x.payee_name)}</div><div class="dd">Due ${esc(x.due_date || '–')}</div></div>
+        <div class="rt"><div class="am">${rm(x.amount_minor)}</div>${paid ? '<span class="pill paid">✅ 已交 Paid</span>' : `<span class="pill unpaid">⏳ 未交 Unpaid</span><br><button class="paybtn" data-act="pay-bill" data-id="${esc(x.bill_id)}">Pay 交</button>`}</div></li>`;
+    });
+    h += `</ul>`;
+  }
+  h += `<div class="tiles">
+    <button class="tile" data-act="open-snap"><span class="i">📷</span>Snap bill<small>影張單</small></button>
+    <button class="tile" data-act="budget"><span class="i">💰</span>Today's budget<small>今日預算</small></button>
+    <button class="tile" data-act="report-por"><span class="i">📊</span>Weekly report<small>每週報告</small></button></div>`;
+  return h;
+}
+function greetingZh() { const hr = new Date().getHours(); return hr < 12 ? '早晨' : hr < 18 ? '午安' : '晚安'; }
+function greetingEn() { const hr = new Date().getHours(); return hr < 12 ? 'Good morning' : hr < 18 ? 'Good afternoon' : 'Good evening'; }
+async function refreshBudget() {
+  const res = await api('GET', '/budget');
+  if (res.ok) { S.budget = res.data; S.budgetErr = null; } else S.budgetErr = res.data.message;
+  render();
+}
+
+/* ---------- Ah Por: feed rendering ---------- */
 function speakTextForTx(item) {
   const r = item.resp, tx = currentTx(item);
   const parts = [];
@@ -683,10 +821,10 @@ function renderTxCard(item) {
   let h = `<div class="card pop ${sel}" data-select="${esc(r.tx_id || `item:${item.id}`)}">`;
   h += `<div class="band ${ui.cls}"><span>${ui.icon} ${esc(ui.por)}</span><span class="zh" lang="zh-HK">${esc(ui.porZh)}</span></div>`;
   h += `<div class="body">`;
-  const speakBtn = `<button class="speak round" data-act="speak" data-item="${item.id}" title="Read aloud in Cantonese">🔊<small>Read aloud</small></button>`;
+  const speakBtn = `<button class="say" data-act="speak" data-item="${item.id}" title="Read aloud in Cantonese">🔊<small>Read</small></button>`;
   if (tx) {
     const due = item.dueDate ? ` · due ${esc(item.dueDate)}` : '';
-    h += `<div class="amtrow"><div style="min-width:0"><div class="payee">${esc(tx.payee_name || '—')}</div><div class="amount">${rm(tx.amount_minor)}</div>
+    h += `<div class="amtrow"><div style="min-width:0"><div class="payee">${esc(tx.payee_name || '–')}</div><div class="amount">${rm(tx.amount_minor)}</div>
       <div class="meta">${item.kind ? esc(item.kind === 'TRANSFER' ? 'Transfer request' : 'Bill') : 'From your assistant'}${due}</div></div>${speakBtn}</div>`;
   } else {
     h += `<div class="amtrow"><div class="meta">${r.missing_fields ? `Missing: ${esc(r.missing_fields.join(', '))}` : ''}</div>${speakBtn}</div>`;
@@ -708,12 +846,11 @@ function renderTxCard(item) {
   } else if (status === 'DONE') {
     const p = paymentFor(r.tx_id);
     if (r.paid_by_agent || (p && p.method === 'mandate')) {
-      h += `<div class="status ok">✅ Paid by your assistant — within the limit your family signed<small lang="zh-HK">助手已經幫你交咗 ${rm(tx.amount_minor)}（喺屋企人簽咗嘅上限之內）${p ? ' · ' + esc(clockOf(p.executed_at)) : ''}</small></div>`;
-      if (L.notes && L.notes.length) h += `<div class="note">${L.notes.map(esc).join('<br>')}</div>`;
-      return h + `</div>`;
+      h += `<div class="status ok">✅ Paid by your assistant, within the limit your family signed<small lang="zh-HK">助手已經幫你交咗 ${rm(tx.amount_minor)}（喺屋企人簽咗嘅上限之內）${p ? ' · ' + esc(clockOf(p.executed_at)) : ''}</small></div>`;
+    } else {
+      const how = p && p.method === 'guardian' ? 'Approved by Ah Ming' : p && p.method === 'voice' ? 'You confirmed by voice' : 'You confirmed';
+      h += `<div class="status ok">✅ Paid ${rm(tx.amount_minor)}<small lang="zh-HK">已經交咗 · ${esc(how)}${p ? ' · ' + esc(clockOf(p.executed_at)) : ''}</small></div>`;
     }
-    const how = p && p.method === 'guardian' ? 'Approved by Ah Ming' : p && p.method === 'voice' ? 'You confirmed by voice' : 'You confirmed';
-    h += `<div class="status ok">✅ Paid ${rm(tx.amount_minor)}<small lang="zh-HK">已經交咗 · ${esc(how)}${p ? ' · ' + esc(clockOf(p.executed_at)) : ''}</small></div>`;
   } else if (status === 'AWAITING_GUARDIAN') {
     h += `<div class="status wait">📞 Asked Ah Ming. Waiting for his answer…<small lang="zh-HK">已經問緊阿明，等佢覆 · expires in ${esc(countdown(tx.expires_at))}</small></div>`;
   } else if (status === 'CANCELLED') {
@@ -754,12 +891,10 @@ function renderTxCard(item) {
     }
     h += `</div>`;
     if (acts.includes('confirm') && r.tx_id) {
-      h += `<div class="voicebox"><div class="lbl" title="Speech recognition is not wired in yet; these send the matched keyword to POST /voice">🎤 SIMULATED VOICE → POST /voice</div><div class="vrow">`;
+      h += `<div class="voicebox" title="Speech recognition is not wired in yet; these send the matched keyword to POST /voice"><span>🎤 Say it (simulated):</span>`;
       h += `<button data-act="voice" data-kw="confirm" data-item="${item.id}">「確認」<small>confirm</small></button>`;
       h += `<button data-act="voice" data-kw="cancel" data-item="${item.id}">「取消」<small>cancel</small></button>`;
-      h += `<button data-act="voice" data-kw="" data-item="${item.id}">unclear<small>no keyword</small></button>`;
-      h += `</div></div>`;
-      h += `<div class="proof"><button data-act="double-tap" data-item="${item.id}">🧪 Proof: send two confirm taps at once</button></div>`;
+      h += `<button data-act="voice" data-kw="" data-item="${item.id}">mumble<small>unclear</small></button></div>`;
     }
   }
   if (L.notes && L.notes.length) h += `<div class="note">${L.notes.map(esc).join('<br>')}</div>`;
@@ -772,17 +907,16 @@ function renderBudget(item) {
   if (item.err) return `<div class="card pop"><div class="band info">💰 Today's budget</div><div class="err" style="margin-top:12px">⚠️ ${esc(item.err)}</div></div>`;
   const b = item.data;
   const gap = b.status === 'BUDGET_GAP';
-  let h = `<div class="card pop"><div class="band ${gap ? 'block' : 'ok'}">💰 Today's budget <span class="zh">· 今日預算</span></div><div class="body">`;
+  let h = `<div class="card pop"><div class="band ${gap ? 'block' : 'ok'}"><span>💰 Today's budget</span><span class="zh">今日預算</span></div><div class="body">`;
   if (gap) {
     h += `<div class="payee">⚠️ Budget gap · 預算有缺口</div>`;
     if (b.fixed_cost_gap_minor) h += `<div class="amount">${rm(b.fixed_cost_gap_minor)}</div><div class="meta">short this month</div>`;
   } else {
     h += `<div class="msg-zh" lang="zh-HK" style="margin-top:0">今日可以使</div>`;
-    h += `<div class="bignum">${rm(b.daily_limit_minor)}</div><div class="bignum-sub">today · 今日</div>`;
+    h += `<div class="bignum">${rm(b.daily_limit_minor)}</div><div class="meta">today · 今日</div>`;
   }
   h += `<div class="msg-en">${esc(b.message)}</div>`;
-  if (b.days_left_in_month != null) h += `<div class="meta">${esc(b.days_left_in_month)} days left this month · 呢個月仲有 ${esc(b.days_left_in_month)} 日</div>`;
-  h += `<button class="speak" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div><div style="height:12px"></div></div>`;
+  h += `<button class="say-line" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div><div style="height:12px"></div></div>`;
   return h;
 }
 function budgetSpeech(b) {
@@ -794,7 +928,7 @@ function renderReportPor(item) {
   if (item.err) return `<div class="card pop"><div class="band info">📊 Weekly report</div><div class="err" style="margin-top:12px">⚠️ ${esc(item.err)}</div></div>`;
   const r = item.data;
   const cats = r.categories || [];
-  let h = `<div class="card pop"><div class="band ok">📊 This week <span class="zh">· 今個星期</span></div><div class="body">`;
+  let h = `<div class="card pop"><div class="band ok"><span>📊 This week</span><span class="zh">今個星期</span></div><div class="body">`;
   h += `<div class="msg-zh" lang="zh-HK" style="margin-top:0">今個星期用咗</div><div class="bignum">${rm(r.total_spent_minor)}</div>`;
   h += `<div class="msg-en">${esc(r.summary_message)}</div>`;
   if (cats.length) {
@@ -805,7 +939,7 @@ function renderReportPor(item) {
   const nw = r.next_week_limit;
   if (nw && nw.daily_limit_minor != null) h += `<div class="note" style="margin:10px 0 0">Next week: <b>${rm(nw.daily_limit_minor)}</b> per day · 下星期每日 ${rm(nw.daily_limit_minor)}</div>`;
   if (r.data_notice) h += `<div class="meta" style="margin-top:6px">ⓘ ${esc(r.data_notice)}</div>`;
-  h += `<button class="speak" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div><div style="height:12px"></div></div>`;
+  h += `<button class="say-line" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div><div style="height:12px"></div></div>`;
   return h;
 }
 function reportSpeech(r) {
@@ -816,7 +950,7 @@ function reportSpeech(r) {
 
 function renderOfficials(item) {
   if (item.err) return `<div class="card pop"><div class="band info">🏦 Check officially</div><div class="err" style="margin-top:12px">⚠️ ${esc(item.err)}</div></div>`;
-  let h = `<div class="card pop"><div class="band info">🏦 Check officially <span class="zh">· 官方查證</span></div><div class="body">`;
+  let h = `<div class="card pop"><div class="band info"><span>🏦 Check officially</span><span class="zh">官方查證</span></div><div class="body">`;
   h += `<div class="msg-en" style="margin-top:0">Call only numbers the institutions publish themselves. Never call a number from the message.</div>`;
   h += `<div class="msg-zh" lang="zh-HK" style="font-size:18px">只打官方公佈嘅電話，唔好打訊息入面嘅號碼。</div>`;
   const cautions = new Set();
@@ -834,40 +968,39 @@ function renderOfficials(item) {
 }
 
 function renderBillPic(item) {
-  return `<div class="billpic"><div class="paper"><div><b>🧾 ${esc(item.payee)}</b></div>
+  return `<div class="billpic pop"><div><b>📷 ${esc(item.payee)}</b></div>
     ${item.due ? `<div>Due ${esc(item.due)}</div>` : ''}
     <div class="amt"><span>TOTAL</span><span>${rm(item.amount)}</span></div>
-    <div class="cap">${esc(item.text)}</div></div></div>`;
+    <div class="cap">${esc(item.text)}</div></div>`;
 }
 
 function renderAgentBubble(item) {
   const d = item.resp || {};
-  return `<div class="row pop"><div class="avatar agent">🤖</div><div class="bubble agent">
-    <div class="agtag">🤖 Your assistant${item.source === 'morning' ? ' · ☀️ morning check' : ''}</div>
+  return `<div class="msg agent pop"><div class="who">🤖 Your assistant${item.source === 'morning' ? ' · ☀️ morning check' : ''}</div><div class="bubble">
     <span class="yue" lang="zh-HK">${esc(d.reply_yue)}</span>${d.reply_en ? `<span class="en">${esc(d.reply_en)}</span>` : ''}
     ${d.paused ? '<div class="paused">⏸ Paused by Ah Ming</div>' : ''}
-    <div><button class="speak" style="margin-top:8px;font-size:15px;padding:4px 12px" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div></div></div>`;
+    <button class="say-line" style="font-size:15px;padding:4px 12px;margin-top:8px" data-act="speak" data-item="${item.id}">🔊 Read aloud · 讀出嚟</button></div></div>`;
 }
 function renderChatItem(item) {
   switch (item.type) {
     case 'agent': return renderAgentBubble(item);
-    case 'typing': return `<div class="row"><div class="avatar agent">🤖</div><div class="bubble typing" style="color:#666;font-size:16px">${esc(item.text || '助手諗緊… thinking')} <i></i><i></i><i></i></div></div>`;
+    case 'typing': return `<div class="msg agent"><div class="who">🤖 Your assistant</div><div class="bubble typing" style="color:var(--ink-2);font-size:17px">${esc(item.text || '助手諗緊… thinking')} <i></i><i></i><i></i></div></div>`;
     case 'bot':
-      return `<div class="row pop"><div class="avatar bot">🛡️</div><div class="bubble"><span lang="zh-HK">${esc(item.zh)}</span>${item.en ? `<span class="en">${esc(item.en)}</span>` : ''}</div></div>`;
+      return `<div class="msg bot pop"><div class="who">🛡️ DialectGuard</div><div class="bubble"><span lang="zh-HK">${esc(item.zh)}</span>${item.en ? `<span class="en">${esc(item.en)}</span>` : ''}</div></div>`;
     case 'out-text':
-      return `<div class="row out pop"><div class="avatar por">婆</div><div class="bubble"><span lang="zh-HK">${esc(item.zh)}</span>${item.en ? `<span class="en">${esc(item.en)}</span>` : ''}</div></div>`;
+      return `<div class="msg me pop"><div class="bubble"><span lang="zh-HK">${esc(item.zh)}</span>${item.en ? `<span class="en">${esc(item.en)}</span>` : ''}</div></div>`;
     case 'out-bill':
-      return `<div class="row out pop"><div class="avatar por">婆</div>${renderBillPic(item)}</div>`;
+      return renderBillPic(item);
     case 'out-fwd':
-      return `<div class="row out pop"><div class="avatar por">婆</div><div class="fwd"><div class="h">↪ Forwarded message · 轉發</div>${esc(item.text || '(no text)')}
-        <div class="to">Pay to <b>${esc(item.payee || '—')}</b> · <b class="mono">${item.amount != null ? rm(item.amount) : 'RM —'}</b></div></div></div>`;
+      return `<div class="fwd pop"><div class="h">↪ Forwarded message · 轉發</div>${esc(item.text || '(no text)')}
+        <div class="to">Pay to <b>${esc(item.payee || '–')}</b> · <b>${item.amount != null ? rm(item.amount) : 'RM –'}</b></div></div>`;
     case 'sys':
-      return `<div class="sys">${esc(item.text)}</div>`;
-    case 'tx': return `<div class="row"><div class="avatar bot">🛡️</div><div style="flex:1;min-width:0">${renderTxCard(item)}</div></div>`;
-    case 'budget': return `<div class="row"><div class="avatar bot">🛡️</div><div style="flex:1;min-width:0">${renderBudget(item)}</div></div>`;
-    case 'report': return `<div class="row"><div class="avatar bot">🛡️</div><div style="flex:1;min-width:0">${renderReportPor(item)}</div></div>`;
-    case 'officials': return `<div class="row"><div class="avatar bot">🛡️</div><div style="flex:1;min-width:0">${renderOfficials(item)}</div></div>`;
-    case 'pending': return `<div class="row"><div class="avatar bot">🛡️</div><div class="bubble" style="color:#888">… ${esc(item.text || 'Checking')}</div></div>`;
+      return `<div class="sys pop">${esc(item.text)}</div>`;
+    case 'tx': return renderTxCard(item);
+    case 'budget': return renderBudget(item);
+    case 'report': return renderReportPor(item);
+    case 'officials': return renderOfficials(item);
+    case 'pending': return `<div class="msg bot"><div class="who">🛡️ DialectGuard</div><div class="bubble" style="color:var(--ink-2)">… ${esc(item.text || 'Checking')}</div></div>`;
     default: return '';
   }
 }
@@ -876,7 +1009,7 @@ function renderChatItem(item) {
 const chatNodes = new Map();
 function renderChat() {
   const box = $('#porChat');
-  const nearBottom = box.scrollHeight - box.scrollTop - box.clientHeight < 80;
+  const sc = $('#porScroll');
   let appended = false, cardEl = null;
   const live = new Set();
   S.chat.forEach((item) => {
@@ -885,51 +1018,46 @@ function renderChat() {
     let rec = chatNodes.get(item.id);
     if (!rec) {
       const el = document.createElement('div');
+      el.style.display = 'contents';
       el.innerHTML = html;
       box.appendChild(el);
       chatNodes.set(item.id, { el, html });
       appended = true;
-      if (!cardEl && ['tx', 'budget', 'report', 'officials', 'agent'].includes(item.type)) cardEl = el;
+      if (!cardEl && ['tx', 'budget', 'report', 'officials', 'agent'].includes(item.type)) cardEl = el.firstElementChild;
     } else if (rec.html !== html) {
       rec.el.innerHTML = html.replace(' pop', '');
       rec.html = html;
     }
   });
   for (const [id, rec] of chatNodes) { if (!live.has(id)) { rec.el.remove(); chatNodes.delete(id); } }
+  $('#porEmpty').hidden = S.chat.length > 0;
   if (cardEl) {
     // a new card: show its top (payee + amount) first; if it fits, this also shows its buttons
-    const top = cardEl.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop - 8;
-    box.scrollTop = Math.min(top, box.scrollHeight);
-  } else if (appended || nearBottom) box.scrollTop = box.scrollHeight;
+    const top = cardEl.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop - 10;
+    sc.scrollTop = Math.min(top, sc.scrollHeight);
+  } else if (appended) sc.scrollTop = sc.scrollHeight;
 }
 
 /* ---------- Ah Por: bottom sheet (preset bills + type it in) ---------- */
-function presetIcon(p) {
-  if (p.kind === 'TRANSFER') return '💬';
-  if (/tenaga|tnb/i.test(p.payee_name)) return '💡';
-  if (/air|water/i.test(p.payee_name)) return '💧';
-  if (/klinik|clinic/i.test(p.payee_name)) return '💊';
-  return '🧾';
-}
+function presetIcon(p) { return p.kind === 'TRANSFER' ? '💬' : payeeIcon(p.payee_name); }
 function renderSheet() {
   const host = $('#porSheet');
   if (!S.sheet) { host.innerHTML = ''; return; }
-  let h = `<div class="sheet-wrap" data-act="close-sheet-bg"><div class="sheet thin">`;
+  let h = `<div class="sheet-wrap" data-act="close-sheet-bg"><div class="sheet scroll">`;
   h += `<button class="sheet-close" data-act="close-sheet">✕ Close</button>`;
   if (S.sheet === 'presets') {
-    h += `<h3>📷 Snap bill · 影張單</h3><div class="sub">Demo stand-ins for the camera (until OCR is wired in) — from GET /presets</div>`;
+    h += `<h3>📷 Snap bill · 影張單</h3><div class="sub">Demo bills stand in for the camera until OCR is wired in.</div>`;
     if (S.presetsErr) h += `<div class="err" style="margin:0 0 8px">⚠️ ${esc(S.presetsErr)}</div>`;
     if (!S.presets && !S.presetsErr) h += `<div class="sub">Loading…</div>`;
     (S.presets || []).forEach((p) => {
       h += `<button class="preset" data-act="preset" data-id="${esc(p.id)}"><span class="ic">${presetIcon(p)}</span><span style="min-width:0;flex:1">
         <span style="display:flex;justify-content:space-between;gap:6px"><span class="pn">${esc(p.payee_name)}</span><span class="pa">${rm(p.amount_minor)}</span></span>
-        <span class="px">${p.kind === 'TRANSFER' ? '↪ Forwarded: ' : '🧾 Bill: '}${esc(p.ocr_text)}</span>
-        <span class="pid">${esc(p.id)}</span></span></button>`;
+        <span class="px">${p.kind === 'TRANSFER' ? '↪ Forwarded: ' : '🧾 Bill: '}${esc(p.ocr_text)}</span></span></button>`;
     });
     h += `<button class="bigbtn ghost" style="width:100%;margin-top:4px" data-act="open-form">✏️ Type it in / forward a message<small>自己輸入 / 轉發訊息</small></button>`;
   } else {
     const f = S.form;
-    h += `<h3>✏️ Type it in · 自己輸入</h3><div class="sub">Sent to POST /analyze as typed fields. Leave a field empty to see "ask again".</div>`;
+    h += `<h3>✏️ Type it in · 自己輸入</h3><div class="sub">Leave a field empty to see the "ask again" answer.</div>`;
     h += `<div class="form"><label>Type</label><div class="seg">
       <button data-act="form-kind" data-kind="BILL" class="${f.kind === 'BILL' ? 'on' : ''}">🧾 Bill</button>
       <button data-act="form-kind" data-kind="TRANSFER" class="${f.kind === 'TRANSFER' ? 'on' : ''}">💸 Transfer</button></div>
@@ -970,7 +1098,7 @@ async function analyze(body, outgoing, meta) {
   const res = await api('POST', '/analyze', body);
   S.chat = S.chat.filter((i) => i.id !== pending.id);
   if (!res.ok) {
-    S.chat.push({ id: nid(), type: 'bot', zh: '出咗問題，請再試一次。', en: `Sorry — ${res.data.message}` });
+    S.chat.push({ id: nid(), type: 'bot', zh: '出咗問題，請再試一次。', en: `Sorry, ${res.data.message}` });
     render(); return;
   }
   const r = res.data;
@@ -991,8 +1119,8 @@ function applyTxResult(item, res, label) {
   if (!res.ok) { item.local.err = d.message || 'Something went wrong.'; return; }
   item.local.err = null;
   const tag = label ? `${label}: ` : '';
-  if (d.executed === true) item.local.notes.push(`${tag}✅ Paid ${rm(d.payment && d.payment.amount_minor)} to ${d.payment ? d.payment.payee_name : ''}.`);
-  else if (d.already_final) item.local.notes.push(`${tag}Already paid — not charged again (one charge only).`);
+  if (d.executed === true) { if (label) item.local.notes.push(`${tag}✅ Paid ${rm(d.payment && d.payment.amount_minor)} to ${d.payment ? d.payment.payee_name : ''}.`); }
+  else if (d.already_final) item.local.notes.push(`${tag}Already paid, not charged again (one charge only).`);
   else if (d.error === 'EXPIRED') item.local.notes.push(`${tag}⏱️ This request expired. No money was sent.`);
   else if (d.code === 'VOICE_UNRECOGNIZED') item.local.notes.push(`${tag}🎤 ${d.message || "I didn't catch that. Please tap a button."} · ${ZH.voiceUnclear}`);
 }
@@ -1020,7 +1148,16 @@ async function doubleTap(item) {
   item.local.notes.push('🧪 Two confirm taps sent at the same moment:');
   applyTxResult(item, a, 'Tap 1');
   applyTxResult(item, b, 'Tap 2');
+  toast(a.data.executed && b.data.executed ? 'Charged twice!' : 'Double-tap test: charged once');
   render(); pollState();
+}
+/* the double-tap proof lives in technical details / the audit log, not on Ah Por's card */
+function confirmableItem() {
+  const ok = (i) => i.type === 'tx' && i.resp && i.resp.tx_id && (i.resp.actions || []).includes('confirm') && (currentTx(i) || {}).status === 'PENDING';
+  const sel = S.chat.find((i) => ok(i) && i.resp.tx_id === S.selected);
+  if (sel) return sel;
+  for (let k = S.chat.length - 1; k >= 0; k--) if (ok(S.chat[k])) return S.chat[k];
+  return null;
 }
 
 async function doVoice(item, kw) {
@@ -1031,26 +1168,25 @@ async function doVoice(item, kw) {
   const res = await api('POST', '/voice', { tx_id: item.resp.tx_id, keyword: kw || null });
   const d = res.data || {};
   if (d.transaction) item.lastTx = d.transaction;
-  // reply in the chat (the card above also updates from /state)
+  // reply in the feed (the card above also updates from /state)
   if (!res.ok) S.chat.push({ id: nid(), type: 'bot', zh: '做唔到，請按掣。', en: d.message || 'That did not work. Please tap a button.' });
   else if (d.code === 'VOICE_UNRECOGNIZED') S.chat.push({ id: nid(), type: 'bot', zh: ZH.voiceUnclear, en: d.message || "I didn't catch that. Please tap a button." });
   else if (d.executed) S.chat.push({ id: nid(), type: 'bot', zh: `✅ 已經交咗 ${rm(d.payment && d.payment.amount_minor)}`, en: `Paid ${rm(d.payment && d.payment.amount_minor)} to ${d.payment ? d.payment.payee_name : ''}.` });
-  else if (d.already_final) S.chat.push({ id: nid(), type: 'bot', zh: '已經交咗，唔會再扣錢。', en: 'Already paid — not charged again.' });
+  else if (d.already_final) S.chat.push({ id: nid(), type: 'bot', zh: '已經交咗，唔會再扣錢。', en: 'Already paid, not charged again.' });
   else if (d.error === 'EXPIRED') S.chat.push({ id: nid(), type: 'bot', zh: ZH.expired, en: 'This request expired. No money was sent.' });
   else if (d.transaction && d.transaction.status === 'CANCELLED') S.chat.push({ id: nid(), type: 'bot', zh: '好，唔俾住，冇扣錢。', en: 'OK, cancelled. No money sent.' });
   render(); pollState();
 }
 
-async function showOfficials(afterItem) {
+async function showOfficials() {
   const res = await api('GET', '/officials');
-  const item = res.ok ? { type: 'officials', data: (res.data || []) } : { type: 'officials', err: res.data.message };
-  addChat(item);
+  addChat(res.ok ? { type: 'officials', data: (res.data || []) } : { type: 'officials', err: res.data.message });
 }
-
 async function showBudget() {
   S.chat.push({ id: nid(), type: 'out-text', zh: '今日可以使幾多錢？', en: 'How much can I spend today?' });
   render();
   const res = await api('GET', '/budget');
+  if (res.ok) S.budget = res.data;
   addChat(res.ok ? { type: 'budget', data: res.data } : { type: 'budget', err: res.data.message });
 }
 async function showReportPor() {
@@ -1076,100 +1212,139 @@ function engineData() {
   if (!resp && !tx) return null;
   return { resp, tx };
 }
+function renderEngTabs() {
+  const dot = S.agentLast && !S.agentSeen && S.engineTab !== 'agent' ? '<span class="dot"></span>' : '';
+  return `<button class="${S.engineTab === 'decision' ? 'on' : ''}" data-act="engine-tab" data-tab="decision">This payment</button>
+    <button class="${S.engineTab === 'agent' ? 'on' : ''}" data-act="engine-tab" data-tab="agent">🤖 Assistant${dot}</button>`;
+}
+function renderEngine() { return S.engineTab === 'agent' ? renderAgentPane() : renderDecision(); }
+
+/* plain-words checklist derived from the server's decision record (never recomputed) */
+function plainChecks(resp, tx, dr, ai) {
+  const trace = dr.rule_trace || [];
+  const firedIds = new Set((dr.rules_fired || []).map((r) => r.rule_id));
+  const ran = (id) => trace.some((r) => r.rule_id === id);
+  const hit = (id) => firedIds.has(id) || trace.some((r) => r.rule_id === id && r.matched);
+  const out = [];
+  if (hit('BLOCK_MISSING_REQUIRED_FIELDS')) out.push(['bad', '❓', `Details missing${resp && resp.missing_fields ? `: ${resp.missing_fields.join(', ')}` : ''}`]);
+  if (ran('BLOCK_SCAM_KEYWORD')) out.push(hit('BLOCK_SCAM_KEYWORD') ? ['bad', '🛑', 'Scam words in the message', 'e.g. "safe account", "unfreeze", "ignore the rules"'] : ['ok', '✅', 'No scam words']);
+  if (hit('BLOCK_BLACKLISTED_PAYEE')) out.push(['bad', '🛑', 'Payee is on the scam blacklist']);
+  if (hit('BLOCK_COMMUNITY_REPORTED') || hit('COMMUNITY_REPORTED')) {
+    const n = tx ? reportCountFor(tx) : null;
+    out.push([hit('BLOCK_COMMUNITY_REPORTED') ? 'bad' : 'warn', '🚩', `Reported as a scam by ${n || 'other'} ${n === 1 ? 'family' : 'families'}`]);
+  }
+  if (hit('BLOCK_OVER_HARD_CAP')) out.push(['bad', '🛑', 'Over the RM 500 hard limit']);
+  if (ran('PAYEE_UNKNOWN')) out.push(hit('PAYEE_UNKNOWN') ? ['warn', '⚠️', 'New payee, not a known biller'] : ['ok', '✅', 'Known biller']);
+  if (ran('OVER_LIMIT') || ran('AMOUNT_HIGH')) out.push(hit('OVER_LIMIT') || hit('AMOUNT_HIGH') ? ['warn', '⚠️', 'More than usual for this payee'] : ['ok', '✅', 'Normal amount']);
+  if (hit('RAPID_TRANSFERS')) out.push(['warn', '⚠️', 'Several transfers already today']);
+  if (ai && ai.status === 'ok') {
+    if (ai.suspicious === true) {
+      const { en, zh } = aiLabels(ai);
+      out.push(['bad ai', '🤖', `Second AI spotted: ${en.length ? en.join(', ').toLowerCase() : 'scam signs'}`, zh.join('、')]);
+    } else out.push(['ok', '✅', 'Second AI check: no scam signs']);
+  } else if (ai && ai.status === 'disabled') out.push(['', 'ℹ️', 'Second AI check is off; the rules still decide']);
+  else if (ai && ai.status === 'unavailable') out.push(['', 'ℹ️', 'Second AI check unavailable; the rules still decide']);
+  const p = tx && paymentFor(tx.tx_id);
+  if ((resp && resp.paid_by_agent) || (p && p.method === 'mandate')) out.push(['ok', '✅', 'Within the family-signed limit']);
+  return out;
+}
+function outcomeResult(outcome, tx) {
+  if (!tx) return ['Nothing created', 'Ask for the details again'];
+  const p = paymentFor(tx.tx_id);
+  switch (tx.status) {
+    case 'DONE': {
+      const m = p && p.method;
+      return ['→ Paid', m === 'guardian' ? 'approved by Ah Ming' : m === 'mandate' ? 'automatically, within family limit' : m === 'voice' ? 'Ah Por said "確認"' : 'Ah Por tapped confirm'];
+    }
+    case 'AWAITING_GUARDIAN': return ['→ Sent to Ah Ming', `waiting · ${countdown(tx.expires_at)} left`];
+    case 'BLOCKED': return ['→ Blocked', 'nobody can approve this'];
+    case 'REJECTED': return ['→ Ah Ming said no', 'nothing paid'];
+    case 'CANCELLED': return ['→ Cancelled', 'nothing paid'];
+    case 'EXPIRED': return ['→ Expired', 'nothing paid'];
+    default:
+      if (outcome === 'REVIEW') return ['→ Waiting', 'Ah Por can ask Ah Ming'];
+      if (outcome === 'WARN') return ['→ Waiting', 'Ah Por must accept the warning'];
+      return ['→ Waiting', 'for Ah Por to confirm'];
+  }
+}
 function renderDecision() {
   const d = engineData();
-  let h = '';
-  if (!d) {
-    h = `<div class="eng-empty">No transaction selected yet.<br>Ask Ah Por's phone to 📷 Snap bill — the decision record appears here.<br><span style="font-size:13px">Tip: click any card or request to inspect it.</span></div>`;
-    return h + renderRequests();
-  }
+  if (!d) return `<div class="empty-state">Nothing to explain yet.<br>Snap a bill or ask the assistant on Ah Por's phone; the engine's decision shows here in plain words.</div>` + renderRequests();
   const { resp, tx } = d;
   const dr = (resp && resp.decision_record) || (tx && tx.decision_record) || {};
   const outcome = outcomeOf(resp, tx);
   const ui = OUTCOME_UI[outcome] || OUTCOME_UI.DATA_INSUFFICIENT;
-  const shown = (resp && resp.risk_code_shown) || dr.risk_code_shown || (tx && tx.risk_code);
-  h += `<div class="eng">`;
-  h += `<div class="outcome ${ui.cls}"><div><div class="big">${ui.icon} ${esc(ui.word)}</div><div class="why">${esc(ui.why)}</div></div>`;
-  h += `<div class="txs">${tx ? `${esc(tx.payee_name)}<b>${rm(tx.amount_minor)}</b>` : 'no transaction created'}`;
-  if (tx) h += `<span class="stchip st-${esc(tx.status)}">${esc(tx.status)}</span> <span class="mono" style="font-size:11px">tx ${esc(shortId(tx.tx_id))}</span>`;
-  h += `</div></div>`;
-
-  // AI scam check: a suspicious verdict is the headline, so it goes full width under the banner
   const txId = tx && tx.tx_id;
   let ai = resp && resp.ai_assessment;
   if (!ai && txId) ai = aiFromLog(txId);
-  const aiWide = !!(ai && ai.suspicious === true);
-  let aiHtml = '';
-  if (!ai) {
-    aiHtml = `<div class="box ai"><b>🤖 AI scam check — can only raise risk</b><div class="kv">Not reported for this transaction (server did not return <span class="mono">ai_assessment</span>).</div></div>`;
-  } else {
-    aiHtml += `<div class="box ai ${aiWide ? 'sus aiwide' : ''}"><b>🤖 AI scam check — can only raise risk</b> <span class="kv">· never approves a payment</span>`;
-    aiHtml += `<div class="kv">Status: <b>${esc(ai.status || '?')}</b>${ai.model ? ` · model <b>${esc(ai.model)}</b>` : ''}`;
-    if (ai.status === 'ok') aiHtml += ` · Suspicious: <b>${aiWide ? '⚠️ YES' : ai.suspicious === false ? '✓ no' : 'unknown'}</b>`;
-    else if (ai.status === 'disabled') aiHtml += ` · AI is switched off; rules still decide`;
-    else if (ai.status === 'unavailable') aiHtml += ` · AI unreachable; rules still decide`;
-    else if (ai.status === 'skipped') aiHtml += ` · skipped (details missing)`;
-    const aiFired = (dr.rules_fired || []).some((r) => r.rule_id === 'AI_SCAM_SUSPECTED' || r.risk_code === 'AI_SCAM_SUSPECTED');
-    if (aiFired) aiHtml += ` · fired <b>AI_SCAM_SUSPECTED</b> → Review: needs Ah Ming; it cannot unlock or approve anything`;
-    aiHtml += `</div>` + aiChips(ai, true) + `</div>`;
+  const shown = (resp && resp.risk_code_shown) || dr.risk_code_shown || (tx && tx.risk_code);
+  let title = ui.title;
+  if (outcome === 'BLOCK') title = shown === 'OVER_HARD_CAP' ? 'Blocked: over the limit' : 'Blocked: looks like a scam';
+  const [res1, res2] = outcomeResult(outcome, tx);
+  let h = `<div class="pad">`;
+  h += `<div class="verdict ${ui.cls}"><div class="vi">${ui.icon}</div><div><div class="vt">${esc(title)}</div>
+    <div class="vs">${tx ? `${esc(tx.payee_name)} · ${rm(tx.amount_minor)}` : 'No payment was created'}</div></div>
+    <div class="vr">${esc(res1)}<small>${esc(res2)}</small></div></div>`;
+  const checks = plainChecks(resp, tx, dr, ai);
+  if (checks.length) {
+    h += `<ul class="checks">`;
+    checks.forEach(([cls, icon, text, sub]) => { h += `<li class="${cls}"><span class="ci">${icon}</span><span>${esc(text)}${sub ? `<small>${esc(sub)}</small>` : ''}</span></li>`; });
+    h += `</ul>`;
   }
-  if (aiWide) h += aiHtml;
-
-  // left: rule trace
-  h += `<div class="sec"><h4>Rules checked (decision record)</h4><table class="rules"><colgroup><col style="width:46px"><col><col style="width:34px"><col style="width:68px"></colgroup>`;
+  h += `<button class="disclose" data-act="tech-toggle" aria-expanded="${S.techOpen}">${S.techOpen ? 'Hide technical details ▴' : 'Technical details ▾'}</button>`;
+  if (S.techOpen) h += renderTech(resp, tx, dr, outcome, shown, ai);
+  h += renderRequests(true);
+  return h + `</div>`;
+}
+function renderTech(resp, tx, dr, outcome, shown, ai) {
+  let h = `<div class="tech"><div><h4>Rules checked (decision record)</h4><table class="rules"><colgroup><col style="width:52px"><col><col style="width:36px"><col style="width:76px"></colgroup>`;
   const trace = dr.rule_trace || [];
   const firedIds = new Set((dr.rules_fired || []).map((r) => r.rule_id));
   trace.forEach((r) => {
     const fired = r.matched || firedIds.has(r.rule_id);
     const blk = r.phase === 'blocking';
     const w = r.weight != null ? String(r.weight).replace(/\.00$/, '') : '';
-    h += `<tr class="${fired ? 'fired' : ''} ${fired && blk ? 'blk' : ''}" title="${esc(r.rule_id)} → ${esc(r.risk_code || '')}"><td><span class="ph">${blk ? 'BLOCK' : 'SCORE'}</span></td>
-      <td class="lbl">${esc(RULE_LABELS[r.rule_id] || r.rule_id)}${fired ? `<div class="code">${esc(r.risk_code || r.rule_id)}</div>` : ''}</td>
-      <td class="res mono">${w ? `${fired ? '+' : ''}${esc(w)}` : ''}</td>
+    h += `<tr class="${fired ? 'fired' : ''} ${fired && blk ? 'blk' : ''}" title="${esc(r.rule_id)} → ${esc(r.risk_code || '')}"><td><span class="ph2">${blk ? 'BLOCK' : 'SCORE'}</span></td>
+      <td>${esc(RULE_LABELS[r.rule_id] || r.rule_id)}${fired ? `<div class="code">${esc(r.risk_code || r.rule_id)}</div>` : ''}</td>
+      <td class="res">${w ? `${fired ? '+' : ''}${esc(w)}` : ''}</td>
       <td class="res">${fired ? (blk && r.rule_id !== 'BLOCK_MISSING_REQUIRED_FIELDS' ? '🛑 MATCH' : blk ? '❓ MISSING' : '⚠️ FIRED') : '✓ pass'}</td></tr>`;
   });
-  if (!trace.length) h += `<tr><td class="empty">No rule trace returned.</td></tr>`;
+  if (!trace.length) h += `<tr><td colspan="4">No rule trace returned.</td></tr>`;
   h += `</table>`;
-  if (dr.stopped_after) h += `<div class="skipnote">Stopped after ${esc(dr.stopped_after)} — remaining rules and scoring skipped; no approval possible.</div>`;
-  if (resp && resp.matched_scam_group_ids && resp.matched_scam_group_ids.length) h += `<div class="kv" style="margin-top:6px">Scam phrase groups: ${resp.matched_scam_group_ids.map((g) => `<span class="chip">${esc(g)}</span>`).join('')}</div>`;
-  h += `</div>`;
-
-  // right: score, AI, shadow
-  h += `<div class="sec"><h4>Risk score</h4>`;
-  const score = parseFloat(dr.total_score != null ? dr.total_score : (resp && resp.risk_score) || 0) || 0;
-  h += `<div class="scorebox"><span class="s">${esc(dr.total_score != null ? dr.total_score : (resp && resp.risk_score) || '0.00')}</span><span style="font-size:13px;color:#666">= sum of fired weights</span></div>`;
-  if (outcome === 'BLOCK' || outcome === 'DATA_INSUFFICIENT') {
-    h += `<div class="kv" style="margin-top:4px">Scoring not used: ${outcome === 'BLOCK' ? 'a blocking rule ends the decision' : 'details missing'}.</div>`;
-  } else {
-    h += `<div class="scale"><div class="a">&lt;20</div><div class="w">20–40</div><div class="r">REVIEW ≥40</div><span class="marker" style="left:${Math.min(score, 99)}%"></span></div>`;
-    h += `<div class="scale-l"><span>APPROVE</span><span>WARN</span><span></span></div>`;
+  if (dr.stopped_after) h += `<div class="kv" style="margin-top:6px">Stopped after <b>${esc(dr.stopped_after)}</b>: remaining rules and scoring skipped.</div>`;
+  if (resp && resp.matched_scam_group_ids && resp.matched_scam_group_ids.length) h += `<div class="kv">Scam phrase groups: ${resp.matched_scam_group_ids.map((g) => `<span class="chip-ai">${esc(g)}</span>`).join('')}</div>`;
+  h += `</div><div><h4>Risk score</h4>`;
+  const scoreTxt = dr.total_score != null ? dr.total_score : (resp && resp.risk_score) || '0.00';
+  const score = parseFloat(scoreTxt) || 0;
+  h += `<div class="kv">Total <b>${esc(scoreTxt)}</b> = sum of fired weights</div>`;
+  if (outcome !== 'BLOCK' && outcome !== 'DATA_INSUFFICIENT') {
+    h += `<div class="scale"><div class="a">APPROVE</div><div class="w">WARN</div><div class="r">REVIEW ≥40</div><span class="marker" style="left:${Math.min(score, 99)}%"></span></div>`;
   }
-  h += `<div class="kv" style="margin-top:4px">Band <b>${esc(dr.outcome_band || outcome)}</b> · risk code shown <b>${esc(shown || 'none')}</b>`;
+  h += `<div class="kv" style="margin-top:4px">Band <b>${esc(dr.outcome_band || outcome)}</b> · code <b>${esc(shown || 'none')}</b>`;
   if (resp && resp.template_code) h += `<br>Template <b>${esc(resp.template_code)}</b>`;
-  if (dr.config_version) h += ` · config <b>${esc(dr.config_version)}</b>`;
+  if (dr.config_version) h += `<br>Config <b>${esc(dr.config_version)}</b>`;
+  if (tx) h += `<br>tx <b>${esc(shortId(tx.tx_id))}</b> · status <b>${esc(tx.status)}</b>`;
   h += `</div>`;
-
-  // AI assessment (built above; shown here unless it was lifted under the banner)
-  if (!aiWide) h += aiHtml;
-
-  // shadow model
-  let sh = resp && resp.shadow_model;
-  if (!sh && txId) { const l = logFor(txId, 'shadow_risk_score'); if (l) sh = l.details; }
-  if (sh) {
-    h += `<div class="box shadow"><b>📈 Fraud model</b> <span class="shadow-tag">SHADOW — DOES NOT AFFECT DECISION</span>`;
-    h += `<div class="kv">Score <b>${esc(typeof sh.score === 'number' ? sh.score.toFixed(4) : sh.score)}</b> · would flag: <b>${sh.would_flag ? 'yes' : 'no'}</b>${sh.model_version ? `<br><span class="mono" style="font-size:11.5px">${esc(sh.model_version)}</span>` : ''}</div></div>`;
-  } else if (tx) {
-    h += `<div class="box shadow"><b>📈 Fraud model</b> <span class="shadow-tag">SHADOW</span><div class="kv">No shadow score recorded.</div></div>`;
+  if (ai) {
+    h += `<div class="tbox"><div class="kv">🤖 AI check: status <b>${esc(ai.status || '?')}</b>${ai.model ? ` · model <b>${esc(ai.model)}</b>` : ''}${ai.status === 'ok' ? ` · suspicious <b>${ai.suspicious ? 'yes' : 'no'}</b>` : ''}</div>`;
+    if (ai.tactics && ai.tactics.length) h += `<div class="kv">tactics <b>${esc(ai.tactics.join(', '))}</b></div>`;
+    h += `</div>`;
   }
-  h += `</div>`;
-  h += `</div>`;
-  return h + renderRequests();
+  let sh = resp && resp.shadow_model;
+  if (!sh && tx) { const l = logFor(tx.tx_id, 'shadow_risk_score'); if (l) sh = l.details; }
+  if (sh) {
+    h += `<div class="tbox dashed"><div class="kv">📈 Fraud model <span class="tag-shadow">SHADOW, DOES NOT AFFECT DECISION</span><br>score <b>${esc(typeof sh.score === 'number' ? sh.score.toFixed(4) : sh.score)}</b> · would flag <b>${sh.would_flag ? 'yes' : 'no'}</b>${sh.model_version ? `<br><b>${esc(sh.model_version)}</b>` : ''}</div></div>`;
+  }
+  const ci = confirmableItem();
+  h += `<button class="proofbtn" data-act="double-tap-selected" ${ci ? '' : 'disabled'} title="Sends two confirm taps for the same payment at the same moment">🧪 Double-tap test${ci ? `: ${esc((currentTx(ci) || {}).payee_name || '')}` : ' (needs a payment waiting for confirm)'}</button>`;
+  h += `</div></div>`;
+  return h;
 }
 const TOOL_LABELS = {
-  get_budget: "Checked today's budget", list_bills: 'Checked bills', pay_bill: 'Requested bill payment',
+  get_budget: "Checked today's budget", list_bills: 'Looked at her bills', pay_bill: 'Asked to pay a bill',
   check_money_request: 'Safety-checked a money request (never sends money)',
   draft_transfer: 'Drafted a transfer (never pays by itself)', ask_family: 'Asked Ah Ming',
-  cancel_request: 'Cancelled request', get_spending_report: 'Checked spending',
+  cancel_request: 'Cancelled a request', get_spending_report: 'Checked spending',
 };
 const STEP_STATUS = {
   paid_automatically: ['ok', 'Paid within family-signed limit ✅'], already_paid: ['ok', 'Already paid ✅'],
@@ -1178,94 +1353,105 @@ const STEP_STATUS = {
   needs_details: ['neutral', 'Needs details'], refused: ['block', 'Refused'], error: ['block', 'Error'],
   ACTIVE: ['ok', 'Budget OK'], BUDGET_GAP: ['block', 'Budget gap'],
 };
-function renderEngine() {
-  const hasAgent = !!S.agentLast;
-  let h = `<div class="etabs"><button class="${S.engineTab === 'decision' ? 'on' : ''}" data-act="engine-tab" data-tab="decision">📋 Decision record</button>`;
-  h += `<button class="${S.engineTab === 'agent' ? 'on' : ''}" data-act="engine-tab" data-tab="agent">🤖 Assistant agent${hasAgent && !S.agentSeen && S.engineTab !== 'agent' ? '<span class="new"></span>' : ''}</button></div>`;
-  return h + (S.engineTab === 'agent' ? renderAgentPane() : renderDecision());
-}
 function renderAgentPane() {
-  let h = `<div class="agent-pane"><div class="agcap">🧭 The agent can pick which bill to pay — never the amount or payee — and cannot approve anything. Money requests it can only safety-check, never send. Every payment still goes through the rules and a signed approval.</div>`;
+  let h = `<div class="pad"><div class="agcap">🧭 The assistant picks which bill to pay, never the amount or payee. Money requests it can only safety-check, never send. It can't approve anything.</div>`;
   const a = S.agentLast;
-  if (!a) return h + `<div class="eng-empty">No assistant run yet.<br>Type to Ah Por's assistant, tap a suggestion, or press ☀️ Run morning check.</div></div>`;
+  if (!a) return h + `<div class="empty-state">No assistant run yet.<br>Talk to Ah Por's assistant, tap 💡 Ideas, or press ☀️ Run morning check.</div></div>`;
   const d = a.resp;
-  h += `<div class="agreq">${a.source === 'morning' ? '<b>☀️ Morning check</b>' : `<b>👵 Ah Por:</b> 「${esc(a.text)}」`} <span class="mono" style="color:#777">${esc(clockOf(a.at))}</span> · model <b class="mono">${esc(d.model || 'none')}</b></div>`;
+  h += `<div class="agreq">${a.source === 'morning' ? '<b>☀️ Morning check</b>' : `<b>👵 Ah Por said:</b> 「${esc(a.text)}」`} <span style="color:var(--ink-3)">${esc(hhmm(a.at))}</span></div>`;
   const g = d.guardrail || {};
-  if (d.paused) h += `<div class="gbadge info">⏸ Paused by Ah Ming — the assistant ran no tools.</div>`;
+  if (d.paused) h += `<div class="gbadge info">⏸ Paused by Ah Ming. The assistant ran no tools.</div>`;
   else if (g.fact_check === 'passed') h += `<div class="gbadge ok">✅ Reply fact-checked against what the tools did</div>`;
   else if (g.fact_check === 'replaced') h += `<div class="gbadge warn">⚠️ Reply replaced by fixed text: ${esc(g.reason || 'failed fact-check')}</div>`;
   else if (g.fact_check === 'fallback') h += `<div class="gbadge info">ℹ️ Fixed-text reply (${esc(g.reason || 'no AI reply')})</div>`;
   else if (g.fact_check) h += `<div class="gbadge info">ℹ️ Fact-check: ${esc(g.fact_check)}${g.reason ? ` (${esc(g.reason)})` : ''}</div>`;
   const steps = d.steps || [];
-  h += `<div class="sec" style="margin-top:10px"><h4>Tool steps (${steps.length})</h4>`;
-  if (!steps.length) h += `<div class="kv" style="color:#666">No tools ran${d.paused ? ' (paused)' : ''}.</div>`;
+  if (!steps.length) h += `<div class="agreq" style="color:var(--ink-2)">No tools ran${d.paused ? ' (paused)' : ''}.</div>`;
   else {
     h += `<ol class="steps">`;
     steps.forEach((s) => {
       const sm = s.summary || {};
       const st = s.status || sm.status;
-      const [cls, label] = STEP_STATUS[st] || ['neutral', st || '—'];
+      const [cls, label] = STEP_STATUS[st] || ['neutral', st || ''];
       const what = [sm.payee, sm.amount].filter(Boolean).join(' · ');
-      h += `<li><span class="stool">${esc(TOOL_LABELS[s.tool] || s.tool)}</span>${what ? ` — ${esc(what)}` : ''}${st ? `<span class="schip ${cls}">${esc(label)}</span>` : ''}`;
-      if (s.args && Object.keys(s.args).length) h += `<div class="sargs">${esc(s.tool)}(${esc(Object.entries(s.args).map(([k, v]) => `${k}=${typeof v === 'object' ? JSON.stringify(v) : v}`).join(', '))})</div>`;
-      const notes = [sm.today ? `Today's budget: ${sm.today}` : '', sm.today_after_payment ? `Today's budget after payment: ${sm.today_after_payment}` : '',
-        sm.authority ? `Authority: ${sm.authority}` : '', sm.note, sm.error,
-        st === 'paid_automatically' || st === 'already_paid' ? '' : sm.reason].filter(Boolean);
+      h += `<li><div class="sw"><b>${esc(TOOL_LABELS[s.tool] || s.tool)}</b>${what ? `: ${esc(what)}` : ''}${label ? `<span class="schip ${cls}">${esc(label)}</span>` : ''}`;
+      const notes = [sm.today ? `Today's budget ${sm.today}` : '', sm.today_after_payment ? `Budget left today: ${sm.today_after_payment}` : '', sm.note, sm.error].filter(Boolean);
       if (notes.length) h += `<div class="snote">${notes.map(esc).join(' · ')}</div>`;
-      h += `</li>`;
+      if (S.techOpen && s.args && Object.keys(s.args).length) h += `<div class="rawargs">${esc(s.tool)}(${esc(Object.entries(s.args).map(([k, v]) => `${k}=${typeof v === 'object' ? JSON.stringify(v) : v}`).join(', '))})</div>`;
+      if (S.techOpen && sm.reason && st !== 'paid_automatically' && st !== 'already_paid') h += `<div class="rawargs">reason: ${esc(sm.reason)}</div>`;
+      h += `</div></li>`;
     });
     h += `</ol>`;
   }
-  h += `</div>`;
+  h += `<button class="disclose" data-act="tech-toggle" aria-expanded="${S.techOpen}">${S.techOpen ? 'Hide technical details ▴' : 'Technical details ▾'}</button>`;
+  if (S.techOpen) h += `<div class="kv" style="margin-top:4px">model <b>${esc(d.model || 'none')}</b> · fact-check <b>${esc(g.fact_check || 'n/a')}</b>${g.reason ? ` · reason <b>${esc(g.reason)}</b>` : ''}</div>`;
   const cards = (d.cards || []).filter((c) => c.tx_id);
   if (cards.length) {
-    h += `<div class="sec" style="margin-top:8px"><h4>Payment requests it created — click for the decision record</h4><div class="reqlist thin">`;
+    h += `<div class="reqs"><span class="rl">Payments it created:</span>`;
     cards.forEach((c) => {
       const t = stateTx(c.tx_id) || c.transaction || {};
-      h += `<button class="req" data-select="${esc(c.tx_id)}"><div class="rp">${esc(t.payee_name)}</div><div><span class="mono">${rm(t.amount_minor)}</span> <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span>${c.paid_by_agent ? ' 🤖' : ''}</div></button>`;
+      h += `<button class="req" data-select="${esc(c.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span></button>`;
     });
-    h += `</div></div>`;
+    h += `</div>`;
   }
   return h + `</div>`;
 }
-function renderRequests() {
+function renderRequests(inline) {
   const txs = (S.state && S.state.transactions) || [];
   if (!txs.length) return '';
-  let h = `<div class="eng" style="padding-top:0"><div class="reqs sec"><h4>Recent requests (GET /state) — click to inspect</h4><div class="reqlist thin">`;
-  txs.slice(0, 12).forEach((t) => {
-    h += `<button class="req ${S.selected === t.tx_id ? 'sel' : ''}" data-select="${esc(t.tx_id)}"><div class="rp">${esc(t.payee_name)}</div>
-      <div><span class="mono">${rm(t.amount_minor)}</span> <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span></div></button>`;
+  let h = `<div class="reqs" ${inline ? '' : 'style="padding:0 18px 16px"'}><span class="rl">Recent:</span>`;
+  txs.slice(0, 10).forEach((t) => {
+    h += `<button class="req ${S.selected === t.tx_id ? 'sel' : ''}" data-select="${esc(t.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span></button>`;
   });
+  return h + `</div>`;
+}
+
+/* ---------- bank panel ---------- */
+function signedBy(method) {
+  return method === 'guardian' ? '🔏 Ah Ming signed' : method === 'mandate' ? '🔏 Family limit' : method === 'voice' ? '🔏 Ah Por signed (voice)' : '🔏 Ah Por signed';
+}
+function renderBank() {
+  const st = S.state;
+  if (!st) return `<div class="empty-state">Connecting to the bank sandbox…</div>`;
+  let h = `<div class="pad"><div class="bank-grid"><div>`;
+  h += `<div class="bal-l">Mdm Tan's account</div>`;
+  h += `<div class="bal ${S.balanceFlash ? 'flash' : ''}">${rm(st.balance_minor)}</div>`;
+  h += `<div class="delta">${S.balanceDelta ? `${S.balanceDelta > 0 ? '+' : ''}${rm(S.balanceDelta)} just now` : ''}</div>`;
+  const pays = st.payments || [];
+  h += `<div class="po-h">Paid out</div>`;
+  if (!pays.length) h += `<div class="kv">Nothing paid out yet.</div>`;
+  else {
+    h += `<ul class="paidout">`;
+    pays.slice(0, 5).forEach((p) => { h += `<li><span class="t">${esc(hhmm(p.executed_at))}</span><span class="p" title="${esc(p.payee_name)}">${esc(p.payee_name)}</span><span class="a">−${rm(p.amount_minor)}</span></li>`; });
+    h += `</ul>`;
+  }
+  h += `</div><div class="flow-col"><div class="po-h">Requests from DialectGuard</div>`;
+  const txs = (st.transactions || []).slice(0, 5);
+  if (!txs.length) h += `<div class="kv">No requests yet. Only approved, signed requests ever reach the bank.</div>`;
+  else {
+    h += `<div class="flows">`;
+    txs.forEach((t) => {
+      const req = `<span class="fs req-chip" title="${esc(t.payee_name)}">📨 ${rm(t.amount_minor)} → ${esc(t.payee_name)}</span>`;
+      const arr = '<span class="arr">→</span>';
+      let rest;
+      if (t.status === 'DONE') {
+        const p = paymentFor(t.tx_id);
+        rest = `${arr}<span class="fs ok">${signedBy(p && p.method)} ✅</span>${arr}<span class="fs go">🏦 Released</span>`;
+      } else if (t.status === 'PENDING') rest = `${arr}<span class="fs wait">⏳ Waiting for Ah Por. Not sent yet</span>`;
+      else if (t.status === 'AWAITING_GUARDIAN') rest = `${arr}<span class="fs wait">⏳ Waiting for Ah Ming. Not sent yet</span>`;
+      else {
+        const why = t.status === 'BLOCKED' ? 'Blocked by DialectGuard' : t.status === 'REJECTED' ? 'Ah Ming said no' : t.status === 'EXPIRED' ? 'Expired' : 'Cancelled';
+        rest = `${arr}<span class="fs stop">🛑 ${why}. Never reached the bank</span>`;
+      }
+      h += `<div class="flow pop" data-select="${esc(t.tx_id)}">${req}${rest}</div>`;
+    });
+    h += `</div>`;
+  }
   h += `</div></div></div>`;
   return h;
 }
 
-/* ---------- bank panel ---------- */
-function renderBank() {
-  const st = S.state;
-  if (!st) return `<div class="eng-empty">Waiting for GET /state…</div>`;
-  let h = `<div class="bankbody"><div><div class="bal-l">Available balance</div>`;
-  h += `<div class="bal ${S.balanceFlash ? 'flash' : ''}" id="balNum">${rm(st.balance_minor)}</div>`;
-  h += `<div class="delta">${S.balanceDelta ? `${S.balanceDelta > 0 ? '+' : ''}${rm(S.balanceDelta)} just now` : ''}</div>`;
-  h += `<div class="acct">Mdm Tan (Ah Por) · sandbox account<br>Pays only after a ${st.approval_mode === 'signed' ? 'signed ' : ''}approval is verified.</div></div>`;
-  h += `<div><div class="bal-l" style="margin-bottom:4px">Sandbox payments executed</div>`;
-  const pays = st.payments || [];
-  if (!pays.length) h += `<div class="empty">No payments yet. Blocked or pending requests never reach the bank.</div>`;
-  else {
-    h += `<table class="pay"><thead><tr><th class="tm">Time</th><th>Payee</th><th class="r c-am">Amount</th><th class="c-by">By</th></tr></thead><tbody>`;
-    pays.forEach((p) => {
-      const m = p.method || '';
-      const who = m === 'guardian' ? 'Ah Ming' : m === 'voice' ? 'Ah Por 🎤' : m === 'tap' ? 'Ah Por tap' : m === 'mandate' ? 'Assistant (family limit)' : m;
-      h += `<tr><td class="mono tm">${esc(clockOf(p.executed_at))}</td><td class="pn"><span title="${esc(p.payee_name)}">${esc(p.payee_name)}</span></td><td class="r mono"><b>−${rm(p.amount_minor)}</b></td>
-        <td><span class="meth ${esc(m)}" title="tx ${esc(p.tx_id)}">${esc(who)}</span></td></tr>`;
-    });
-    h += `</tbody></table>`;
-  }
-  h += `</div></div>`;
-  return h;
-}
-
-/* ---------- son's phone ---------- */
+/* ---------- Ah Ming's app ---------- */
 function reasonsFor(t) {
   const dr = t.decision_record || {};
   const fired = (dr.rules_fired || []).map((r) => r.rule_id);
@@ -1307,10 +1493,10 @@ function aiLabels(ai) {
   const t = ai.tactics || [];
   return { en: t.map((c) => (AI_TACTIC_FALLBACK[c] || [c])[0]), zh: t.map((c) => (AI_TACTIC_FALLBACK[c] || [])[1]).filter(Boolean) };
 }
-function aiChips(ai, big) {
+function aiChips(ai) {
   const { en, zh } = aiLabels(ai);
   if (!en.length && !zh.length) return '';
-  let h = `<div class="ai-chips ${big ? 'big' : ''}">`;
+  let h = `<div class="ai-chips">`;
   en.forEach((l, i) => { h += `<div class="ai-chip"><span>⚠️ ${esc(l)}</span>${zh[i] ? `<span class="z" lang="zh-HK">${esc(zh[i])}</span>` : ''}</div>`; });
   zh.slice(en.length).forEach((l) => { h += `<div class="ai-chip"><span class="z" lang="zh-HK">${esc(l)}</span></div>`; });
   return h + `</div>`;
@@ -1324,106 +1510,105 @@ function renderSon() {
   let h = '';
   if (tab === 'safety') return renderSafety();
   if (tab === 'report') {
-    h += `<div class="son-sec">📊 Weekly report for Mum</div>`;
+    h += `<div class="son-sec">📊 Mum's week</div>`;
     const r = S.son.report;
-    if (S.son.reportErr) h += `<div class="scard"><div class="serr" style="margin:9px">⚠️ ${esc(S.son.reportErr)}</div></div>`;
+    if (S.son.reportErr) h += `<div class="scard"><div class="serr" style="margin:10px">⚠️ ${esc(S.son.reportErr)}</div></div>`;
     else if (!r) h += `<div class="scard"><div class="sb">Loading…</div></div>`;
     else {
-      h += `<div class="scard"><div class="sh ok">📊 ${esc(r.period ? `${r.period.start} → ${r.period.end_exclusive}` : 'Last 7 days')}</div><div class="sb">`;
+      h += `<div class="scard"><div class="sh ok">📊 ${esc(r.period ? `${r.period.start} to ${r.period.end_exclusive}` : 'Last 7 days')}</div><div class="sb">`;
       h += `<div>Spent</div><div class="samt">${rm(r.total_spent_minor)}</div><div>${esc(r.summary_message)}</div>`;
-      (r.categories || []).forEach((c) => { h += `<div class="act" style="padding:5px 0;background:none"><span>${CAT_ICON[c.category] || '🧾'} ${esc(c.category)}</span><span class="am">${rm(c.amount_minor)}</span></div>`; if (c.message) h += `<div style="font-size:13px;color:#555">${esc(c.message)}</div>`; });
-      if (r.high_spending_categories && r.high_spending_categories.length) h += `<div class="nobtn">⚠️ High spending: ${esc(r.high_spending_categories.join(', '))}</div>`;
-      if (r.next_week_limit) h += `<div class="nobtn">Next week: <b>${r.next_week_limit.daily_limit_minor != null ? rm(r.next_week_limit.daily_limit_minor) + ' / day' : 'no limit set'}</b><br>${esc(r.next_week_limit.message || '')}</div>`;
-      if (r.data_notice) h += `<div style="font-size:12px;color:#777;margin-top:6px">ⓘ ${esc(r.data_notice)}</div>`;
-      h += `</div><div class="sbtns"><button class="full" style="color:#1F3F8A" data-act="son-report-refresh">↻ Refresh report</button></div></div>`;
+      (r.categories || []).forEach((c) => { h += `<div class="act" style="margin-top:6px"><span>${CAT_ICON[c.category] || '🧾'} ${esc(c.category)}</span><span class="am">${rm(c.amount_minor)}</span></div>`; if (c.message) h += `<div style="font-size:13.5px;color:var(--ink-2)">${esc(c.message)}</div>`; });
+      if (r.high_spending_categories && r.high_spending_categories.length) h += `<div class="lock">⚠️ High spending: ${esc(r.high_spending_categories.join(', '))}</div>`;
+      if (r.next_week_limit) h += `<div class="lock">Next week: <b>${r.next_week_limit.daily_limit_minor != null ? rm(r.next_week_limit.daily_limit_minor) + ' / day' : 'no limit set'}</b><br>${esc(r.next_week_limit.message || '')}</div>`;
+      if (r.data_notice) h += `<div style="font-size:12.5px;color:var(--ink-3);margin-top:6px">ⓘ ${esc(r.data_notice)}</div>`;
+      h += `</div><div class="sbtns"><button class="full" style="color:var(--family);border-color:var(--line-2);background:var(--surface)" data-act="son-report-refresh">↻ Refresh report</button></div></div>`;
     }
     return h;
   }
 
-  h += `<div class="son-sec">Needs your approval (${awaiting.length})</div>`;
-  if (!awaiting.length) h += `<div class="act" style="color:#777">Nothing waiting. Safe bills are paid by Mum herself; scams are blocked automatically.</div>`;
+  h += `<div class="son-sec">Needs your approval <span class="n">${awaiting.length}</span></div>`;
+  if (!awaiting.length) h += `<div class="act muted">Nothing waiting. Safe bills are paid by Mum or her assistant; scams are blocked automatically.</div>`;
   awaiting.forEach((t) => {
     S.son.seenAwaiting[t.tx_id] = true;
     const busy = S.son.busy[t.tx_id], err = S.son.err[t.tx_id];
     const ai = aiFor(t.tx_id);
     h += `<div class="scard pop ${S.selected === t.tx_id ? 'selected' : ''}" data-select="${esc(t.tx_id)}"><div class="sh review">📞 Mum is asking you to approve</div><div class="sb">`;
     h += `<div class="spayee">${esc(t.payee_name)}</div><div class="samt">${rm(t.amount_minor)}</div>`;
-    h += `<div style="font-size:13px;color:#555">Why it needs you (score ${esc((t.decision_record || {}).total_score || t.risk_score)}):</div><ul>${reasonsFor(t).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
+    h += `<div style="font-size:14px;color:var(--ink-2)">Why it needs you:</div><ul>${reasonsFor(t).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
     if (firedCodes(t).includes('COMMUNITY_REPORTED')) {
       const n = reportCountFor(t);
       h += `<div class="community">🚩 Reported as a scam by ${n ? esc(n) : 'other'} ${n === 1 ? 'family' : 'families'}</div>`;
     }
-    if (ai && ai.suspicious === true) h += `<div class="ai-head">🤖 AI scam check spotted:</div>${aiChips(ai, false)}`;
-    h += `<div class="exp">⏱️ Expires in ${esc(countdown(t.expires_at))} — if no answer, nothing is paid</div></div>`;
+    if (ai && ai.suspicious === true) h += `<div class="ai-head">🤖 The second AI spotted scam tactics:</div>${aiChips(ai)}`;
+    h += `<div class="exp">⏱️ ${esc(countdown(t.expires_at))} left. If you don't answer, nothing is paid.</div></div>`;
     if (err) h += `<div class="serr">⚠️ ${esc(err)}</div>`;
     h += `<div class="sbtns"><button class="ap" data-act="son-approve" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>✅ Approve</button>
       <button class="rj" data-act="son-reject" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>❌ Reject</button>
-      <button class="full" data-act="son-scam" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>🚩 This is a scam (report &amp; reject)</button></div></div>`;
+      <button class="full" data-act="son-scam" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>🚩 This is a scam: report &amp; reject</button></div></div>`;
   });
 
-  h += `<div class="son-sec">Scam alerts (${alerts.length})</div>`;
-  if (!alerts.length) h += `<div class="act" style="color:#777">No blocked scams.</div>`;
+  h += `<div class="son-sec">Scam alerts <span class="n">${alerts.length}</span></div>`;
+  if (!alerts.length) h += `<div class="act muted">No blocked scams.</div>`;
   alerts.forEach((t) => {
     const rep = S.son.reported[t.tx_id];
     const count = (rep && rep.count) || reportCountFor(t);
     const err = S.son.err[t.tx_id];
-    h += `<div class="scard pop ${S.selected === t.tx_id ? 'selected' : ''}" data-select="${esc(t.tx_id)}"><div class="sh block">🛑 Scam blocked — no money left Mum's account</div><div class="sb">`;
+    h += `<div class="scard pop ${S.selected === t.tx_id ? 'selected' : ''}" data-select="${esc(t.tx_id)}"><div class="sh block">🛑 Scam blocked. No money left Mum's account</div><div class="sb">`;
     h += `<div>Someone asked Mum to send</div><div class="samt">${rm(t.amount_minor)}</div><div class="spayee">to ${esc(t.payee_name)}</div>`;
     h += `<ul>${reasonsFor(t).map((x) => `<li>${esc(x)}</li>`).join('')}</ul>`;
-    h += `<div class="nobtn">🔒 There is no approve button: blocked payments can't be unlocked, not even by you. Mum got a calm Cantonese message telling her not to pay.</div></div>`;
+    h += `<div class="lock">🔒 No approve button: blocked payments can't be unlocked, not even by you. Mum was told in Cantonese not to pay.</div></div>`;
     if (err) h += `<div class="serr">⚠️ ${esc(err)}</div>`;
-    if (rep && rep.ok) h += `<div class="sdone" style="color:#A1001C">🚩 Reported${count ? ` · ${esc(count)} report(s) on this account` : ''}</div>`;
+    if (rep && rep.ok) h += `<div class="sdone">🚩 Reported${count ? ` · ${esc(count)} report(s) on this account` : ''}</div>`;
     else h += `<div class="sbtns"><button class="full" data-act="son-report" data-tx="${esc(t.tx_id)}" ${S.son.busy[t.tx_id] ? 'disabled' : ''}>🚩 Report this account as a scam</button></div>`;
     h += `</div>`;
   });
 
   // recent activity: payments + resolved reviews
   const acts = [];
-  ((st && st.payments) || []).forEach((p) => acts.push({ at: p.executed_at, icon: '✅', text: p.method === 'guardian' ? `You approved: ${p.payee_name}` : p.method === 'mandate' ? `🤖 Assistant paid ${p.payee_name} (within your signed limit)` : `Mum paid ${p.payee_name} (${p.method === 'voice' ? 'voice' : 'tap'})`, amt: p.amount_minor }));
+  ((st && st.payments) || []).forEach((p) => acts.push({ at: p.executed_at, icon: p.method === 'mandate' ? '🤖' : '✅', text: p.method === 'guardian' ? `You approved ${p.payee_name}` : p.method === 'mandate' ? `Assistant paid ${p.payee_name} within your limit` : `Mum paid ${p.payee_name} (${p.method === 'voice' ? 'voice' : 'tap'})`, amt: p.amount_minor }));
   ((st && st.transactions) || []).forEach((t) => {
     if (t.status === 'REJECTED') acts.push({ at: null, icon: S.son.reported[t.tx_id] ? '🚩' : '❌', text: `${S.son.reported[t.tx_id] ? 'You reported as scam' : 'You rejected'}: ${t.payee_name}`, amt: t.amount_minor });
     if (t.status === 'EXPIRED' && S.son.seenAwaiting[t.tx_id]) acts.push({ at: null, icon: '⏱️', text: `Expired, nothing paid: ${t.payee_name}`, amt: t.amount_minor });
   });
   h += `<div class="son-sec">Recent activity</div>`;
-  if (!acts.length) h += `<div class="act" style="color:#777">No activity yet.</div>`;
-  acts.slice(0, 8).forEach((a) => { h += `<div class="act"><span>${a.icon}</span><span>${esc(a.text)}${a.at ? ` <span style="color:#888;font-size:12px">${esc(clockOf(a.at))}</span>` : ''}</span><span class="am">${rm(a.amt)}</span></div>`; });
+  if (!acts.length) h += `<div class="act muted">No activity yet.</div>`;
+  acts.slice(0, 8).forEach((a) => { h += `<div class="act"><span>${a.icon}</span><span>${esc(a.text)}${a.at ? ` <span style="color:var(--ink-3);font-size:12.5px">${esc(hhmm(a.at))}</span>` : ''}</span><span class="am">${rm(a.amt)}</span></div>`; });
   return h;
 }
 function renderSonMenu() {
   const st = S.state;
   const n = ((st && st.awaiting_guardian) || []).length + ((st && st.guardian_alerts) || []).filter((t) => !(S.son.reported[t.tx_id] && S.son.reported[t.tx_id].ok)).length;
-  return `<button class="${S.son.tab === 'alerts' ? 'on' : ''}" data-act="son-tab" data-tab="alerts">🔔 Approvals &amp; alerts${n ? `<span class="badge">${n}</span>` : ''}</button>
-    <button class="${S.son.tab === 'safety' ? 'on' : ''}" data-act="son-tab" data-tab="safety">🛡 Safety settings</button>
-    <button class="${S.son.tab === 'report' ? 'on' : ''}" data-act="son-tab" data-tab="report">📊 Weekly report</button>`;
+  const tab = (id, icon, label, badge) => `<button class="${S.son.tab === id ? 'on' : ''}" data-act="son-tab" data-tab="${id}" aria-current="${S.son.tab === id}"><span class="ti">${icon}</span>${label}${badge ? `<span class="badge">${badge}</span>` : ''}</button>`;
+  return tab('alerts', '🔔', 'Approvals &amp; alerts', n) + tab('safety', '🛡', 'Safety') + tab('report', '📊', 'Report');
 }
 function renderSonAgentBar() {
   const st = S.state;
   if (!st || typeof st.agent_paused !== 'boolean') return '';
   const paused = st.agent_paused;
-  return `<div class="agentbar ${paused ? 'paused' : ''}"><span>${paused ? '⏸ Assistant paused — Mum uses the buttons' : "🤖 Mum's assistant is active"}</span>
-    <button data-act="son-pause" data-paused="${paused ? '0' : '1'}" ${S.pauseBusy ? 'disabled' : ''}>${paused ? '▶ Resume assistant' : '⏸ Pause assistant'}</button></div>`;
+  return `<div class="switchrow"><div class="sl">🤖 Mum's assistant<small class="${paused ? 'off' : 'on'}">${paused ? '⏸ Paused. Mum uses the buttons' : '● On. Pays only within your limits'}</small></div>
+    <button class="${paused ? 'resume' : ''}" data-act="son-pause" data-paused="${paused ? '0' : '1'}" ${S.pauseBusy ? 'disabled' : ''}>${paused ? '▶ Resume assistant' : '⏸ Pause assistant'}</button></div>`;
 }
 function renderSafety() {
   const st = S.state || {};
   const ms = st.family_mandates || [];
-  let h = `<div class="son-sec">🛡 Auto-pay limits (family mandates)</div>`;
-  if (!ms.length) h += `<div class="act" style="color:#777">No auto-pay limits set. The assistant can't pay anything by itself.</div>`;
+  let h = `<div class="son-sec">🛡 Auto-pay limits you signed</div>`;
+  if (!ms.length) h += `<div class="act muted">No auto-pay limits set. The assistant can't pay anything by itself.</div>`;
   ms.forEach((m) => {
     const ok = m.signature_valid !== false;
-    h += `<div class="scard"><div class="sh ${ok ? 'ok' : 'block'}">${ok ? '🧾' : '⚠️'} ${esc(m.payee_name || m.payee_id)}</div><div class="sb">`;
-    h += `<div>Auto-pay up to <b class="mono">${rm(m.limit_per_bill_minor)}</b> per bill, ${esc(m.max_payments_per_month)}× per month</div>`;
+    h += `<div class="scard"><div class="sh ${ok ? 'ok' : 'bad'}">${payeeIcon(m.payee_name)} ${esc(m.payee_name || m.payee_id)}</div><div class="sb">`;
+    h += `<div>Auto-pay up to <b>${rm(m.limit_per_bill_minor)}</b> per bill, ${esc(m.max_payments_per_month)}× per month</div>`;
     h += `<div>Used this month: <b>${esc(m.used_this_month)}/${esc(m.max_payments_per_month)}</b></div>`;
-    h += ok ? `<div style="color:var(--ok);font-weight:800;margin-top:4px">✅ Signed by family (ECDSA)</div>` : `<div style="color:var(--block);font-weight:800;margin-top:4px">⚠️ Signature invalid — auto-pay disabled</div>`;
-    if (m.expires_at) h += `<div style="font-size:12.5px;color:#777">Valid until ${esc(String(m.expires_at).slice(0, 10))}</div>`;
+    h += ok ? `<div style="color:var(--ok);font-weight:800;margin-top:4px">✅ Signed by family (ECDSA)</div>` : `<div style="color:var(--block-ink);font-weight:800;margin-top:4px">⚠️ Signature invalid. Auto-pay disabled</div>`;
+    if (m.expires_at) h += `<div style="font-size:13px;color:var(--ink-3)">Valid until ${esc(String(m.expires_at).slice(0, 10))}</div>`;
     h += `</div></div>`;
   });
-  h += `<div class="act" style="color:#555;font-size:13px">ℹ️ Set with Mdm Tan's consent at setup. Anything outside these limits needs Mum's tap or your approval; scams are blocked whatever the limit.</div>`;
+  h += `<div class="act muted" style="font-size:13.5px">ℹ️ Set with Mdm Tan's consent at setup. Anything outside these limits needs Mum's tap or your approval; scams are blocked whatever the limit.</div>`;
   const bills = st.bills_inbox || [];
-  h += `<div class="son-sec">🧾 Bills waiting</div>`;
-  if (!bills.length) h += `<div class="act" style="color:#777">No bills in the inbox.</div>`;
+  h += `<div class="son-sec">🧾 Mum's bills waiting</div>`;
+  if (!bills.length) h += `<div class="act muted">No bills waiting.</div>`;
   bills.forEach((b) => {
     const paid = b.status === 'paid';
-    h += `<div class="act"><span>${paid ? '✅' : '🧾'}</span><span>${esc(b.payee_name)}<br><span style="color:#888;font-size:12px">due ${esc(b.due_date || '—')} · ${paid ? 'Paid' : 'Unpaid'}</span></span><span class="am">${rm(b.amount_minor)}</span></div>`;
+    h += `<div class="act"><span>${paid ? '✅' : '⏳'}</span><span>${esc(b.payee_name)}<br><span style="color:var(--ink-3);font-size:12.5px">due ${esc(b.due_date || '–')} · ${paid ? 'Paid' : 'Unpaid'}</span></span><span class="am">${rm(b.amount_minor)}</span></div>`;
   });
   return h;
 }
@@ -1437,10 +1622,10 @@ async function sonAction(txId, kind) {
       const res = await api('POST', `/tx/${id}/${kind}`);
       if (!res.ok) S.son.err[txId] = res.data.message;
       else if (res.data.error === 'EXPIRED') S.son.err[txId] = 'This request already expired. Nothing was paid.';
-      else toast(kind === 'approve' ? (res.data.executed ? `Approved — ${rm(res.data.payment && res.data.payment.amount_minor)} paid` : 'Already handled') : 'Rejected — no money sent');
+      else toast(kind === 'approve' ? (res.data.executed ? `Approved: ${rm(res.data.payment && res.data.payment.amount_minor)} paid` : 'Already handled') : 'Rejected. No money sent');
     } else if (kind === 'report' || kind === 'scam') {
       const res = await api('POST', `/tx/${id}/report_scam`);
-      if (res.ok) { S.son.reported[txId] = { ok: true, count: res.data.report_count }; toast(`Reported as scam${res.data.report_count ? ` (${res.data.report_count} report(s))` : ''}`); }
+      if (res.ok) { S.son.reported[txId] = { ok: true, count: res.data.report_count }; toast(`Reported as a scam${res.data.report_count ? ` (${res.data.report_count} report(s))` : ''}`); }
       else if (res.data.error === 'OFFICIAL_BILLER') S.son.err[txId] = res.data.message || 'This is an official biller and cannot be reported as a scam.';
       else S.son.err[txId] = res.status === 404 && res.data.error !== 'NOT_FOUND' ? 'Reporting is not available on this server yet.' : res.data.message;
       // The server's report_scam also rejects an AWAITING_GUARDIAN request. Only if the
@@ -1448,7 +1633,7 @@ async function sonAction(txId, kind) {
       if (kind === 'scam' && res.status === 404 && res.data.error !== 'NOT_FOUND') {
         const rj = await api('POST', `/tx/${id}/reject`);
         if (!rj.ok) S.son.err[txId] += ' · ' + rj.data.message;
-        else { S.son.err[txId] = null; toast('Rejected — no money sent (scam report not available)'); }
+        else { S.son.err[txId] = null; toast('Rejected. No money sent (scam report not available)'); }
       }
     }
   } finally {
@@ -1464,7 +1649,7 @@ async function loadSonReport() {
   render();
 }
 
-/* ---------- logs panel ---------- */
+/* ---------- audit log ---------- */
 const HL = {
   payment_executed: 'hl-pay', transaction_blocked: 'hl-block', approval_signed: 'hl-sign', shadow_risk_score: 'hl-shadow',
   ai_assessment: 'hl-ai', scam_reported: 'hl-report', guardian_approval_requested: 'hl-guard', rule_fired: 'hl-fired',
@@ -1485,14 +1670,26 @@ function detailText(l) {
       const dr = d.decision_record || {};
       const score = d.risk_score != null ? d.risk_score : dr.total_score;
       const band = d.outcome_band !== undefined ? d.outcome_band : dr.outcome_band;
-      return `score=${score != null ? score : '—'} band=${band || '—'}${d.missing_fields ? ' missing=' + d.missing_fields.join(',') : ''}`;
+      return `score=${score != null ? score : '–'} band=${band || '–'}${d.missing_fields ? ' missing=' + d.missing_fields.join(',') : ''}`;
     }
     case 'ai_assessment': return `suspicious=${d.suspicious}${d.tactics && d.tactics.length ? ' tactics=' + d.tactics.join(',') : ''}${d.model ? ' model=' + d.model : ''}`;
     default:
       return Object.entries(d).filter(([, v]) => v == null || typeof v !== 'object').map(([k, v]) => `${k}=${v}`).join(' ');
   }
 }
+function renderLogStrip() {
+  const logs = S.logs || [];
+  $('#logStripCount').textContent = `${logs.length} events`;
+  let last = null;
+  for (let i = logs.length - 1; i >= 0; i--) if (logs[i].event !== 'rule_checked') { last = logs[i]; break; }
+  $('#logStripLatest').textContent = last ? `latest: ${last.event}${last.status ? ' · ' + last.status : ''} · ${detailText(last)}` : 'no events yet';
+  $('#logToggle').textContent = S.logOpen ? 'Collapse ▾' : 'Expand ▴';
+  $('#logToggle').setAttribute('aria-expanded', String(S.logOpen));
+  $('#logDrawer').classList.toggle('open', S.logOpen);
+}
 function renderLogs(force) {
+  renderLogStrip();
+  if (!S.logOpen) return;
   const showAll = $('#showAll').checked;
   const logs = S.logs || [];
   const sig = `${logs.length}:${logs.length ? logs[logs.length - 1].event_id : 0}:${showAll}:${S.selected}`;
@@ -1505,7 +1702,7 @@ function renderLogs(force) {
   $('#logCount').textContent = `${logs.length} events${hidden ? ` · ${hidden} rule checks hidden` : ''}`;
   const rows = shown.slice(-400).map((l) => {
     const cls = HL[l.event] || (l.event === 'rule_checked' ? 'dim' : '');
-    return `<div class="lg ${cls}"><span class="t">[${esc(clockOf(l.occurred_at, true))}]</span> <span class="mono" style="color:#475569">#${esc(l.event_id)}</span> <span class="ev">${esc(l.event)}</span> `
+    return `<div class="lg ${cls}"><span class="t">[${esc(clockOf(l.occurred_at, true))}]</span> <span style="color:oklch(0.5 0.02 260)">#${esc(l.event_id)}</span> <span class="ev">${esc(l.event)}</span> `
       + `${l.tx_id ? `<span class="tx" data-select="${esc(l.tx_id)}">tx ${esc(shortId(l.tx_id))}</span> ` : ''}`
       + `${l.risk_code ? `<span class="rc">${esc(l.risk_code)}</span> ` : ''}`
       + `${l.method ? `method=${esc(l.method)} ` : ''}<span class="stt">${esc(l.status || '')}</span> `
@@ -1519,17 +1716,17 @@ function renderLogs(force) {
 function renderHeader() {
   const mode = S.state && S.state.approval_mode;
   const mb = $('#modeBadge');
-  if (mode === 'signed') { mb.className = 'pill lime'; mb.textContent = '🔏 Signed approvals · ECDSA P-256'; }
-  else if (mode === 'basic') { mb.className = 'pill dark'; mb.textContent = 'Basic approvals (no signatures)'; }
-  else { mb.className = 'pill dark'; mb.textContent = 'Approvals: —'; }
+  mb.textContent = mode === 'signed' ? '🔏 Every payment needs a signed approval (ECDSA P-256)' : mode === 'basic' ? 'Basic approvals (no signatures)' : 'Approvals: connecting…';
+  $('#offBadge').hidden = S.online !== false;
   $('#morningBtn').disabled = S.agentBusy;
   $('#porSend').disabled = S.agentBusy;
   if (S.engineTab === 'agent') S.agentSeen = true;
-  const cb = $('#connBadge');
-  if (S.online === false) { cb.className = 'pill bad'; cb.innerHTML = '<span class="dot"></span> Server unreachable — retrying'; }
-  else if (S.online) { cb.className = 'pill dark'; cb.innerHTML = '<span class="dot"></span> Live · polling every 1s'; }
   const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
   document.querySelectorAll('.clock').forEach((c) => { c.textContent = t; });
+  const chips = $('#porChips');
+  chips.classList.toggle('open', S.chipsOpen);
+  $('#ideasBtn').classList.toggle('on', S.chipsOpen);
+  $('#ideasBtn').setAttribute('aria-expanded', String(S.chipsOpen));
 }
 
 /* ---------- master render (cheap: each panel only touches DOM when changed) ---------- */
@@ -1544,7 +1741,9 @@ function setHtml(sel, html) {
 }
 function render() {
   renderHeader();
+  setHtml('#porHome', renderHome());
   renderChat();
+  setHtml('#engTabs', renderEngTabs());
   setHtml('#engine', renderEngine());
   setHtml('#bank', renderBank());
   setHtml('#sonAgentBar', renderSonAgentBar());
@@ -1569,6 +1768,7 @@ function pollState() {
         delete lastHtml['#bank'];
         setTimeout(() => { S.balanceFlash = false; delete lastHtml['#bank']; }, 1700);
         setTimeout(() => { S.balanceDelta = null; }, 6000);
+        refreshBudget();
       }
       S.lastBalance = bal;
       // keep Ah Por's cards in sync with server status (son approves -> her card shows Paid)
@@ -1607,7 +1807,7 @@ async function agentRun(path, body, ctx, typingText) {
   S.chat = S.chat.filter((i) => i.id !== typing.id);
   S.agentBusy = false;
   if (!res.ok) {
-    S.chat.push({ id: nid(), type: 'bot', zh: '助手而家用唔到，請用下面嘅按鈕。', en: `Assistant unavailable — ${res.data.message}` });
+    S.chat.push({ id: nid(), type: 'bot', zh: '助手而家用唔到，請用上面嘅按鈕。', en: `Assistant unavailable: ${res.data.message}` });
     render(); return null;
   }
   const d = res.data || {};
@@ -1627,6 +1827,7 @@ async function agentRun(path, body, ctx, typingText) {
 async function agentSend(text) {
   text = String(text || '').trim();
   if (!text || S.agentBusy) return;
+  S.chipsOpen = false;
   S.chat.push({ id: nid(), type: 'out-text', zh: text });
   const history = S.agentHistory.slice(-6);
   const d = await agentRun('/agent/chat', { message: text, history }, { source: 'chat', text }, '助手諗緊… thinking');
@@ -1637,7 +1838,7 @@ async function agentSend(text) {
 }
 async function morningCheck() {
   if (S.agentBusy) return;
-  S.chat.push({ id: nid(), type: 'sys', text: "☀️ Morning check — the assistant looks at today's bills" });
+  S.chat.push({ id: nid(), type: 'sys', text: "☀️ Morning check: the assistant looks at today's bills" });
   await agentRun('/agent/morning_check', null, { source: 'morning', text: 'Morning check' }, '☀️ 早晨！助手檢查緊啲單… checking bills');
 }
 async function setPaused(paused) {
@@ -1646,7 +1847,7 @@ async function setPaused(paused) {
   const res = await api('POST', '/agent/pause', { paused });
   S.pauseBusy = false;
   if (!res.ok) toast(`Could not change: ${res.data.message}`, true);
-  else toast(res.data.paused ? 'Assistant paused — Mum uses the buttons' : 'Assistant resumed');
+  else toast(res.data.paused ? 'Assistant paused. Mum uses the buttons' : 'Assistant resumed');
   await pollState();
 }
 
@@ -1658,15 +1859,17 @@ async function resetDemo() {
   btn.disabled = false;
   if (!res.ok) { toast(`Reset failed: ${res.data.message}`, true); return; }
   try { window.speechSynthesis && speechSynthesis.cancel(); } catch (_) {}
-  welcome();
+  S.chat = [];
   S.txCache = {}; S.selected = null; S.sheet = null; S.presets = null;
   S.son = { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, seenAwaiting: {} };
   S.agentHistory = []; S.agentLast = null; S.agentSeen = true; S.engineTab = 'decision';
-  S.lastBalance = null; S.balanceDelta = null;
+  S.lastBalance = null; S.balanceDelta = null; S.chipsOpen = false;
   renderSheet();
+  $('#porScroll').scrollTop = 0;
   toast(`Demo reset · balance ${rm(res.data.balance_minor)}`);
   await pollState();
   await pollLogs();
+  refreshBudget();
 }
 
 /* ---------- one click handler for everything ---------- */
@@ -1682,6 +1885,7 @@ document.addEventListener('click', async (ev) => {
   if (item && item.type === 'tx' && item.resp) { S.selected = item.resp.tx_id || `item:${item.id}`; S.engineTab = 'decision'; }
   switch (act) {
     case 'reset': return resetDemo();
+    case 'go-home': $('#porScroll').scrollTo({ top: 0, behavior: 'smooth' }); return;
     case 'open-snap': readForm(); return openSnap();
     case 'open-form': readForm(); S.form.err = ''; S.sheet = 'form'; return renderSheet();
     case 'close-sheet': readForm(); S.sheet = null; return renderSheet();
@@ -1709,13 +1913,23 @@ document.addEventListener('click', async (ev) => {
         : { type: 'out-bill', payee: p.payee_name, amount: p.amount_minor, text: p.ocr_text, due: p.due_date };
       return analyze({ preset_id: p.id }, out, { kind: p.kind, due: p.due_date });
     }
+    case 'pay-bill': {
+      const b = ((S.state && S.state.bills_inbox) || []).find((x) => x.bill_id === btn.getAttribute('data-id'));
+      if (!b) return;
+      return analyze({ preset_id: b.bill_id }, { type: 'out-bill', payee: b.payee_name, amount: b.amount_minor, text: 'From Bills waiting', due: b.due_date }, { kind: 'BILL', due: b.due_date });
+    }
+    case 'chips-toggle': S.chipsOpen = !S.chipsOpen; return renderHeader();
     case 'chip': return agentSend(btn.getAttribute('data-text'));
     case 'agent-send': { const inp = $('#porInput'); const t = inp.value; if (t.trim() && !S.agentBusy) inp.value = ''; return agentSend(t); }
     case 'morning': return morningCheck();
     case 'engine-tab': S.engineTab = btn.getAttribute('data-tab'); return render();
+    case 'tech-toggle': S.techOpen = !S.techOpen; return render();
+    case 'log-toggle': S.logOpen = !S.logOpen; S.logSig = ''; return renderLogs(true);
+    case 'double-tap-selected': { const ci = confirmableItem(); if (!ci) { toast('No payment is waiting for confirm. Snap the TNB bill first.'); return; } return txAction(ci, () => doubleTap(ci)); }
     case 'son-pause': return setPaused(btn.getAttribute('data-paused') === '1');
     case 'budget': return showBudget();
     case 'report-por': return showReportPor();
+    case 'speak-budget': if (S.budget) speak(budgetSpeech(S.budget)); return;
     case 'speak': {
       if (!item) return;
       if (item.type === 'tx') return speak(speakTextForTx(item));
@@ -1732,7 +1946,7 @@ document.addEventListener('click', async (ev) => {
     case 'cancel': if (item) return txAction(item, async () => applyTxResult(item, await api('POST', `/tx/${encodeURIComponent(item.resp.tx_id)}/cancel`))); return;
     case 'ask-child': if (item) return txAction(item, async () => applyTxResult(item, await api('POST', `/tx/${encodeURIComponent(item.resp.tx_id)}/ask_child`))); return;
     case 'dismiss': if (item) { item.local.dismissed = true; render(); } return;
-    case 'officials': return showOfficials(item);
+    case 'officials': return showOfficials();
     case 'voice': if (item) return txAction(item, () => doVoice(item, btn.getAttribute('data-kw'))); return;
     case 'son-tab': S.son.tab = btn.getAttribute('data-tab'); render(); if (S.son.tab === 'report') loadSonReport(); return;
     case 'son-report-refresh': return loadSonReport();
@@ -1750,6 +1964,7 @@ $('#porInput').addEventListener('keydown', (e) => {
 
 /* ---------- start ---------- */
 render();
+refreshBudget();
 loop(pollState, 1000);
 loop(pollLogs, 1000);
 </script>
