@@ -1,0 +1,15 @@
+1/120 AI checks2/120 AI checks3/120 AI checks4/120 AI checks5/120 AI checks6/120 AI checks7/120 AI checks8/120 AI checks9/120 AI checks10/120 AI checks11/120 AI checks12/120 AI checks13/120 AI checks14/120 AI checks15/120 AI checks16/120 AI checks17/120 AI checks18/120 AI checks19/120 AI checks20/120 AI checks21/120 AI checks22/120 AI checks23/120 AI checks24/120 AI checks25/120 AI checks26/120 AI checks27/120 AI checks28/120 AI checks29/120 AI checks30/120 AI checks31/120 AI checks32/120 AI checks33/120 AI checks34/120 AI checks35/120 AI checks36/120 AI checks37/120 AI checks38/120 AI checks39/120 AI checks40/120 AI checks41/120 AI checks42/120 AI checks43/120 AI checks44/120 AI checks45/120 AI checks46/120 AI checks47/120 AI checks48/120 AI checks49/120 AI checks50/120 AI checks51/120 AI checks52/120 AI checks53/120 AI checks54/120 AI checks55/120 AI checks56/120 AI checks57/120 AI checks58/120 AI checks59/120 AI checks60/120 AI checks61/120 AI checks62/120 AI checks63/120 AI checks64/120 AI checks65/120 AI checks66/120 AI checks67/120 AI checks68/120 AI checks69/120 AI checks70/120 AI checks71/120 AI checks72/120 AI checks73/120 AI checks74/120 AI checks75/120 AI checks76/120 AI checks77/120 AI checks78/120 AI checks79/120 AI checks80/120 AI checks81/120 AI checks82/120 AI checks83/120 AI checks84/120 AI checks85/120 AI checks86/120 AI checks87/120 AI checks88/120 AI checks89/120 AI checks90/120 AI checks91/120 AI checks92/120 AI checks93/120 AI checks94/120 AI checks95/120 AI checks96/120 AI checks97/120 AI checks98/120 AI checks99/120 AI checks100/120 AI checks101/120 AI checks102/120 AI checks103/120 AI checks104/120 AI checks105/120 AI checks106/120 AI checks107/120 AI checks108/120 AI checks109/120 AI checks110/120 AI checks111/120 AI checks112/120 AI checks113/120 AI checks114/120 AI checks115/120 AI checks116/120 AI checks117/120 AI checks118/120 AI checks119/120 AI checks120/120 AI checks
+| Measure | Rules only | Rules + AI |
+|---|---|---|
+| Scams stopped (blocked or sent to her son) | 60/60 (100%) | 60/60 (100%) |
+| … blocked outright | 23/60 (38%) | 23/60 (38%) |
+| Scams of RM 500 or less stopped (the hard cap can't help) | 38/38 (100%) | 38/38 (100%) |
+| Scams that would go through on her tap alone | 0/60 (0%) | 0/60 (0%) |
+| Genuine TNB / Air Selangor bills payable on her tap alone | 16/18 (89%) | 16/18 (89%) |
+| Genuine payments to other payees sent to her son | 41/42 (98%) | 41/42 (98%) |
+| Genuine payments wrongly blocked | 1/60 (2%) | 1/60 (2%) |
+
+Dataset: 60 scams, 60 genuine
+AI answered 120/120 requests (others were unavailable; re-run to retry them)
+AI flagged 58 scams and 4 genuine requests
+Per-item results: C:\Documents\DialectGuard\eval\results\scam_eval_results.json

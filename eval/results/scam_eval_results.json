@@ -1,0 +1,4429 @@
+[
+ {
+  "id": "s001",
+  "label": "scam",
+  "category": "police_impersonation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ng Wei Chuan",
+  "amount_rm": "18500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "threat",
+    "move_money_to_protect_it",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s002",
+  "label": "scam",
+  "category": "police_impersonation",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Mohd Hafiz bin Rahman",
+  "amount_rm": "3000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "move_money_to_protect_it",
+    "threat",
+    "prize_or_refund_bait"
+   ]
+  }
+ },
+ {
+  "id": "s003",
+  "label": "scam",
+  "category": "police_impersonation",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Azman bin Yusof",
+  "amount_rm": "450.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s004",
+  "label": "scam",
+  "category": "police_impersonation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Royal Trust Enterprise",
+  "amount_rm": "2500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s005",
+  "label": "scam",
+  "category": "court_impersonation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Tan Mei Ling",
+  "amount_rm": "1500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "move_money_to_protect_it",
+    "threat"
+   ]
+  }
+ },
+ {
+  "id": "s006",
+  "label": "scam",
+  "category": "court_impersonation",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Rizal Enterprise",
+  "amount_rm": "380.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s007",
+  "label": "scam",
+  "category": "bnm_impersonation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Global Mewah Resources",
+  "amount_rm": "25000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "move_money_to_protect_it",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s008",
+  "label": "scam",
+  "category": "bnm_impersonation",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lee Chong Wei Trading",
+  "amount_rm": "8000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "move_money_to_protect_it",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s009",
+  "label": "scam",
+  "category": "lhdn_impersonation",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Hasil Collection Sdn Bhd",
+  "amount_rm": "286.40",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s010",
+  "label": "scam",
+  "category": "lhdn_impersonation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Faizal bin Kamarudin",
+  "amount_rm": "1270.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s011",
+  "label": "scam",
+  "category": "refund_advance_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "MyRefund Services",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s012",
+  "label": "scam",
+  "category": "parcel_customs_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "PosLaju Duty Payment",
+  "amount_rm": "12.90",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s013",
+  "label": "scam",
+  "category": "customs_impersonation",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Wong Kar Seng",
+  "amount_rm": "1200.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "threat",
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s014",
+  "label": "scam",
+  "category": "parcel_redelivery_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "JNT Redelivery Centre",
+  "amount_rm": "3.50",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s015",
+  "label": "scam",
+  "category": "parcel_customs_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chong Kah Wai",
+  "amount_rm": "168.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s016",
+  "label": "scam",
+  "category": "bank_account_frozen",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Maybank Verify 5126",
+  "amount_rm": "1.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s017",
+  "label": "scam",
+  "category": "bank_account_frozen",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Nur Aisyah binti Halim",
+  "amount_rm": "300.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "move_money_to_protect_it"
+   ]
+  }
+ },
+ {
+  "id": "s018",
+  "label": "scam",
+  "category": "bank_account_frozen",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ooi Siew Peng",
+  "amount_rm": "500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "move_money_to_protect_it"
+   ]
+  }
+ },
+ {
+  "id": "s019",
+  "label": "scam",
+  "category": "ewallet_verify",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "TNG eKYC Centre",
+  "amount_rm": "10.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "prize_or_refund_bait"
+   ]
+  }
+ },
+ {
+  "id": "s020",
+  "label": "scam",
+  "category": "ewallet_reversal_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ahmad Zaki",
+  "amount_rm": "99.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s021",
+  "label": "scam",
+  "category": "prize_advance_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lucky Win Marketing",
+  "amount_rm": "350.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s022",
+  "label": "scam",
+  "category": "prize_advance_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Golden Star Promotion",
+  "amount_rm": "2880.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s023",
+  "label": "scam",
+  "category": "prize_advance_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Mesra Rewards Agency",
+  "amount_rm": "250.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s024",
+  "label": "scam",
+  "category": "refund_advance_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lazada Refund Dept 7781",
+  "amount_rm": "45.90",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s025",
+  "label": "scam",
+  "category": "investment_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Prime Wealth Capital",
+  "amount_rm": "1000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "prize_or_refund_bait",
+    "unusual_payee_request",
+    "impersonation"
+   ]
+  }
+ },
+ {
+  "id": "s026",
+  "label": "scam",
+  "category": "investment_scam",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Hong Fa Holdings Sdn Bhd",
+  "amount_rm": "5000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s027",
+  "label": "scam",
+  "category": "investment_withdrawal_fee",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Mandy Liew",
+  "amount_rm": "1800.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s028",
+  "label": "scam",
+  "category": "investment_scam",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Amanah Barakah Ventures",
+  "amount_rm": "500.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s029",
+  "label": "scam",
+  "category": "crypto_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chen Hui Min",
+  "amount_rm": "480.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s030",
+  "label": "scam",
+  "category": "crypto_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "CoinMax Mining",
+  "amount_rm": "2000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s031",
+  "label": "scam",
+  "category": "job_task_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Siti Aminah Trading",
+  "amount_rm": "200.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s032",
+  "label": "scam",
+  "category": "job_task_scam",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lim Jia Hui",
+  "amount_rm": "860.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "threat",
+    "move_money_to_protect_it"
+   ]
+  }
+ },
+ {
+  "id": "s033",
+  "label": "scam",
+  "category": "job_task_scam",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Muhammad Firdaus",
+  "amount_rm": "120.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s034",
+  "label": "scam",
+  "category": "job_task_scam",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Yap Kok Leong",
+  "amount_rm": "100.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s035",
+  "label": "scam",
+  "category": "loan_processing_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Tetuan Ahmad & Co Clients",
+  "amount_rm": "400.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "unusual_payee_request",
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s036",
+  "label": "scam",
+  "category": "loan_processing_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Zainal Abidin bin Omar",
+  "amount_rm": "250.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s037",
+  "label": "scam",
+  "category": "loan_processing_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Kong Mun Wai",
+  "amount_rm": "600.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s038",
+  "label": "scam",
+  "category": "loan_processing_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Kirin Credit Solutions",
+  "amount_rm": "180.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s039",
+  "label": "scam",
+  "category": "romance_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Nurul Izzah binti Ismail",
+  "amount_rm": "3500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s040",
+  "label": "scam",
+  "category": "romance_scam",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Global Military Leave Agency",
+  "amount_rm": "2200.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s041",
+  "label": "scam",
+  "category": "romance_scam",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Rajesh a/l Kumar",
+  "amount_rm": "150.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s042",
+  "label": "scam",
+  "category": "fake_relative",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Wong Siew Ying",
+  "amount_rm": "3800.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s043",
+  "label": "scam",
+  "category": "fake_relative",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Suresh a/l Muthu",
+  "amount_rm": "1500.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "secrecy",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s044",
+  "label": "scam",
+  "category": "fake_relative",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Muhammad Hakim",
+  "amount_rm": "450.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s045",
+  "label": "scam",
+  "category": "fake_relative",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ong Chee Keong",
+  "amount_rm": "2600.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s046",
+  "label": "scam",
+  "category": "fake_emergency",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lim Kah Hong",
+  "amount_rm": "2000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s047",
+  "label": "scam",
+  "category": "fake_online_seller",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Farah Nadia",
+  "amount_rm": "300.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s048",
+  "label": "scam",
+  "category": "fake_online_seller",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Tan Bee Lian",
+  "amount_rm": "376.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s049",
+  "label": "scam",
+  "category": "fake_online_seller",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Mohd Rizal Durian Farm",
+  "amount_rm": "225.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "s050",
+  "label": "scam",
+  "category": "fake_travel_package",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Eng Siew Lan",
+  "amount_rm": "199.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s051",
+  "label": "scam",
+  "category": "fake_charity",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Leong Kam Fatt",
+  "amount_rm": "388.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s052",
+  "label": "scam",
+  "category": "fake_charity",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Norhayati binti Saad",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "s053",
+  "label": "scam",
+  "category": "fake_charity",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Haziq Muhd Trading",
+  "amount_rm": "30.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "s054",
+  "label": "scam",
+  "category": "fake_utility_disconnection",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "TNB Collection Centre",
+  "amount_rm": "236.70",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s055",
+  "label": "scam",
+  "category": "fake_utility_penalty",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "AS Enforcement Unit 7720",
+  "amount_rm": "480.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s056",
+  "label": "scam",
+  "category": "fake_utility_disconnection",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lim Ah Kow",
+  "amount_rm": "152.30",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "threat",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s057",
+  "label": "scam",
+  "category": "fake_utility_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "TNB Services Enterprise",
+  "amount_rm": "98.40",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s058",
+  "label": "scam",
+  "category": "safe_account",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Muhd Syafiq bin Azmi",
+  "amount_rm": "42000.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "SCAM_SIGNAL",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_SCAM_KEYWORD"
+   ],
+   "stopped_after": "BLOCK_SCAM_KEYWORD",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "move_money_to_protect_it",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s059",
+  "label": "scam",
+  "category": "govt_aid_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ejen KWSP Hafiz",
+  "amount_rm": "30.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "s060",
+  "label": "scam",
+  "category": "govt_aid_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Siti Hajar binti Musa",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "prize_or_refund_bait",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "g001",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "42.35",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g002",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "38.90",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g003",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "56.10",
+  "rules": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g004",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "128.60",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "OVER_LIMIT",
+   "risk_score": "60.00",
+   "rules_fired": [
+    "OVER_LIMIT",
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "OVER_LIMIT",
+   "risk_score": "60.00",
+   "rules_fired": [
+    "OVER_LIMIT",
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g005",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "147.85",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "OVER_LIMIT",
+   "risk_score": "60.00",
+   "rules_fired": [
+    "OVER_LIMIT",
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "OVER_LIMIT",
+   "risk_score": "60.00",
+   "rules_fired": [
+    "OVER_LIMIT",
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g006",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "31.40",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g007",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "49.75",
+  "rules": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g008",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "mixed",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "44.20",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g009",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "52.60",
+  "rules": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "WARN",
+   "risk_code_shown": "AMOUNT_HIGH",
+   "risk_score": "20.00",
+   "rules_fired": [
+    "AMOUNT_HIGH"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g010",
+  "label": "genuine",
+  "category": "tnb_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "tnb",
+  "payee_name": "Tenaga Nasional Berhad",
+  "amount_rm": "35.15",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g011",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "18.40",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g012",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "12.60",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g013",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "27.30",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g014",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "33.80",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g015",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "10.92",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g016",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "22.15",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g017",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "mixed",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "15.70",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g018",
+  "label": "genuine",
+  "category": "air_selangor_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": "air_selangor",
+  "payee_name": "Pengurusan Air Selangor Sdn Bhd",
+  "amount_rm": "29.05",
+  "rules": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "APPROVE",
+   "risk_code_shown": null,
+   "risk_score": "0.00",
+   "rules_fired": [],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g019",
+  "label": "genuine",
+  "category": "indah_water_bill",
+  "language": "ms",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "Indah Water Konsortium Sdn Bhd",
+  "amount_rm": "24.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g020",
+  "label": "genuine",
+  "category": "indah_water_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "Indah Water Konsortium Sdn Bhd",
+  "amount_rm": "48.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g021",
+  "label": "genuine",
+  "category": "astro_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "MEASAT Broadcast Network Systems (Astro)",
+  "amount_rm": "124.10",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g022",
+  "label": "genuine",
+  "category": "astro_bill",
+  "language": "zh",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "MEASAT Broadcast Network Systems (Astro)",
+  "amount_rm": "79.95",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g023",
+  "label": "genuine",
+  "category": "internet_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "Telekom Malaysia Berhad (Unifi)",
+  "amount_rm": "129.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g024",
+  "label": "genuine",
+  "category": "insurance_premium",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Great Eastern Life Assurance (Malaysia) Berhad",
+  "amount_rm": "245.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g025",
+  "label": "genuine",
+  "category": "insurance_premium",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "AIA Bhd.",
+  "amount_rm": "1280.00",
+  "rules": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "BLOCK",
+   "risk_code_shown": "OVER_HARD_CAP",
+   "risk_score": "0.00",
+   "rules_fired": [
+    "BLOCK_OVER_HARD_CAP"
+   ],
+   "stopped_after": "BLOCK_OVER_HARD_CAP",
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "g026",
+  "label": "genuine",
+  "category": "family_transfer",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chan Mei Yee",
+  "amount_rm": "100.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g027",
+  "label": "genuine",
+  "category": "family_transfer",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lau Mei Kuan",
+  "amount_rm": "88.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g028",
+  "label": "genuine",
+  "category": "family_transfer",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chan Siew Mei",
+  "amount_rm": "200.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency",
+    "unusual_payee_request"
+   ]
+  }
+ },
+ {
+  "id": "g029",
+  "label": "genuine",
+  "category": "family_transfer",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chan Kar Hou",
+  "amount_rm": "300.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "120.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation"
+   ]
+  }
+ },
+ {
+  "id": "g030",
+  "label": "genuine",
+  "category": "tuition_fee",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Bright Minds Tuition Centre",
+  "amount_rm": "280.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g031",
+  "label": "genuine",
+  "category": "tuition_fee",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Pusat Tuisyen Cemerlang",
+  "amount_rm": "150.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g032",
+  "label": "genuine",
+  "category": "tuition_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Melody Music Studio",
+  "amount_rm": "220.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g033",
+  "label": "genuine",
+  "category": "temple_donation",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Persatuan Penganut Tokong Kuan Yin Cheras",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g034",
+  "label": "genuine",
+  "category": "church_donation",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Wesley Methodist Church Kuala Lumpur",
+  "amount_rm": "100.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g035",
+  "label": "genuine",
+  "category": "temple_donation",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Persatuan Tokong Tian Hou Kepong",
+  "amount_rm": "30.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g036",
+  "label": "genuine",
+  "category": "clinic_payment",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Klinik Lim & Rakan-Rakan",
+  "amount_rm": "65.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g037",
+  "label": "genuine",
+  "category": "pharmacy_payment",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Farmasi Sentosa Sdn Bhd",
+  "amount_rm": "138.50",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g038",
+  "label": "genuine",
+  "category": "clinic_payment",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Klinik Fisioterapi Sihat",
+  "amount_rm": "120.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g039",
+  "label": "genuine",
+  "category": "market_vendor",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Tan Ah Seng",
+  "amount_rm": "36.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g040",
+  "label": "genuine",
+  "category": "market_vendor",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Muthu a/l Raman",
+  "amount_rm": "22.50",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g041",
+  "label": "genuine",
+  "category": "market_vendor",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Siew Yoke Roast Duck",
+  "amount_rm": "45.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g042",
+  "label": "genuine",
+  "category": "plumber_repair",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ah Keong Plumbing Service",
+  "amount_rm": "180.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g043",
+  "label": "genuine",
+  "category": "aircon_service",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Cool Breeze Aircon Service",
+  "amount_rm": "160.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g044",
+  "label": "genuine",
+  "category": "electrician_repair",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Soon Electrical & Trading",
+  "amount_rm": "85.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g045",
+  "label": "genuine",
+  "category": "friend_shared_meal",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Wong Lai Fong",
+  "amount_rm": "23.50",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g046",
+  "label": "genuine",
+  "category": "friend_shared_meal",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Mary Teoh",
+  "amount_rm": "18.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g047",
+  "label": "genuine",
+  "category": "friend_shared_meal",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lim Swee Hong",
+  "amount_rm": "56.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g048",
+  "label": "genuine",
+  "category": "mahjong_kaki",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Lee Kuan Ying",
+  "amount_rm": "40.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g049",
+  "label": "genuine",
+  "category": "mahjong_kaki",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Kam Siew Fong",
+  "amount_rm": "25.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g050",
+  "label": "genuine",
+  "category": "residents_association",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Persatuan Penduduk Taman Desa Jaya",
+  "amount_rm": "60.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g051",
+  "label": "genuine",
+  "category": "residents_association",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Taman OUG Residents Association",
+  "amount_rm": "90.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g052",
+  "label": "genuine",
+  "category": "funeral_contribution",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Yap Mun Kit",
+  "amount_rm": "100.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g053",
+  "label": "genuine",
+  "category": "funeral_contribution",
+  "language": "yue",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Ng Siew Lan",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "AI_SCAM_SUSPECTED",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "AI_SCAM_SUSPECTED"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": true,
+   "ai_tactics": [
+    "impersonation",
+    "urgency"
+   ]
+  }
+ },
+ {
+  "id": "g054",
+  "label": "genuine",
+  "category": "condo_maintenance",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "Badan Pengurusan Bersama Pangsapuri Sri Desa",
+  "amount_rm": "145.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g055",
+  "label": "genuine",
+  "category": "household_help",
+  "language": "ms",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Siti Fatimah binti Ali",
+  "amount_rm": "120.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g056",
+  "label": "genuine",
+  "category": "friend_repayment",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Chong Mei Lin",
+  "amount_rm": "85.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g057",
+  "label": "genuine",
+  "category": "senior_club_fee",
+  "language": "mixed",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Kelab Warga Emas Taman Midah",
+  "amount_rm": "50.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g058",
+  "label": "genuine",
+  "category": "telco_bill",
+  "language": "en",
+  "source_type": "BILL",
+  "payee_id": null,
+  "payee_name": "Maxis Broadband Sdn Bhd",
+  "amount_rm": "58.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g059",
+  "label": "genuine",
+  "category": "class_fee",
+  "language": "zh",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Persatuan Tai Chi Kepong",
+  "amount_rm": "40.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "40.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ },
+ {
+  "id": "g060",
+  "label": "genuine",
+  "category": "optical_shop",
+  "language": "en",
+  "source_type": "TRANSFER",
+  "payee_id": null,
+  "payee_name": "Focus Point Optical Mid Valley",
+  "amount_rm": "380.00",
+  "rules": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "disabled",
+   "ai_suspicious": null,
+   "ai_tactics": []
+  },
+  "rules_ai": {
+   "outcome": "REVIEW",
+   "risk_code_shown": "PAYEE_UNKNOWN",
+   "risk_score": "80.00",
+   "rules_fired": [
+    "PAYEE_UNKNOWN",
+    "OVER_LIMIT"
+   ],
+   "stopped_after": null,
+   "ai_status": "ok",
+   "ai_suspicious": false,
+   "ai_tactics": []
+  }
+ }
+]

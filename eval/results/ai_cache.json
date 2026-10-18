@@ -1,0 +1,1829 @@
+{
+ "s001": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "threat",
+   "move_money_to_protect_it",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Threatens arrest or a penalty",
+   "Asks you to move money to 'protect' it",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去「保護」啲錢",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s002": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "move_money_to_protect_it",
+   "threat",
+   "prize_or_refund_bait"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to move money to 'protect' it",
+   "Threatens arrest or a penalty",
+   "Promises a prize or refund"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去「保護」啲錢",
+   "恐嚇話會拉你或者罰你",
+   "話你中獎或者有退款"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s003": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s004": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s005": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "move_money_to_protect_it",
+   "threat"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to move money to 'protect' it",
+   "Threatens arrest or a penalty"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去「保護」啲錢",
+   "恐嚇話會拉你或者罰你"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s006": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s007": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "move_money_to_protect_it",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to move money to 'protect' it",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去「保護」啲錢",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s008": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "move_money_to_protect_it",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to move money to 'protect' it",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去「保護」啲錢",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s009": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s010": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s011": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s012": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s013": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "threat",
+   "urgency"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Threatens arrest or a penalty",
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "恐嚇話會拉你或者罰你",
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s014": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s015": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s016": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s017": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "move_money_to_protect_it"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to move money to 'protect' it"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去「保護」啲錢"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s018": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "move_money_to_protect_it"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to move money to 'protect' it"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去「保護」啲錢"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s019": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "prize_or_refund_bait"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Promises a prize or refund"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "話你中獎或者有退款"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s020": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s021": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "urgency"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s022": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s023": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s024": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "urgency"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s025": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "prize_or_refund_bait",
+   "unusual_payee_request",
+   "impersonation"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account",
+   "Pretends to be police, a bank or the government"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口",
+   "冒認警察、銀行或者政府"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s026": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s027": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s028": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s029": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s030": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s031": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s032": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "threat",
+   "move_money_to_protect_it"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to move money to 'protect' it"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去「保護」啲錢"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s033": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s034": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s035": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "unusual_payee_request",
+   "urgency"
+  ],
+  "labels_en": [
+   "Asks you to pay a personal or unknown account",
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "叫你轉錢去私人或者唔識嘅戶口",
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s036": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s037": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s038": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s039": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s040": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s041": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s042": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s043": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "secrecy",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to keep it secret",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你唔好話俾人知",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s044": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s045": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s046": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s047": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency"
+  ],
+  "labels_en": [
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s048": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s049": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s050": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s051": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s052": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency"
+  ],
+  "labels_en": [
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s053": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s054": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s055": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s056": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "threat",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Threatens arrest or a penalty",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "恐嚇話會拉你或者罰你",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s057": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s058": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "move_money_to_protect_it",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to move money to 'protect' it",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去「保護」啲錢",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s059": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "s060": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "prize_or_refund_bait",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Promises a prize or refund",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "話你中獎或者有退款",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g001": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g002": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g003": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g004": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g005": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g006": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g007": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g008": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g009": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g010": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g011": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g012": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g013": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g014": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g015": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g016": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g017": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g018": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g019": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g020": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g021": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g022": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g023": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g024": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g025": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "urgency"
+  ],
+  "labels_en": [
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g026": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g027": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g028": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency",
+   "unusual_payee_request"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly",
+   "Asks you to pay a personal or unknown account"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做",
+   "叫你轉錢去私人或者唔識嘅戶口"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g029": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g030": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g031": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g032": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g033": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g034": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g035": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g036": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g037": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g038": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g039": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g040": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g041": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g042": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g043": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g044": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g045": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g046": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g047": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g048": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g049": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g050": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g051": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g052": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g053": {
+  "status": "ok",
+  "suspicious": true,
+  "tactics": [
+   "impersonation",
+   "urgency"
+  ],
+  "labels_en": [
+   "Pretends to be police, a bank or the government",
+   "Pressure to act quickly"
+  ],
+  "labels_zh_yue": [
+   "冒認警察、銀行或者政府",
+   "催你即刻做"
+  ],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g054": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g055": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g056": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g057": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g058": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g059": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ },
+ "g060": {
+  "status": "ok",
+  "suspicious": false,
+  "tactics": [],
+  "labels_en": [],
+  "labels_zh_yue": [],
+  "model": "gemini-3.5-flash-lite",
+  "errors": []
+ }
+}
