@@ -2,3 +2,4 @@ audio_samples/
 __pycache__/
 instance/
 .env
+tts_output/
