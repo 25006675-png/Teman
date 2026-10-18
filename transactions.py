@@ -297,6 +297,9 @@ def analyze_transaction(
     source_type: str = "BILL",
     source_text: str = "",
     history_amounts_minor: Iterable[int] = (),
+    community_report_count: int = 0,
+    recent_transfer_count: int = 0,
+    ai_suspicious: bool = False,
     now: datetime | None = None,
 ) -> dict[str, Any]:
     """Evaluate extracted fields and persist only server-provided transaction values."""
@@ -327,6 +330,9 @@ def analyze_transaction(
         amount_minor=amount_minor,
         source_text=source_text,
         history_amounts_minor=history_amounts_minor,
+        community_report_count=community_report_count,
+        recent_transfer_count=recent_transfer_count,
+        ai_suspicious=ai_suspicious,
     )
     if decision["outcome"] == "DATA_INSUFFICIENT":
         with atomic(connection):

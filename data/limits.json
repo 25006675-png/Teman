@@ -25,6 +25,12 @@
             "guardian_can_override": false
         },
         {
+            "id": "BLOCK_COMMUNITY_REPORTED",
+            "risk_code": "SCAM_SIGNAL",
+            "outcome": "BLOCK",
+            "guardian_can_override": false
+        },
+        {
             "id": "BLOCK_OVER_HARD_CAP",
             "risk_code": "OVER_HARD_CAP",
             "outcome": "BLOCK",
@@ -84,5 +90,21 @@
             "REJECTED",
             "EXPIRED"
         ]
+    },
+    "community_reports": {
+        "review_at_reports": 1,
+        "block_at_reports": 2,
+        "count": "distinct families that reported the payee",
+        "official_billers_can_be_reported": false,
+        "values_status": "DEMO_CONFIG_PENDING_TEAM_DECISION"
+    },
+    "rapid_transfers": {
+        "window_hours": 24,
+        "fire_when_prior_transfers_at_least": 2,
+        "counted_statuses": [
+            "DONE",
+            "AWAITING_GUARDIAN"
+        ],
+        "values_status": "DEMO_CONFIG_PENDING_TEAM_DECISION"
     }
 }

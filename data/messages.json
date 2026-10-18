@@ -65,7 +65,49 @@
         "NEXT_WEEK_BUDGET_GAP": {
             "en": "Essential costs exceed the available balance by RM {gap}. No daily spending limit is set until the gap is addressed.",
             "zh_yue_draft": "必要開支比可用餘額多 RM {gap}。處理缺口前，暫時唔會設定每日開支上限。"
+        },
+        "AI_SCAM_SUSPECTED": {
+            "en": "This request shows warning signs of a scam. Don't pay yet. Ask your child or check with an official channel first.",
+            "zh_yue_draft": "呢個要求有啲似騙案嘅跡象。請先唔好付款，問下仔女或者用官方渠道查證。"
+        },
+        "COMMUNITY_REPORTED": {
+            "en": "A DialectGuard family has reported this account as a scam. Please ask your child before paying.",
+            "zh_yue_draft": "有 DialectGuard 家庭舉報過呢個戶口係騙案。付款之前請先問下仔女。"
+        },
+        "RAPID_TRANSFERS": {
+            "en": "You have already made several transfers today. Please ask your child before sending more money.",
+            "zh_yue_draft": "你今日已經轉咗幾次錢。再轉之前，請先問下仔女。"
         }
     },
-    "policy": "Templates are selected by server-side risk code; never generate payment decisions or free-form risk claims with a language model."
+    "policy": "Templates are selected by server-side risk code; never generate payment decisions or free-form risk claims with a language model.",
+    "ai_tactic_labels": {
+        "impersonation": {
+            "en": "Pretends to be police, a bank or the government",
+            "zh_yue_draft": "冒認警察、銀行或者政府"
+        },
+        "urgency": {
+            "en": "Pressure to act quickly",
+            "zh_yue_draft": "催你即刻做"
+        },
+        "secrecy": {
+            "en": "Asks you to keep it secret",
+            "zh_yue_draft": "叫你唔好話俾人知"
+        },
+        "prize_or_refund_bait": {
+            "en": "Promises a prize or refund",
+            "zh_yue_draft": "話你中獎或者有退款"
+        },
+        "move_money_to_protect_it": {
+            "en": "Asks you to move money to 'protect' it",
+            "zh_yue_draft": "叫你轉錢去「保護」啲錢"
+        },
+        "threat": {
+            "en": "Threatens arrest or a penalty",
+            "zh_yue_draft": "恐嚇話會拉你或者罰你"
+        },
+        "unusual_payee_request": {
+            "en": "Asks you to pay a personal or unknown account",
+            "zh_yue_draft": "叫你轉錢去私人或者唔識嘅戶口"
+        }
+    }
 }

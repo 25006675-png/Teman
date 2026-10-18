@@ -199,6 +199,16 @@ def _schema_sql() -> str:
         FOREIGN KEY (tx_id) REFERENCES transactions(id) ON UPDATE RESTRICT ON DELETE RESTRICT
     );
 
+    CREATE TABLE IF NOT EXISTS scam_reports (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        payee_key TEXT NOT NULL,
+        payee_name TEXT,
+        family_id TEXT NOT NULL,
+        tx_id TEXT,
+        reported_at TEXT NOT NULL,
+        UNIQUE (payee_key, family_id)
+    );
+
     CREATE INDEX IF NOT EXISTS idx_transactions_status_created
         ON transactions(status, created_at DESC);
     CREATE INDEX IF NOT EXISTS idx_transactions_payee_created
@@ -347,7 +357,7 @@ def reset_database(path: str | os.PathLike[str] | None = None) -> str:
     try:
         connection.execute("PRAGMA foreign_keys = OFF")
         with atomic(connection):
-            for table in ("sandbox_payments", "mandates", "logs", "budget_limits",
+            for table in ("sandbox_payments", "mandates", "logs", "budget_limits", "scam_reports",
                           "history", "transactions", "schema_info"):
                 connection.execute(f"DROP TABLE IF EXISTS {table}")
     finally:

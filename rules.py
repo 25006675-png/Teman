@@ -18,9 +18,15 @@ BLOCKING_SEQUENCE = (
     "BLOCK_MISSING_REQUIRED_FIELDS",
     "BLOCK_SCAM_KEYWORD",
     "BLOCK_BLACKLISTED_PAYEE",
+    "BLOCK_COMMUNITY_REPORTED",
     "BLOCK_OVER_HARD_CAP",
 )
-SCORING_SEQUENCE = ("PAYEE_UNKNOWN", "OVER_LIMIT", "AMOUNT_HIGH")
+SCORING_SEQUENCE = (
+    "PAYEE_UNKNOWN", "OVER_LIMIT", "AMOUNT_HIGH",
+    "COMMUNITY_REPORTED", "RAPID_TRANSFERS", "AI_SCAM_SUSPECTED",
+)
+# On equal weight, these more specific warnings are shown to Ah Por first.
+DISPLAY_PRIORITY = ("COMMUNITY_REPORTED", "AI_SCAM_SUSPECTED", "RAPID_TRANSFERS")
 ACTION_FLOWS = MappingProxyType({
     "DATA_INSUFFICIENT": ("retake", "type_in"),
     "SCAM_SIGNAL": ("cancel", "check_officially"),
@@ -94,6 +100,7 @@ def _load_runtime_config() -> Mapping[str, Any]:
     required_templates = {
         "PAYMENT_CONFIRMATION", "DATA_INSUFFICIENT", "SCAM_SIGNAL",
         "OVER_HARD_CAP", "PAYEE_UNKNOWN", "OVER_LIMIT", "AMOUNT_HIGH",
+        "COMMUNITY_REPORTED", "RAPID_TRANSFERS", "AI_SCAM_SUSPECTED",
     }
     missing_templates = required_templates - set(configs["messages"].get("templates", {}))
     if missing_templates:
@@ -188,6 +195,10 @@ def _match_whitelist(
         return None
     payee_id_match = next(iter(matches))
     return next(payee for payee in payees if payee["id"] == payee_id_match)
+
+
+def is_official_biller(payee_id: str | None, payee_name: str | None) -> bool:
+    return _match_whitelist(payee_id, payee_name) is not None
 
 
 def _blacklist_matches(payee_id: str | None, payee_name: str | None) -> tuple[str, ...]:
@@ -299,11 +310,15 @@ def evaluate_transaction(
     source_text: str = "",
     history_amounts_minor: Iterable[int] = (),
     language: str = "en",
+    community_report_count: int = 0,
+    recent_transfer_count: int = 0,
+    ai_suspicious: bool = False,
 ) -> dict[str, Any]:
     """Run ordered blocking checks, then score every applicable risk rule.
 
     Inputs are normalized Tech 1 output plus server-held transaction/history data.
     Payment execution and transaction-state changes are deliberately outside this function.
+    The AI signal can only add risk: it fires one extra rule and never removes one.
     """
     if not isinstance(source_text, str):
         raise ValueError("source_text must be text")
@@ -407,8 +422,28 @@ def evaluate_transaction(
         result["matched_blacklist_ids"] = list(blacklisted_ids)
         return result
 
+    payee = _match_whitelist(payee_id, payee_name)
+    # Official billers can't be reported, so reports can't sabotage a real business.
+    reports = 0 if payee is not None else community_report_count
+    community_config = CONFIG["limits"]["community_reports"]
+    community_blocked = reports >= community_config["block_at_reports"]
+    trace(
+        "BLOCK_COMMUNITY_REPORTED", "SCAM_SIGNAL", community_blocked,
+        phase="blocking", match_count=reports,
+    )
+    if community_blocked:
+        result = blocked(
+            "BLOCK", "SCAM_SIGNAL", stopped_after="BLOCK_COMMUNITY_REPORTED",
+            guardian_alert_required=True,
+        )
+        result["community_report_count"] = reports
+        return result
+
     amount_value = int(amount_minor)
-    hard_cap_minor = CONFIG["limits"]["blocking_rules"][3]["maximum_amount_minor"]
+    hard_cap_minor = next(
+        rule["maximum_amount_minor"] for rule in CONFIG["limits"]["blocking_rules"]
+        if rule["id"] == "BLOCK_OVER_HARD_CAP"
+    )
     over_hard_cap = amount_value > hard_cap_minor
     trace("BLOCK_OVER_HARD_CAP", "OVER_HARD_CAP", over_hard_cap, phase="blocking")
     if over_hard_cap:
@@ -416,7 +451,6 @@ def evaluate_transaction(
             "BLOCK", "OVER_HARD_CAP", stopped_after="BLOCK_OVER_HARD_CAP",
         )
 
-    payee = _match_whitelist(payee_id, payee_name)
     history = _sorted_history(history_amounts_minor)
     history_config = CONFIG["limits"]["history_limits"]
     minimum_history = history_config["minimum_bill_count_for_median"]
@@ -460,6 +494,17 @@ def evaluate_transaction(
         weight=f"{_decimal(weights['AMOUNT_HIGH'], label='AMOUNT_HIGH'):.2f}",
     )
 
+    rapid_config = CONFIG["limits"]["rapid_transfers"]
+    for rule_id, fired in (
+        ("COMMUNITY_REPORTED", reports >= community_config["review_at_reports"]),
+        ("RAPID_TRANSFERS", recent_transfer_count >= rapid_config["fire_when_prior_transfers_at_least"]),
+        ("AI_SCAM_SUSPECTED", ai_suspicious is True),
+    ):
+        trace(
+            rule_id, rule_id, fired, phase="scoring",
+            weight=f"{_decimal(weights[rule_id], label=rule_id):.2f}",
+        )
+
     score = sum(
         (_decimal(rule["weight"], label="risk weight") for rule in rules_fired),
         start=Decimal("0"),
@@ -467,9 +512,13 @@ def evaluate_transaction(
     outcome = outcome_for_score(score)
     if rules_fired:
         highest_weight = max(_decimal(rule["weight"], label="risk weight") for rule in rules_fired)
-        primary_rule = next(
+        top_rules = [
             rule for rule in rules_fired
             if _decimal(rule["weight"], label="risk weight") == highest_weight
+        ]
+        primary_rule = next(
+            (rule for code in DISPLAY_PRIORITY for rule in top_rules if rule["rule_id"] == code),
+            top_rules[0],
         )
         risk_code = primary_rule["risk_code"]
         template_code = risk_code

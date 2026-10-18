@@ -46,6 +46,11 @@
 
 ## 3. Team Decisions
 
+- **AI scam analyst (Gemini, added 18 Oct):** bill/message text, payee name and amount are sent to Google's Gemini API at every `/analyze`. Approve this for the demo (synthetic data only) and state it in the Security self-assessment. Without a key, or with `DIALECTGUARD_AI=off`, the rules run alone.
+- **New thresholds (demo values in `data/limits.json`, pending team approval):** community reports: 1 family = son review, 2+ families = block. Rapid transfers: 2+ transfers in 24 hours means the next one needs the son.
+- **Cantonese review:** also covers the new templates (`AI_SCAM_SUSPECTED`, `COMMUNITY_REPORTED`, `RAPID_TRANSFERS`) and `ai_tactic_labels` in `data/messages.json`.
+- **Spec change to approve:** on equal weight, the new warnings (community report, AI, rapid transfers) are shown to Ah Por before `PAYEE_UNKNOWN`. Update PROPOSAL §6b if accepted.
+
 - **Weekly category caps:** `data/budget.json` has no approved `weekly_category_budgets_minor`. Provide category limits before automatic high-spend warnings/suggestions are enabled; the proposal does not define a numerical "clearly high" threshold.
 - **Category attribution:** current report mapping uses whitelist categories; unmatched bills are `uncategorized`, transfers are `transfers`. Confirm whether more categories or another trusted source are needed.
 - **Budget fixtures:** income split/arrival dates, fixed costs, and medical/utilities reserves are synthetic assumptions. Approve or replace them before presenting as Ah Por's actual budget.

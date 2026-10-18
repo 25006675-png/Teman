@@ -14,16 +14,19 @@ import os
 from typing import Any, Literal
 
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
+import ai_analyst
 import audit
 import bank
 import budget
+import community
 import db
 import mandates
 import risk_model
-from rules import MESSAGES
+from rules import MESSAGES, is_official_biller
 from transactions import (
     TransactionFlowError,
     analyze_transaction,
@@ -50,6 +53,28 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(title="DialectGuard", lifespan=lifespan)
+STATIC_DIR = db.ROOT / "static"
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def index() -> FileResponse:
+    return FileResponse(STATIC_DIR / "index.html")
+
+
+@app.get("/presets")
+def presets() -> list[dict[str, Any]]:
+    """Demo bills for the "Snap bill" picker (stand-ins until OCR is wired in)."""
+    return [
+        {key: record[key] for key in ("id", "kind", "payee_name", "amount_minor", "due_date", "ocr_text")}
+        for record in db.load_config("preset_bills.json")["records"]
+    ]
+
+
+@app.get("/officials")
+def officials() -> list[dict[str, Any]]:
+    """Static "Check with official channel" card; only published, sourced numbers."""
+    return db.load_config("officials.json")["contacts"]
 
 
 @app.exception_handler(TransactionFlowError)
@@ -113,11 +138,37 @@ def analyze(body: AnalyzeRequest) -> dict[str, Any]:
         history = []
         if fields["payee_id"]:
             history = [row["amount_minor"] for row in db.get_history_for_payee(connection, fields["payee_id"])]
-        result = analyze_transaction(connection, history_amounts_minor=history, **fields)
+        reports = community.report_count(connection, community.payee_key(fields["payee_id"], fields["payee_name"]))
+        recent_transfers = community.recent_transfer_count(connection) if fields["source_type"] == "TRANSFER" else 0
+        ai = _ai_assessment(connection, fields, history, recent_transfers)
+        result = analyze_transaction(
+            connection, history_amounts_minor=history, community_report_count=reports,
+            recent_transfer_count=recent_transfers, ai_suspicious=ai["suspicious"] is True, **fields,
+        )
+        result["ai_assessment"] = ai
         if result["tx_id"]:
+            db.append_log(connection, event="ai_assessment", tx_id=result["tx_id"], status=ai["status"].upper(),
+                          details={key: ai[key] for key in ("suspicious", "tactics", "model", "errors")})
             result["shadow_model"] = _shadow_score(connection, result["tx_id"], fields)
     result["message_zh_yue"] = MESSAGES[result["template_code"]]["zh_yue_draft"]
     return result
+
+
+def _ai_assessment(connection: Any, fields: dict[str, Any], history: list[int], recent_transfers: int) -> dict[str, Any]:
+    """Ask the AI analyst; skipped when key details are missing (the rules ask again anyway)."""
+    if not (fields["payee_id"] or fields["payee_name"]) or not fields["amount_minor"]:
+        return ai_analyst.skipped("missing payee or amount")
+    balance = bank.balance_minor(connection)
+    return ai_analyst.assess({
+        "source_type": fields["source_type"],
+        "source_text": fields["source_text"],
+        "payee_name": fields["payee_name"] or fields["payee_id"],
+        "amount_minor": fields["amount_minor"],
+        "official_biller": is_official_biller(fields["payee_id"], fields["payee_name"]),
+        "paid_before": bool(history),
+        "share_of_balance": fields["amount_minor"] / balance if balance > 0 else 1.0,
+        "recent_transfers": recent_transfers,
+    })
 
 
 MALAYSIA_TIME = timezone(timedelta(hours=8))
@@ -176,6 +227,28 @@ def reject(tx_id: str) -> dict[str, Any]:
         return reject_transaction(connection, tx_id, actor_role="GUARDIAN")
 
 
+@app.post("/tx/{tx_id}/report_scam")
+def report_scam(tx_id: str) -> Any:
+    """Son marks a request as a scam: it's rejected, and the account is flagged for other families."""
+    with db.db_session() as connection:
+        row = db.get_transaction(connection, tx_id)
+        if row is None:
+            raise TransactionFlowError("NOT_FOUND", http_status=404)
+        if is_official_biller(row["payee_id"], row["payee_name"]):
+            return JSONResponse(status_code=409, content={
+                "error": "OFFICIAL_BILLER", "message": "Official billers can't be reported as scams.",
+            })
+        if row["status"] == "AWAITING_GUARDIAN":
+            reject_transaction(connection, tx_id, actor_role="GUARDIAN")
+        elif row["status"] not in ("BLOCKED", "REJECTED"):
+            raise TransactionFlowError("INVALID_STATE")
+        key = community.payee_key(row["payee_id"], row["payee_name"])
+        count = community.add_report(connection, key=key, payee_name=row["payee_name"],
+                                     tx_id=tx_id, family_id=community.DEMO_FAMILY_ID)
+        return {"ok": True, "payee_key": key, "report_count": count,
+                "transaction": get_transaction_state(connection, tx_id)["transaction"]}
+
+
 @app.post("/voice")
 def voice(body: VoiceRequest) -> dict[str, Any]:
     with db.db_session() as connection:
@@ -201,8 +274,10 @@ def state() -> dict[str, Any]:
             "SELECT * FROM sandbox_payments ORDER BY executed_at DESC LIMIT 20"
         )]
         balance = bank.balance_minor(connection)
+        reports = community.list_reports(connection)
     return {
         "balance_minor": balance,
+        "scam_reports": reports,
         "approval_mode": APPROVAL_MODE,
         "transactions": transactions,
         "awaiting_guardian": [t for t in transactions if t["status"] == "AWAITING_GUARDIAN"],
