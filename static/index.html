@@ -459,6 +459,62 @@
   .lg.hl-agent { background: oklch(0.65 0.15 285 / .14); } .lg.hl-agent .ev { color: oklch(0.82 0.1 285); }
   .lg.dim { opacity: .55; }
 
+  /* real photo + voice */
+  .photo-opt { width: 100%; text-align: left; display: flex; gap: 12px; align-items: center; border: 0; background: var(--brand); color: #fff; border-radius: var(--r-md); padding: 14px 14px; margin-bottom: 12px; font-size: 19px; font-weight: 800; line-height: 1.25; }
+  .photo-opt:hover { background: var(--brand-hover); }
+  .photo-opt .ic { font-size: 32px; }
+  .photo-opt small { display: block; font-size: 14px; font-weight: 600; opacity: .92; }
+  .sheet-sec { font-size: 15px; font-weight: 700; color: var(--ink-2); margin: 4px 2px 8px; }
+  .photo-msg { align-self: flex-end; background: var(--surface); border: 1px solid var(--line-2); border-radius: var(--r-md); padding: 6px; width: 200px; }
+  .photo-msg img { display: block; width: 100%; max-height: 220px; object-fit: contain; border-radius: 8px; background: var(--surface-3); }
+  .photo-msg .cap { font-size: 13.5px; font-weight: 700; color: var(--ink-2); padding: 4px 4px 0; }
+  .readline { margin-bottom: 8px; background: var(--family-soft); color: var(--family); border-radius: var(--r-sm); padding: 7px 10px; font-size: 15.5px; font-weight: 600; line-height: 1.35; }
+  .readline b { font-weight: 800; }
+  .readline small { display: block; font-size: 14.5px; font-weight: 800; margin-top: 2px; }
+  .voice2 { margin: 0 14px 12px; display: grid; gap: 6px; }
+  .holdspeak { width: 100%; border: 2px solid var(--agent-line); background: var(--agent-soft); color: var(--agent); border-radius: var(--r-md); padding: 10px 8px; font-size: 18px; font-weight: 800; line-height: 1.2; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .holdspeak small { display: block; font-size: 14px; font-weight: 600; margin-top: 2px; }
+  .holdspeak.rec { background: var(--block); border-color: var(--block); color: #fff; animation: recpulse 1.2s ease-in-out infinite; }
+  .holdspeak.busy { background: var(--surface-3); border-color: var(--line-2); color: var(--ink-2); cursor: progress; }
+  @keyframes recpulse { 0%, 100% { box-shadow: 0 0 0 0 oklch(0.52 0.19 25 / .45); } 50% { box-shadow: 0 0 0 8px oklch(0.52 0.19 25 / 0); } }
+  @media (prefers-reduced-motion: reduce) { .holdspeak.rec { animation: none; } }
+  .simlink { justify-self: end; border: 0; background: none; padding: 0; font-size: 13px; font-weight: 700; color: var(--ink-3); text-decoration: underline; }
+  .voicebox.sim { margin: 0; }
+  /* hold-to-confirm (high-stakes buttons only) */
+  .holdbtn { position: relative; overflow: hidden; width: 100%; border: 0; border-radius: 999px; min-height: 60px; padding: 9px 16px; font-size: 19px; font-weight: 800; line-height: 1.2; color: #fff; background: var(--brand); touch-action: none; user-select: none; -webkit-user-select: none; }
+  .holdbtn .fill { position: absolute; inset: 0; background: oklch(0.32 0.09 168); transform: scaleX(var(--fill, 0)); transform-origin: left center; pointer-events: none; }
+  .holdbtn .hl, .holdbtn small { position: relative; display: block; pointer-events: none; }
+  .holdbtn small { font-size: 15px; font-weight: 600; margin-top: 1px; }
+  .holdbtn.holding { box-shadow: 0 0 0 4px oklch(0.62 0.14 250 / .35); }
+  .holdbtn.warnk { background: var(--warn-fill); color: oklch(0.25 0.05 70); }
+  .holdbtn.warnk .fill { background: oklch(0.70 0.16 72); }
+  .holdbtn.approve { background: var(--ok); border-radius: var(--r-sm); min-height: 52px; }
+  .holdbtn.approve .fill { background: oklch(0.33 0.10 150); }
+  .holdbtn.mini { width: auto; min-height: 0; margin-top: 5px; padding: 6px 14px; font-size: 15px; }
+  .holdbtn:disabled { opacity: .5; }
+  /* 5-second undo banner on Ah Por's phone */
+  #porUndo { position: absolute; left: 10px; right: 10px; top: 34px; z-index: calc(var(--z-sheet) + 1); }
+  .undo { background: var(--head); color: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 24px -10px oklch(0.1 0.02 255 / .7); animation: slidedown .28s var(--ease) both; }
+  .undo .row { display: flex; align-items: center; gap: 10px; padding: 12px 12px 10px; }
+  .undo .tx { flex: 1; min-width: 0; font-size: 17px; font-weight: 700; line-height: 1.3; }
+  .undo .tx small { display: block; font-size: 15px; font-weight: 600; opacity: .9; }
+  .undo button { flex: none; border: 0; background: #fff; color: var(--block-ink); font-weight: 900; font-size: 18px; border-radius: 10px; padding: 10px 14px; line-height: 1.1; }
+  .undo .line { height: 6px; background: oklch(0.86 0.13 85); transform-origin: left center; animation: undoShrink 5s linear forwards; }
+  @keyframes undoShrink { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+  @keyframes slidedown { from { transform: translateY(-130%); } to { transform: none; } }
+  /* calm waiting room (Ah Por) + decision deadline (Ah Ming) */
+  .waitroom { margin: 4px 14px 14px; border-radius: var(--r-md); padding: 12px; background: var(--family-soft); color: var(--family); display: flex; gap: 12px; align-items: center; }
+  .ring { flex: none; width: 66px; height: 66px; border-radius: 50%; background: conic-gradient(var(--family) calc(var(--p, 1) * 1turn), oklch(0.88 0.03 255) 0); display: grid; place-items: center; }
+  .ring span { width: 52px; height: 52px; border-radius: 50%; background: var(--family-soft); display: grid; place-items: center; font-weight: 800; font-size: 16px; }
+  .waitroom b { font-size: 18px; display: block; line-height: 1.3; }
+  .waitroom small { display: block; font-size: 16px; font-weight: 600; margin-top: 2px; }
+  .sdeadline { margin-top: 8px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 0 8px; background: var(--review-soft); color: var(--review); border-radius: var(--r-sm); padding: 8px 10px; font-weight: 700; font-size: 15px; }
+  .sdeadline .big { font-size: 30px; font-weight: 900; letter-spacing: -.01em; }
+  .sdeadline small { flex-basis: 100%; font-size: 13.5px; }
+  .sdeadline.urgent { background: var(--block-soft); color: var(--block-ink); }
+  .sbtns .callbtn { display: flex; align-items: center; justify-content: center; border: 1.5px solid oklch(0.82 0.05 255); background: var(--family-soft); color: var(--family); border-radius: var(--r-sm); padding: 10px 4px; font-size: 15.5px; font-weight: 800; text-decoration: none; }
+  .sbtns .called { display: flex; align-items: center; justify-content: center; text-align: center; border-radius: var(--r-sm); background: var(--family-soft); color: var(--family); font-size: 14px; font-weight: 800; padding: 6px; }
+  .sbtns .wide { grid-column: 1 / -1; }
   .toast { position: fixed; left: 50%; bottom: 56px; transform: translateX(-50%); background: var(--head); color: #fff; padding: 10px 18px; border-radius: 12px; font-size: 15px; font-weight: 600; z-index: var(--z-toast); box-shadow: 0 8px 20px -8px oklch(0.1 0.02 255 / .5); }
   .toast.bad { background: var(--block); }
 </style>
@@ -513,6 +569,8 @@
         </div>
         <div class="homebar"><i></i></div>
         <div id="porSheet"></div>
+        <div id="porUndo" aria-live="assertive"></div>
+        <input type="file" id="photoInput" accept="image/*" capture="environment" hidden />
       </div></div>
     </section>
 
@@ -613,6 +671,7 @@ function clockOf(iso, ms) {
   const t = d.toLocaleTimeString('en-GB', { hour12: false });
   return ms ? `${t}.${String(d.getMilliseconds()).padStart(3, '0')}` : t;
 }
+function dmy(d) { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(d || '')); return m ? `${m[3]}/${m[2]}/${m[1]}` : String(d || '?'); }
 function hhmm(iso) {
   const d = new Date(iso);
   return isNaN(d) ? '' : d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -634,10 +693,11 @@ async function api(method, path, body, timeoutMs) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs || 8000);
   try {
+    const isForm = typeof FormData !== 'undefined' && body instanceof FormData;
     const res = await fetch(path, {
       method,
-      headers: body ? { 'Content-Type': 'application/json' } : undefined,
-      body: body ? JSON.stringify(body) : undefined,
+      headers: body && !isForm ? { 'Content-Type': 'application/json' } : undefined,
+      body: body ? (isForm ? body : JSON.stringify(body)) : undefined,
       signal: ctrl.signal,
     });
     let data = null;
@@ -650,6 +710,7 @@ async function api(method, path, body, timeoutMs) {
     }
     return { ok: true, status: res.status, data };
   } catch (e) {
+    if (e && e.name === 'AbortError') return { ok: false, status: 0, timeout: true, data: { error: 'TIMEOUT', message: 'That took too long. Please tap a button instead.' } };
     return { ok: false, status: 0, data: { error: 'NETWORK', message: 'Cannot reach the DialectGuard server. Please try again.' } };
   } finally {
     clearTimeout(timer);
@@ -741,7 +802,7 @@ const S = {
   budget: null, budgetErr: null,
   son: { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, seenAwaiting: {} },
   agentHistory: [], agentBusy: false, agentLast: null, agentSeen: true, engineTab: 'decision', pauseBusy: false,
-  techOpen: false, logOpen: false, chipsOpen: false,
+  techOpen: false, logOpen: false, chipsOpen: false, mic: null, // mic: null (unknown) | 'unavailable'
   lastBalance: null, balanceDelta: null,
 };
 let seq = 0;
@@ -777,7 +838,7 @@ function renderHome() {
     bills.forEach((x) => {
       const paid = x.status === 'paid';
       h += `<li><span class="ic">${payeeIcon(x.payee_name)}</span><div><div class="nm">${esc(x.payee_name)}</div><div class="dd">Due ${esc(x.due_date || '–')}</div></div>
-        <div class="rt"><div class="am">${rm(x.amount_minor)}</div>${paid ? '<span class="pill paid">✅ 已交 Paid</span>' : `<span class="pill unpaid">⏳ 未交 Unpaid</span><br><button class="paybtn" data-act="pay-bill" data-id="${esc(x.bill_id)}">Pay 交</button>`}</div></li>`;
+        <div class="rt"><div class="am">${rm(x.amount_minor)}</div>${paid ? '<span class="pill paid">✅ 已交 Paid</span>' : `<span class="pill unpaid">⏳ 未交 Unpaid</span><br>${holdBtn('bill', `data-id="${esc(x.bill_id)}"`, '㩒住付款 · Hold to pay', '', 'mini')}`}</div></li>`;
     });
     h += `</ul>`;
   }
@@ -809,6 +870,18 @@ function currentTx(item) {
   return (id && stateTx(id)) || item.lastTx || (item.resp && item.resp.transaction) || null;
 }
 
+function holdBtn(kind, attrs, label, sub, cls) {
+  return `<button class="holdbtn ${cls || ''}" data-hold="${kind}" ${attrs} aria-label="${esc(label)}. Press and hold for one second">`
+    + `<span class="fill"></span><span class="hl">${esc(label)}</span>${sub ? `<small>${esc(sub)}</small>` : ''}</button>`;
+}
+function guardianWindow(tx) { return tx && tx.guardian_extended ? 300 : 120; }
+function waitingRoom(tx) {
+  const left = Math.max(0, Math.floor((new Date(tx.expires_at) - Date.now()) / 1000));
+  const frac = Math.max(0, Math.min(1, left / guardianWindow(tx)));
+  return `<div class="waitroom"><div class="ring" style="--p:${frac.toFixed(3)}"><span>${esc(countdown(tx.expires_at))}</span></div>
+    <div><b>We're doing a quick 2-minute safety check with Ah Ming</b><small lang="zh-HK">同阿明做緊兩分鐘安全檢查</small>
+    ${tx.guardian_extended ? '<small>📞 Ah Ming is calling you. A little more time was added.</small>' : '<small>No money moves until he answers.</small>'}</div></div>`;
+}
 function renderTxCard(item) {
   const r = item.resp;
   const tx = currentTx(item);
@@ -822,6 +895,11 @@ function renderTxCard(item) {
   h += `<div class="band ${ui.cls}"><span>${ui.icon} ${esc(ui.por)}</span><span class="zh" lang="zh-HK">${esc(ui.porZh)}</span></div>`;
   h += `<div class="body">`;
   const speakBtn = `<button class="say" data-act="speak" data-item="${item.id}" title="Read aloud in Cantonese">🔊<small>Read</small></button>`;
+  if (item.readFromPhoto) {
+    const rf = item.readFromPhoto;
+    const parts = [rf.payee_name || '?', rf.amount_minor != null ? rm(rf.amount_minor) : 'RM ?', `due ${rf.due_date ? dmy(rf.due_date) : '?'}`];
+    h += `<div class="readline">📷 What I read from the photo: <b>${esc(parts.join(' · '))}</b><small>Check it matches your bill · 請核對</small></div>`;
+  }
   if (tx) {
     const due = item.dueDate ? ` · due ${esc(item.dueDate)}` : '';
     h += `<div class="amtrow"><div style="min-width:0"><div class="payee">${esc(tx.payee_name || '–')}</div><div class="amount">${rm(tx.amount_minor)}</div>
@@ -852,24 +930,28 @@ function renderTxCard(item) {
       h += `<div class="status ok">✅ Paid ${rm(tx.amount_minor)}<small lang="zh-HK">已經交咗 · ${esc(how)}${p ? ' · ' + esc(clockOf(p.executed_at)) : ''}</small></div>`;
     }
   } else if (status === 'AWAITING_GUARDIAN') {
-    h += `<div class="status wait">📞 Asked Ah Ming. Waiting for his answer…<small lang="zh-HK">已經問緊阿明，等佢覆 · expires in ${esc(countdown(tx.expires_at))}</small></div>`;
+    h += waitingRoom(tx);
   } else if (status === 'CANCELLED') {
     h += `<div class="status neutral">❌ Not paid. No money sent.<small lang="zh-HK">冇俾錢，已取消。</small></div>`;
   } else if (status === 'REJECTED') {
     h += `<div class="status bad">❌ Ah Ming said no. No money sent.<small lang="zh-HK">阿明話唔好俾，冇扣錢。</small></div>`;
   } else if (status === 'EXPIRED') {
-    h += `<div class="status neutral">⏱️ Expired, no money sent.<small lang="zh-HK">${esc(ZH.expired)}</small></div>`;
+    if (outcome === 'REVIEW') h += `<div class="status neutral">🛡️ For your safety, the time to check this payment ran out. The money has not been sent. You can try again later.<small lang="zh-HK">為咗你嘅安全，核對呢筆付款嘅時間已經過咗。啲錢冇俾出去，你可以遲啲再試。</small></div>`;
+    else h += `<div class="status neutral">⏱️ Expired, no money sent.<small lang="zh-HK">${esc(ZH.expired)}</small></div>`;
+  } else if (L.paying) {
+    h += `<div class="status wait">⏳ Paying ${rm(tx && tx.amount_minor)}… 付款中…<small>You can undo at the top of the screen for 5 seconds · 5 秒內可以喺上面取消</small></div>`;
   } else if (L.step === 'ack') {
     h += `<div class="actions"><div class="note" style="margin:0"><b>⚠️ Pay anyway despite the warning?</b><br><span lang="zh-HK">有警告，你確定照俾？</span></div>`;
-    h += `<button class="bigbtn warn" data-act="pay-anyway-yes" data-item="${item.id}">⚠️ Yes, pay ${rm(tx && tx.amount_minor)} anyway<small>確定照俾</small></button>`;
+    h += holdBtn('pay-anyway', `data-item="${item.id}"`, `⚠️ Hold to pay anyway · 㩒住照俾`, `${rm(tx && tx.amount_minor)} · keep holding for 1 second`, 'warnk');
     h += `<button class="bigbtn ghost" data-act="pay-anyway-no" data-item="${item.id}">↩ No, go back<small>返轉頭</small></button></div>`;
+    if (r.tx_id) h += renderVoice(item, true);
   } else {
     // PENDING (or DATA_INSUFFICIENT with no tx): buttons come from the server's actions array
     const risk = outcome === 'WARN' || outcome === 'REVIEW';
     h += `<div class="actions">`;
     const plainCancel = !risk && acts.includes('cancel');
     if (acts.includes('confirm')) {
-      h += `<div class="pair"><button class="bigbtn primary" data-act="confirm" data-item="${item.id}">✅ Confirm &amp; pay<small>確認，幫我交</small></button>`;
+      h += `<div class="pair">${holdBtn('pay', `data-item="${item.id}"`, '✅ Hold to pay · 㩒住付款', `${rm(tx && tx.amount_minor)} · keep holding 1 s`)}`;
       if (plainCancel) h += `<button class="bigbtn ghost" data-act="cancel" data-item="${item.id}">❌ Cancel<small>取消</small></button>`;
       h += `</div>`;
     }
@@ -890,18 +972,105 @@ function renderTxCard(item) {
       h += `</div>`;
     }
     h += `</div>`;
-    if (acts.includes('confirm') && r.tx_id) {
-      h += `<div class="voicebox" title="Speech recognition is not wired in yet; these send the matched keyword to POST /voice"><span>🎤 Say it (simulated):</span>`;
-      h += `<button data-act="voice" data-kw="confirm" data-item="${item.id}">「確認」<small>confirm</small></button>`;
-      h += `<button data-act="voice" data-kw="cancel" data-item="${item.id}">「取消」<small>cancel</small></button>`;
-      h += `<button data-act="voice" data-kw="" data-item="${item.id}">mumble<small>unclear</small></button></div>`;
-    }
+    if (acts.includes('confirm') && r.tx_id) h += renderVoice(item, false);
   }
   if (L.notes && L.notes.length) h += `<div class="note">${L.notes.map(esc).join('<br>')}</div>`;
   if (L.err) h += `<div class="err">⚠️ ${esc(L.err)}</div>`;
   h += `</div>`;
   return h;
 }
+
+/* ---------- real voice: hold to speak (or tap to start / tap to stop) ---------- */
+function micSupported() { return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder); }
+function renderSimButtons(item, ack, label) {
+  let h = `<div class="voicebox sim" title="Sends the keyword directly to POST /voice, for laptops without a microphone"><span>${esc(label)}</span>`;
+  h += `<button data-act="voice" data-kw="confirm" data-ack="${ack ? 1 : 0}" data-item="${item.id}">「確認」<small>confirm</small></button>`;
+  h += `<button data-act="voice" data-kw="cancel" data-ack="${ack ? 1 : 0}" data-item="${item.id}">「取消」<small>cancel</small></button>`;
+  h += `<button data-act="voice" data-kw="" data-ack="${ack ? 1 : 0}" data-item="${item.id}">mumble<small>unclear</small></button></div>`;
+  return h;
+}
+function renderVoice(item, ack) {
+  const v = item.voice || {};
+  if (S.mic === 'unavailable') return `<div class="voice2">${renderSimButtons(item, ack, '🎤 No microphone here (simulated voice):')}</div>`;
+  let btn;
+  if (v.state === 'starting') btn = `<button class="holdspeak busy" data-voice-item="${item.id}" data-ack="${ack ? 1 : 0}">🎤 Opening the microphone…<small>開緊咪…</small></button>`;
+  else if (v.state === 'rec') btn = `<button class="holdspeak rec" data-voice-item="${item.id}" data-ack="${ack ? 1 : 0}">🔴 Listening… 聽緊…<small>Say 「確認」 or 「取消」. Let go or tap to stop</small></button>`;
+  else if (v.state === 'sending') btn = `<button class="holdspeak busy" disabled>⏳ Checking what you said…<small>核對緊你講咩…</small></button>`;
+  else btn = `<button class="holdspeak" data-voice-item="${item.id}" data-ack="${ack ? 1 : 0}">🎤 Hold to speak · 㩒住講<small>${ack ? 'Say 「確認」 to pay anyway' : 'Say 「確認」 to pay or 「取消」 to cancel'}</small></button>`;
+  let h = `<div class="voice2">${btn}`;
+  h += `<button class="simlink" data-act="sim-toggle" data-item="${item.id}">${item.local.simOpen ? 'hide simulated voice' : 'simulate voice'}</button>`;
+  if (item.local.simOpen) h += renderSimButtons(item, ack, '(simulated voice)');
+  return h + `</div>`;
+}
+let rec = null; // the one active recording: { item, ack, pressAt, started, mr, stream, timer }
+async function startRec(item, ack) {
+  if (rec) return;
+  if (!micSupported()) { S.mic = 'unavailable'; render(); toast('No microphone here. Use the simulated voice buttons.'); return; }
+  rec = { item, ack, pressAt: Date.now(), started: false };
+  item.voice = { state: 'starting' }; render();
+  let stream;
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+  } catch (e) {
+    rec = null; item.voice = {};
+    S.mic = 'unavailable';
+    toast(e && e.name === 'NotAllowedError' ? 'Microphone permission was refused. Use the buttons or simulated voice.' : 'No microphone found. Use the buttons or simulated voice.', true);
+    render(); return;
+  }
+  if (!rec || rec.item !== item) { stream.getTracks().forEach((t) => t.stop()); return; } // cancelled meanwhile
+  const mime = ['audio/webm;codecs=opus', 'audio/webm', 'audio/ogg;codecs=opus', 'audio/mp4'].find((m) => MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m)) || '';
+  let mr;
+  try { mr = new MediaRecorder(stream, mime ? { mimeType: mime } : undefined); } catch (e) {
+    stream.getTracks().forEach((t) => t.stop()); rec = null; item.voice = {}; S.mic = 'unavailable'; render(); return;
+  }
+  const chunks = [];
+  const r = rec;
+  mr.ondataavailable = (ev) => { if (ev.data && ev.data.size) chunks.push(ev.data); };
+  mr.onstop = () => {
+    stream.getTracks().forEach((t) => t.stop()); // release the mic every time
+    const blob = new Blob(chunks, { type: mr.mimeType || mime || 'audio/webm' });
+    chunks.length = 0;
+    sendVoiceAudio(item, blob, r.ack);
+  };
+  r.mr = mr; r.stream = stream; r.started = true;
+  mr.start();
+  r.timer = setTimeout(stopRec, 5000); // max ~5 s
+  item.voice = { state: 'rec' }; render();
+}
+function stopRec() {
+  if (!rec) return;
+  const r = rec; rec = null;
+  clearTimeout(r.timer);
+  if (r.mr && r.mr.state !== 'inactive') { r.item.voice = { state: 'sending' }; render(); r.mr.stop(); }
+  else { if (r.stream) r.stream.getTracks().forEach((t) => t.stop()); r.item.voice = {}; render(); }
+}
+async function sendVoiceAudio(item, blob, ack) {
+  item.voice = { state: 'sending' }; render();
+  const fd = new FormData();
+  fd.append('tx_id', item.resp.tx_id);
+  fd.append('audio', blob, (blob.type || '').includes('ogg') ? 'speech.ogg' : (blob.type || '').includes('wav') ? 'speech.wav' : (blob.type || '').includes('mp4') ? 'speech.m4a' : 'speech.webm');
+  if (ack) fd.append('acknowledge_warning', 'true');
+  S.chat.push({ id: nid(), type: 'out-text', zh: '🎤 （錄音）', en: `(voice recording, ${Math.max(1, Math.round(blob.size / 1024))} KB, not saved)` });
+  render();
+  const res = await api('POST', '/voice/audio', fd, 60000);
+  item.voice = {};
+  handleVoiceResult(item, res, true);
+}
+document.addEventListener('pointerdown', (e) => {
+  const b = e.target.closest('[data-voice-item]');
+  if (!b) return;
+  e.preventDefault();
+  const item = itemById(b.getAttribute('data-voice-item'));
+  if (!item) return;
+  if (rec && rec.item === item) { stopRec(); return; } // second tap stops (tap-to-start / tap-to-stop)
+  if (rec) return;
+  S.selected = item.resp.tx_id; S.engineTab = 'decision';
+  startRec(item, b.getAttribute('data-ack') === '1');
+});
+document.addEventListener('pointerup', () => {
+  // press-and-hold: letting go after a real hold stops; a quick tap keeps recording until the next tap or 5 s
+  if (rec && rec.started && Date.now() - rec.pressAt >= 600) stopRec();
+});
 
 function renderBudget(item) {
   if (item.err) return `<div class="card pop"><div class="band info">💰 Today's budget</div><div class="err" style="margin-top:12px">⚠️ ${esc(item.err)}</div></div>`;
@@ -991,6 +1160,8 @@ function renderChatItem(item) {
       return `<div class="msg me pop"><div class="bubble"><span lang="zh-HK">${esc(item.zh)}</span>${item.en ? `<span class="en">${esc(item.en)}</span>` : ''}</div></div>`;
     case 'out-bill':
       return renderBillPic(item);
+    case 'out-photo':
+      return `<div class="photo-msg pop"><img src="${esc(item.url)}" alt="The bill photo you sent" /><div class="cap">📷 Photo of a bill · 張單嘅相</div></div>`;
     case 'out-fwd':
       return `<div class="fwd pop"><div class="h">↪ Forwarded message · 轉發</div>${esc(item.text || '(no text)')}
         <div class="to">Pay to <b>${esc(item.payee || '–')}</b> · <b>${item.amount != null ? rm(item.amount) : 'RM –'}</b></div></div>`;
@@ -1024,7 +1195,7 @@ function renderChat() {
       chatNodes.set(item.id, { el, html });
       appended = true;
       if (!cardEl && ['tx', 'budget', 'report', 'officials', 'agent'].includes(item.type)) cardEl = el.firstElementChild;
-    } else if (rec.html !== html) {
+    } else if (rec.html !== html && !(hold && rec.el.contains(hold.el))) {
       rec.el.innerHTML = html.replace(' pop', '');
       rec.html = html;
     }
@@ -1046,7 +1217,9 @@ function renderSheet() {
   let h = `<div class="sheet-wrap" data-act="close-sheet-bg"><div class="sheet scroll">`;
   h += `<button class="sheet-close" data-act="close-sheet">✕ Close</button>`;
   if (S.sheet === 'presets') {
-    h += `<h3>📷 Snap bill · 影張單</h3><div class="sub">Demo bills stand in for the camera until OCR is wired in.</div>`;
+    h += `<h3>📷 Snap bill · 影張單</h3><div class="sub">Take a photo of the bill. I read the payee, amount and due date.</div>`;
+    h += `<button class="photo-opt" data-act="photo-pick"><span class="ic">📷</span><span>Take or upload a photo · 影張單<small>Phone: opens the camera. Computer: pick a picture file.</small></span></button>`;
+    h += `<div class="sheet-sec">Or use a sample bill (demo)</div>`;
     if (S.presetsErr) h += `<div class="err" style="margin:0 0 8px">⚠️ ${esc(S.presetsErr)}</div>`;
     if (!S.presets && !S.presetsErr) h += `<div class="sub">Loading…</div>`;
     (S.presets || []).forEach((p) => {
@@ -1113,6 +1286,35 @@ async function analyze(body, outgoing, meta) {
 
 function itemById(id) { return S.chat.find((i) => i.id === Number(id)); }
 
+const photoUrls = []; // object URLs for previews only (memory, revoked on reset)
+async function analyzePhoto(file) {
+  if (!file) return;
+  S.sheet = null; renderSheet();
+  if (!/^image\//.test(file.type || '')) { S.chat.push({ id: nid(), type: 'bot', zh: '呢個唔係相，請再揀過。', en: 'That file is not a picture. Please choose a photo.' }); render(); return; }
+  if (file.size > 10 * 1024 * 1024) { S.chat.push({ id: nid(), type: 'bot', zh: '張相太大，請影過。', en: 'That photo is too large (max 10 MB). Please take it again.' }); render(); return; }
+  const url = URL.createObjectURL(file); photoUrls.push(url);
+  S.chat.push({ id: nid(), type: 'out-photo', url });
+  const pending = { id: nid(), type: 'pending', text: 'Reading your bill… 睇緊張單…' };
+  S.chat.push(pending); render();
+  const fd = new FormData();
+  fd.append('photo', file, file.name || 'bill.jpg');
+  const res = await api('POST', '/analyze/photo', fd, 45000);
+  S.chat = S.chat.filter((i) => i.id !== pending.id);
+  if (!res.ok) {
+    S.chat.push({ id: nid(), type: 'bot', zh: '睇唔到張相，請再影過或者自己輸入。', en: res.status === 413 ? 'That photo is too large (max 10 MB).' : `Sorry, ${res.data.message}` });
+    render(); return;
+  }
+  const r = res.data;
+  const rf = r.read_from_photo || null;
+  const item = { id: nid(), type: 'tx', resp: r, kind: 'BILL', dueDate: rf && rf.due_date ? rf.due_date : null, readFromPhoto: rf, lastTx: r.transaction || null, local: { notes: [] } };
+  if (r.tx_id) S.txCache[r.tx_id] = r;
+  S.chat.push(item);
+  S.selected = r.tx_id || `item:${item.id}`;
+  S.engineTab = 'decision';
+  render(); pollState();
+}
+$('#photoInput').addEventListener('change', (e) => { const f = e.target.files && e.target.files[0]; analyzePhoto(f); });
+
 function applyTxResult(item, res, label) {
   const d = res.data || {};
   if (d.transaction) item.lastTx = d.transaction;
@@ -1153,21 +1355,35 @@ async function doubleTap(item) {
 }
 /* the double-tap proof lives in technical details / the audit log, not on Ah Por's card */
 function confirmableItem() {
-  const ok = (i) => i.type === 'tx' && i.resp && i.resp.tx_id && (i.resp.actions || []).includes('confirm') && (currentTx(i) || {}).status === 'PENDING';
+  const ok = (i) => i.type === 'tx' && i.resp && i.resp.tx_id && !i.local.paying && (i.resp.actions || []).includes('confirm') && (currentTx(i) || {}).status === 'PENDING';
   const sel = S.chat.find((i) => ok(i) && i.resp.tx_id === S.selected);
   if (sel) return sel;
   for (let k = S.chat.length - 1; k >= 0; k--) if (ok(S.chat[k])) return S.chat[k];
   return null;
 }
 
-async function doVoice(item, kw) {
+async function doVoice(item, kw, ack) {
   const said = kw === 'confirm' ? '「確認」' : kw === 'cancel' ? '「取消」' : '「呃……嗯……」';
   const en = kw === 'confirm' ? '(simulated voice) "confirm"' : kw === 'cancel' ? '(simulated voice) "cancel"' : '(simulated voice) unclear mumble';
   S.chat.push({ id: nid(), type: 'out-text', zh: `🎤 ${said}`, en });
   render();
-  const res = await api('POST', '/voice', { tx_id: item.resp.tx_id, keyword: kw || null });
+  const body = { tx_id: item.resp.tx_id, keyword: kw || null };
+  if (ack) body.acknowledge_warning = true;
+  const res = await api('POST', '/voice', body);
+  handleVoiceResult(item, res, false);
+}
+const HEARD = { confirm: ['「確認」', 'confirm'], cancel: ['「取消」', 'cancel'] };
+function handleVoiceResult(item, res, fromAudio) {
   const d = res.data || {};
   if (d.transaction) item.lastTx = d.transaction;
+  if (fromAudio && res.ok) {
+    if (d.voice_status === 'model_not_ready') {
+      S.chat.push({ id: nid(), type: 'bot', zh: '呢部電腦未準備好聲音辨識，請按掣。', en: "Voice isn't ready on this computer yet. Please tap a button." });
+      render(); pollState(); return;
+    }
+    if (d.heard && HEARD[d.heard]) S.chat.push({ id: nid(), type: 'bot', zh: `我聽到：${HEARD[d.heard][0]}`, en: `I heard: ${HEARD[d.heard][1]}` });
+  }
+  if (item.local.step === 'ack' && d.transaction && d.transaction.status !== 'PENDING') item.local.step = null;
   // reply in the feed (the card above also updates from /state)
   if (!res.ok) S.chat.push({ id: nid(), type: 'bot', zh: '做唔到，請按掣。', en: d.message || 'That did not work. Please tap a button.' });
   else if (d.code === 'VOICE_UNRECOGNIZED') S.chat.push({ id: nid(), type: 'bot', zh: ZH.voiceUnclear, en: d.message || "I didn't catch that. Please tap a button." });
@@ -1540,10 +1756,12 @@ function renderSon() {
       h += `<div class="community">🚩 Reported as a scam by ${n ? esc(n) : 'other'} ${n === 1 ? 'family' : 'families'}</div>`;
     }
     if (ai && ai.suspicious === true) h += `<div class="ai-head">🤖 The second AI spotted scam tactics:</div>${aiChips(ai)}`;
-    h += `<div class="exp">⏱️ ${esc(countdown(t.expires_at))} left. If you don't answer, nothing is paid.</div></div>`;
+    const secsLeft = Math.max(0, Math.floor((new Date(t.expires_at) - Date.now()) / 1000));
+    h += `<div class="sdeadline ${secsLeft <= 30 ? 'urgent' : ''}"><span class="big">${esc(countdown(t.expires_at))}</span> left to decide<small>If you don't answer, the payment is stopped.${t.guardian_extended ? ' Extended once while you call Mum.' : ''}</small></div></div>`;
     if (err) h += `<div class="serr">⚠️ ${esc(err)}</div>`;
-    h += `<div class="sbtns"><button class="ap" data-act="son-approve" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>✅ Approve</button>
+    h += `<div class="sbtns"><div class="wide">${holdBtn('approve', `data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}`, '✅ Hold to approve · 按住批准', '', 'approve')}</div>
       <button class="rj" data-act="son-reject" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>❌ Reject</button>
+      ${t.guardian_extended ? '<span class="called">📞 +5 min while you talk</span>' : `<a class="callbtn" href="tel:" data-act="son-call" data-tx="${esc(t.tx_id)}">📞 Call Mum</a>`}
       <button class="full" data-act="son-scam" data-tx="${esc(t.tx_id)}" ${busy ? 'disabled' : ''}>🚩 This is a scam: report &amp; reject</button></div></div>`;
   });
 
@@ -1623,6 +1841,11 @@ async function sonAction(txId, kind) {
       if (!res.ok) S.son.err[txId] = res.data.message;
       else if (res.data.error === 'EXPIRED') S.son.err[txId] = 'This request already expired. Nothing was paid.';
       else toast(kind === 'approve' ? (res.data.executed ? `Approved: ${rm(res.data.payment && res.data.payment.amount_minor)} paid` : 'Already handled') : 'Rejected. No money sent');
+    } else if (kind === 'call') {
+      const res = await api('POST', `/tx/${id}/call_extension`);
+      if (!res.ok) S.son.err[txId] = res.data.message;
+      else if (res.data.error === 'EXPIRED') S.son.err[txId] = 'Too late: this request already expired. Nothing was paid.';
+      else toast('📞 +5 min while you talk to Mum');
     } else if (kind === 'report' || kind === 'scam') {
       const res = await api('POST', `/tx/${id}/report_scam`);
       if (res.ok) { S.son.reported[txId] = { ok: true, count: res.data.report_count }; toast(`Reported as a scam${res.data.report_count ? ` (${res.data.report_count} report(s))` : ''}`); }
@@ -1733,6 +1956,8 @@ function renderHeader() {
 const lastHtml = {};
 function setHtml(sel, html) {
   if (lastHtml[sel] === html) return;
+  if (hold && $(sel).contains(hold.el)) return; // keep the button under her finger; refresh after
+
   lastHtml[sel] = html;
   const el = $(sel);
   const top = el.scrollTop;
@@ -1851,6 +2076,102 @@ async function setPaused(paused) {
   await pollState();
 }
 
+/* ---------- hold-to-confirm (1 s), forgiving to tremor ---------- */
+const HOLD_MS = 1000, HOLD_SLOP = 24;
+let hold = null; // { el, kind, rect, t0, raf, lastBuzz, key }
+function buzz(ms) { try { if (navigator.vibrate) navigator.vibrate(ms); } catch (_) {} }
+function holdStart(el, key) {
+  if (hold || el.disabled) return;
+  hold = { el, kind: el.getAttribute('data-hold'), rect: el.getBoundingClientRect(), t0: performance.now(), lastBuzz: 0, key };
+  el.classList.add('holding');
+  const tick = (now) => {
+    if (!hold || hold.el !== el) return;
+    const p = Math.min(1, (now - hold.t0) / HOLD_MS);
+    el.style.setProperty('--fill', p.toFixed(3));
+    if (now - hold.lastBuzz > 250) { buzz(12); hold.lastBuzz = now; }
+    if (p >= 1) { const h = hold; hold = null; el.classList.remove('holding'); buzz(45); holdComplete(h); return; }
+    hold.raf = requestAnimationFrame(tick);
+  };
+  hold.raf = requestAnimationFrame(tick);
+}
+function holdCancel() {
+  if (!hold) return;
+  cancelAnimationFrame(hold.raf);
+  hold.el.classList.remove('holding');
+  hold.el.style.setProperty('--fill', '0');
+  hold = null;
+  render();
+}
+document.addEventListener('pointerdown', (e) => {
+  const el = e.target.closest('[data-hold]');
+  if (!el) return;
+  e.preventDefault();
+  holdStart(el, false);
+});
+document.addEventListener('pointermove', (e) => {
+  if (!hold || hold.key) return;
+  const r = hold.rect;
+  if (e.clientX < r.left - HOLD_SLOP || e.clientX > r.right + HOLD_SLOP || e.clientY < r.top - HOLD_SLOP || e.clientY > r.bottom + HOLD_SLOP) holdCancel();
+});
+document.addEventListener('pointerup', () => { if (hold && !hold.key) holdCancel(); });
+document.addEventListener('pointercancel', () => { if (hold && !hold.key) holdCancel(); });
+document.addEventListener('keydown', (e) => {
+  const el = document.activeElement && document.activeElement.closest && document.activeElement.closest('[data-hold]');
+  if (!el || (e.key !== ' ' && e.key !== 'Enter')) return;
+  e.preventDefault();
+  if (!e.repeat) holdStart(el, true);
+});
+document.addEventListener('keyup', (e) => { if (hold && hold.key && (e.key === ' ' || e.key === 'Enter')) holdCancel(); });
+function holdComplete(h) {
+  const el = h.el;
+  if (h.kind === 'pay' || h.kind === 'pay-anyway') {
+    const item = itemById(el.getAttribute('data-item'));
+    if (item) startUndo(item, h.kind === 'pay-anyway');
+  } else if (h.kind === 'bill') {
+    payBill(el.getAttribute('data-id'));
+  } else if (h.kind === 'approve') {
+    sonAction(el.getAttribute('data-tx'), 'approve');
+  }
+}
+
+/* ---------- 5-second ambient undo (Ah Por's own payments only) ---------- */
+let undoState = null; // { item, ack, timer }
+function startUndo(item, ack) {
+  if (undoState) { toast('One payment at a time. Please wait a moment.'); return; }
+  const tx = currentTx(item);
+  item.local.paying = true; item.local.step = null; item.local.err = null;
+  S.selected = item.resp.tx_id; S.engineTab = 'decision';
+  undoState = { item, ack, timer: setTimeout(fireUndo, 5000) };
+  $('#porUndo').innerHTML = `<div class="undo" role="alert"><div class="row"><div class="tx">Paying ${rm(tx && tx.amount_minor)} to ${esc(tx && tx.payee_name)}…<small lang="zh-HK">付款中… 5 秒內可以取消</small></div>
+    <button data-act="undo-pay">UNDO<br>取消</button></div><div class="line"></div></div>`;
+  render();
+}
+function clearUndoBanner() { $('#porUndo').innerHTML = ''; }
+async function fireUndo() {
+  if (!undoState) return;
+  const { item, ack } = undoState;
+  undoState = null;
+  clearUndoBanner();
+  await doConfirm(item, ack); // only now does anything reach the server
+  item.local.paying = false;
+  render();
+}
+function undoPay() {
+  if (!undoState) return;
+  const { item, timer } = undoState;
+  clearTimeout(timer);
+  undoState = null;
+  clearUndoBanner();
+  item.local.paying = false;
+  item.local.notes.push('↩ Cancelled, nothing was paid · 已取消，冇付款');
+  render();
+}
+function payBill(billId) {
+  const b = ((S.state && S.state.bills_inbox) || []).find((x) => x.bill_id === billId);
+  if (!b) return;
+  return analyze({ preset_id: b.bill_id }, { type: 'out-bill', payee: b.payee_name, amount: b.amount_minor, text: 'From Bills waiting', due: b.due_date }, { kind: 'BILL', due: b.due_date });
+}
+
 /* ---------- reset ---------- */
 async function resetDemo() {
   const btn = $('#resetBtn');
@@ -1859,6 +2180,10 @@ async function resetDemo() {
   btn.disabled = false;
   if (!res.ok) { toast(`Reset failed: ${res.data.message}`, true); return; }
   try { window.speechSynthesis && speechSynthesis.cancel(); } catch (_) {}
+  if (rec) { const r = rec; rec = null; clearTimeout(r.timer); try { if (r.mr && r.mr.state !== 'inactive') { r.mr.onstop = null; r.mr.stop(); } } catch (_) {} if (r.stream) r.stream.getTracks().forEach((t) => t.stop()); }
+  photoUrls.splice(0).forEach((u) => URL.revokeObjectURL(u));
+  if (undoState) { clearTimeout(undoState.timer); undoState = null; clearUndoBanner(); }
+  if (hold) { cancelAnimationFrame(hold.raf); hold = null; }
   S.chat = [];
   S.txCache = {}; S.selected = null; S.sheet = null; S.presets = null;
   S.son = { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, seenAwaiting: {} };
@@ -1913,10 +2238,12 @@ document.addEventListener('click', async (ev) => {
         : { type: 'out-bill', payee: p.payee_name, amount: p.amount_minor, text: p.ocr_text, due: p.due_date };
       return analyze({ preset_id: p.id }, out, { kind: p.kind, due: p.due_date });
     }
-    case 'pay-bill': {
-      const b = ((S.state && S.state.bills_inbox) || []).find((x) => x.bill_id === btn.getAttribute('data-id'));
-      if (!b) return;
-      return analyze({ preset_id: b.bill_id }, { type: 'out-bill', payee: b.payee_name, amount: b.amount_minor, text: 'From Bills waiting', due: b.due_date }, { kind: 'BILL', due: b.due_date });
+    case 'pay-bill': return payBill(btn.getAttribute('data-id'));
+    case 'undo-pay': return undoPay();
+    case 'son-call': {
+      // tel: link is a placeholder; on a desktop/projector don't open the OS dialler
+      if (!(window.matchMedia && matchMedia('(pointer: coarse)').matches)) ev.preventDefault();
+      return sonAction(btn.getAttribute('data-tx'), 'call');
     }
     case 'chips-toggle': S.chipsOpen = !S.chipsOpen; return renderHeader();
     case 'chip': return agentSend(btn.getAttribute('data-text'));
@@ -1947,7 +2274,9 @@ document.addEventListener('click', async (ev) => {
     case 'ask-child': if (item) return txAction(item, async () => applyTxResult(item, await api('POST', `/tx/${encodeURIComponent(item.resp.tx_id)}/ask_child`))); return;
     case 'dismiss': if (item) { item.local.dismissed = true; render(); } return;
     case 'officials': return showOfficials();
-    case 'voice': if (item) return txAction(item, () => doVoice(item, btn.getAttribute('data-kw'))); return;
+    case 'voice': if (item) return txAction(item, () => doVoice(item, btn.getAttribute('data-kw'), btn.getAttribute('data-ack') === '1')); return;
+    case 'sim-toggle': if (item) { item.local.simOpen = !item.local.simOpen; render(); } return;
+    case 'photo-pick': { const inp = $('#photoInput'); inp.value = ''; inp.click(); return; }
     case 'son-tab': S.son.tab = btn.getAttribute('data-tab'); render(); if (S.son.tab === 'report') loadSonReport(); return;
     case 'son-report-refresh': return loadSonReport();
     case 'son-approve': return sonAction(btn.getAttribute('data-tx'), 'approve');
@@ -1963,6 +2292,7 @@ $('#porInput').addEventListener('keydown', (e) => {
 });
 
 /* ---------- start ---------- */
+if (!micSupported()) S.mic = 'unavailable';
 render();
 refreshBudget();
 loop(pollState, 1000);
