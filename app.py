@@ -13,7 +13,7 @@ from datetime import date, timedelta
 import os
 from typing import Any, Literal
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
@@ -25,7 +25,9 @@ import budget
 import community
 import db
 import mandates
+import ocr
 import services
+import speech
 from rules import is_official_biller
 from transactions import (
     TransactionFlowError,
@@ -133,6 +135,64 @@ def analyze(body: AnalyzeRequest) -> dict[str, Any]:
         fields = body.model_dump(exclude={"preset_id"})
     with db.db_session() as connection:
         return services.analyze(connection, fields)
+
+
+MAX_UPLOAD_BYTES = 10 * 1024 * 1024
+# Tech 1's default Whisper model is large-v3; WHISPER_MODEL can pick a smaller, faster one.
+WHISPER_MODEL = os.environ.get("WHISPER_MODEL", "large-v3")
+_whisper_ready: set[str] = set()
+
+
+def _read_upload(upload: UploadFile) -> bytes:
+    data = upload.file.read(MAX_UPLOAD_BYTES + 1)
+    if len(data) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=413, detail="File too large (max 10 MB)")
+    return data
+
+
+@app.post("/analyze/photo")
+def analyze_photo(photo: UploadFile = File(...)) -> dict[str, Any]:
+    """Bill photo -> Tech 1's OCR -> the same checks as every other payment request."""
+    fields = ocr.extract(_read_upload(photo))
+    with db.db_session() as connection:
+        result = services.analyze(connection, fields)
+    result["read_from_photo"] = {key: fields[key] for key in ("payee_id", "payee_name", "amount_minor", "due_date")}
+    return result
+
+
+def _whisper_available() -> bool:
+    """True once the model is on disk; never downloads during a request."""
+    if WHISPER_MODEL in _whisper_ready:
+        return True
+    try:
+        from faster_whisper.utils import download_model
+        download_model(WHISPER_MODEL, local_files_only=True)
+    except Exception:
+        return False
+    _whisper_ready.add(WHISPER_MODEL)
+    return True
+
+
+@app.post("/voice/audio")
+def voice_audio(tx_id: str = Form(...), audio: UploadFile = File(...),
+                acknowledge_warning: bool = Form(False)) -> dict[str, Any]:
+    """Her recording -> Tech 1's keyword matcher (audio stays in memory, never saved) -> confirm/cancel/no match."""
+    data = _read_upload(audio)
+    voice_status = "ok"
+    keyword = None
+    if not _whisper_available():
+        voice_status = "model_not_ready"
+    else:
+        keyword = speech.match_keyword(data, model_size=WHISPER_MODEL)
+    with db.db_session() as connection:
+        validator = None
+        if keyword == "confirm":
+            validator = _validator(connection, tx_id, "AH_POR", "voice", "PENDING")
+        result = dispatch_voice_keyword(
+            connection, tx_id, recognized_keyword=keyword, actor_role="AH_POR",
+            authorization_validator=validator, acknowledge_warning=acknowledge_warning,
+        )
+    return {**result, "heard": keyword, "voice_status": voice_status, "whisper_model": WHISPER_MODEL}
 
 
 @app.post("/tx/{tx_id}/confirm")
