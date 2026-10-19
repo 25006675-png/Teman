@@ -187,7 +187,7 @@ The assistant sits beside Ah Por's buttons, not around them: every payment it re
 **Stack:** Python 3.12 + FastAPI + SQLite, with a single-file plain-JavaScript frontend (no build step, no CDN) served as a static file. Started with one command; pinned dependency versions; `/reset` restores the demo state. See `README.md`.
 
 ```
-dialectguard/
+teman/  (repository folder: DialectGuard)
 ├── app.py           # endpoints (below)
 ├── services.py      # the one analysis path: reports, AI check, rules, shadow score
 ├── rules.py         # blocking rules + risk score + decision record + messages
@@ -203,13 +203,17 @@ dialectguard/
 ├── db.py            # SQLite schema, triggers, reset
 ├── speech.py        # Whisper transcription + keyword matching
 ├── ocr.py           # bill field extraction (Tesseract)
-├── tts.py           # edge-tts Cantonese audio (built, not wired in)
+├── tts.py           # edge-tts Cantonese audio for read-aloud (POST /speak)
 ├── metrics.py, check_references.py   # dialect evaluation tools (CER, reference-file check)
 ├── ml/              # train_risk_model.py + MODEL_CARD.md
 ├── data/            # whitelist, blacklist, scam words, limits, weights, messages, budget,
 │                    # family limits, preset bills, history, officials, risk model
 ├── static/          # split-screen demo: Ah Por's app · engine + bank · Ah Ming's app · audit log
-└── tests/           # 231 automated tests
+├── tests/           # 241 automated tests
+├── docs/            # this proposal, tasks, pitch, deck plan and sources
+├── demo/            # photos/ (fake bills and messages for the demo) · mockups/
+├── scripts/         # make_demo_photos.py, make_sample_bills.py, try_tts.py
+└── eval/            # scam evaluation
 ```
 
 **Endpoints**

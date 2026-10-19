@@ -90,7 +90,7 @@ python -m pytest
 
 ## Demo walkthrough
 
-Press **↺** (reset, top right) first. Photos are in [demo_photos/](demo_photos/) (fake samples, made by `python make_demo_photos.py`); 📷 **影張單** opens the file picker, and each photo goes through the real OCR. Then:
+Press **↺** (reset, top right) first. Photos are in [demo/photos/](demo/photos/) (fake samples, made by `python scripts/make_demo_photos.py`); 📷 **影張單** opens the file picker, and each photo goes through the real OCR. Then:
 
 1. **Balance:** hold the mic and say 「我仲有幾多錢？」. She hears her balance and how much a day lasts to month end.
 2. **Pay a bill:** 📷 → `1-tnb-electricity-bill.png` (or say 「幫我交電費」). Hold **按住交錢** for 1 second; a 5-second undo runs, then it pays and the bank balance drops.
@@ -116,7 +116,7 @@ Each step leaves state behind (paid bills, used monthly limits, scam reports, th
 3. **Auto-pay limit** per payee = 1.5 × her median past bill, or RM 50 with fewer than 3 past bills.
 4. **Every decision is recorded** with every rule checked, the score, the band and the config version, and is exported by `GET /logs`.
 
-All thresholds live in `data/*.json`. Full details: [PROPOSAL.md](PROPOSAL.md) §5–§6.
+All thresholds live in `data/*.json`. Full details: [docs/PROPOSAL.md](docs/PROPOSAL.md) §5–§6.
 
 ## Security in brief
 
@@ -182,12 +182,19 @@ audit.py          /logs export
 db.py             SQLite schema, triggers, reset
 ocr.py            bill reading (Tesseract)
 speech.py         Whisper transcription + keyword matching
-tts.py            edge-tts Cantonese audio (tested, not yet used by the page)
+tts.py            edge-tts Cantonese audio for read-aloud (POST /speak)
 risk_model.py     shadow fraud model; ml/ has the training script and model card
 metrics.py, check_references.py   dialect evaluation tools
 data/             all rules, limits, templates and synthetic demo data (JSON)
-static/index.html the demo page (plain JavaScript, no build step)
+static/           the demo page (index.html, plain JavaScript, no build step) and biller logos
 tests/            241 tests
+docs/             proposal, tasks, pitch, deck plan and sources
+demo/photos/      fake bills and messages to snap in the demo
+demo/mockups/     the voice-first design mock-up
+scripts/          make_demo_photos.py, make_sample_bills.py, try_tts.py
+eval/, ml/        scam evaluation and the shadow fraud model
+archive/          old material, not used
+PRODUCT.md        design brief (users, principles); stays at the root for the design tools
 ```
 
 ## Real vs simulated

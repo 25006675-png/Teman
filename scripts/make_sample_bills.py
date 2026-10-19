@@ -4,7 +4,8 @@ These are not real bills and not a real TNB layout."""
 import os
 from PIL import Image, ImageDraw, ImageFont
 
-OUT_DIR = os.path.join("tests", "sample_bills")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT_DIR = os.path.join(ROOT, "tests", "sample_bills")
 
 
 def get_font(size):

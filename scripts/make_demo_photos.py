@@ -1,7 +1,7 @@
-"""make_demo_photos.py - makes the FAKE photos used in the live demo (demo_photos/).
+"""make_demo_photos.py - makes the FAKE photos used in the live demo (demo/photos/).
 
 Ah Por "snaps" these with the 影張單 button; they go through the real OCR.
-None of them is a real bill or a real message. Run: python make_demo_photos.py
+None of them is a real bill or a real message. Run: python scripts/make_demo_photos.py
 """
 
 import os
@@ -9,7 +9,7 @@ import textwrap
 
 from PIL import Image, ImageDraw, ImageFont
 
-OUT_DIR = "demo_photos"
+OUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "demo", "photos")
 INK = (20, 24, 32)
 GREY = (95, 102, 115)
 
