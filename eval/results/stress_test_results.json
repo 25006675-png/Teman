@@ -1,0 +1,27 @@
+{
+ "A_confirm_taps": {
+  "requests": 100,
+  "seconds": 1.31,
+  "executed": 1,
+  "charges": 1,
+  "balance_change_minor": -4250,
+  "expected_change_minor": -4250
+ },
+ "B_son_approvals": {
+  "requests": 50,
+  "seconds": 0.72,
+  "executed": 1,
+  "charges": 1,
+  "balance_change_minor": -12000,
+  "expected_change_minor": -12000
+ },
+ "C_wrong_pins": {
+  "requests": 30,
+  "wrong_pin_replies": 2,
+  "locked_replies": 28,
+  "charges": 0,
+  "final_status": "REJECTED",
+  "balance_change_minor": 0
+ },
+ "passed": true
+}

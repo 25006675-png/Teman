@@ -3,3 +3,4 @@ __pycache__/
 instance/
 .env
 tts_output/
+eval/speech_audio/

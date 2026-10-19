@@ -152,6 +152,8 @@
   .vp-guard { display: inline-flex; align-items: center; gap: 5px; padding: 6px 11px 6px 9px; border-radius: 999px; background: var(--family-soft); color: var(--family); font-size: 15px; font-weight: 700; white-space: nowrap; }
   .vp-guard.off { background: var(--surface-3); color: var(--ink-2); }
   .vp-bal { display: flex; align-items: baseline; gap: 6px; margin-top: 4px; font-size: 54px; font-weight: 800; line-height: 1.02; letter-spacing: -.03em; white-space: nowrap; }
+  .vp-sched { display: inline-flex; align-items: center; gap: 6px; margin-top: 8px; min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--brand-soft); color: var(--brand-deep); font-size: 15px; font-weight: 700; }
+  .vp-sched svg.ico { width: 17px; height: 17px; }
   .vp-bal small { font-size: 24px; font-weight: 700; color: var(--ink-2); letter-spacing: 0; }
 
   .vp-stage { flex: 1; min-height: 0; padding: 4px 20px 14px; display: flex; flex-direction: column; gap: 10px; }
@@ -747,7 +749,6 @@
     <div class="top-actions">
       <span id="offBadge" class="badge-off" hidden>Server unreachable, retrying</span>
       <span id="modeBadge" class="badge-mode" hidden></span>
-      <button id="morningBtn" class="hbtn ghost" data-act="morning" title="The assistant checks the bills and pays those inside family-signed limits"><svg class="ico"><use href="#i-sun"/></svg>Morning check</button>
       <button id="resetBtn" class="hbtn ghost icon" data-act="reset" aria-label="Reset demo" title="Reset demo"><svg class="ico"><use href="#i-refresh"/></svg></button>
     </div>
   </header>
@@ -1045,7 +1046,7 @@ const S = {
   form: { kind: 'BILL', payee: '', amount: '', text: '', err: '' },
   presets: null, presetsErr: null,
   son: { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, dismissed: {}, seenAwaiting: {}, locked: {}, pinTx: null, pin: '', pinErr: '' },
-  agentHistory: [], agentBusy: false, agentLast: null, agentSeen: true, engineTab: 'decision', pauseBusy: false,
+  schedSeen: {}, agentHistory: [], agentBusy: false, agentLast: null, agentSeen: true, engineTab: 'decision', pauseBusy: false,
   techOpen: false, logOpen: false, mic: null, // mic: null (unknown) | 'unavailable'
   lastBalance: null, balanceDelta: null,
 };
@@ -1089,7 +1090,7 @@ function payeeGlyph(name) {
 const amtParts = (minor) => `<small>RM</small>${esc(rm(minor).replace(/^RM\s/, ''))}`;
 const lastWhere = (pred) => { for (let k = S.chat.length - 1; k >= 0; k--) if (pred(S.chat[k])) return S.chat[k]; return null; };
 const OUT_TYPES = ['out-text', 'out-bill', 'out-photo', 'out-fwd', 'sys'];
-const REPLY_TYPES = ['agent', 'bot', 'tx', 'balance', 'typing', 'pending'];
+const REPLY_TYPES = ['agent', 'bot', 'tx', 'balance', 'report', 'typing', 'pending'];
 
 function newTxItem(r, extra) {
   const t = r.transaction || null;
@@ -1136,7 +1137,35 @@ function txStatusLine(i, st, prev) {
     default: return null;
   }
 }
+/* "Pay later" is offered only when the family's signed limit will cover the automatic payment */
+function canPayLater(item, tx) {
+  if (!tx || !item.dueDate || !S.state) return false;
+  const m = (S.state.family_mandates || []).find((x) => x.payee_id === tx.payee_id && x.signature_valid !== false);
+  return !!m && tx.amount_minor <= m.limit_per_bill_minor;
+}
+const dayZh = (iso) => { const m = /^\d{4}-(\d{2})-(\d{2})/.exec(iso || ''); return m ? `${Number(m[1])}月${Number(m[2])}號` : iso; };
+async function payLater(item) {
+  item.local.scheduled = true; // her "cancelled" pending request is a saved bill, not a refusal
+  const res = await api('POST', `/tx/${encodeURIComponent(item.resp.tx_id)}/pay_later`);
+  if (!res.ok) { item.local.scheduled = false; item.local.err = res.data.message; return; }
+  const b = res.data.scheduled;
+  S.schedSeen[b.id] = b.status;
+  S.chat.push({ id: nid(), type: 'bot',
+    zh: `好，我記住咗。${dayZh(b.pay_on)}會自動幫你交 ${b.payee_name} ${rm(b.amount_minor)}，唔使你做嘢。`,
+    en: `OK, saved. I'll pay ${b.payee_name} ${rm(b.amount_minor)} automatically on ${dueShort(b.pay_on)}; nothing for you to do.` });
+}
+/* tell her when a saved bill was paid (or couldn't be) */
+function announceSaved(list) {
+  (list || []).forEach((b) => {
+    const prev = S.schedSeen[b.id];
+    S.schedSeen[b.id] = b.status;
+    if (prev !== 'SCHEDULED' || b.status === 'SCHEDULED') return;
+    if (b.status === 'PAID') S.chat.push({ id: nid(), type: 'bot', zh: `${b.payee_name} ${rm(b.amount_minor)} 已經自動交咗。`, en: `${b.payee_name} ${rm(b.amount_minor)} was paid automatically.` });
+    if (b.status === 'FAILED') S.chat.push({ id: nid(), type: 'bot', zh: `${b.payee_name} ${rm(b.amount_minor)} 自動交唔到，要你自己再確認。`, en: `${b.payee_name} ${rm(b.amount_minor)} couldn't be paid automatically; please confirm it yourself.` });
+  });
+}
 function announceTx(i, st, prev) {
+  if (st === 'CANCELLED' && i.local.scheduled) return;
   const line = txStatusLine(i, st, prev);
   if (line) S.chat.push({ id: nid(), type: 'bot', zh: line[0], en: line[1] });
 }
@@ -1163,9 +1192,11 @@ function replyOf(i) {
     }
     case 'bot': return { zh: i.zh, en: i.en || '' };
     case 'balance': { const l = balanceLine(i.data); return { zh: l[0], en: l[1] }; }
+    case 'report': { const l = reportLine(i.data); return { zh: l[0], en: l[1] }; }
     case 'tx': {
       if (i.agentYue) return { zh: i.agentYue, en: i.agentEn || '' };
       if ((i.resp.actions || []).includes('ask_child')) return { zh: '呢筆錢我確認唔到，而家幫你問阿明。', en: "I couldn't confirm this payment, so I'm asking Ah Ming now." };
+      if (i.resp.photo_check) return { zh: '相入面嘅金額同張單唔夾，我唔會估。請對下張單，再影過或者自己輸入。', en: "The amount on the photo doesn't match the bill the biller issued, so I won't guess. Please check it, retake the photo or type it in." };
       return { zh: i.resp.message_zh_yue || '我睇唔清楚。', en: i.resp.message || '' };
     }
     default: return null;
@@ -1205,7 +1236,10 @@ function renderPorTop() {
   h += st && st.agent_paused
     ? `<span class="vp-guard off" lang="zh-HK">${ico('lock')}助手暫停咗</span>`
     : `<span class="vp-guard" lang="zh-HK">${ico('shield-check')}阿明睇住</span>`;
-  return h + `</div><div class="vp-bal" aria-label="Balance">${bal == null ? '<small>RM</small>…' : amtParts(bal)}</div>`;
+  h += `</div><div class="vp-bal" aria-label="Balance">${bal == null ? '<small>RM</small>…' : amtParts(bal)}</div>`;
+  const saved = ((st && st.scheduled_bills) || []).filter((b) => b.status === 'SCHEDULED');
+  if (saved.length) h += `<button class="vp-sched" data-act="sched-open" lang="zh-HK">${ico('calendar')}${saved.length} 張單會自動交 · ${dayZh(saved[0].pay_on)}</button>`;
+  return h;
 }
 function renderPorStage(ex) {
   let h = '';
@@ -1242,7 +1276,7 @@ function renderPorAction() {
     h += `<div class="vp-done"><span class="vp-tick">${ico('hourglass')}</span><div class="t" lang="zh-HK">5 秒後交<span>${esc(who)} · ${esc(rm(tx && tx.amount_minor))}</span></div></div>`;
     h += `<div class="vp-undo" role="alert"><span lang="zh-HK">改變主意？</span><button data-act="undo-pay">${ico('undo')}<span lang="zh-HK">撤回</span></button><i class="bar"></i></div>`;
   } else if (!r.tx_id) {
-    h += `<div class="vp-what"><span class="vp-badge warn">${ico('camera')}</span><span lang="zh-HK">睇唔清張單</span></div>`;
+    h += `<div class="vp-what"><span class="vp-badge warn">${ico('camera')}</span><span lang="zh-HK">${r.photo_check ? '金額同張單唔夾' : '睇唔清張單'}</span></div>`;
     h += `<div class="vp-two"><button class="vp-btn soft" data-act="photo-pick" lang="zh-HK">${ico('camera')}再影過</button><button class="vp-btn soft" data-act="open-form" lang="zh-HK">${ico('pencil')}自己輸入</button></div>`;
     h += `<button class="vp-ghost" data-act="dismiss" data-item="${item.id}" lang="zh-HK">唔使喇</button>`;
   } else if (tx && tx.status === 'AWAITING_GUARDIAN') {
@@ -1272,7 +1306,10 @@ function renderPorAction() {
     h += `<div class="vp-amt">${amtParts(tx.amount_minor)}</div><div class="vp-sub" lang="zh-HK">${after}${due}</div>`;
     if (item.readFromPhoto) h += `<div class="vp-sub" lang="zh-HK">${ico('camera')}由相度讀出，請對下張單</div>`;
     h += holdBtn('pay', `data-item="${item.id}"`, '按住交錢', '', '', 'check');
-    h += `<div class="vp-hint" lang="zh-HK">按住一秒</div>${renderVoice(item, false)}${err}${cancel}`;
+    h += `<div class="vp-hint" lang="zh-HK">按住一秒</div>${renderVoice(item, false)}${err}`;
+    h += canPayLater(item, tx)
+      ? `<div class="vp-two"><button class="vp-btn soft" data-act="pay-later" data-item="${item.id}" lang="zh-HK">${ico('calendar')}到期先交</button><button class="vp-btn soft" data-act="cancel" data-item="${item.id}" lang="zh-HK">唔交住</button></div>`
+      : cancel;
   }
   return h + `<div class="homebar"><i></i></div>`;
 }
@@ -1323,17 +1360,40 @@ function renderPor() {
   S.porLast = ex;
 }
 
-/* the two shortcut buttons work without the AI: they call the engine directly */
-/* "How much do I have?" and "Pay my electricity" skip the AI: answered by the engine directly.
-   Everything else she says goes to the assistant. */
-function handleSpoken(text) {
+/* Everyday requests skip the AI and are answered by the engine directly (fast, and they work offline):
+   "How much do I have?", "How much did I spend this week?", "Pay my electricity".
+   Everything else she says or types goes to the assistant. */
+function handleSpoken(text, voice = true) {
+  if (S.sheet === 'ask') { S.sheet = null; renderSheet(); }
   const t = text.replace(/\s+/g, '');
-  if (/(仲有|仲剩|剩返|剩|戶口有|有)幾多錢|餘額/.test(t) && !/用咗|使咗|洗咗/.test(t)) return askBalance(text);
-  if (/電費/.test(t) && /交|俾|畀|付|找/.test(t)) return payElectricity(text);
-  return agentSend(text, { voice: true });
+  if (/(仲有|仲剩|仲淨|剩返|淨返|淨低|剩|戶口有|有)幾多錢|餘額/.test(t) && !/用咗|使咗|洗咗/.test(t)) return askBalance(text, voice);
+  if (/(今個|呢個|上個)?(星期|禮拜|週).*(用咗|使咗|洗咗)|(用咗|使咗|洗咗)幾多/.test(t)) return askReport(text, voice);
+  if (/電費/.test(t) && /交|俾|畀|付|找/.test(t) && !/咗未|未呀|未啊|未交|有冇交/.test(t)) return payElectricity(text); // "paid yet?" is a question, not a request
+  return agentSend(text, { voice });
 }
-async function askBalance(said) {
-  S.chat.push({ id: nid(), type: 'out-text', zh: said || '我仲有幾多錢？', en: 'How much money do I have left?', voice: !!said });
+const CATEGORY_ZH = { utilities: '水電費', electricity: '電費', water: '水費', groceries: '買餸', medical: '睇醫生', health: '睇醫生', transfer: '轉賬', other: '其他' };
+function reportLine(r) {
+  const next = r.next_week_limit && r.next_week_limit.daily_limit_minor != null ? r.next_week_limit.daily_limit_minor : null;
+  const nextZh = next != null ? `下個星期每日可以使 ${rm(next)}。` : '';
+  const nextEn = next != null ? ` Next week you can spend up to ${rm(next)} a day.` : '';
+  if (!r.total_spent_minor) return [`今個星期你仲未用錢。${nextZh}`, `You haven't spent anything this week.${nextEn}`];
+  const top = (r.categories || []).slice().sort((a, b) => b.amount_minor - a.amount_minor)[0];
+  const topZh = top ? `最多係${CATEGORY_ZH[top.category] || top.category} ${rm(top.amount_minor)}。` : '';
+  const topEn = top ? ` Most was ${top.category}, ${rm(top.amount_minor)}.` : '';
+  return [`今個星期你一共用咗 ${rm(r.total_spent_minor)}。${topZh}${nextZh}`, `This week you spent ${rm(r.total_spent_minor)}.${topEn}${nextEn}`];
+}
+async function askReport(said, voice) {
+  S.chat.push({ id: nid(), type: 'out-text', zh: said, en: 'How much did I spend this week?', voice: !!voice });
+  const pending = { id: nid(), type: 'pending' };
+  S.chat.push(pending); render();
+  const res = await api('GET', '/report');
+  S.chat = S.chat.filter((i) => i.id !== pending.id);
+  if (res.ok) S.chat.push({ id: nid(), type: 'report', data: res.data });
+  else S.chat.push({ id: nid(), type: 'bot', zh: '而家睇唔到報告，請等陣再試。', en: `Couldn't load the weekly report: ${res.data.message}` });
+  render();
+}
+async function askBalance(said, voice = true) {
+  S.chat.push({ id: nid(), type: 'out-text', zh: said || '我仲有幾多錢？', en: 'How much money do I have left?', voice: !!said && voice });
   const pending = { id: nid(), type: 'pending' };
   S.chat.push(pending); render();
   const res = await api('GET', '/budget');
@@ -1549,6 +1609,15 @@ function renderSheet() {
     h += `<div class="sheet-sec" style="margin-top:14px">Try</div>`;
     ASK_EXAMPLES.forEach((x) => { h += `<button class="vp-ex ${x.scam ? 'scam' : ''}" data-act="chip" data-text="${esc(x.text)}"><span lang="zh-HK">${esc(x.label)}</span><small>${esc(x.en)}</small></button>`; });
     h += `<button class="bigbtn ghost" style="width:100%;margin-top:8px" data-act="open-snap">${ico('receipt')}Backup: send a sample bill without a photo</button>`;
+  } else if (S.sheet === 'sched') {
+    h += `<h3 lang="zh-HK">${ico('calendar')}會自動交嘅單</h3><div class="sub" lang="zh-HK">到期前兩日自動交，喺屋企人簽咗嘅上限之內。</div>`;
+    const saved = ((S.state && S.state.scheduled_bills) || []).filter((b) => b.status === 'SCHEDULED');
+    if (!saved.length) h += `<div class="sub" lang="zh-HK">冇單等緊自動交。</div>`;
+    saved.forEach((b) => {
+      h += `<div class="official-item"><div class="inst">${esc(b.payee_name)} · ${esc(rm(b.amount_minor))}</div>
+        <div class="p" lang="zh-HK">${dayZh(b.pay_on)}自動交 · ${dayZh(b.due_date)}到期</div>
+        <button class="bigbtn ghost" style="width:100%;margin-top:8px" data-act="sched-cancel" data-id="${b.id}" lang="zh-HK">唔使自動交</button></div>`;
+    });
   } else if (S.sheet === 'officials') {
     h += `<h3 lang="zh-HK">${ico('bank')}官方電話</h3><div class="sub" lang="zh-HK">只打官方公佈嘅電話，唔好打訊息入面嘅號碼。</div>`;
     if (S.officialsErr) h += `<div class="err" style="margin:0 0 8px">${ico('alert')}<span>${esc(S.officialsErr)}</span></div>`;
@@ -1806,9 +1875,13 @@ function plainChecks(resp, tx, dr, ai) {
   if ((resp && resp.paid_by_agent) || (p && p.method === 'mandate')) out.push(['ok', 'check-circle', 'Within the family-signed limit']);
   return out;
 }
+/* the saved "pay later" bill this request became, if any */
+const savedFrom = (txId) => ((S.state && S.state.scheduled_bills) || []).find((b) => b.source_tx_id === txId);
 function outcomeResult(outcome, tx) {
   if (!tx) return ['Nothing created', 'Ask for the details again'];
   const p = paymentFor(tx.tx_id);
+  const saved = tx.status === 'CANCELLED' && savedFrom(tx.tx_id);
+  if (saved) return ['→ Saved to pay later', saved.status === 'SCHEDULED' ? `auto-pay ${dueShort(saved.pay_on)}, within the family limit` : `auto-pay ${saved.status.toLowerCase()}`];
   switch (tx.status) {
     case 'DONE': {
       const m = p && p.method;
@@ -1914,9 +1987,9 @@ const STEP_STATUS = {
 function renderAgentPane() {
   let h = `<div class="pad"><div class="agcap">${ico('compass')}<span>The assistant picks which bill to pay, never the amount or payee. Money requests it can only safety-check, never send. It can't approve anything.</span></div>`;
   const a = S.agentLast;
-  if (!a) return h + `<div class="empty-state"><span class="ei">${ico('bot')}</span><b>No assistant run yet</b><span>Talk to Ah Por's assistant, tap Ideas, or press Run morning check.</span></div></div>`;
+  if (!a) return h + `<div class="empty-state"><span class="ei">${ico('bot')}</span><b>No assistant run yet</b><span>Ah Por asks her assistant a question: hold the mic, or tap 打字 on her phone.</span></div></div>`;
   const d = a.resp;
-  h += `<div class="agreq">${a.source === 'morning' ? '<b>Morning check</b>' : `<b>Ah Por said:</b> 「${esc(a.text)}」`} <span style="color:var(--ink-3)">${esc(hhmm(a.at))}</span></div>`;
+  h += `<div class="agreq"><b>Ah Por said:</b> 「${esc(a.text)}」 <span style="color:var(--ink-3)">${esc(hhmm(a.at))}</span></div>`;
   const g = d.guardrail || {};
   if (d.paused) h += `<div class="gbadge info">${ico('info')}Paused by Ah Ming. The assistant ran no tools.</div>`;
   else if (g.fact_check === 'passed') h += `<div class="gbadge ok">${ico('check-circle')}Reply fact-checked against what the tools did</div>`;
@@ -1948,7 +2021,7 @@ function renderAgentPane() {
     h += `<div class="reqs"><span class="rl">Payments it created:</span>`;
     cards.forEach((c) => {
       const t = stateTx(c.tx_id) || c.transaction || {};
-      h += `<button class="req" data-select="${esc(c.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span></button>`;
+      h += `<button class="req" data-select="${esc(c.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status === 'CANCELLED' && savedFrom(t.tx_id) ? 'SAVED' : t.status)}</span></button>`;
     });
     h += `</div>`;
   }
@@ -1959,7 +2032,7 @@ function renderRequests(inline) {
   if (!txs.length) return '';
   let h = `<div class="reqs" ${inline ? '' : 'style="padding:0 18px 16px"'}><span class="rl">Recent:</span>`;
   txs.slice(0, 10).forEach((t) => {
-    h += `<button class="req ${S.selected === t.tx_id ? 'sel' : ''}" data-select="${esc(t.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status)}</span></button>`;
+    h += `<button class="req ${S.selected === t.tx_id ? 'sel' : ''}" data-select="${esc(t.tx_id)}">${esc(t.payee_name)} · ${rm(t.amount_minor)} <span class="stchip st-${esc(t.status)}">${esc(t.status === 'CANCELLED' && savedFrom(t.tx_id) ? 'SAVED' : t.status)}</span></button>`;
   });
   return h + `</div>`;
 }
@@ -1997,6 +2070,7 @@ function renderBank() {
         rest = `${arr}<span class="fs ok">${ico('key')}${signedBy(p && p.method)}</span>${arr}<span class="fs go">${ico('bank')}Released</span>`;
       } else if (t.status === 'PENDING') rest = `${arr}<span class="fs wait">${ico('hourglass')}Waiting for Ah Por. Not sent yet</span>`;
       else if (t.status === 'AWAITING_GUARDIAN') rest = `${arr}<span class="fs wait">${ico('hourglass')}Waiting for Ah Ming. Not sent yet</span>`;
+      else if (t.status === 'CANCELLED' && savedFrom(t.tx_id)) rest = `${arr}<span class="fs wait">${ico('calendar')}Saved by Ah Por. Sent to the bank on ${esc(dueShort(savedFrom(t.tx_id).pay_on))}</span>`;
       else {
         const why = t.status === 'BLOCKED' ? 'Blocked by Teman' : t.status === 'REJECTED' ? 'Ah Ming said no' : t.status === 'EXPIRED' ? 'Expired' : 'Cancelled';
         rest = `${arr}<span class="fs stop">${ico('ban')}${why}. Never reached the bank</span>`;
@@ -2114,6 +2188,10 @@ function renderSon() {
 
   // recent activity: payments, decisions and stopped scams, newest first
   const acts = [];
+  ((st && st.scheduled_bills) || []).forEach((b) => {
+    if (b.status === 'SCHEDULED') acts.push({ at: b.created_at, icon: 'calendar', cls: 'wait', text: `Mum saved ${b.payee_name}: auto-pay ${dueShort(b.pay_on)}`, amt: b.amount_minor });
+    if (b.status === 'FAILED') acts.push({ at: b.updated_at, icon: 'alert', cls: 'bad', text: `Couldn't auto-pay ${b.payee_name}; Mum will confirm`, amt: b.amount_minor });
+  });
   ((st && st.payments) || []).forEach((p) => acts.push({ at: p.executed_at, icon: p.method === 'mandate' ? 'bot' : 'check', cls: p.method === 'mandate' ? 'agent' : 'ok', text: p.method === 'guardian' ? `You approved ${p.payee_name}` : p.method === 'mandate' ? `Assistant paid ${p.payee_name} within your limit` : `Mum paid ${p.payee_name} (${p.method === 'voice' ? 'voice' : 'tap'})`, amt: p.amount_minor }));
   ((st && st.transactions) || []).forEach((t) => {
     if (t.status === 'REJECTED') acts.push({ at: t.updated_at, icon: S.son.reported[t.tx_id] ? 'flag' : 'x', cls: 'bad', text: `${S.son.reported[t.tx_id] ? 'You reported as scam' : 'You rejected'}: ${t.payee_name}`, amt: t.amount_minor });
@@ -2353,7 +2431,6 @@ function renderHeader() {
   mb.hidden = mode !== 'basic'; // signed mode is the norm; the bank panel already shows each signature
   if (mode === 'basic' && !mb.innerHTML) mb.innerHTML = `${ico('alert')}Signatures off: basic approvals mode`;
   $('#offBadge').hidden = S.online !== false;
-  $('#morningBtn').disabled = S.agentBusy;
   renderChatMic();
   if (S.engineTab === 'agent') S.agentSeen = true;
   const t = new Date().toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
@@ -2403,6 +2480,7 @@ function pollState() {
         setTimeout(() => { S.balanceDelta = null; }, 6000);
       }
       S.lastBalance = bal;
+      announceSaved(res.data.scheduled_bills);
       // keep Ah Por's cards in sync with server status (son approves -> her card shows Paid)
       S.chat.slice().forEach((i) => {
         if (i.type !== 'tx' || !i.resp.tx_id) return;
@@ -2476,11 +2554,6 @@ async function agentSend(text, opts) {
     S.agentHistory.push({ role: 'user', text }, { role: 'agent', text: `${d.reply_yue || ''}${d.reply_en ? `\nEN: ${d.reply_en}` : ''}` });
     S.agentHistory = S.agentHistory.slice(-6);
   }
-}
-async function morningCheck() {
-  if (S.agentBusy) return;
-  S.chat.push({ id: nid(), type: 'sys', text: "Morning check: the assistant looks at today's bills", zh: '（早晨檢查：助手幫你睇下今日啲單）' });
-  await agentRun('/agent/morning_check', null, { source: 'morning', text: 'Morning check' }, '☀️ 早晨！助手檢查緊啲單… checking bills');
 }
 async function setPaused(paused) {
   if (S.pauseBusy) return;
@@ -2591,7 +2664,7 @@ async function resetDemo() {
   S.chat = [];
   S.txCache = {}; S.selected = null; S.sheet = null; S.presets = null;
   S.son = { tab: 'alerts', report: null, reportErr: null, busy: {}, err: {}, reported: {}, dismissed: {}, seenAwaiting: {}, locked: {}, pinTx: null, pin: '', pinErr: '' };
-  S.agentHistory = []; S.agentLast = null; S.agentSeen = true; S.engineTab = 'decision';
+  S.schedSeen = {}; S.agentHistory = []; S.agentLast = null; S.agentSeen = true; S.engineTab = 'decision';
   S.lastBalance = null; S.balanceDelta = null;
   renderSheet();
   toast(`Demo reset · balance ${rm(res.data.balance_minor)}`);
@@ -2649,9 +2722,8 @@ document.addEventListener('click', async (ev) => {
     case 'vp-replay': if (S.porLast && S.porLast.reply) speak(S.porLast.reply.zh); return;
     case 'vp-call-son': toast('Demo: this would phone Ah Ming · 打緊俾阿明'); return;
     case 'chat-mic': if (ev.detail === 0) { if (chatRec) stopChatRec(); else startChatRec(); } return; // keyboard only; pointer is handled above
-    case 'chip': return agentSend(btn.getAttribute('data-text'));
-    case 'agent-send': { const inp = $('#porInput'); const t = inp.value; if (t.trim() && !S.agentBusy) inp.value = ''; return agentSend(t); }
-    case 'morning': return morningCheck();
+    case 'chip': return handleSpoken(btn.getAttribute('data-text'), false);
+    case 'agent-send': { const inp = $('#porInput'); const t = inp.value.trim(); if (!t || S.agentBusy) return; inp.value = ''; return handleSpoken(t, false); }
     case 'engine-tab': S.engineTab = btn.getAttribute('data-tab'); return render();
     case 'tech-toggle': S.techOpen = !S.techOpen; return render();
     case 'log-toggle': S.logOpen = !S.logOpen; S.logSig = ''; return renderLogs(true);
@@ -2672,6 +2744,15 @@ document.addEventListener('click', async (ev) => {
     case 'photo-pick': { const inp = $('#photoInput'); inp.value = ''; inp.click(); return; }
     case 'son-tab': S.son.tab = btn.getAttribute('data-tab'); render(); if (S.son.tab === 'report') loadSonReport(); return;
     case 'son-report-refresh': return loadSonReport();
+    case 'pay-later': if (item) return txAction(item, () => payLater(item)); return;
+    case 'sched-open': S.sheet = 'sched'; return renderSheet();
+    case 'sched-cancel': {
+      const res = await api('POST', `/scheduled/${encodeURIComponent(btn.getAttribute('data-id'))}/cancel`);
+      S.sheet = null; renderSheet();
+      if (res.ok) { const b = res.data.scheduled; S.schedSeen[b.id] = b.status; S.chat.push({ id: nid(), type: 'bot', zh: `好，${b.payee_name} ${rm(b.amount_minor)} 唔會自動交。`, en: `OK, ${b.payee_name} ${rm(b.amount_minor)} won't be paid automatically.` }); }
+      else toast(res.data.message, true);
+      return pollState();
+    }
     case 'son-approve': S.son.pinTx = btn.getAttribute('data-tx'); S.son.pin = ''; S.son.pinErr = ''; return render();
     case 'son-pin': return sonPinKey(btn.getAttribute('data-k'));
     case 'son-pin-del': S.son.pin = S.son.pin.slice(0, -1); return render();

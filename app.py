@@ -15,6 +15,7 @@ import hmac
 import io
 import os
 import threading
+import time
 from typing import Any, Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
@@ -31,6 +32,7 @@ import db
 import mandates
 import ocr
 import services
+import scheduler
 import speech
 import tts
 from rules import is_official_biller
@@ -57,7 +59,25 @@ if APPROVAL_MODE not in ("signed", "basic"):
 async def lifespan(_app: FastAPI):
     _setup_demo()
     _preload_whisper()
+    _start_pay_later_loop()
     yield
+
+
+def _start_pay_later_loop() -> None:
+    """Pay saved bills when their day comes: once at startup, then every few minutes."""
+    if os.environ.get("DIALECTGUARD_SCHEDULER", "on") == "off":
+        return
+
+    def loop() -> None:
+        while True:
+            try:
+                with db.db_session() as connection:
+                    scheduler.run_due(connection)
+            except Exception as error:  # never crash the server; try again next round
+                print("pay-later run failed:", error)
+            time.sleep(300)
+
+    threading.Thread(target=loop, daemon=True).start()
 
 
 def _preload_whisper() -> None:
@@ -170,8 +190,11 @@ def analyze_photo(photo: UploadFile = File(...)) -> dict[str, Any]:
     """Bill photo -> Tech 1's OCR -> the same checks as every other payment request."""
     fields = ocr.extract(_read_upload(photo))
     with db.db_session() as connection:
-        result = services.analyze(connection, fields)
+        checked, mismatch = services.check_photo_against_biller(connection, fields)
+        result = services.analyze(connection, checked)
     result["read_from_photo"] = {key: fields[key] for key in ("payee_id", "payee_name", "amount_minor", "due_date")}
+    if mismatch:
+        result["photo_check"] = mismatch
     return result
 
 
@@ -252,6 +275,25 @@ def confirm(tx_id: str, body: ConfirmRequest | None = None) -> dict[str, Any]:
             acknowledge_warning=body.acknowledge_warning,
             authorization_validator=_validator(connection, tx_id, "AH_POR", body.method, "PENDING"),
         )
+
+
+@app.post("/tx/{tx_id}/pay_later", response_model=None)
+def pay_later(tx_id: str) -> dict[str, Any] | JSONResponse:
+    """Save a normal bill to be paid automatically shortly before it's due, within the family's limit."""
+    with db.db_session() as connection:
+        try:
+            return scheduler.schedule(connection, tx_id)
+        except scheduler.SchedulingError as error:
+            return JSONResponse(status_code=409, content={"error": error.code, "message": error.message})
+
+
+@app.post("/scheduled/{schedule_id}/cancel", response_model=None)
+def cancel_scheduled(schedule_id: int) -> dict[str, Any] | JSONResponse:
+    with db.db_session() as connection:
+        try:
+            return scheduler.cancel(connection, schedule_id)
+        except scheduler.SchedulingError as error:
+            return JSONResponse(status_code=409, content={"error": error.code, "message": error.message})
 
 
 @app.post("/tx/{tx_id}/cancel")
@@ -382,6 +424,7 @@ def state() -> dict[str, Any]:
         paused = agent.is_paused(connection)
         limits = mandates.family_mandates(connection)
         inbox = services.bills_inbox(connection)
+        saved = scheduler.list_scheduled(connection)
     names = {p["id"]: p["display_name"] for p in db.load_config("whitelist.json")["payees"]}
     return {
         "balance_minor": balance,
@@ -396,6 +439,7 @@ def state() -> dict[str, Any]:
             t for t in transactions if t["status"] == "BLOCKED" and t["risk_code"] == "SCAM_SIGNAL"
         ],
         "payments": payments,
+        "scheduled_bills": saved,
     }
 
 

@@ -37,7 +37,7 @@ def _make_set(phrases):
 # STARTER LISTS - a Cantonese speaker must review these before the demo
 CONFIRM_PHRASES = _make_set([
     "確認", "确认", "確定", "确定", "確認付款", "确认付款",
-    "係，畀錢", "係，俾錢", "畀錢", "俾錢",
+    "係，畀錢", "係，俾錢", "畀錢", "俾錢", "付款", "付錢",
     "confirm", "yes, pay it",
 ])
 

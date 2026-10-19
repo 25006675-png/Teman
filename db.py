@@ -205,6 +205,22 @@ def _schema_sql() -> str:
         value TEXT NOT NULL
     );
 
+    -- "Pay later": bills Ah Por saved, paid automatically shortly before they're due
+    CREATE TABLE IF NOT EXISTS scheduled_bills (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        payee_id TEXT NOT NULL,
+        payee_name TEXT NOT NULL,
+        amount_minor INTEGER NOT NULL CHECK (amount_minor > 0),
+        due_date TEXT NOT NULL,
+        pay_on TEXT NOT NULL,
+        source_tx_id TEXT,
+        paid_tx_id TEXT,
+        status TEXT NOT NULL CHECK (status IN ('SCHEDULED', 'PAID', 'CANCELLED', 'FAILED')),
+        note TEXT
+    );
+
     CREATE TABLE IF NOT EXISTS scam_reports (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         payee_key TEXT NOT NULL,
@@ -366,7 +382,7 @@ def reset_database(path: str | os.PathLike[str] | None = None) -> str:
         connection.execute("PRAGMA foreign_keys = OFF")
         with atomic(connection):
             for table in ("sandbox_payments", "mandates", "logs", "budget_limits", "scam_reports", "settings",
-                          "history", "transactions", "schema_info"):
+                          "scheduled_bills", "history", "transactions", "schema_info"):
                 connection.execute(f"DROP TABLE IF EXISTS {table}")
     finally:
         connection.close()

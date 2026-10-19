@@ -72,6 +72,24 @@ def bills_inbox(connection: Any) -> list[dict[str, Any]]:
     return bills
 
 
+PHOTO_AMOUNT_MISMATCH = "amount on the photo differs from the bill the biller issued"
+
+
+def check_photo_against_biller(connection: Any, fields: dict[str, Any]) -> tuple[dict[str, Any], str | None]:
+    """A photo of a recognised biller's bill must match the bill that biller issued.
+
+    In production the biller's e-bill (bank bill presentment) gives the amount; here the bills inbox
+    stands in for it. A tilted or blurred photo can misread "19.20" as "49.20": rather than
+    trust it, the amount is dropped so the rules ask her to check or retake (never a guess).
+    """
+    if not fields.get("payee_id") or fields.get("amount_minor") is None:
+        return fields, None
+    issued = [bill["amount_minor"] for bill in bills_inbox(connection) if bill["payee_id"] == fields["payee_id"]]
+    if issued and fields["amount_minor"] not in issued:
+        return {**fields, "amount_minor": None}, PHOTO_AMOUNT_MISMATCH
+    return fields, None
+
+
 def _ai_assessment(connection: Any, fields: dict[str, Any], history: list[int], recent_transfers: int) -> dict[str, Any]:
     """Ask the AI analyst; skipped when key details are missing (the rules ask again anyway)."""
     if not (fields["payee_id"] or fields["payee_name"]) or not fields["amount_minor"]:

@@ -11,6 +11,7 @@ from fastapi.testclient import TestClient
 import app as app_module
 import mandates
 import ocr
+import services
 import speech
 
 SAMPLE_BILL = Path(__file__).parent / "sample_bills" / "bill_normal.png"
@@ -68,6 +69,21 @@ class PhotoAndVoiceTests(unittest.TestCase):
         with mock.patch.object(ocr, "extract", return_value=fields):
             result = self.photo(b"image").json()
         self.assertEqual(result["risk_code_shown"], "SCAM_SIGNAL")
+
+    def test_misread_amount_on_a_known_billers_bill_is_never_trusted(self):
+        """A tilted photo read Air Selangor's RM 19.20 as RM 49.20: she must be asked to check, not offered RM 49.20."""
+        def read(amount):
+            return {"payee_id": "air_selangor", "payee_name": "Air Selangor", "amount_minor": amount,
+                    "due_date": "2026-10-30", "source_type": "BILL", "source_text": "Air Selangor water bill"}
+        with mock.patch.object(ocr, "extract", return_value=read(4920)):
+            misread = self.photo(b"image").json()
+        self.assertEqual((misread["outcome"], misread["photo_check"]), ("DATA_INSUFFICIENT", services.PHOTO_AMOUNT_MISMATCH))
+        self.assertEqual(misread["read_from_photo"]["amount_minor"], 4920)  # shown so she can see what was read
+        with mock.patch.object(ocr, "extract", return_value=read(1920)):
+            matching = self.photo(b"image").json()
+        self.assertEqual(matching["outcome"], "APPROVE")
+        self.assertNotIn("photo_check", matching)
+        self.assertEqual(self.client.get("/state").json()["balance_minor"], self.opening)
 
     def voice(self, tx_id, keyword, ready=True):
         with mock.patch.object(app_module, "_whisper_available", return_value=ready), \

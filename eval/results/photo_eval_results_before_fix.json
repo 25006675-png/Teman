@@ -1,0 +1,1210 @@
+{
+ "summary": {
+  "photos": 7,
+  "variants": [
+   "original",
+   "mild blur",
+   "strong blur",
+   "tilted 3°",
+   "tilted 8°",
+   "dim light",
+   "low resolution",
+   "heavy JPEG",
+   "camera noise"
+  ],
+  "versions": 63,
+  "fields": {
+   "payee": {
+    "correct": 57,
+    "asked again": 5,
+    "wrong": 1,
+    "not on photo": 0
+   },
+   "amount": {
+    "correct": 57,
+    "asked again": 2,
+    "wrong": 4,
+    "not on photo": 0
+   },
+   "due_date": {
+    "correct": 29,
+    "asked again": 7,
+    "wrong": 0,
+    "not on photo": 27
+   }
+  },
+  "by_variant": {
+   "original": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   },
+   "mild blur": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   },
+   "strong blur": {
+    "all_fields_correct": 3,
+    "asked_again": 4,
+    "unsafe": 0,
+    "total": 7
+   },
+   "tilted 3°": {
+    "all_fields_correct": 5,
+    "asked_again": 0,
+    "unsafe": 1,
+    "total": 7
+   },
+   "tilted 8°": {
+    "all_fields_correct": 0,
+    "asked_again": 2,
+    "unsafe": 1,
+    "total": 7
+   },
+   "dim light": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   },
+   "low resolution": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   },
+   "heavy JPEG": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   },
+   "camera noise": {
+    "all_fields_correct": 7,
+    "asked_again": 0,
+    "unsafe": 0,
+    "total": 7
+   }
+  },
+  "unsafe": [
+   {
+    "photo": "5-air-selangor-bill.png",
+    "variant": "tilted 3°",
+    "payee": "correct",
+    "amount": "wrong",
+    "due_date": "correct",
+    "read": {
+     "payee_name": "Air Selangor",
+     "amount_minor": 4920,
+     "due_date": "2026-10-30"
+    },
+    "outcome": "APPROVE",
+    "clean_outcome": "APPROVE",
+    "ocr_seconds": 0.151,
+    "decision_seconds": 0.0604,
+    "safe": false
+   },
+   {
+    "photo": "5-air-selangor-bill.png",
+    "variant": "tilted 8°",
+    "payee": "correct",
+    "amount": "wrong",
+    "due_date": "asked again",
+    "read": {
+     "payee_name": "Air Selangor",
+     "amount_minor": 1200,
+     "due_date": null
+    },
+    "outcome": "APPROVE",
+    "clean_outcome": "APPROVE",
+    "ocr_seconds": 0.156,
+    "decision_seconds": 0.085,
+    "safe": false
+   }
+  ],
+  "ocr_seconds": {
+   "median": 0.17,
+   "p95": 0.32
+  },
+  "decision_ms": {
+   "median": 60.4,
+   "p95": 92.9
+  }
+ },
+ "rows": [
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.466,
+   "decision_seconds": 0.0712,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.163,
+   "decision_seconds": 0.0093,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "strong blur",
+   "payee": "asked again",
+   "amount": "correct",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": null,
+    "amount_minor": 4250,
+    "due_date": null
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.155,
+   "decision_seconds": 0.0054,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.157,
+   "decision_seconds": 0.0871,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "tilted 8°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": null
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.168,
+   "decision_seconds": 0.01,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.163,
+   "decision_seconds": 0.0097,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.169,
+   "decision_seconds": 0.0772,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.175,
+   "decision_seconds": 0.0123,
+   "safe": true
+  },
+  {
+   "photo": "1-tnb-electricity-bill.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 4250,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.299,
+   "decision_seconds": 0.0113,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.16,
+   "decision_seconds": 0.078,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.166,
+   "decision_seconds": 0.0724,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "strong blur",
+   "payee": "asked again",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": null,
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.163,
+   "decision_seconds": 0.0059,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.171,
+   "decision_seconds": 0.079,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "tilted 8°",
+   "payee": "correct",
+   "amount": "wrong",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 42000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.168,
+   "decision_seconds": 0.0093,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.167,
+   "decision_seconds": 0.0929,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.174,
+   "decision_seconds": 0.0108,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.175,
+   "decision_seconds": 0.0741,
+   "safe": true
+  },
+  {
+   "photo": "2-klinik-baru-bill.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Klinik Baru (demo)",
+    "amount_minor": 12000,
+    "due_date": "2026-10-25"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.21,
+   "decision_seconds": 0.0853,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.197,
+   "decision_seconds": 0.0152,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.22,
+   "decision_seconds": 0.0727,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "strong blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.223,
+   "decision_seconds": 0.0802,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.216,
+   "decision_seconds": 0.0116,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "tilted 8°",
+   "payee": "wrong",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct 49910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.21,
+   "decision_seconds": 0.0797,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.201,
+   "decision_seconds": 0.0092,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.233,
+   "decision_seconds": 0.0082,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.221,
+   "decision_seconds": 0.0778,
+   "safe": true
+  },
+  {
+   "photo": "3-prize-scam-message.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Acct #9910-SCAM",
+    "amount_minor": 80000,
+    "due_date": null
+   },
+   "outcome": "BLOCK",
+   "clean_outcome": "BLOCK",
+   "ocr_seconds": 0.282,
+   "decision_seconds": 0.08,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.274,
+   "decision_seconds": 0.0148,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.326,
+   "decision_seconds": 0.0754,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "strong blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.318,
+   "decision_seconds": 0.0178,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.279,
+   "decision_seconds": 0.0289,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "tilted 8°",
+   "payee": "correct",
+   "amount": "asked again",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": null,
+    "due_date": null
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.23,
+   "decision_seconds": 0.0799,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.297,
+   "decision_seconds": 0.078,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.312,
+   "decision_seconds": 0.0803,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.321,
+   "decision_seconds": 0.0808,
+   "safe": true
+  },
+  {
+   "photo": "4-inspector-lim-message.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Lim Holdings 5521 (demo)",
+    "amount_minor": 30000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.453,
+   "decision_seconds": 0.0314,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.142,
+   "decision_seconds": 0.0765,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.15,
+   "decision_seconds": 0.075,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "strong blur",
+   "payee": "asked again",
+   "amount": "wrong",
+   "due_date": "correct",
+   "read": {
+    "payee_name": null,
+    "amount_minor": 1900,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.153,
+   "decision_seconds": 0.0056,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "wrong",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 4920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.151,
+   "decision_seconds": 0.0604,
+   "safe": false
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "tilted 8°",
+   "payee": "correct",
+   "amount": "wrong",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1200,
+    "due_date": null
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.156,
+   "decision_seconds": 0.085,
+   "safe": false
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.146,
+   "decision_seconds": 0.0818,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.143,
+   "decision_seconds": 0.0095,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.147,
+   "decision_seconds": 0.0879,
+   "safe": true
+  },
+  {
+   "photo": "5-air-selangor-bill.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Air Selangor",
+    "amount_minor": 1920,
+    "due_date": "2026-10-30"
+   },
+   "outcome": "APPROVE",
+   "clean_outcome": "APPROVE",
+   "ocr_seconds": 0.189,
+   "decision_seconds": 0.0129,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.147,
+   "decision_seconds": 0.0854,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.151,
+   "decision_seconds": 0.0129,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "strong blur",
+   "payee": "asked again",
+   "amount": "correct",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": null,
+    "amount_minor": 7200,
+    "due_date": null
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.147,
+   "decision_seconds": 0.0108,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.154,
+   "decision_seconds": 0.0927,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "tilted 8°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "asked again",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.225,
+   "decision_seconds": 0.0952,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.158,
+   "decision_seconds": 0.0125,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.238,
+   "decision_seconds": 0.09,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.152,
+   "decision_seconds": 0.0866,
+   "safe": true
+  },
+  {
+   "photo": "6-tnb-high-bill.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "correct",
+   "read": {
+    "payee_name": "Tenaga Nasional Berhad",
+    "amount_minor": 7200,
+    "due_date": "2026-10-28"
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.202,
+   "decision_seconds": 0.01,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "original",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.185,
+   "decision_seconds": 0.1099,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "mild blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.174,
+   "decision_seconds": 0.1271,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "strong blur",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.186,
+   "decision_seconds": 0.0327,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "tilted 3°",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.164,
+   "decision_seconds": 0.0325,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "tilted 8°",
+   "payee": "asked again",
+   "amount": "asked again",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": null,
+    "amount_minor": null,
+    "due_date": null
+   },
+   "outcome": "DATA_INSUFFICIENT",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.126,
+   "decision_seconds": 0.0225,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "dim light",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.178,
+   "decision_seconds": 0.0112,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "low resolution",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.183,
+   "decision_seconds": 0.0257,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "heavy JPEG",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.181,
+   "decision_seconds": 0.0097,
+   "safe": true
+  },
+  {
+   "photo": "7-ah-ming-own-account-message.png",
+   "variant": "camera noise",
+   "payee": "correct",
+   "amount": "correct",
+   "due_date": "not on photo",
+   "read": {
+    "payee_name": "Tan Ah Ming (Maybank 5512)",
+    "amount_minor": 40000,
+    "due_date": null
+   },
+   "outcome": "REVIEW",
+   "clean_outcome": "REVIEW",
+   "ocr_seconds": 0.25,
+   "decision_seconds": 0.0095,
+   "safe": true
+  }
+ ]
+}

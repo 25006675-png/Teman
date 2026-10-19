@@ -6,6 +6,18 @@
 
 ---
 
+## Problem: an ageing country that speaks many languages (checked 19 Oct 2026)
+
+| Fact | Source | Status |
+|---|---|---|
+| Malaysians aged **65+ were 8.0% of the population in 2025 and 8.4% in 2026** (34.4 million people); 12 states are now "ageing" (65+ above 7%), Perak highest at 10.8% | DOSM, Current Population Estimates 2026 (released 31 Jul 2026): <https://www.dosm.gov.my/portal-main/release-content/current-population-estimates-2025>; Bernama: <https://bernama.com/en/news.php?id=2451475> | CHECK the DOSM page (seen via search summaries) |
+| ⭐ Malaysians aged **60+: 11.6% (3.9 million) today, projected 17.3% (6.4 million) by 2040**; seniors projected to outnumber children under 14 by 2039 | DOSM MyAgeing Dashboard launch, Sep 2024, reported by The Star: <https://thestar.com.my/news/nation/2024/09/07/aged-nation-sooner-than-later> and Malay Mail (6 Sep 2024) | NEWS ONLY |
+| ⭐ Chinese Malaysians alone speak many dialects: **Hokkien 38.5%, Hakka 20.4%, Cantonese 19.9%, Teochew 9.3%, Foochow 4.7%, Hainanese 2.6%** of 5.68 million (2000 census) | Department of Statistics (2005), as cited in secondary sources (e.g. Wikipedia "Malaysian Chinese"); Penang Monthly on 2010 data: <https://penangmonthly.com/article/7447/dialects-and-languages-in-numbers-1> | NEWS ONLY (old census: say "2000 census") |
+| Malaysia has about **131 living languages** (111 indigenous, 20 non-indigenous) | Ethnologue: <https://www.ethnologue.com/country/MY> (blocked automated checking) | UNVERIFIED: open the page yourself; until then say "dozens of languages and dialects" |
+| Older adults' main digital-banking barriers: technological complexity, privacy and security fears, physical and cognitive decline | Systematic review, "Barriers and motivations of older adults in digital banking adoption" (2025): <https://www.researchgate.net/publication/391724768> | CHECK (abstract only) |
+
+**The point for slides 2 and 5:** the people losing the most to scams are the fastest-growing group, and they think, speak and trust in their mother tongue, while banking apps are built for reading. No study we found measures language as a banking barrier for Malaysian elders directly, so present it as **our insight**, not a statistic.
+
 ## Problem: the scale of scams
 
 | Fact | Source | Status |
@@ -25,7 +37,7 @@
 | ⭐ BNM's compensation policy for e-banking fraud (SEFT, in force 1 Oct 2024) **excludes payments the victim "willingly performed and approved"**, such as love, investment and parcel scams | SEFT policy document, para 5.2: <https://www.bnm.gov.my/-/pd-fair-treatment24> | VERIFIED |
 | BNM is **studying whether to widen SEFT** to protect vulnerable consumers | BNM Annual Report 2025, Box 4 | VERIFIED |
 
-**The point for slide 3:** banks have strong controls against *outsiders* taking over an account, and compensation for *unauthorised* payments. The ~95% of scams where the customer pays the scammer herself fall outside both. Teman works at that moment.
+**The point for slide 4:** banks have strong controls against *outsiders* taking over an account, and compensation for *unauthorised* payments. The ~95% of scams where the customer pays the scammer herself fall outside both. Teman works at that moment.
 
 ## Regulation the product lines up with
 
@@ -38,9 +50,9 @@
 | The **PDPA amendments (Act A1727)** came into force in phases on 1 Jan, 1 Apr and 1 Jun 2025: processors are now bound by the Security Principle, the cross-border whitelist was removed, and breach notification, data protection officers and data portability became mandatory | Federal Gazette P.U.(B) 522 (19 Dec 2024); summary: Rajah & Tann <https://www.rajahtannasia.com/?p=161886> | NEWS ONLY (law-firm copies) |
 | Since 1 Apr 2025, personal data may leave Malaysia only under a condition in **section 129**, e.g. consent, contractual necessity, a destination with substantially similar law (a Transfer Impact Assessment can show this), or contractual safeguards; the Commissioner issued cross-border guidelines on 29 Apr 2025 | CMS, updated 24 Sep 2026: <https://cms.law/en/int/legal-updates/malaysian-guidelines-on-cross-border-data-transfers> | NEWS ONLY (law firm) |
 
-**For slide 13 (Gemini):** sending bill text to Google is a cross-border transfer, and Google is our data processor. Say which section 129 condition a launch would rely on (her explicit consent, or a Transfer Impact Assessment plus Google's data-processing terms). Don't say "PDPA-compliant".
+**For slide 17 (Gemini):** sending bill text to Google is a cross-border transfer, and Google is our data processor. Say which section 129 condition a launch would rely on (her explicit consent, or a Transfer Impact Assessment plus Google's data-processing terms). Don't say "PDPA-compliant".
 
-## Payment rails (slide 12)
+## Payment rails (slide 19)
 
 | Fact | Source | Status |
 |---|---|---|
@@ -69,3 +81,7 @@
 8. "Data subjects must be notified within 7 days" under the PDPA. Unverified.
 9. "BNM has issued AI rules." Only the Aug 2025 discussion paper exists.
 10. "Our Gemini integration is PDPA / RMiT compliant." No basis yet.
+11. "Malaysia is an aged nation." Not yet: 65+ is 8.4% (2026); "aged" means 14%+. Say "ageing fast".
+12. "130+ languages" until the Ethnologue page is checked by a person.
+13. "X% of elders can't read Malay or English." No source found.
+14. "Teman supports Malay / Tamil / Hokkien." Only Cantonese is built and tested; the others are the roadmap.

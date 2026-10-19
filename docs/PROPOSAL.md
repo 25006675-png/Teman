@@ -209,7 +209,7 @@ teman/  (repository folder: DialectGuard)
 ├── data/            # whitelist, blacklist, scam words, limits, weights, messages, budget,
 │                    # family limits, preset bills, history, officials, risk model
 ├── static/          # split-screen demo: Ah Por's app · engine + bank · Ah Ming's app · audit log
-├── tests/           # 241 automated tests
+├── tests/           # 248 automated tests
 ├── docs/            # this proposal, tasks, pitch, deck plan and sources
 ├── demo/            # photos/ (fake bills and messages for the demo) · mockups/
 ├── scripts/         # make_demo_photos.py, make_sample_bills.py, try_tts.py

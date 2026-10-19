@@ -53,7 +53,7 @@ Create a `.env` file in the project root (it is git-ignored):
 GEMINI_API_KEY=your-key
 ```
 
-Without a key, or with `DIALECTGUARD_AI=off`, the rules decide exactly as before. The morning check runs a fixed rule-based plan, and chat replies fall back to fixed text. **Data note:** with a key, bill/message text, payee name and amount are sent to Google's Gemini API at every analysis. Use synthetic data only.
+Without a key, or with `DIALECTGUARD_AI=off`, the rules decide exactly as before. Everyday spoken requests (balance, weekly report, pay electricity) are answered by the engine directly, and other chat replies fall back to fixed text. **Data note:** with a key, bill/message text, payee name and amount are sent to Google's Gemini API at every analysis. Use synthetic data only.
 
 ### Read-aloud
 
@@ -69,7 +69,7 @@ Ah Por's answers are read aloud in a natural Cantonese voice (`zh-HK-HiuGaaiNeur
 python -m pytest
 ```
 
-**241 tests pass** (plus 23 sub-tests) in about 10 seconds. Tests use temporary databases and keys, never call the real Gemini API, and skip the real-OCR tests if Tesseract isn't installed.
+**248 tests pass** (plus 23 sub-tests) in about 10 seconds. Tests use temporary databases and keys, never call the real Gemini API, and skip the real-OCR tests if Tesseract isn't installed.
 
 | File | What it proves |
 |---|---|
@@ -80,6 +80,7 @@ python -m pytest
 | `tests/test_rules.py` | Blocking order, score bands, median rules, scam-phrase variants, decision records |
 | `tests/test_agent.py` | Assistant guardrails: no approve tool, family limits, fact-check, step limit, AI down, pause switch |
 | `tests/test_ai_and_community.py` | AI can only raise risk; AI outage gives the same decisions; community reports; rapid transfers |
+| `tests/test_pay_later.py` | Saved bills are paid once, 2 days before they're due, within the family limit; cancelled bills never; rules re-run on the day |
 | `tests/test_guardian_safeguards.py` | Son approves only with the right PIN; 3 wrong PINs stop the payment; he can never approve money to his own account |
 | `tests/test_guardian_timer.py` | 2-minute window, one 5-minute "Call Mum" extension, silence stops the payment |
 | `tests/test_photo_voice.py` | Real photo → payable card; scam text in a photo still blocked; audio kept in memory |
@@ -88,13 +89,17 @@ python -m pytest
 
 ---
 
+## Evidence
+
+Scam test, Cantonese speech test, bad-photo test, speed and stress tests, with charts: **[docs/EVIDENCE.md](docs/EVIDENCE.md)** (charts in `docs/figures/`, scripts in `eval/`).
+
 ## Demo walkthrough
 
 Press **↺** (reset, top right) first. Photos are in [demo/photos/](demo/photos/) (fake samples, made by `python scripts/make_demo_photos.py`); 📷 **影張單** opens the file picker, and each photo goes through the real OCR. Then:
 
-1. **Balance:** hold the mic and say 「我仲有幾多錢？」. She hears her balance and how much a day lasts to month end.
+1. **Balance:** hold the mic and say 「我仲有幾多錢？」. She hears her balance and how much a day lasts to month end. After a payment, 「今個星期用咗幾多？」 gives the weekly spending report. Both are answered by the engine directly, so they work without the AI.
 2. **Pay a bill:** 📷 → `1-tnb-electricity-bill.png` (or say 「幫我交電費」). Hold **按住交錢** for 1 second; a 5-second undo runs, then it pays and the bank balance drops.
-3. **Morning check:** after a reset, click **☀ Morning check**. The assistant pays TNB and Air Selangor by itself, inside the family-signed limits (TNB ≤ RM 80, Air Selangor ≤ RM 40, once a month each).
+3. **Pay later:** 📷 → `5-air-selangor-bill.png` → **到期先交** (pay later). Teman saves it and pays it automatically 2 days before it's due, within the family-signed limit (TNB ≤ RM 80, Air Selangor ≤ RM 40, once a month each), re-running every rule on the day. Her phone shows 「1 張單會自動交」; tap it to cancel. Ah Ming sees it in his activity.
 4. **Family co-sign:** 📷 → `2-klinik-baru-bill.png`. It goes to Ah Ming automatically; his screen shows the request. Tap **Approve** and enter his PIN **2580** (demo value; keyboard digits work) within the 2-minute countdown (📞 *Call Mum* adds 5 minutes once). Three wrong PINs stop the payment.
 5. **Scam with a hidden instruction:** 📷 → `3-prize-scam-message.png`. Her screen turns red with no pay button; Ah Ming's banner has no approve button.
 6. **Scam with no keywords:** 📷 → `4-inspector-lim-message.png`. The rules send it to Ah Ming; with a Gemini key, his screen lists the scam tactics the AI found. Tap **It's a scam: report & reject**.
@@ -102,7 +107,7 @@ Press **↺** (reset, top right) first. Photos are in [demo/photos/](demo/photos
 
 Family can be the problem too: 📷 → `7-ah-ming-own-account-message.png` (Ah Ming asks Mum to pay his own account). His screen has no Approve button; he can't approve money going to himself.
 
-Extra photos: `5-air-selangor-bill.png`, `6-tnb-high-bill.png` (higher than usual → a "be careful" warning). Without a microphone or photos, **打字** on her phone offers typed questions and a backup list of sample bills.
+Extra photos: `5-air-selangor-bill.png`, `6-tnb-high-bill.png` (an amount TNB never billed → she's asked to check it: photo amounts for recognised billers must match the bill the biller issued). Without a microphone or photos, **打字** on her phone offers typed questions and a backup list of sample bills.
 
 Each step leaves state behind (paid bills, used monthly limits, scam reports, the transfer count), so reset between takes.
 
@@ -124,6 +129,8 @@ All thresholds live in `data/*.json`. Full details: [docs/PROPOSAL.md](docs/PROP
 - **Signed approvals (ECDSA P-256):** every payment needs a signed record that matches the stored transaction, hasn't expired (60 s) and hasn't been used. Family auto-pay limits are signed too; an edited limit stops working.
 - **No AI on the decision path:** the assistant has no approve tool, picks which stored bill to pay (never the amount or payee), can pay alone only inside a signed family limit, is limited to 6 steps, logs every tool call, and can be paused by the son. Its replies are fact-checked against what its tools actually did. The AI scam analyst can only raise risk.
 - **The son's approval:** a PIN checked by the server against a salted hash in `data/guardians.json` (demo PIN 2580); 3 wrong PINs stop the payment. He can never approve a payment to his own accounts (also in `data/guardians.json`).
+- **Photo amounts are cross-checked:** for a recognised biller, the amount read from a photo must match the bill that biller issued (the biller's own e-bill, through the bank's bill-presentment feature in production; the bills inbox in the demo). If not, she's asked to check it; the misread is never used.
+- **Pay later is limited by design:** only recognised billers' normal bills within the family's signed limit can be saved; on the payment day every rule runs again and the payment uses the signed family limit (once a month per biller).
 - **Fail-safe timers:** 10 minutes for Ah Por to confirm; 2 minutes for her son (+5 once). No answer means no payment.
 - **Append-only audit:** SQLite triggers refuse updates and deletes of logs and payments, and enforce allowed state changes.
 - **Voice privacy:** recordings stay in memory for transcription and are never saved; logs hold no audio.
@@ -158,7 +165,8 @@ Aligned in principle with OWASP Top 10 for LLM Applications (LLM01, LLM06) and t
 | POST | `/tx/{id}/approve` · `/reject` | Son | Decide a Review request |
 | POST | `/tx/{id}/call_extension` | Son | "Call Mum": +5 minutes, once |
 | POST | `/tx/{id}/report_scam` | Son | Reject and report the account to other families |
-| POST | `/agent/chat` · `/agent/morning_check` | Ah Por | Talk to the assistant · daily bill check |
+| POST | `/tx/{id}/pay_later` · `/scheduled/{id}/cancel` | Ah Por | Save a bill to be paid automatically before it's due · cancel it |
+| POST | `/agent/chat` · `/agent/morning_check` | Ah Por | Talk to the assistant · rule-based bill check (API only) |
 | POST | `/agent/pause` | Son | Pause or resume the assistant |
 | GET | `/state` · `/logs` · `/budget` · `/report` · `/presets` · `/officials` | Dashboard | State, audit export, budget, weekly report, sample bills, official contacts |
 | POST | `/reset` | Demo | Rebuild the demo state |
@@ -173,7 +181,8 @@ services.py       the single analysis path (reports, AI check, rules, shadow sco
 rules.py          blocking rules, risk score, decision record, message templates
 transactions.py   state machine, timers, double-charge-safe execution
 mandates.py       signed approvals and family limits (ECDSA P-256)
-agent.py          assistant: tools, guardrails, fact-check, morning check
+agent.py          assistant: tools, guardrails, fact-check
+scheduler.py      pay later: saved bills paid automatically before they're due
 ai_analyst.py     AI scam analyst (escalate-only)
 community.py      cross-family scam reports, rapid-transfer count
 budget.py         daily limit, budget gap, weekly report
@@ -187,11 +196,11 @@ risk_model.py     shadow fraud model; ml/ has the training script and model card
 metrics.py, check_references.py   dialect evaluation tools
 data/             all rules, limits, templates and synthetic demo data (JSON)
 static/           the demo page (index.html, plain JavaScript, no build step) and biller logos
-tests/            241 tests
+tests/            248 tests
 docs/             proposal, tasks, pitch, deck plan and sources
 demo/photos/      fake bills and messages to snap in the demo
 demo/mockups/     the voice-first design mock-up
-scripts/          make_demo_photos.py, make_sample_bills.py, try_tts.py
+scripts/          make_demo_photos.py, make_screenshots.py (slide screenshots -> docs/screenshots/), make_sample_bills.py, try_tts.py
 eval/, ml/        scam evaluation and the shadow fraud model
 archive/          old material, not used
 PRODUCT.md        design brief (users, principles); stays at the root for the design tools

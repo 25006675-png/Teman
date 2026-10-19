@@ -1,0 +1,160 @@
+108 clips; loading Whisper large-v3 ...
+[1/108] HiuGaai  clean 確認 -> 確認 | confirm OK (5.1s)
+[2/108] HiuGaai  noisy 確認 -> 確認 | confirm OK (4.9s)
+[3/108] HiuGaai  clean 取消 -> 取消 | cancel OK (4.86s)
+[4/108] HiuGaai  noisy 取消 -> 取消 | cancel OK (4.95s)
+[5/108] HiuGaai  clean 確定 -> 確定 | confirm OK (4.91s)
+[6/108] HiuGaai  noisy 確定 -> 確定 | confirm OK (4.92s)
+[7/108] HiuGaai  clean 唔好 -> 唔好 | cancel OK (5.0s)
+[8/108] HiuGaai  noisy 唔好 -> 唔好 | cancel OK (4.92s)
+[9/108] HiuGaai  clean 俾錢 -> 畀錢 | confirm OK (4.99s)
+[10/108] HiuGaai  noisy 俾錢 -> 畀錢 | confirm OK (4.92s)
+[11/108] HiuGaai  clean 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (5.12s)
+[12/108] HiuGaai  noisy 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (5.15s)
+[13/108] HiuGaai  clean 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.51s)
+[14/108] HiuGaai  noisy 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.28s)
+[15/108] HiuGaai  clean 幫我交電費 -> 幫我交電費。 | pay_electricity OK (5.11s)
+[16/108] HiuGaai  noisy 幫我交電費 -> 幫我交電費 | pay_electricity OK (4.99s)
+[17/108] HiuGaai  clean 幫我交埋電費啦 -> 幫我交埋電費啦! | pay_electricity OK (5.26s)
+[18/108] HiuGaai  noisy 幫我交埋電費啦 -> 幫我交埋電費啦 | pay_electricity OK (5.19s)
+[19/108] HiuGaai  clean 電費交咗未呀？ -> 電費交咗未呀? | other OK (5.17s)
+[20/108] HiuGaai  noisy 電費交咗未呀？ -> 電費交咗未呀 | other OK (5.09s)
+[21/108] HiuGaai  clean 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢? | other OK (5.33s)
+[22/108] HiuGaai  noisy 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢 | other OK (5.5s)
+[23/108] HiuGaai  clean 我啲單交咗未？ -> 我啲單膠咗未? | other OK (5.32s)
+[24/108] HiuGaai  noisy 我啲單交咗未？ -> 我啲單交咗未 | other OK (5.19s)
+[25/108] HiuGaai  clean 診所張單一百二十蚊 -> 診所張單120蚊。 | 12000 OK (5.33s)
+[26/108] HiuGaai  noisy 診所張單一百二十蚊 -> 診所張單120元 | 12000 OK (5.3s)
+[27/108] HiuGaai  clean 電費四十二蚊五毫 -> 電費四十二蚊五毫 | 4250 OK (5.26s)
+[28/108] HiuGaai  noisy 電費四十二蚊五毫 -> 電費42.5元 | 4250 OK (5.07s)
+[29/108] HiuGaai  clean 佢叫我轉三百蚊 -> 佢叫我轉三百蚊。 | 30000 OK (5.34s)
+[30/108] HiuGaai  noisy 佢叫我轉三百蚊 -> 佢叫我轉三百蚊 | 30000 OK (5.29s)
+[31/108] HiuGaai  clean 水費十九蚊二毫 -> 水費$19.02 | 1902 WRONG (5.21s)
+[32/108] HiuGaai  noisy 水費十九蚊二毫 -> 水費19.02元 | 1902 WRONG (5.17s)
+[33/108] HiuGaai  clean 話我中咗獎，要俾八百蚊 -> 話我中咗獎,要比八百蚊。 | 80000 OK (5.73s)
+[34/108] HiuGaai  noisy 話我中咗獎，要俾八百蚊 -> 話我中咗獎要畀八百蚊 | 80000 OK (5.56s)
+[35/108] HiuGaai  clean 我想俾阿明四百蚊 -> 我想畀阿明四百蚊。 | 40000 OK (5.49s)
+[36/108] HiuGaai  noisy 我想俾阿明四百蚊 -> 我想畀阿明400蚊 | 40000 OK (5.22s)
+[37/108] HiuMaan  clean 確認 -> 確認 | confirm OK (4.88s)
+[38/108] HiuMaan  noisy 確認 -> 確認 | confirm OK (4.85s)
+[39/108] HiuMaan  clean 取消 -> 取消 | cancel OK (4.89s)
+[40/108] HiuMaan  noisy 取消 -> 取消 | cancel OK (4.89s)
+[41/108] HiuMaan  clean 確定 -> 確定 | confirm OK (4.9s)
+[42/108] HiuMaan  noisy 確定 -> 靠頂 | unclear WRONG (4.97s)
+[43/108] HiuMaan  clean 唔好 -> 唔好 | cancel OK (4.85s)
+[44/108] HiuMaan  noisy 唔好 -> 唔好 | cancel OK (4.87s)
+[45/108] HiuMaan  clean 俾錢 -> 俾錢 | confirm OK (4.88s)
+[46/108] HiuMaan  noisy 俾錢 -> 北秦 | unclear WRONG (4.94s)
+[47/108] HiuMaan  clean 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (5.05s)
+[48/108] HiuMaan  noisy 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (5.09s)
+[49/108] HiuMaan  clean 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.31s)
+[50/108] HiuMaan  noisy 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.29s)
+[51/108] HiuMaan  clean 幫我交電費 -> 幫我交電費。 | pay_electricity OK (5.06s)
+[52/108] HiuMaan  noisy 幫我交電費 -> 幫我交電費 | pay_electricity OK (5.33s)
+[53/108] HiuMaan  clean 幫我交埋電費啦 -> 幫我交埋電費啦! | pay_electricity OK (5.24s)
+[54/108] HiuMaan  noisy 幫我交埋電費啦 -> 幫我交埋電費啦 | pay_electricity OK (5.43s)
+[55/108] HiuMaan  clean 電費交咗未呀？ -> 電費交咗未呀? | other OK (5.17s)
+[56/108] HiuMaan  noisy 電費交咗未呀？ -> 電費交咗未呀? | other OK (5.3s)
+[57/108] HiuMaan  clean 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢? | other OK (5.45s)
+[58/108] HiuMaan  noisy 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢? | other OK (5.37s)
+[59/108] HiuMaan  clean 我啲單交咗未？ -> 我啲單交咗未? | other OK (5.14s)
+[60/108] HiuMaan  noisy 我啲單交咗未？ -> 我啲單交咗未? | other OK (5.36s)
+[61/108] HiuMaan  clean 診所張單一百二十蚊 -> 診所張單120蚊 | 12000 OK (5.22s)
+[62/108] HiuMaan  noisy 診所張單一百二十蚊 -> 診所張單120蚊 | 12000 OK (5.3s)
+[63/108] HiuMaan  clean 電費四十二蚊五毫 -> 電費42蚊五毫 | 4200 WRONG (5.47s)
+[64/108] HiuMaan  noisy 電費四十二蚊五毫 -> 電費42.50元 | 4250 OK (5.37s)
+[65/108] HiuMaan  clean 佢叫我轉三百蚊 -> 佢叫我轉300蚊。 | 30000 OK (5.34s)
+[66/108] HiuMaan  noisy 佢叫我轉三百蚊 -> 佢叫我轉300蚊 | 30000 OK (5.28s)
+[67/108] HiuMaan  clean 水費十九蚊二毫 -> 水費十九蚊二毫 | 1920 OK (5.18s)
+[68/108] HiuMaan  noisy 水費十九蚊二毫 -> 水費19.02元 | 1902 WRONG (5.04s)
+[69/108] HiuMaan  clean 話我中咗獎，要俾八百蚊 -> 話我中咗獎,要畀八百蚊。 | 80000 OK (5.52s)
+[70/108] HiuMaan  noisy 話我中咗獎，要俾八百蚊 -> 話我中咗獎要畀八百蚊 | 80000 OK (5.59s)
+[71/108] HiuMaan  clean 我想俾阿明四百蚊 -> 我想畀阿明400蚊。 | 40000 OK (5.2s)
+[72/108] HiuMaan  noisy 我想俾阿明四百蚊 -> 我想畀阿明400蚊 | 40000 OK (5.17s)
+[73/108] WanLung  clean 確認 -> 確認 | confirm OK (4.81s)
+[74/108] WanLung  noisy 確認 -> 確認 | confirm OK (4.78s)
+[75/108] WanLung  clean 取消 -> 取消 | cancel OK (4.74s)
+[76/108] WanLung  noisy 取消 -> 取消 | cancel OK (4.71s)
+[77/108] WanLung  clean 確定 -> 確定 | confirm OK (4.7s)
+[78/108] WanLung  noisy 確定 -> 確定 | confirm OK (4.78s)
+[79/108] WanLung  clean 唔好 -> 唔好 | cancel OK (4.82s)
+[80/108] WanLung  noisy 唔好 -> 唔好 | cancel OK (4.96s)
+[81/108] WanLung  clean 俾錢 -> 付款 | unclear WRONG (4.83s)
+[82/108] WanLung  noisy 俾錢 -> 畀錢 | confirm OK (4.84s)
+[83/108] WanLung  clean 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (4.99s)
+[84/108] WanLung  noisy 我仲有幾多錢？ -> 我仲有幾多錢? | balance OK (5.06s)
+[85/108] WanLung  clean 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.32s)
+[86/108] WanLung  noisy 我戶口仲剩幾多錢？ -> 我戶口仲淨幾多錢? | other WRONG (5.35s)
+[87/108] WanLung  clean 幫我交電費 -> 幫我交電費 | pay_electricity OK (4.93s)
+[88/108] WanLung  noisy 幫我交電費 -> 幫我交電費 | pay_electricity OK (4.93s)
+[89/108] WanLung  clean 幫我交埋電費啦 -> 幫我交埋電費啦 | pay_electricity OK (5.21s)
+[90/108] WanLung  noisy 幫我交埋電費啦 -> 幫我交埋電費啦 | pay_electricity OK (5.2s)
+[91/108] WanLung  clean 電費交咗未呀？ -> 電費交咗未呀? | other OK (5.21s)
+[92/108] WanLung  noisy 電費交咗未呀？ -> 電費交咗未呀? | other OK (5.19s)
+[93/108] WanLung  clean 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢? | other OK (5.29s)
+[94/108] WanLung  noisy 今個星期用咗幾多錢？ -> 今個星期用咗幾多錢 | other OK (5.33s)
+[95/108] WanLung  clean 我啲單交咗未？ -> 我啲單交咗未? | other OK (5.18s)
+[96/108] WanLung  noisy 我啲單交咗未？ -> 我啲單交咗未? | other OK (5.19s)
+[97/108] WanLung  clean 診所張單一百二十蚊 -> 診所張單120元 | 12000 OK (5.28s)
+[98/108] WanLung  noisy 診所張單一百二十蚊 -> 診所張單120蚊 | 12000 OK (5.13s)
+[99/108] WanLung  clean 電費四十二蚊五毫 -> 電費42.5元 | 4250 OK (5.18s)
+[100/108] WanLung  noisy 電費四十二蚊五毫 -> 電費42.5元 | 4250 OK (5.14s)
+[101/108] WanLung  clean 佢叫我轉三百蚊 -> 佢叫我轉三百蚊。 | 30000 OK (5.48s)
+[102/108] WanLung  noisy 佢叫我轉三百蚊 -> 佢叫我轉300蚊 | 30000 OK (5.38s)
+[103/108] WanLung  clean 水費十九蚊二毫 -> 水費19.02元 | 1902 WRONG (5.33s)
+[104/108] WanLung  noisy 水費十九蚊二毫 -> 水費19.02元 | 1902 WRONG (5.24s)
+[105/108] WanLung  clean 話我中咗獎，要俾八百蚊 -> 話我中咗獎,要比八百蚊。 | 80000 OK (5.71s)
+[106/108] WanLung  noisy 話我中咗獎，要俾八百蚊 -> 話我中咗獎要畀800蚊 | 80000 OK (5.55s)
+[107/108] WanLung  clean 我想俾阿明四百蚊 -> 我想畀阿明400蚊 | 40000 OK (5.32s)
+[108/108] WanLung  noisy 我想俾阿明四百蚊 -> 我想畀阿明400蚊 | 40000 OK (5.19s)
+{
+ "clips": 108,
+ "voices": [
+  "zh-HK-HiuGaaiNeural",
+  "zh-HK-HiuMaanNeural",
+  "zh-HK-WanLungNeural"
+ ],
+ "noise_snr_db": 10.0,
+ "model": "whisper large-v3 (faster-whisper, CPU, int8, language yue)",
+ "mean_cer": {
+  "clean": 0.146,
+  "noisy": 0.225
+ },
+ "by_kind": {
+  "command": {
+   "clean": {
+    "correct": 14,
+    "total": 15
+   },
+   "noisy": {
+    "correct": 13,
+    "total": 15
+   }
+  },
+  "intent": {
+   "clean": {
+    "correct": 18,
+    "total": 21
+   },
+   "noisy": {
+    "correct": 18,
+    "total": 21
+   }
+  },
+  "amount": {
+   "clean": {
+    "correct": 15,
+    "total": 18
+   },
+   "noisy": {
+    "correct": 15,
+    "total": 18
+   }
+  }
+ },
+ "seconds": {
+  "median": 5.19,
+  "p95": 5.52
+ },
+ "wrong_actions": []
+}
