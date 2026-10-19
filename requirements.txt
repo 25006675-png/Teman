@@ -10,3 +10,6 @@ faster-whisper==1.2.1
 edge-tts==7.3.1
 pytesseract==0.3.13
 pillow==13.0.0
+
+av==18.1.0
+pillow==13.0.0
