@@ -45,3 +45,7 @@ def test_phrase_lists_do_not_overlap():
     assert not (CONFIRM_PHRASES & CANCEL_PHRASES)
     assert not (CONFIRM_PHRASES & REPEAT_PHRASES)
     assert not (CANCEL_PHRASES & REPEAT_PHRASES)
+
+@pytest.mark.parametrize("text", ["唔好付款", "唔好付錢", "唔付款", "未付款"])
+def test_negated_pay_phrases_never_confirm(text):
+    assert match_command(text) != "confirm"
