@@ -104,6 +104,29 @@ class PhotoAndVoiceTests(unittest.TestCase):
                                         files={"audio": ("clip.webm", b"x", "audio/webm")})
         self.assertEqual(response.status_code, 403)
 
+    def transcribe(self, heard, ready=True):
+        with mock.patch.object(app_module, "_whisper_available", return_value=ready), \
+             mock.patch.object(speech, "transcribe_audio", return_value=heard) as whisper:
+            response = self.client.post("/agent/transcribe",
+                                        files={"audio": ("clip.webm", b"audio-bytes", "audio/webm")})
+        return response.json(), whisper
+
+    def test_spoken_chat_returns_cantonese_text_and_moves_no_money(self):
+        heard = {"text": "幫我交電費", "status": "ok", "problems": [], "avg_logprob": -0.2}
+        result, whisper = self.transcribe(heard)
+        self.assertEqual((result["text"], result["status"], result["voice_status"]), ("幫我交電費", "ok", "ok"))
+        self.assertEqual(whisper.call_args.args[0].getvalue(), b"audio-bytes")  # in memory, never saved
+        state = self.client.get("/state").json()
+        self.assertEqual((state["balance_minor"], state["transactions"]), (self.opening, []))
+
+    def test_spoken_chat_without_model_returns_no_text(self):
+        result, whisper = self.transcribe({}, ready=False)
+        whisper.assert_not_called()
+        self.assertEqual((result["text"], result["voice_status"]), ("", "model_not_ready"))
+        too_big = self.client.post("/agent/transcribe",
+                                   files={"audio": ("clip.webm", b"x" * (app_module.MAX_UPLOAD_BYTES + 1), "audio/webm")})
+        self.assertEqual(too_big.status_code, 413)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -10,7 +10,7 @@ from datetime import date
 from typing import Any
 
 from db import atomic, append_log, get_transaction, load_config, utc_now
-from rules import CONFIG_VERSION, MESSAGES, evaluate_transaction, record_decision
+from rules import CONFIG_VERSION, MESSAGES, evaluate_transaction, normalize_payee, record_decision
 
 
 _TTL_CONFIG = load_config("limits.json")["approval_expiry"]
@@ -43,6 +43,7 @@ ERROR_MESSAGES = {
     "AUTHORIZATION_UNAVAILABLE": "Payment is held until signed-approval verification is available.",
     "AUTHORIZATION_REJECTED": "The approval is invalid, expired, or not permitted for this outcome.",
     "INVALID_INPUT": "Transaction details are invalid.",
+    "SELF_APPROVAL": "This payment goes to your own account, so you can't approve it. Mum can pay at the bank, or ask another trusted person.",
 }
 AuthorizationValidator = Callable[[Mapping[str, Any], str, str], bool]
 SQLITE_MAX_INTEGER = (1 << 63) - 1
@@ -83,6 +84,19 @@ def _ttl_for(status: str, extended: bool = False) -> int:
     return USER_CONFIRMATION_TTL_SECONDS
 
 
+GUARDIAN_ACCOUNTS = frozenset(
+    normalize_payee(account)
+    for guardian in load_config("guardians.json")["guardians"]
+    for account in guardian.get("own_accounts", ())
+)
+
+
+def pays_guardian(row: Mapping[str, Any]) -> bool:
+    """True when the money would go to the guardian's own account: he must never approve that himself."""
+    name = row["payee_name"]
+    return bool(name) and normalize_payee(name) in GUARDIAN_ACCOUNTS
+
+
 def _payload(row: Mapping[str, Any]) -> dict[str, Any]:
     return {
         "tx_id": row["id"],
@@ -97,6 +111,7 @@ def _payload(row: Mapping[str, Any]) -> dict[str, Any]:
         "decision_record": json.loads(row["decision_json"] or "{}"),
         "expires_at": row["approval_expires_at"],
         "guardian_extended": bool(row["guardian_extended"]),
+        "pays_guardian": pays_guardian(row),
     }
 
 
@@ -558,6 +573,8 @@ def approve_transaction(
             raise TransactionFlowError("NOT_REVIEW", http_status=403)
         if row["status"] != "AWAITING_GUARDIAN":
             raise TransactionFlowError("INVALID_STATE")
+        if pays_guardian(row):
+            raise TransactionFlowError("SELF_APPROVAL", http_status=403)
         _verify(authorization_validator, row, actor_role, "guardian")
         return _execute(
             connection, row, expected_status="AWAITING_GUARDIAN",

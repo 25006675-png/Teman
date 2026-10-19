@@ -5,6 +5,7 @@ This module NEVER pays. It only returns a label:
 The backend (app.py) decides what happens next.
 """
 
+import threading
 import unicodedata
 
 CONFIRM = "confirm"
@@ -89,16 +90,18 @@ NO_SPEECH_MAX = 0.6
 REPEATED_CHAR = re.compile(r"(.)\1{3,}")   # the same character 4+ times
 
 _models = {}   # loaded Whisper models, so we load each one only once
+_models_lock = threading.Lock()   # the startup preload and a first request must not load it twice
 
 
 def get_model(model_size="large-v3", device="cpu", compute_type="int8"):
     """Load Whisper the first time it is needed, then reuse it."""
     key = (model_size, device, compute_type)
-    if key not in _models:
-        from faster_whisper import WhisperModel
-        _models[key] = WhisperModel(model_size, device=device,
-                                    compute_type=compute_type)
-    return _models[key]
+    with _models_lock:
+        if key not in _models:
+            from faster_whisper import WhisperModel
+            _models[key] = WhisperModel(model_size, device=device,
+                                        compute_type=compute_type)
+        return _models[key]
 
 
 def transcribe_audio(path, language="yue", model_size="large-v3",

@@ -121,6 +121,11 @@ def _normalize(value: str) -> str:
     return " ".join(unicodedata.normalize("NFKC", value).casefold().split())
 
 
+def normalize_payee(value: str) -> str:
+    """The same name matching the rules use (NFKC, case-insensitive, spaces collapsed)."""
+    return _normalize(value)
+
+
 def _decimal(value: Any, *, label: str) -> Decimal:
     if isinstance(value, bool):
         raise ValueError(f"{label} must be numeric")

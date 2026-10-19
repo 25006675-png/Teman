@@ -1,6 +1,6 @@
 # Scam-detection evaluation (18 Oct 2026)
 
-**Question:** how well does DialectGuard stop scam payments, and how often does it get in the way of genuine ones? And what does the second AI (the Gemini scam analyst) add on top of the fixed rules?
+**Question:** how well does Teman stop scam payments, and how often does it get in the way of genuine ones? And what does the second AI (the Gemini scam analyst) add on top of the fixed rules?
 
 **Run it:** `python eval/run_scam_eval.py` (rules + AI; needs `GEMINI_API_KEY`) or `python eval/run_scam_eval.py --rules-only` (no network). Per-item results: `eval/results/scam_eval_results.json`. The AI's answers are cached in `eval/results/ai_cache.json`, so a re-run reproduces these numbers without calling the API.
 
@@ -70,4 +70,4 @@ The false alarms are family-style requests that look like the "it's me, send mon
 - **The test set wasn't tuned to the rules,** but the rules were written by the same team that commissioned the test set.
 - **No real users:** this measures the decision engine, not whether Ah Por or her son act on the warning.
 
-**Safe claim for the deck:** *"On 120 synthetic test requests written independently of our rules, DialectGuard stopped all 60 scams before money moved. Its second AI flagged 58 of the 60 scams and 4 of the 60 genuine requests, so the son can tell them apart. Synthetic data; real-world performance not yet measured."*
+**Safe claim for the deck:** *"On 120 synthetic test requests written independently of our rules, Teman stopped all 60 scams before money moved. Its second AI flagged 58 of the 60 scams and 4 of the 60 genuine requests, so the son can tell them apart. Synthetic data; real-world performance not yet measured."*

@@ -1,0 +1,19 @@
+{
+  "about": "Ah Ming, the trusted family member. His own accounts: he can never approve money going to them. Demo PIN: 2580 (stored only as a salted hash). Production: the key and PIN or fingerprint stay on his phone.",
+  "max_wrong_pins": 3,
+  "guardians": [
+    {
+      "role": "GUARDIAN",
+      "name": "Ah Ming",
+      "own_accounts": [
+        "Tan Ah Ming (Maybank 5512)"
+      ],
+      "pin": {
+        "algorithm": "pbkdf2_sha256",
+        "iterations": 200000,
+        "salt": "30f44e48164f2eadc99f900247936c1a",
+        "hash": "fc914fc12f38f45d72e07e88157f959212383bbc69bdbcd26e2c04f1343bc42a"
+      }
+    }
+  ]
+}

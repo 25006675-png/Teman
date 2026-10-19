@@ -65,11 +65,11 @@ class ApiTests(unittest.TestCase):
         tx_id = result["tx_id"]
         # Ah Por can't pay a Review item herself, and the son can't approve before ask_child.
         self.assertEqual(self.client.post(f"/tx/{tx_id}/confirm").status_code, 409)
-        self.assertEqual(self.client.post(f"/tx/{tx_id}/approve").status_code, 409)
+        self.assertEqual(self.client.post(f"/tx/{tx_id}/approve", json={"pin": "2580"}).status_code, 409)
         self.assertEqual(self.client.post(f"/tx/{tx_id}/ask_child").status_code, 200)
         queue = self.client.get("/state").json()["awaiting_guardian"]
         self.assertEqual([t["tx_id"] for t in queue], [tx_id])
-        approved = self.client.post(f"/tx/{tx_id}/approve")
+        approved = self.client.post(f"/tx/{tx_id}/approve", json={"pin": "2580"})
         self.assertEqual(approved.status_code, 200, approved.text)
         self.assertEqual(approved.json()["transaction"]["risk_code"], "PAYEE_UNKNOWN")
         self.assertEqual(self.balance(), self.opening - 12000)
@@ -110,7 +110,7 @@ class ApiTests(unittest.TestCase):
             connection.execute(
                 "UPDATE transactions SET updated_at = '2026-01-01T00:00:00.000Z' WHERE id = ?", (tx_id,)
             )
-        response = self.client.post(f"/tx/{tx_id}/approve").json()
+        response = self.client.post(f"/tx/{tx_id}/approve", json={"pin": "2580"}).json()
         self.assertEqual(response["error"], "EXPIRED")
         self.assertEqual(self.balance(), self.opening)
 

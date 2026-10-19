@@ -174,7 +174,7 @@ def signed_validator(connection: Any, approval: Mapping[str, Any] | None, *, now
 
 
 # ---- Delegated approvals: limits the family signs once at setup -------------
-# "DialectGuard may pay TNB up to RM 80 per bill, once a month." The assistant
+# "Teman may pay TNB up to RM 80 per bill, once a month." The assistant
 # agent can pay a bill by itself only inside one of these signed limits.
 
 DELEGATED_FIELDS = (

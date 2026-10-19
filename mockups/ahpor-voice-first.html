@@ -1,0 +1,663 @@
+<!doctype html>
+<html lang="zh-HK">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ah Por Voice Mock-up</title>
+<link rel="icon" href="data:," />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@400;500;700;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" />
+<style>
+  /* Tokens match static/index.html so this can be ported back. */
+  :root {
+    --bg: oklch(0.952 0.006 230);
+    --surface: oklch(1 0 0);
+    --surface-2: oklch(0.975 0.004 200);
+    --line: oklch(0.915 0.007 230);
+    --ink: oklch(0.2 0.02 245);
+    --ink-2: oklch(0.42 0.02 245);
+    --ink-3: oklch(0.51 0.016 245);
+
+    --brand: oklch(0.47 0.1 170);
+    --brand-deep: oklch(0.33 0.07 182);
+    --brand-deeper: oklch(0.27 0.06 185);
+    --brand-soft: oklch(0.955 0.028 170);
+    --on-deep-2: oklch(0.88 0.04 175);
+
+    --ok: oklch(0.45 0.12 150);
+    --ok-soft: oklch(0.955 0.04 150);
+    --block: oklch(0.5 0.19 25);
+    --block-deep: oklch(0.4 0.16 25);
+    --family: oklch(0.47 0.14 258);
+    --family-soft: oklch(0.955 0.022 258);
+
+    --hk: "Noto Sans HK", "Microsoft JhengHei", "PingFang HK", system-ui, sans-serif;
+    --num: "Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+    --ease: cubic-bezier(.22, 1, .36, 1);
+    --expo: cubic-bezier(.16, 1, .3, 1);
+
+    --z-sheet: 10; --z-takeover: 20; --z-toast: 30;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--ink); font-family: var(--hk);
+    -webkit-font-smoothing: antialiased; font-variant-numeric: tabular-nums;
+    display: flex; align-items: center; justify-content: center; gap: 56px;
+    padding: 20px 16px; min-height: 100%;
+  }
+  button { font-family: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+  button:focus-visible { outline: 3px solid oklch(0.62 0.15 240); outline-offset: 3px; }
+  svg.ico { width: 1em; height: 1em; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+  .num { font-family: var(--num); letter-spacing: -0.02em; }
+
+  /* ============ phone frame ============ */
+  .phone {
+    height: min(860px, calc(100vh - 40px)); aspect-ratio: 402 / 860; flex: none;
+    border-radius: 54px; padding: 10px;
+    background: linear-gradient(150deg, oklch(0.36 0.01 250), oklch(0.19 0.01 250) 35%, oklch(0.14 0.01 250));
+    box-shadow: inset 0 0 0 1.5px oklch(0.46 0.01 250), inset 0 0 0 4px oklch(0.12 0 0), 0 40px 60px -40px oklch(0.2 0.03 250 / .7);
+  }
+  .screen {
+    position: relative; height: 100%; border-radius: 44px; overflow: hidden;
+    background: var(--surface-2);
+    display: grid; grid-template-rows: auto auto 1fr auto;
+  }
+  .statusbar { height: 46px; display: flex; align-items: center; justify-content: space-between; padding: 4px 30px 0 36px; font: 700 15px var(--num); position: relative; }
+  .statusbar .notch { position: absolute; left: 50%; top: 10px; transform: translateX(-50%); width: 100px; height: 28px; border-radius: 999px; background: oklch(0.13 0 0); }
+  .sicons { display: inline-flex; gap: 5px; align-items: center; }
+
+  /* ============ top: balance + guardian ============ */
+  /* The balance is the one number she cares about, so it is the largest thing on screen. */
+  .top { padding: 14px 24px 10px; }
+  .top-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .bal-label { font-size: 20px; font-weight: 700; color: var(--ink-2); }
+  .bal { font-size: 64px; font-weight: 800; line-height: 1; margin-top: 10px; letter-spacing: -0.03em; }
+  .bal small { font-size: 28px; font-weight: 700; margin-right: 6px; color: var(--ink-2); letter-spacing: 0; }
+  .guard { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px 8px 10px; border-radius: 999px; background: var(--family-soft); color: var(--family); font-size: 17px; font-weight: 700; white-space: nowrap; }
+  .guard .ico { font-size: 19px; }
+
+  /* ============ stage: the conversation ============ */
+  .stage { min-height: 0; padding: 4px 24px 18px; display: flex; flex-direction: column; justify-content: flex-end; gap: 14px; overflow: hidden; }
+  .said { font-size: 20px; line-height: 1.45; color: var(--ink-2); display: flex; gap: 8px; align-items: flex-start; min-height: 29px; }
+  .said .ico { font-size: 18px; margin-top: 5px; color: var(--ink-3); }
+  .said:empty { display: none; }
+  .reply { font-size: 29px; font-weight: 700; line-height: 1.42; letter-spacing: 0.01em; text-wrap: pretty; transition: opacity .25s var(--ease), transform .35s var(--ease); }
+  .reply.out { opacity: 0; transform: translateY(8px); }
+  .reply .hl { color: var(--brand); }
+  .thinking { display: none; gap: 8px; padding: 12px 0; }
+  .thinking i { width: 12px; height: 12px; border-radius: 50%; background: var(--brand); opacity: .3; animation: blink 1s infinite; }
+  .thinking i:nth-child(2) { animation-delay: .15s; } .thinking i:nth-child(3) { animation-delay: .3s; }
+  .stage.is-thinking .thinking { display: flex; }
+  .stage.is-thinking .reply { display: none; }
+  @keyframes blink { 50% { opacity: 1; } }
+
+  .replay { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; height: 52px; padding: 0 20px 0 16px; border-radius: 999px; background: var(--surface); color: var(--brand-deep); font-size: 19px; font-weight: 700; box-shadow: 0 1px 2px oklch(0.25 0.03 245 / .08), 0 0 0 1px var(--line); transition: transform .12s var(--ease), background .15s; }
+  .replay .ico { font-size: 22px; }
+  .replay:active { transform: scale(.97); background: var(--brand-soft); }
+
+  /* ============ bottom slot: voice dock OR action sheet ============ */
+  .bottom { position: relative; }
+  .dock {
+    background: var(--brand-deep); color: #fff;
+    border-radius: 26px 26px 0 0; padding: 18px 20px 0;
+    display: flex; flex-direction: column; align-items: center;
+    transition: transform .35s var(--expo), opacity .2s;
+  }
+  /* The open sheet takes the dock's place in the layout, so it pushes the conversation up instead of covering it. */
+  .bottom.has-sheet .dock { position: absolute; left: 0; right: 0; bottom: 0; transform: translateY(30px); opacity: 0; pointer-events: none; }
+  .chips { display: flex; gap: 10px; width: 100%; justify-content: center; }
+  .chip { height: 50px; padding: 0 18px; border-radius: 999px; background: oklch(1 0 0 / .12); color: #fff; font-size: 19px; font-weight: 700; box-shadow: inset 0 0 0 1px oklch(1 0 0 / .22); transition: background .15s; white-space: nowrap; }
+  .chip:active { background: oklch(1 0 0 / .24); }
+
+  .mic-wrap { position: relative; margin: 22px 0 10px; width: 124px; height: 124px; display: grid; place-items: center; }
+  .mic-wrap .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid oklch(1 0 0 / .5); opacity: 0; }
+  .mic {
+    position: relative; width: 124px; height: 124px; border-radius: 50%;
+    background: var(--surface); color: var(--brand-deep);
+    display: grid; place-items: center;
+    box-shadow: 0 10px 24px -10px oklch(0.15 0.05 185 / .8);
+    transition: transform .2s var(--expo), background .2s;
+    touch-action: none; -webkit-user-select: none; user-select: none;
+  }
+  .mic .ico { font-size: 50px; stroke-width: 1.8; }
+  .mic .wave { display: none; gap: 5px; align-items: center; height: 50px; }
+  .mic .wave i { width: 6px; border-radius: 3px; background: var(--brand-deep); height: 12px; animation: wave .9s var(--ease) infinite; }
+  .mic .wave i:nth-child(2) { animation-delay: .12s; } .mic .wave i:nth-child(3) { animation-delay: .24s; }
+  .mic .wave i:nth-child(4) { animation-delay: .36s; } .mic .wave i:nth-child(5) { animation-delay: .48s; }
+  @keyframes wave { 50% { height: 46px; } }
+  .dock.listening .mic { transform: scale(1.1); background: oklch(0.97 0.03 170); }
+  .dock.listening .mic .ico { display: none; }
+  .dock.listening .mic .wave { display: flex; }
+  .dock.listening .ring { animation: ripple 1.6s var(--expo) infinite; }
+  .dock.listening .ring:nth-child(2) { animation-delay: .8s; }
+  @keyframes ripple { 0% { transform: scale(1); opacity: .7; } 100% { transform: scale(1.65); opacity: 0; } }
+  .mic-label { font-size: 21px; font-weight: 700; color: var(--on-deep-2); margin-bottom: 6px; min-height: 30px; }
+  .homebar { height: 26px; display: grid; place-items: center; width: 100%; }
+  .homebar i { width: 124px; height: 5px; border-radius: 5px; background: oklch(1 0 0 / .7); }
+
+  /* action sheet */
+  .sheet {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: var(--z-sheet);
+    background: var(--surface); border-radius: 26px 26px 0 0;
+    box-shadow: 0 -1px 0 var(--line), 0 -8px 8px -6px oklch(0.25 0.03 245 / .08);
+    padding: 22px 22px 0;
+    transform: translateY(105%); transition: transform .4s var(--expo);
+  }
+  .bottom.has-sheet .sheet { position: relative; transform: none; }
+  .sheet .homebar i { background: oklch(0.15 0 0 / .8); }
+  .s-what { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 700; color: var(--ink-2); }
+  .s-what .badge { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand-deep); font-size: 22px; }
+  .s-amt { font-size: 60px; font-weight: 800; line-height: 1.05; margin: 10px 0 2px; }
+  .s-amt small { font-size: 28px; color: var(--ink-2); margin-right: 6px; }
+  .s-sub { font-size: 18px; color: var(--ink-2); margin-bottom: 18px; }
+
+  .hold {
+    position: relative; overflow: hidden; width: 100%; height: 78px; border-radius: 18px;
+    background: var(--brand-deep); color: #fff; font-size: 26px; font-weight: 800; letter-spacing: .04em;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    touch-action: none; -webkit-user-select: none; user-select: none;
+    --p: 0;
+  }
+  .hold::before { content: ""; position: absolute; inset: 0; background: var(--ok); transform-origin: left; transform: scaleX(var(--p)); }
+  .hold > * { position: relative; }
+  .hold .ico { font-size: 28px; }
+  .hold.fam { background: var(--family); }
+  .hold-hint { text-align: center; font-size: 17px; color: var(--ink-3); margin-top: 8px; }
+  .secondary { display: block; width: 100%; height: 56px; margin-top: 8px; font-size: 20px; font-weight: 700; color: var(--ink-2); border-radius: 14px; }
+  .secondary:active { background: var(--surface-2); }
+
+  /* waiting for son */
+  .wait { display: flex; align-items: center; gap: 18px; margin-bottom: 14px; }
+  .clock { position: relative; width: 112px; height: 112px; flex: none; }
+  .clock svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .clock circle { fill: none; stroke-width: 9; }
+  .clock .track { stroke: var(--family-soft); }
+  .clock .fill { stroke: var(--family); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+  .clock b { position: absolute; inset: 0; display: grid; place-items: center; font: 800 27px var(--num); color: var(--family); }
+  .wait h3 { margin: 0 0 6px; font-size: 25px; line-height: 1.3; }
+  .wait p { margin: 0; font-size: 19px; line-height: 1.45; color: var(--ink-2); }
+
+  /* paid + undo */
+  .done-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .done-row .tick { width: 64px; height: 64px; border-radius: 50%; background: var(--ok-soft); color: var(--ok); display: grid; place-items: center; font-size: 36px; flex: none; }
+  .done-row .t { font-size: 26px; font-weight: 800; line-height: 1.25; }
+  .done-row .t > span { display: block; font-size: 19px; font-weight: 500; color: var(--ink-2); white-space: nowrap; }
+  .undo { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 64px; padding: 0 8px 0 18px; border-radius: 16px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); position: relative; overflow: hidden; }
+  .undo span { font-size: 19px; color: var(--ink-2); position: relative; }
+  .undo button { position: relative; height: 48px; padding: 0 22px; border-radius: 12px; background: var(--ink); color: #fff; font-size: 20px; font-weight: 800; }
+  .undo .bar { position: absolute; left: 0; bottom: 0; height: 4px; background: var(--brand); width: 100%; transform-origin: left; }
+  .undo.run .bar { transition: transform 5s linear; transform: scaleX(0); }
+
+  /* ============ scam takeover ============ */
+  .takeover {
+    position: absolute; inset: 0; z-index: var(--z-takeover);
+    background: var(--block); color: #fff;
+    display: flex; flex-direction: column; padding: 70px 26px 0;
+    clip-path: circle(0 at 50% 82%); visibility: hidden;
+    transition: clip-path .7s var(--expo), visibility 0s .7s;
+  }
+  .takeover.on { clip-path: circle(150% at 50% 82%); visibility: visible; transition: clip-path .7s var(--expo), visibility 0s; }
+  .takeover .stopmark { width: 92px; height: 92px; border-radius: 26px; background: oklch(1 0 0 / .16); display: grid; place-items: center; font-size: 56px; margin-bottom: 22px; }
+  .takeover h2 { margin: 0; font-size: 84px; font-weight: 900; line-height: 1; letter-spacing: 0.02em; }
+  .takeover .big { font-size: 38px; font-weight: 900; margin: 10px 0 18px; line-height: 1.2; }
+  .takeover p { margin: 0; font-size: 23px; line-height: 1.5; font-weight: 500; color: oklch(0.96 0.02 25); }
+  .takeover .told { display: flex; align-items: center; gap: 10px; margin-top: 20px; padding: 14px 16px; border-radius: 14px; background: oklch(0.38 0.15 25); font-size: 20px; font-weight: 700; }
+  .takeover .told .ico { font-size: 24px; }
+  .takeover .acts { margin-top: auto; padding-bottom: 10px; display: flex; flex-direction: column; gap: 12px; }
+  .takeover .call { height: 76px; border-radius: 18px; background: #fff; color: var(--block-deep); font-size: 26px; font-weight: 900; display: flex; align-items: center; justify-content: center; gap: 12px; }
+  .takeover .call .ico { font-size: 28px; }
+  .takeover .bankbtn { height: 62px; border-radius: 18px; box-shadow: inset 0 0 0 2px oklch(1 0 0 / .6); color: #fff; font-size: 21px; font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .takeover .back { height: 52px; color: oklch(0.93 0.03 25); font-size: 19px; font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
+  .takeover .homebar i { background: oklch(1 0 0 / .75); }
+
+  .toast { position: absolute; left: 50%; top: 58px; z-index: var(--z-toast); transform: translate(-50%, -12px); opacity: 0; padding: 12px 18px; border-radius: 14px; background: var(--ink); color: #fff; font-size: 19px; font-weight: 700; white-space: nowrap; transition: opacity .2s, transform .3s var(--expo); pointer-events: none; }
+  .toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+  /* ============ judge panel (English, outside the phone) ============ */
+  .panel { width: 440px; flex: none; font-family: var(--num); color: var(--ink); }
+  .panel h1 { font-size: 24px; font-weight: 800; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .panel .lede { margin: 0 0 22px; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
+  .cap { background: var(--surface); border-radius: 16px; padding: 18px 20px; box-shadow: 0 1px 2px oklch(0.25 0.03 245 / .06), 0 0 0 1px var(--line); margin-bottom: 22px; min-height: 196px; }
+  .cap dl { margin: 0; display: grid; grid-template-columns: 92px 1fr; gap: 12px 12px; font-size: 16px; line-height: 1.5; }
+  .cap dt { color: var(--ink-3); font-weight: 600; font-size: 14px; padding-top: 2px; }
+  .cap dd { margin: 0; }
+  .cap dd.reply-en { font-weight: 700; }
+  .cap dd.eng { font-family: "Cascadia Mono", Consolas, ui-monospace, monospace; font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+  .cap dd.eng b { color: var(--ink); }
+  .cap dd.eng .blk { color: var(--block-deep); font-weight: 700; }
+  .cap dd.eng .rev { color: var(--family); font-weight: 700; }
+  .cap dd.eng .ok { color: var(--ok); font-weight: 700; }
+
+  .runs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .run { text-align: left; padding: 12px 14px; border-radius: 12px; background: var(--surface); box-shadow: 0 0 0 1px var(--line); font-size: 15px; font-weight: 700; line-height: 1.3; transition: box-shadow .15s, background .15s; }
+  .run span { display: block; font-size: 13px; font-weight: 500; color: var(--ink-3); margin-top: 3px; }
+  .run:hover { box-shadow: 0 0 0 1.5px var(--brand); }
+  .run:disabled { opacity: .45; cursor: default; box-shadow: 0 0 0 1px var(--line); }
+  .run.son { background: var(--family-soft); box-shadow: 0 0 0 1px oklch(0.84 0.05 258); }
+  .row2 { display: flex; align-items: center; justify-content: space-between; margin-top: 16px; font-size: 14px; color: var(--ink-2); }
+  .row2 label { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+  .row2 button { font-weight: 700; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; font-size: 14px; }
+  .note { margin-top: 18px; font-size: 13px; line-height: 1.5; color: var(--ink-3); }
+
+  @media (max-width: 960px) {
+    body { flex-direction: column; justify-content: flex-start; gap: 28px; }
+    .phone { height: auto; width: min(402px, 100%); }
+    .panel { width: min(440px, 100%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
+    .takeover { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/><path d="M12 18v4"/></symbol>
+  <symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><path d="M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.9.6 2.8.7a2 2 0 0 1 1.7 2"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 22h18"/><path d="M6 18v-7"/><path d="M10 18v-7"/><path d="M14 18v-7"/><path d="M18 18v-7"/><path d="m12 2 8 5H4z"/></symbol>
+  <symbol id="i-shield-check" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.7 9a1 1 0 0 1-.6 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.2-2.7a1.2 1.2 0 0 1 1.6 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="M5 12h14"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/><path d="M16 3.1a4 4 0 0 1 0 7.8"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+</svg>
+
+<!-- ================= Ah Por's phone ================= -->
+<div class="phone">
+  <div class="screen" id="screen">
+    <div class="statusbar">
+      <span class="clock-t" id="clockT">3:42</span>
+      <span class="notch"></span>
+      <span class="sicons" aria-hidden="true">
+        <svg width="18" height="12" viewBox="0 0 18 12"><rect x="0" y="8" width="3" height="4" rx="1" fill="currentColor"/><rect x="5" y="5.5" width="3" height="6.5" rx="1" fill="currentColor"/><rect x="10" y="3" width="3" height="9" rx="1" fill="currentColor"/><rect x="15" y="0" width="3" height="12" rx="1" fill="currentColor"/></svg>
+        <svg width="26" height="12" viewBox="0 0 26 12"><rect x=".5" y=".5" width="22" height="11" rx="3" fill="none" stroke="currentColor" opacity=".45"/><rect x="2" y="2" width="16" height="8" rx="1.6" fill="currentColor"/><rect x="23.5" y="4" width="2" height="4" rx="1" fill="currentColor" opacity=".45"/></svg>
+      </span>
+    </div>
+
+    <div class="top">
+      <div class="top-row">
+        <div class="bal-label">戶口仲有</div>
+        <div class="guard"><svg class="ico"><use href="#i-shield-check"/></svg>阿明睇住</div>
+      </div>
+      <div class="bal num"><small>RM</small><span id="bal">807.50</span></div>
+    </div>
+
+    <div class="stage" id="stage" aria-live="polite">
+      <div class="said" id="said"></div>
+      <div class="thinking" aria-label="諗緊"><i></i><i></i><i></i></div>
+      <div class="reply" id="reply"></div>
+      <button class="replay" id="replay" type="button"><svg class="ico"><use href="#i-volume"/></svg>再講一次</button>
+    </div>
+
+    <div class="bottom" id="bottom">
+      <div class="dock" id="dock">
+        <div class="chips">
+          <button class="chip" type="button" data-run="balance">仲有幾多錢</button>
+          <button class="chip" type="button" data-run="bill">交電費</button>
+        </div>
+        <div class="mic-wrap">
+          <span class="ring"></span><span class="ring"></span>
+          <button class="mic" id="mic" type="button" aria-label="撳住講嘢">
+            <svg class="ico"><use href="#i-mic"/></svg>
+            <span class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+          </button>
+        </div>
+        <div class="mic-label" id="micLabel">撳住講嘢</div>
+        <div class="homebar"><i></i></div>
+      </div>
+      <div class="sheet" id="sheet"></div>
+    </div>
+
+    <div class="takeover" id="takeover" role="alertdialog" aria-labelledby="tkH">
+      <div class="stopmark"><svg class="ico"><use href="#i-stop"/></svg></div>
+      <h2 id="tkH">停！</h2>
+      <div class="big">唔好轉錢</div>
+      <p>呢個係騙案。真正嘅銀行同警察，唔會叫你轉錢去「解凍」。</p>
+      <div class="told"><svg class="ico"><use href="#i-bell"/></svg>阿明已經收到通知</div>
+      <div class="acts">
+        <button class="call" type="button" id="callSon"><svg class="ico"><use href="#i-phone"/></svg>打俾阿明</button>
+        <button class="bankbtn" type="button"><svg class="ico"><use href="#i-bank"/></svg>打去銀行查</button>
+        <button class="back" type="button" id="tkBack">返回</button>
+      </div>
+      <div class="homebar"><i></i></div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+  </div>
+</div>
+
+<!-- ================= judge panel ================= -->
+<aside class="panel">
+  <h1>Ah Por's phone, voice-first</h1>
+  <p class="lede">She asks out loud in Cantonese. Money only moves after a deliberate hold on screen. The English below is for judges and sits outside her phone.</p>
+
+  <div class="cap" aria-live="polite">
+    <dl>
+      <dt>She said</dt><dd id="enSaid">(nothing yet)</dd>
+      <dt>Assistant</dt><dd class="reply-en" id="enReply">Good afternoon, Mrs Chan. Hold the button and tell me what you need.</dd>
+      <dt>Engine</dt><dd class="eng" id="enEng">Idle. No request.</dd>
+    </dl>
+  </div>
+
+  <div class="runs">
+    <button class="run" type="button" data-run="balance">How much money?<span>Read only</span></button>
+    <button class="run" type="button" data-run="bill">Pay electricity<span>Known biller, she holds to pay</span></button>
+    <button class="run" type="button" data-run="clinic">Pay a new clinic<span>Goes to her son</span></button>
+    <button class="run" type="button" data-run="scam">"Prize" message<span>Blocked scam</span></button>
+    <button class="run son" type="button" id="sonApprove" disabled>Ah Ming approves<span>Simulates his phone</span></button>
+    <button class="run son" type="button" id="sonSilent" disabled>Ah Ming doesn't answer<span>Skip to the 2-minute timeout</span></button>
+  </div>
+
+  <div class="row2">
+    <label><input type="checkbox" id="speak" checked /> Read replies aloud (zh-HK voice)</label>
+    <button type="button" id="reset">Reset</button>
+  </div>
+  <p class="note">Holding the mic simulates "How much money do I have left?". Cantonese copy is a draft for a native speaker to check.</p>
+</aside>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const START = 807.50;
+  const st = { bal: START, busy: false, lastReply: '', timers: [], waitLeft: 0 };
+
+  const fmt = (n) => n.toFixed(2);
+  const sleep = (ms) => new Promise((r) => st.timers.push(setTimeout(r, ms)));
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- speech ---------- */
+  let voice = null;
+  function pickVoice() {
+    const vs = speechSynthesis.getVoices();
+    voice = vs.find((v) => /zh[-_]HK|yue/i.test(v.lang)) || null;
+  }
+  try { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; } catch (e) {}
+  function say(text, force) {
+    if (!force && !$('speak').checked) return;
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text.replace(/RM\s?/g, '馬幣'));
+      u.lang = 'zh-HK'; if (voice) u.voice = voice; u.rate = 0.9;
+      speechSynthesis.speak(u);
+    } catch (e) {}
+  }
+
+  /* ---------- scenarios ---------- */
+  const SC = {
+    balance: {
+      said: '我仲有幾多錢？', saidEn: 'How much money do I have left?',
+      reply: () => `你戶口仲有 <span class="hl num">RM${fmt(st.bal)}</span>。到月尾仲有 14 日，每日用 <span class="num">RM22</span> 以內就夠使。`,
+      replyEn: () => `You have RM${fmt(st.bal)}. There are 14 days to the end of the month; about RM22 a day is enough.`,
+      eng: 'Tier 1, read only. <b>No money moves.</b> get_budget → (balance − RM500 reserve) ÷ days left.',
+    },
+    bill: {
+      said: '幫我交電費。', saidEn: 'Pay my electricity bill.',
+      amount: 42.50, payee: 'Tenaga Nasional', label: '交電費', icon: 'i-bolt',
+      reply: () => `TNB 電費 <span class="hl num">RM42.50</span>，28 號到期。`,
+      replyEn: () => `TNB electricity is RM42.50, due on the 28th.`,
+      eng: 'Rules: known biller, under her limit → score 0 · <span class="ok">APPROVE</span>. She still confirms with a 1-second hold.',
+    },
+    clinic: {
+      said: '幫我交診所張單，一百二十蚊。', saidEn: 'Pay the clinic bill, a hundred and twenty.',
+      amount: 120, payee: 'Klinik Baru',
+      reply: () => `<span class="hl">Klinik Baru</span> 你未交過錢俾佢。<span class="num">RM120</span> 要阿明睇一睇先。`,
+      replyEn: () => `You haven't paid Klinik Baru before. RM120 needs Ah Ming to check first.`,
+      eng: 'Rules: unknown payee 40 + over limit 40 = 80 · <span class="rev">REVIEW</span>. Only Ah Ming can approve; 2-minute window.',
+    },
+    scam: {
+      said: '有人 WhatsApp 話我中咗獎，要我轉 RM800 去解凍。', saidEn: 'Someone on WhatsApp says I won a prize and need to transfer RM800 to unfreeze it.',
+      reply: () => '停！唔好轉錢。呢個係騙案。阿明已經收到通知。',
+      replyEn: () => 'Stop! Don\'t transfer. This is a scam. Ah Ming has been told.',
+      eng: 'Rules: scam phrase "unfreeze … prize" → <span class="blk">BLOCK</span>. No pay button for her, <b>no approve button for him</b>.',
+    },
+  };
+
+  /* ---------- rendering ---------- */
+  function setReply(html, en, eng) {
+    const r = $('reply');
+    r.classList.add('out');
+    setTimeout(() => { r.innerHTML = html; r.classList.remove('out'); }, reduced ? 0 : 140);
+    st.lastReply = html.replace(/<[^>]+>/g, '');
+    if (en !== undefined) $('enReply').textContent = en;
+    if (eng !== undefined) $('enEng').innerHTML = eng;
+    say(st.lastReply);
+  }
+  function setSaid(text, en) {
+    $('said').innerHTML = text ? `<svg class="ico"><use href="#i-mic"/></svg><span>${text}</span>` : '';
+    $('enSaid').textContent = en || '(nothing yet)';
+  }
+  function setBal(to) {
+    const from = st.bal; st.bal = to;
+    if (reduced) { $('bal').textContent = fmt(to); return; }
+    const t0 = performance.now();
+    const step = (t) => {
+      const k = Math.min(1, (t - t0) / 600), e = 1 - Math.pow(1 - k, 4);
+      $('bal').textContent = fmt(from + (to - from) * e);
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  function openSheet(html) { $('sheet').innerHTML = html + '<div class="homebar"><i></i></div>'; $('bottom').classList.add('has-sheet'); }
+  function closeSheet() { $('bottom').classList.remove('has-sheet'); }
+  function toast(text) {
+    const t = $('toast'); t.textContent = text; t.classList.add('on');
+    clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 1800);
+  }
+  function setRunsEnabled(on) {
+    document.querySelectorAll('[data-run]').forEach((b) => (b.disabled = !on));
+  }
+  function setSonButtons(on) { $('sonApprove').disabled = !on; $('sonSilent').disabled = !on; }
+
+  /* ---------- hold-to-act (pointer + keyboard) ---------- */
+  function holdable(el, ms, onDone, onEarly) {
+    let t0 = 0, raf = 0, active = false;
+    const tick = (t) => {
+      const p = Math.min(1, (t - t0) / ms);
+      el.style.setProperty('--p', p);
+      if (p >= 1) { active = false; onDone(); return; }
+      raf = requestAnimationFrame(tick);
+    };
+    const start = (e) => { if (active) return; e.preventDefault(); active = true; t0 = performance.now(); raf = requestAnimationFrame(tick); };
+    const stop = () => {
+      if (!active) return; active = false; cancelAnimationFrame(raf);
+      el.style.setProperty('--p', 0); onEarly && onEarly();
+    };
+    el.addEventListener('pointerdown', start);
+    ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => el.addEventListener(ev, stop));
+    el.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) start(e); });
+    el.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') stop(); });
+  }
+
+  /* ---------- flow ---------- */
+  async function run(key, { fromMic = false } = {}) {
+    if (st.busy) return;
+    st.busy = true; setRunsEnabled(false); closeSheet();
+    const sc = SC[key];
+    const dock = $('dock');
+
+    // listening: transcript appears as she speaks
+    if (!fromMic) { dock.classList.add('listening'); $('micLabel').textContent = '聽緊…'; }
+    $('reply').innerHTML = ''; setSaid('', sc.saidEn);
+    const chars = [...sc.said];
+    for (let i = 1; i <= chars.length; i++) {
+      setSaid(chars.slice(0, i).join(''), sc.saidEn);
+      await sleep(reduced ? 0 : (fromMic ? 25 : 70));
+    }
+    if (!fromMic) await sleep(350);
+    dock.classList.remove('listening'); $('micLabel').textContent = '撳住講嘢';
+
+    // thinking
+    $('stage').classList.add('is-thinking');
+    await sleep(reduced ? 200 : 750);
+    $('stage').classList.remove('is-thinking');
+
+    if (key === 'scam') {
+      $('enReply').textContent = sc.replyEn(); $('enEng').innerHTML = sc.eng;
+      st.lastReply = sc.reply();
+      $('takeover').classList.add('on');
+      say(st.lastReply);
+      setTimeout(() => $('callSon').focus(), 700);
+      return; // busy until she taps 返回
+    }
+
+    setReply(sc.reply(), sc.replyEn(), sc.eng);
+
+    if (key === 'balance') { st.busy = false; setRunsEnabled(true); return; }
+    if (key === 'bill') return confirmSheet(sc);
+    if (key === 'clinic') return askSonSheet(sc);
+  }
+
+  function confirmSheet(sc) {
+    openSheet(`
+      <div class="s-what"><span class="badge"><svg class="ico"><use href="#${sc.icon}"/></svg></span>${sc.label} · ${sc.payee}</div>
+      <div class="s-amt num"><small>RM</small>${fmt(sc.amount)}</div>
+      <div class="s-sub">交完仲有 <span class="num">RM${fmt(st.bal - sc.amount)}</span></div>
+      <button class="hold" id="holdPay" type="button"><svg class="ico"><use href="#i-check"/></svg><span>按住交錢</span></button>
+      <div class="hold-hint">按住一秒</div>
+      <button class="secondary" id="notNow" type="button">唔交住</button>`);
+    holdable($('holdPay'), 1000, () => paid(sc, '5 秒後交'), () => toast('要按住一秒先得'));
+    $('notNow').onclick = () => {
+      closeSheet(); setReply('好，冇交。張單仲喺度，你想交嗰陣再同我講。', 'OK, not paid. The bill is still here; tell me when you want to pay.', 'Cancelled by her. <b>No money moved.</b>');
+      st.busy = false; setRunsEnabled(true);
+    };
+  }
+
+  // Money leaves only after the 5-second undo window, as in the real app.
+  function paid(sc, title, byWho) {
+    openSheet(`
+      <div class="done-row"><div class="tick"><svg class="ico"><use href="#i-check"/></svg></div>
+        <div class="t">${title}<span>${sc.payee} · <span class="num">RM${fmt(sc.amount)}</span></span></div></div>
+      <div class="undo" id="undo"><span>改變主意？</span><button type="button" id="undoBtn">撤回</button><i class="bar"></i></div>`);
+    if (byWho) setReply('阿明批准咗，而家幫你交。', 'Ah Ming approved. Paying it now.');
+    else setReply('好，而家幫你交。', 'OK, paying it now.');
+    $('enEng').innerHTML = (byWho || 'She held for 1 s → signed approval') + ' → 5-second undo window → bank release.';
+    requestAnimationFrame(() => requestAnimationFrame(() => $('undo').classList.add('run')));
+    let undone = false;
+    $('undoBtn').onclick = () => {
+      undone = true; closeSheet();
+      setReply('撤回咗，冇交。錢仲喺你戶口。', 'Undone. Nothing was paid; the money is still in your account.', 'Undo inside 5 s → request cancelled. <b>Bank never released funds.</b>');
+      st.busy = false; setRunsEnabled(true);
+    };
+    st.timers.push(setTimeout(() => {
+      if (undone) return;
+      setBal(st.bal - sc.amount);
+      closeSheet();
+      setReply(`${sc.payee} <span class="num">RM${fmt(sc.amount)}</span> 交咗喇。戶口仲有 <span class="hl num">RM${fmt(st.bal)}</span>。`,
+        `${sc.payee} RM${fmt(sc.amount)} is paid. You have RM${fmt(st.bal)} left.`,
+        `payment_executed · bank balance RM${fmt(st.bal)} · logged to the append-only audit.`);
+      st.busy = false; setRunsEnabled(true);
+    }, 5200));
+  }
+
+  function askSonSheet(sc) {
+    openSheet(`
+      <div class="s-what"><span class="badge" style="background:var(--family-soft);color:var(--family)"><svg class="ico"><use href="#i-users"/></svg></span>${sc.payee} · 第一次交</div>
+      <div class="s-amt num"><small>RM</small>${fmt(sc.amount)}</div>
+      <div class="s-sub">阿明批准咗先會交</div>
+      <button class="hold fam" id="askSon" type="button"><svg class="ico"><use href="#i-users"/></svg><span>問阿明</span></button>
+      <button class="secondary" id="notNow" type="button">唔交住</button>`);
+    $('askSon').onclick = () => waiting(sc);
+    $('notNow').onclick = () => {
+      closeSheet(); setReply('好，冇交。', 'OK, not paid.', 'Cancelled by her. <b>No money moved.</b>');
+      st.busy = false; setRunsEnabled(true);
+    };
+  }
+
+  function waiting(sc) {
+    const C = 2 * Math.PI * 50;
+    st.waitLeft = 120;
+    openSheet(`
+      <div class="wait">
+        <div class="clock"><svg viewBox="0 0 112 112"><circle class="track" cx="56" cy="56" r="50"/><circle class="fill" id="arc" cx="56" cy="56" r="50" stroke-dasharray="${C}" stroke-dashoffset="0"/></svg><b id="left">2:00</b></div>
+        <div><h3>等緊阿明覆你</h3><p>佢唔覆，就唔會交錢。</p></div>
+      </div>
+      <button class="secondary" id="cancelWait" type="button" style="margin-top:0">唔交喇</button>`);
+    setReply('問咗阿明喇。佢一覆，我就話你知。', 'I\'ve asked Ah Ming. I\'ll tell you as soon as he replies.',
+      'ask_family → Ah Ming\'s phone shows the request with a <b>2-minute</b> countdown. Silence = no payment.');
+    setSonButtons(true);
+    const iv = setInterval(() => {
+      st.waitLeft = Math.max(0, st.waitLeft - 1);
+      const m = Math.floor(st.waitLeft / 60), s = String(st.waitLeft % 60).padStart(2, '0');
+      if ($('left')) $('left').textContent = `${m}:${s}`;
+      if ($('arc')) $('arc').style.strokeDashoffset = C * (1 - st.waitLeft / 120);
+      if (st.waitLeft === 0) expire();
+    }, 1000);
+    st.timers.push(iv);
+    const finish = () => { clearInterval(iv); setSonButtons(false); };
+    const expire = () => {
+      finish(); closeSheet();
+      setReply('阿明冇覆，所以冇交錢。你可以打俾佢。', 'Ah Ming didn\'t reply, so nothing was paid. You can call him.',
+        'Timer hit 0 → <span class="blk">EXPIRED</span>. Balance unchanged. Fail-safe: no answer means no payment.');
+      st.busy = false; setRunsEnabled(true);
+    };
+    $('sonApprove').onclick = () => { finish(); paid(sc, '阿明批准咗', 'Ah Ming held to approve → signed approval'); };
+    $('sonSilent').onclick = () => { st.waitLeft = 1; };
+    $('cancelWait').onclick = () => {
+      finish(); closeSheet();
+      setReply('好，唔交喇。我同阿明講埋。', 'OK, cancelled. I\'ll tell Ah Ming too.', 'cancel_request → Ah Ming\'s request withdrawn. <b>No money moved.</b>');
+      st.busy = false; setRunsEnabled(true);
+    };
+  }
+
+  /* ---------- wiring ---------- */
+  document.querySelectorAll('[data-run]').forEach((b) => b.addEventListener('click', () => run(b.dataset.run)));
+
+  // Hold the mic: listening while held, then answer the balance question.
+  const mic = $('mic');
+  let micDown = 0;
+  const micStart = (e) => {
+    if (st.busy) return; e.preventDefault();
+    micDown = performance.now();
+    $('dock').classList.add('listening'); $('micLabel').textContent = '聽緊…講完放手';
+  };
+  const micEnd = () => {
+    if (!micDown) return;
+    const held = performance.now() - micDown; micDown = 0;
+    $('dock').classList.remove('listening'); $('micLabel').textContent = '撳住講嘢';
+    if (held < 350) { toast('要撳住先講嘢'); return; }
+    run('balance', { fromMic: true });
+  };
+  mic.addEventListener('pointerdown', micStart);
+  ['pointerup', 'pointerleave', 'pointercancel'].forEach((ev) => mic.addEventListener(ev, micEnd));
+  mic.addEventListener('keydown', (e) => { if ((e.key === ' ' || e.key === 'Enter') && !e.repeat) micStart(e); });
+  mic.addEventListener('keyup', (e) => { if (e.key === ' ' || e.key === 'Enter') micEnd(); });
+
+  $('replay').onclick = () => say(st.lastReply, true);
+
+  const leaveScam = () => {
+    $('takeover').classList.remove('on');
+    setReply('冇事，錢冇轉出去。有人再搵你，你就同我講。', 'You\'re safe; no money left your account. If they contact you again, tell me.',
+      'Blocked request logged · scam account reported for other families.');
+    st.busy = false; setRunsEnabled(true);
+  };
+  $('tkBack').onclick = leaveScam;
+  $('callSon').onclick = () => toast('打緊俾阿明…');
+
+  function reset() {
+    st.timers.forEach((t) => { clearTimeout(t); clearInterval(t); }); st.timers = [];
+    try { speechSynthesis.cancel(); } catch (e) {}
+    $('takeover').classList.remove('on'); closeSheet(); setSonButtons(false);
+    $('dock').classList.remove('listening'); $('stage').classList.remove('is-thinking');
+    st.bal = START; $('bal').textContent = fmt(START);
+    st.busy = false; setRunsEnabled(true);
+    setSaid('', '');
+    $('reply').innerHTML = '陳太，午安。<br>有咩要幫手，撳住下面個掣同我講。';
+    st.lastReply = $('reply').textContent;
+    $('enReply').textContent = 'Good afternoon, Mrs Chan. If you need anything, hold the button below and tell me.';
+    $('enEng').textContent = 'Idle. No request.';
+  }
+  $('reset').onclick = reset;
+
+  const now = new Date(); $('clockT').textContent = `${now.getHours() % 12 || 12}:${String(now.getMinutes()).padStart(2, '0')}`;
+  reset();
+})();
+</script>
+</body>
+</html>

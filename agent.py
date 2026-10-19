@@ -42,7 +42,7 @@ MAX_STEPS = 6
 TIMEOUT_SECONDS = 15.0
 MORNING_CHECK_MESSAGE = "每日檢查：睇下有冇要交嘅單，喺屋企人設定嘅上限之內就幫我交。交完單之後，最後先睇今日可以使幾多。"
 
-SYSTEM_PROMPT = """You are DialectGuard, a patient assistant for Ah Por (Mdm Tan, 72), who speaks Cantonese.
+SYSTEM_PROMPT = """You are Teman, a patient assistant for Ah Por (Mdm Tan, 72), who speaks Cantonese.
 You help ONLY with her bills, her daily budget and her spending. Politely decline anything else
 (investments, loans, medical or legal advice, other topics).
 

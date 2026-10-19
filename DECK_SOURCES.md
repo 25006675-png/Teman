@@ -1,4 +1,4 @@
-# DialectGuard — Verified Facts for the Deck
+# Teman — Verified Facts for the Deck
 
 > Checked 18 Oct 2026 against official sources where possible. Each fact is one slide-ready sentence plus its source.
 > **VERIFIED** = read in the official document. **NEWS ONLY** = reputable news or law-firm summary; say "reported" on the slide.
@@ -25,7 +25,7 @@
 | ⭐ BNM's compensation policy for e-banking fraud (SEFT, in force 1 Oct 2024) **excludes payments the victim "willingly performed and approved"**, such as love, investment and parcel scams | SEFT policy document, para 5.2: <https://www.bnm.gov.my/-/pd-fair-treatment24> | VERIFIED |
 | BNM is **studying whether to widen SEFT** to protect vulnerable consumers | BNM Annual Report 2025, Box 4 | VERIFIED |
 
-**The point for slide 3:** banks have strong controls against *outsiders* taking over an account, and compensation for *unauthorised* payments. The ~95% of scams where the customer pays the scammer herself fall outside both. DialectGuard works at that moment.
+**The point for slide 3:** banks have strong controls against *outsiders* taking over an account, and compensation for *unauthorised* payments. The ~95% of scams where the customer pays the scammer herself fall outside both. Teman works at that moment.
 
 ## Regulation the product lines up with
 

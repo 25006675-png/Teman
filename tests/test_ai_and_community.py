@@ -169,7 +169,7 @@ class ApiTests(unittest.TestCase):
                                  tx_id=tx_id, family_id="another_family")
         blocked = self.analyze("clinic_new_payee")
         self.assertEqual((blocked["outcome"], blocked["risk_code_shown"]), ("BLOCK", "SCAM_SIGNAL"))
-        self.assertEqual(self.client.post(f"/tx/{blocked['tx_id']}/approve").status_code, 403)
+        self.assertEqual(self.client.post(f"/tx/{blocked['tx_id']}/approve", json={"pin": "2580"}).status_code, 403)
 
     def test_report_rules(self):
         scam_id = self.analyze("scam_prize_transfer")["tx_id"]

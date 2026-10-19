@@ -1,4 +1,4 @@
-"""SQLite persistence for DialectGuard's demo backend."""
+"""SQLite persistence for Teman's demo backend."""
 
 from __future__ import annotations
 

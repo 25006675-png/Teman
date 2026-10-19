@@ -1,4 +1,4 @@
-"""Budget calculations and weekly spending reports for DialectGuard."""
+"""Budget calculations and weekly spending reports for Teman."""
 
 from __future__ import annotations
 

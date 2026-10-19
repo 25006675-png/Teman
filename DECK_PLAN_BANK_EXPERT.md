@@ -1,4 +1,4 @@
-# DialectGuard — Deck Plan for a Bank-Expert Panel
+# Teman — Deck Plan for a Bank-Expert Panel
 
 > **Audience:** a bank-side expert (WeBank-style) who judges on risk control, compliance, integration and evidence more than on polish.
 > **Length:** 17 slides, 9:25 + 0:35 buffer (limit 10 minutes).
@@ -35,7 +35,7 @@
 ## Content per slide
 
 ### 1. Title (0:15)
-- DialectGuard
+- Teman
 - One-liner: *"An AI that pays Grandma's bills in her own dialect, and can't be talked into paying a scammer."*
 - *"One AI acts, a second AI checks, fixed rules decide, and family approves."*
 - Team, Topic A: Personal Finance Assistant · AI as a Financial Participant
@@ -55,12 +55,12 @@ The insight slide.
 - BNM's compensation policy (SEFT, Oct 2024) **excludes** payments the victim "willingly performed and approved"
 - Banking apps assume literacy; family members have no sanctioned role
 - **Our gap: the customer-authorised scam payment, for customers who can't read the app**
-- Bridge line: *BNM's RMiT now requires "higher risk scoring … for vulnerable customers (e.g. senior citizens)". DialectGuard is a ready-made way to do that.*
+- Bridge line: *BNM's RMiT now requires "higher risk scoring … for vulnerable customers (e.g. senior citizens)". Teman is a ready-made way to do that.*
 
 ### 4. Solution and positioning (0:30)
 - An elder-mode layer embedded in the bank's app (or an SDK), plus a family companion app
 - **We never hold funds; the bank remains the system of record**
-- One diagram: Ah Por's app → DialectGuard engine → bank; Ah Ming's Family app below
+- One diagram: Ah Por's app → Teman engine → bank; Ah Ming's Family app below
 
 ### 5. Demo 1: everyday finance (0:40, clip ~35 s)
 - Today's budget: one big number + Cantonese read-aloud
@@ -69,9 +69,9 @@ The insight slide.
 - Covers all four Topic A functions: budgeting, bill analysis, spending insights, actionable recommendations
 
 ### 6. Demo 2: family co-sign + fail-safe (0:35, clip ~30 s)
-- Unknown clinic, RM 120 → Ask my child
+- Unknown clinic, RM 120 → sent to her son automatically (she doesn't have to decide to ask him)
 - 2-minute countdown on the son's phone; 📞 Call Mum adds 5 minutes, once
-- He holds to approve → paid; `approval_signed` → `payment_executed` in the log
+- He taps Approve and enters his PIN (checked by the server) → paid; `approval_signed` → `payment_executed` in the log
 - Say: *"If he doesn't answer, nothing is paid."*
 
 ### 7. Demo 3: scams stopped (0:55, clip ~50 s)
@@ -118,6 +118,7 @@ Bankers will look hardest at this slide.
 - Family limits are signed too (TNB ≤ RM 80, Air Selangor ≤ RM 40, once a month each); an edited limit stops working
 - Frontend only sends `tx_id`; paying is safe to repeat: two confirms at the same instant charge once
 - The database refuses edits or deletes of the log and payments
+- **The son approves with a PIN checked by the server** (stored only as a salted hash, never the PIN itself). 3 wrong PINs stop the payment and are logged (`guardian_pin_wrong`). Roadmap: his phone's fingerprint or face check via passkey
 - Known limit: signing keys are held by the server in the demo. Roadmap: keys on the device (passkeys) and in a hardware security module
 
 ### 12. Architecture and bank integration (0:35)
@@ -131,8 +132,12 @@ Bankers will look hardest at this slide.
 
 ### 13. Privacy, consent and compliance (0:35)
 - **Consent:** Ah Por herself consents at setup
-- **The son's powers are limited:** he can't start payments, can't go above the hard cap, can't block an official biller; this protects against financial abuse by family as well as by strangers
-- **Data:** recordings never stored; logs keep only what's needed; the demo sends bill text to Google Gemini (synthetic data only)
+- **We don't assume family is always trustworthy.** The son's powers are limited:
+  - he can't start payments, can't go above the hard cap, can't approve a blocked payment, can't block an official biller
+  - **he can never approve money going to his own account** (registered at setup). If Mum is asked to pay him, the app won't let him approve it: she pays at the bank, where staff can check, or (roadmap) a second trusted person approves
+  - every approve, reject and report is in the append-only log
+  - Say: *"Family can be the problem too. Her son can't approve money going to himself."* Optional live proof: 📷 → `7-ah-ming-own-account-message.png` → his screen has no Approve button
+- **Data:** recordings never stored; logs keep only what's needed; the demo sends bill text to Google Gemini and her spoken replies to Microsoft's voice service (synthetic data only)
 - **Cross-border data (PDPA s129, as amended in 2024):** sending bill text to Google is a cross-border transfer with Google as our data processor. A launch would rely on her explicit consent, or a Transfer Impact Assessment plus Google's data-processing terms; or host the model in Malaysia / switch it off (the rules work alone). Don't say "PDPA-compliant"
 - **RMiT mapping (BNM, reissued 25 Sep 2026):**
   - higher risk scoring for senior citizens and low-literacy customers (Appendix 11) → our whole engine

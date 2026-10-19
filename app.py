@@ -1,4 +1,4 @@
-"""DialectGuard API (PROPOSAL §7).
+"""Teman API (PROPOSAL §7).
 
 Run:  uvicorn app:app --reload
 Roles are fixed per endpoint (no login in the demo): Ah Por uses analyze,
@@ -10,7 +10,11 @@ from __future__ import annotations
 
 from contextlib import asynccontextmanager
 from datetime import date, timedelta
+import hashlib
+import hmac
+import io
 import os
+import threading
 from typing import Any, Literal
 
 from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
@@ -28,6 +32,7 @@ import mandates
 import ocr
 import services
 import speech
+import tts
 from rules import is_official_biller
 from transactions import (
     TransactionFlowError,
@@ -51,7 +56,16 @@ if APPROVAL_MODE not in ("signed", "basic"):
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     _setup_demo()
+    _preload_whisper()
     yield
+
+
+def _preload_whisper() -> None:
+    """Load the speech model in the background at startup, so her first spoken
+    question doesn't wait ~20 s. Never downloads; skipped when the model isn't on disk."""
+    if os.environ.get("DIALECTGUARD_WHISPER_PRELOAD", "on") == "off" or not _whisper_available():
+        return
+    threading.Thread(target=speech.get_model, args=(WHISPER_MODEL,), daemon=True).start()
 
 
 def _setup_demo() -> None:
@@ -61,7 +75,7 @@ def _setup_demo() -> None:
         mandates.seed_family_mandates(connection)
 
 
-app = FastAPI(title="DialectGuard", lifespan=lifespan)
+app = FastAPI(title="Teman", lifespan=lifespan)
 STATIC_DIR = db.ROOT / "static"
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
@@ -196,6 +210,39 @@ def voice_audio(tx_id: str = Form(...), audio: UploadFile = File(...),
     return {**result, "heard": keyword, "voice_status": voice_status, "whisper_model": WHISPER_MODEL}
 
 
+@app.post("/agent/transcribe")
+def agent_transcribe(audio: UploadFile = File(...)) -> dict[str, Any]:
+    """Her spoken question -> Cantonese text for the chat box. Returns text only:
+    it never pays or calls the assistant. She checks the words, then taps Send.
+    Audio stays in memory and is never saved."""
+    data = _read_upload(audio)
+    if not _whisper_available():
+        return {"text": "", "status": "error", "voice_status": "model_not_ready", "whisper_model": WHISPER_MODEL}
+    heard = speech.transcribe_audio(io.BytesIO(data), model_size=WHISPER_MODEL)
+    return {"text": heard["text"], "status": heard["status"], "voice_status": "ok", "whisper_model": WHISPER_MODEL}
+
+
+class SpeakRequest(BaseModel):
+    text: str
+
+
+SPEAK_MAX_CHARS = 400
+
+
+@app.post("/speak", response_model=None)
+async def speak_text(body: SpeakRequest) -> FileResponse | JSONResponse:
+    """Her reply as Cantonese speech (edge-tts). Audio is only a helper: on any
+    failure the page keeps the text on screen and uses the browser's voice.
+    Data note: the text is sent to Microsoft's online voice service."""
+    text = body.text.strip()
+    if not text or len(text) > SPEAK_MAX_CHARS:
+        raise HTTPException(status_code=422, detail=f"Text must be 1 to {SPEAK_MAX_CHARS} characters.")
+    result = await tts.make_speech_async(text, output_dir=tts.OUTPUT_DIR)
+    if result["status"] != "ok":
+        return JSONResponse({"status": result["status"], "problems": result["problems"]}, status_code=503)
+    return FileResponse(result["audio_path"], media_type="audio/mpeg")
+
+
 @app.post("/tx/{tx_id}/confirm")
 def confirm(tx_id: str, body: ConfirmRequest | None = None) -> dict[str, Any]:
     body = body or ConfirmRequest()
@@ -219,8 +266,51 @@ def request_guardian(tx_id: str) -> dict[str, Any]:
         return ask_child(connection, tx_id)
 
 
-@app.post("/tx/{tx_id}/approve")
-def approve(tx_id: str) -> dict[str, Any]:
+class ApproveRequest(BaseModel):
+    pin: str = ""
+
+
+GUARDIANS = db.load_config("guardians.json")
+MAX_WRONG_PINS = GUARDIANS["max_wrong_pins"]
+_wrong_pins: dict[str, int] = {}  # tx_id -> wrong PIN attempts (demo: kept in memory)
+_wrong_pins_lock = threading.Lock()
+
+
+def _guardian_pin_ok(pin: str) -> bool:
+    """Compare against the salted hash in data/guardians.json (the PIN itself is never stored)."""
+    stored = GUARDIANS["guardians"][0]["pin"]
+    digest = hashlib.pbkdf2_hmac("sha256", pin.encode("utf-8"), bytes.fromhex(stored["salt"]), stored["iterations"])
+    return hmac.compare_digest(digest.hex(), stored["hash"])
+
+
+def _wrong_pin(tx_id: str) -> JSONResponse:
+    """Count a wrong PIN; after the last allowed try the request is rejected (fail safe)."""
+    with db.db_session() as connection:
+        if db.get_transaction(connection, tx_id) is None:
+            raise TransactionFlowError("NOT_FOUND", http_status=404)
+    with _wrong_pins_lock:
+        _wrong_pins[tx_id] = _wrong_pins.get(tx_id, 0) + 1
+        left = max(0, MAX_WRONG_PINS - _wrong_pins[tx_id])
+    with db.db_session() as connection:
+        db.append_log(connection, event="guardian_pin_wrong", tx_id=tx_id, method="guardian",
+                      status="LOCKED" if left == 0 else "WRONG_PIN", details={"attempts_left": left})
+        if left == 0:
+            try:
+                reject_transaction(connection, tx_id, actor_role="GUARDIAN")
+            except TransactionFlowError:
+                pass  # already final, expired or not his to decide: nothing to stop
+    if left == 0:
+        return JSONResponse(status_code=403, content={"error": "PIN_LOCKED", "attempts_left": 0,
+                            "message": "Too many wrong PINs. The payment was stopped; nothing was paid."})
+    return JSONResponse(status_code=403, content={"error": "WRONG_PIN", "attempts_left": left,
+                        "message": f"Wrong PIN. {left} {'try' if left == 1 else 'tries'} left."})
+
+
+@app.post("/tx/{tx_id}/approve", response_model=None)
+def approve(tx_id: str, body: ApproveRequest | None = None) -> dict[str, Any] | JSONResponse:
+    """Ah Ming approves with his PIN. He can never approve money going to his own account."""
+    if not _guardian_pin_ok((body or ApproveRequest()).pin):
+        return _wrong_pin(tx_id)
     with db.db_session() as connection:
         return approve_transaction(
             connection, tx_id, actor_role="GUARDIAN",
@@ -370,6 +460,8 @@ def report() -> dict[str, Any]:
 def reset() -> dict[str, Any]:
     db.reset_database()
     _setup_demo()
+    with _wrong_pins_lock:
+        _wrong_pins.clear()
     with db.db_session() as connection:
         balance = bank.balance_minor(connection)
     return {"ok": True, "balance_minor": balance}

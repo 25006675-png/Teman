@@ -9,7 +9,7 @@ PaySim, *Synthetic Financial Datasets For Fraud Detection*, by E. A. Lopez-Rojas
 
 PaySim is simulated mobile-money data, generated from one month of real transaction logs from a mobile-money service in an African country. The data is not stored in this repo. `ml/train_risk_model.py` downloads it.
 
-- **Used:** the 2,684,404 `PAYMENT` and `TRANSFER` rows, because DialectGuard has only bill payments and transfers. 4,097 of them are fraud, all transfers.
+- **Used:** the 2,684,404 `PAYMENT` and `TRANSFER` rows, because Teman has only bill payments and transfers. 4,097 of them are fraud, all transfers.
 - **Split by time:** the first 70% of rows (by hour) train the model. The next 15% choose the alert threshold. The last 15% (402,661 rows, 2,003 fraud) are the test set.
 
 ## Features

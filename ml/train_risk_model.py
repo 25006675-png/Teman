@@ -38,7 +38,7 @@ def load_paysim(csv_path: str | None) -> pd.DataFrame:
         csv_path = next(folder.glob("*.csv"))
     columns = ["step", "type", "amount", "oldbalanceOrg", "isFraud", "isFlaggedFraud"]
     frame = pd.read_csv(csv_path, usecols=columns)
-    # Only the transaction types DialectGuard has: bill payments and transfers.
+    # Only the transaction types Teman has: bill payments and transfers.
     return frame[frame["type"].isin(["PAYMENT", "TRANSFER"])].reset_index(drop=True)
 
 
