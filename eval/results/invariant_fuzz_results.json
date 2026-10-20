@@ -1,0 +1,96 @@
+{
+ "seed": 2026,
+ "sequences": 200,
+ "steps_per_sequence": 50,
+ "actions": 10000,
+ "seconds": 293.4,
+ "rule_checks": 110000,
+ "rules": {
+  "charged_once": "Never charged twice for one request",
+  "blocked_never_paid": "Blocked requests are never paid",
+  "frozen_fields": "The amount and payee paid are the ones stored at creation",
+  "balance_adds_up": "Balance always equals opening balance minus payments",
+  "review_needs_son_pin": "A review payment needs the son's right PIN",
+  "her_payments_safe_only": "Her own payments: safe or acknowledged-warning bills only",
+  "never_to_son": "Never paid to the son's own account",
+  "nothing_after_deadline": "Nothing is paid after its deadline",
+  "final_stays_final": "A finished request never changes again",
+  "payment_logged": "Every payment is in the audit log",
+  "log_only_grows": "The audit log only grows"
+ },
+ "per_action": {
+  "New payment request": {
+   "count": 2223,
+   "Allowed, no money moved": 2186,
+   "Refused": 37
+  },
+  "Voice word": {
+   "count": 374,
+   "Allowed, no money moved": 257,
+   "Refused": 109,
+   "Money moved": 8
+  },
+  "Son approves, wrong PIN": {
+   "count": 555,
+   "Refused": 555
+  },
+  "Ah Por confirms (tap or voice)": {
+   "count": 1445,
+   "Refused": 1151,
+   "Money moved": 179,
+   "Allowed, no money moved": 115
+  },
+  "Simultaneous confirms (2-8)": {
+   "count": 692,
+   "Refused": 553,
+   "Money moved": 95,
+   "Allowed, no money moved": 44
+  },
+  "Son approves, right PIN": {
+   "count": 868,
+   "Refused": 793,
+   "Money moved": 75
+  },
+  "Cancel or reject": {
+   "count": 534,
+   "Refused": 459,
+   "Allowed, no money moved": 75
+  },
+  "Time passes (1 s - 12 min)": {
+   "count": 979,
+   "Allowed, no money moved": 979
+  },
+  "Call Mum (+5 min)": {
+   "count": 285,
+   "Refused": 251,
+   "Allowed, no money moved": 34
+  },
+  "Ask my child": {
+   "count": 864,
+   "Refused": 534,
+   "Allowed, no money moved": 330
+  },
+  "Simultaneous son approvals (2-8)": {
+   "count": 504,
+   "Refused": 449,
+   "Money moved": 55
+  },
+  "Report as scam": {
+   "count": 381,
+   "Refused": 284,
+   "Allowed, no money moved": 97
+  },
+  "Pay later": {
+   "count": 296,
+   "Refused": 291,
+   "Allowed, no money moved": 5
+  }
+ },
+ "payments": 412,
+ "violations": [],
+ "violation_count": 0,
+ "violations_by_rule": {},
+ "server_errors": 0,
+ "server_error_examples": [],
+ "passed": true
+}

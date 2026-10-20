@@ -14,6 +14,15 @@ The bank is a **simulated sandbox**. Teman never holds money; it only sends paym
 
 Repository: <https://github.com/25006675-png/Teman>
 
+## Submission deliverables
+
+| # | Deliverable | Where |
+|---|---|---|
+| 01 | Technical documentation (architecture, core algorithms, security design) | [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md) · Word: [docs/word/](docs/word/) |
+| 04 | Source code, README, deployment instructions, test cases | This repository · [Quick start](#quick-start) · [Running the tests](#running-the-tests) |
+| 05 | Security self-assessment report (permission tiers, known risks) | [docs/security_report.md](docs/security_report.md) · Word: [docs/word/](docs/word/) |
+| 06 | Execution evidence (sandbox operation logs) | [docs/execution_evidence/](docs/execution_evidence/README.md) |
+
 ---
 
 ## Quick start
@@ -121,7 +130,7 @@ Each step leaves state behind (paid bills, used monthly limits, scam reports, th
 3. **Auto-pay limit** per payee = 1.5 × her median past bill, or RM 50 with fewer than 3 past bills.
 4. **Every decision is recorded** with every rule checked, the score, the band and the config version, and is exported by `GET /logs`.
 
-All thresholds live in `data/*.json`. Full details: [docs/PROPOSAL.md](docs/PROPOSAL.md) §5–§6.
+All thresholds live in `data/*.json`. Full details: [docs/TECHNICAL_DOCUMENTATION.md](docs/TECHNICAL_DOCUMENTATION.md) §3.
 
 ## Security in brief
 
@@ -197,12 +206,13 @@ metrics.py, check_references.py   dialect evaluation tools
 data/             all rules, limits, templates and synthetic demo data (JSON)
 static/           the demo page (index.html, plain JavaScript, no build step) and biller logos
 tests/            248 tests
-docs/             proposal, tasks, pitch, deck plan and sources
+docs/             technical documentation, security report, evidence, execution evidence, figures, Word versions
 demo/photos/      fake bills and messages to snap in the demo
 demo/mockups/     the voice-first design mock-up
-scripts/          make_demo_photos.py, make_screenshots.py (slide screenshots -> docs/screenshots/), make_sample_bills.py, try_tts.py
-eval/, ml/        scam evaluation and the shadow fraud model
-archive/          old material, not used
+scripts/          make_demo_photos.py, make_screenshots.py (slide screenshots -> docs/screenshots/), make_sample_bills.py, try_tts.py,
+                  run_execution_evidence.py (runs every scenario on the real server -> docs/execution_evidence/),
+                  build_docx.py (Word versions of the documentation and security report -> docs/word/)
+eval/, ml/        evaluations (scam, speech, photos, speed, stress, attack test) and the shadow fraud model
 PRODUCT.md        design brief (users, principles); stays at the root for the design tools
 ```
 

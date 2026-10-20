@@ -1,0 +1,3640 @@
+{
+  "format": "dialectguard.logs.v1",
+  "exported_at": "2026-10-19T17:41:59.601Z",
+  "event_count": 158,
+  "decision_count": 10,
+  "logs": [
+    {
+      "event_id": 1,
+      "occurred_at": "2026-10-19T17:39:53.925Z",
+      "tx_id": null,
+      "event": "family_mandate_signed",
+      "risk_code": null,
+      "method": "system",
+      "status": "ISSUED",
+      "details": {
+        "payee_id": "tnb",
+        "limit_per_bill_minor": 8000,
+        "max_payments_per_month": 1
+      }
+    },
+    {
+      "event_id": 2,
+      "occurred_at": "2026-10-19T17:39:53.929Z",
+      "tx_id": null,
+      "event": "family_mandate_signed",
+      "risk_code": null,
+      "method": "system",
+      "status": "ISSUED",
+      "details": {
+        "payee_id": "air_selangor",
+        "limit_per_bill_minor": 4000,
+        "max_payments_per_month": 1
+      }
+    },
+    {
+      "event_id": 3,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 4,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 5,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 6,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 7,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 8,
+      "occurred_at": "2026-10-19T17:39:56.273Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 9,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 10,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 11,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 12,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 13,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 14,
+      "occurred_at": "2026-10-19T17:39:56.274Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "decision_recorded",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "80.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:39:56.273Z"
+      }
+    },
+    {
+      "event_id": 15,
+      "occurred_at": "2026-10-19T17:39:56.337Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 16,
+      "occurred_at": "2026-10-19T17:39:56.340Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.13205972201306637,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 17,
+      "occurred_at": "2026-10-19T17:39:56.351Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "guardian_approval_requested",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "AWAITING_GUARDIAN",
+      "details": {
+        "expires_at": "2026-10-19T17:41:56.350Z"
+      }
+    },
+    {
+      "event_id": 18,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 19,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 20,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 21,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 22,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 23,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 24,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 25,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 26,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 27,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 28,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 29,
+      "occurred_at": "2026-10-19T17:39:59.016Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "decision_recorded",
+      "risk_code": null,
+      "method": null,
+      "status": "APPROVE",
+      "details": {
+        "risk_score": "0.00",
+        "outcome_band": "APPROVE",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:39:59.015Z"
+      }
+    },
+    {
+      "event_id": 30,
+      "occurred_at": "2026-10-19T17:39:59.080Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 31,
+      "occurred_at": "2026-10-19T17:39:59.082Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.048790164169432,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 32,
+      "occurred_at": "2026-10-19T17:39:59.461Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "approval_signed",
+      "risk_code": null,
+      "method": "tap",
+      "status": "ISSUED",
+      "details": {
+        "role": "AH_POR",
+        "nonce": "186e3ac0080bc3ed370e1b5df5623aec",
+        "algorithm": "ECDSA_P256_SHA256"
+      }
+    },
+    {
+      "event_id": 33,
+      "occurred_at": "2026-10-19T17:39:59.472Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "payment_executed",
+      "risk_code": null,
+      "method": "tap",
+      "status": "DONE",
+      "details": {
+        "amount_minor": 4250,
+        "payee_id": "tnb",
+        "payee_name": "Tenaga Nasional Berhad",
+        "role": "AH_POR"
+      }
+    },
+    {
+      "event_id": 34,
+      "occurred_at": "2026-10-19T17:39:59.474Z",
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "event": "approval_signed",
+      "risk_code": null,
+      "method": "tap",
+      "status": "ISSUED",
+      "details": {
+        "role": "AH_POR",
+        "nonce": "94ed50da1687e05ed38a3df68afb8fd4",
+        "algorithm": "ECDSA_P256_SHA256"
+      }
+    },
+    {
+      "event_id": 35,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 36,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 37,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 38,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 39,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 40,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 41,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 42,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 43,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 44,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 45,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 46,
+      "occurred_at": "2026-10-19T17:40:02.488Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "decision_recorded",
+      "risk_code": null,
+      "method": null,
+      "status": "APPROVE",
+      "details": {
+        "risk_score": "0.00",
+        "outcome_band": "APPROVE",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:02.488Z"
+      }
+    },
+    {
+      "event_id": 47,
+      "occurred_at": "2026-10-19T17:40:02.553Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 48,
+      "occurred_at": "2026-10-19T17:40:02.558Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.023498817161818317,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 49,
+      "occurred_at": "2026-10-19T17:40:02.577Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "bill_scheduled",
+      "risk_code": null,
+      "method": "tap",
+      "status": "SCHEDULED",
+      "details": {
+        "schedule_id": 1,
+        "pay_on": "2026-10-28",
+        "due_date": "2026-10-30"
+      }
+    },
+    {
+      "event_id": 50,
+      "occurred_at": "2026-10-19T17:40:02.580Z",
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "event": "transaction_cancelled",
+      "risk_code": null,
+      "method": "tap",
+      "status": "CANCELLED",
+      "details": {}
+    },
+    {
+      "event_id": 51,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 52,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 53,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 54,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 55,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 56,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 57,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 58,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 59,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 60,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 61,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 62,
+      "occurred_at": "2026-10-19T17:40:04.771Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "decision_recorded",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "80.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:04.770Z"
+      }
+    },
+    {
+      "event_id": 63,
+      "occurred_at": "2026-10-19T17:40:04.794Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 64,
+      "occurred_at": "2026-10-19T17:40:04.798Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.1385497393847786,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 65,
+      "occurred_at": "2026-10-19T17:40:04.814Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "guardian_approval_requested",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "AWAITING_GUARDIAN",
+      "details": {
+        "expires_at": "2026-10-19T17:42:04.814Z"
+      }
+    },
+    {
+      "event_id": 66,
+      "occurred_at": "2026-10-19T17:40:04.931Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "guardian_pin_wrong",
+      "risk_code": null,
+      "method": "guardian",
+      "status": "WRONG_PIN",
+      "details": {
+        "attempts_left": 2
+      }
+    },
+    {
+      "event_id": 67,
+      "occurred_at": "2026-10-19T17:40:05.120Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "approval_signed",
+      "risk_code": null,
+      "method": "tap",
+      "status": "ISSUED",
+      "details": {
+        "role": "GUARDIAN",
+        "nonce": "508ef94d2e390c798f2f5910d0069766",
+        "algorithm": "ECDSA_P256_SHA256"
+      }
+    },
+    {
+      "event_id": 68,
+      "occurred_at": "2026-10-19T17:40:05.134Z",
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "event": "payment_executed",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": "guardian",
+      "status": "DONE",
+      "details": {
+        "amount_minor": 12000,
+        "payee_id": null,
+        "payee_name": "Klinik Baru (demo)",
+        "role": "GUARDIAN"
+      }
+    },
+    {
+      "event_id": 69,
+      "occurred_at": "2026-10-19T17:40:07.667Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 70,
+      "occurred_at": "2026-10-19T17:40:07.667Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "rule_fired",
+      "risk_code": "SCAM_SIGNAL",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": true,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 71,
+      "occurred_at": "2026-10-19T17:40:07.667Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "decision_recorded",
+      "risk_code": "SCAM_SIGNAL",
+      "method": null,
+      "status": "BLOCK",
+      "details": {
+        "risk_score": "0.00",
+        "outcome_band": null,
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:07.666Z"
+      }
+    },
+    {
+      "event_id": 72,
+      "occurred_at": "2026-10-19T17:40:07.667Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "transaction_blocked",
+      "risk_code": "SCAM_SIGNAL",
+      "method": null,
+      "status": "BLOCKED",
+      "details": {
+        "guardian_alert_required": true
+      }
+    },
+    {
+      "event_id": 73,
+      "occurred_at": "2026-10-19T17:40:07.728Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": true,
+        "tactics": [
+          "prize_or_refund_bait",
+          "urgency",
+          "move_money_to_protect_it",
+          "unusual_payee_request",
+          "secrecy"
+        ],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 74,
+      "occurred_at": "2026-10-19T17:40:07.729Z",
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.7717903078790584,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 75,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 76,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 77,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 78,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 79,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 80,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 81,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 82,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 83,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 84,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 85,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "rule_fired",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 86,
+      "occurred_at": "2026-10-19T17:40:10.418Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "decision_recorded",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "120.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:10.418Z"
+      }
+    },
+    {
+      "event_id": 87,
+      "occurred_at": "2026-10-19T17:40:10.484Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": true,
+        "tactics": [
+          "impersonation",
+          "urgency",
+          "secrecy",
+          "move_money_to_protect_it",
+          "threat",
+          "unusual_payee_request"
+        ],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 88,
+      "occurred_at": "2026-10-19T17:40:10.488Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.3621146672345506,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 89,
+      "occurred_at": "2026-10-19T17:40:10.504Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "guardian_approval_requested",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "AWAITING_GUARDIAN",
+      "details": {
+        "expires_at": "2026-10-19T17:42:10.503Z"
+      }
+    },
+    {
+      "event_id": 90,
+      "occurred_at": "2026-10-19T17:40:10.516Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "guardian_rejected",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": "guardian",
+      "status": "REJECTED",
+      "details": {}
+    },
+    {
+      "event_id": 91,
+      "occurred_at": "2026-10-19T17:40:10.524Z",
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "event": "scam_reported",
+      "risk_code": null,
+      "method": "guardian",
+      "status": "REPORTED",
+      "details": {
+        "payee_key": "lim holdings 5521 (demo)",
+        "report_count": 1
+      }
+    },
+    {
+      "event_id": 92,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 93,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 94,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 95,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 96,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 97,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 98,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 99,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 100,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_fired",
+      "risk_code": "COMMUNITY_REPORTED",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 101,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 102,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "rule_fired",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 103,
+      "occurred_at": "2026-10-19T17:40:13.086Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "decision_recorded",
+      "risk_code": "COMMUNITY_REPORTED",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "160.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:13.085Z"
+      }
+    },
+    {
+      "event_id": 104,
+      "occurred_at": "2026-10-19T17:40:13.095Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": true,
+        "tactics": [
+          "unusual_payee_request"
+        ],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 105,
+      "occurred_at": "2026-10-19T17:40:13.098Z",
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0025,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 1.0,
+          "log_amount_to_balance": 0.3621146672345506,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 106,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 107,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 108,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 109,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 110,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 111,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 112,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 113,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 114,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 115,
+      "occurred_at": "2026-10-19T17:40:15.580Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 116,
+      "occurred_at": "2026-10-19T17:40:15.581Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "rule_fired",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 117,
+      "occurred_at": "2026-10-19T17:40:15.581Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "decision_recorded",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "120.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:15.580Z"
+      }
+    },
+    {
+      "event_id": 118,
+      "occurred_at": "2026-10-19T17:40:15.586Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": true,
+        "tactics": [
+          "impersonation",
+          "secrecy"
+        ],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 119,
+      "occurred_at": "2026-10-19T17:40:15.587Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.4585749334221128,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 120,
+      "occurred_at": "2026-10-19T17:40:15.594Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "guardian_approval_requested",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": null,
+      "status": "AWAITING_GUARDIAN",
+      "details": {
+        "expires_at": "2026-10-19T17:42:15.594Z"
+      }
+    },
+    {
+      "event_id": 121,
+      "occurred_at": "2026-10-19T17:40:15.686Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "approval_signed",
+      "risk_code": null,
+      "method": "tap",
+      "status": "ISSUED",
+      "details": {
+        "role": "GUARDIAN",
+        "nonce": "c6930f5c6285acdd02e1d1264f03727e",
+        "algorithm": "ECDSA_P256_SHA256"
+      }
+    },
+    {
+      "event_id": 122,
+      "occurred_at": "2026-10-19T17:40:15.695Z",
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "event": "guardian_rejected",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "method": "guardian",
+      "status": "REJECTED",
+      "details": {}
+    },
+    {
+      "event_id": 123,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 124,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 125,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 126,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 127,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 128,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_fired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 129,
+      "occurred_at": "2026-10-19T17:40:17.647Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_fired",
+      "risk_code": "OVER_LIMIT",
+      "method": null,
+      "status": "FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": true,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 130,
+      "occurred_at": "2026-10-19T17:40:17.648Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 131,
+      "occurred_at": "2026-10-19T17:40:17.648Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 132,
+      "occurred_at": "2026-10-19T17:40:17.648Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 133,
+      "occurred_at": "2026-10-19T17:40:17.648Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 134,
+      "occurred_at": "2026-10-19T17:40:17.648Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "decision_recorded",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "REVIEW",
+      "details": {
+        "risk_score": "80.00",
+        "outcome_band": "REVIEW",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:17.646Z"
+      }
+    },
+    {
+      "event_id": 135,
+      "occurred_at": "2026-10-19T17:40:17.651Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 136,
+      "occurred_at": "2026-10-19T17:40:17.654Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.16088122555608525,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 137,
+      "occurred_at": "2026-10-19T17:40:17.665Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "guardian_approval_requested",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "AWAITING_GUARDIAN",
+      "details": {
+        "expires_at": "2026-10-19T17:42:17.664Z"
+      }
+    },
+    {
+      "event_id": 138,
+      "occurred_at": "2026-10-19T17:40:17.809Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "guardian_pin_wrong",
+      "risk_code": null,
+      "method": "guardian",
+      "status": "WRONG_PIN",
+      "details": {
+        "attempts_left": 2
+      }
+    },
+    {
+      "event_id": 139,
+      "occurred_at": "2026-10-19T17:40:17.894Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "guardian_pin_wrong",
+      "risk_code": null,
+      "method": "guardian",
+      "status": "WRONG_PIN",
+      "details": {
+        "attempts_left": 1
+      }
+    },
+    {
+      "event_id": 140,
+      "occurred_at": "2026-10-19T17:40:17.992Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "guardian_pin_wrong",
+      "risk_code": null,
+      "method": "guardian",
+      "status": "LOCKED",
+      "details": {
+        "attempts_left": 0
+      }
+    },
+    {
+      "event_id": 141,
+      "occurred_at": "2026-10-19T17:40:17.995Z",
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "event": "guardian_rejected",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": "guardian",
+      "status": "REJECTED",
+      "details": {}
+    },
+    {
+      "event_id": 142,
+      "occurred_at": "2026-10-19T17:40:20.193Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 1,
+        "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 143,
+      "occurred_at": "2026-10-19T17:40:20.193Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 2,
+        "rule_id": "BLOCK_SCAM_KEYWORD",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 144,
+      "occurred_at": "2026-10-19T17:40:20.193Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 3,
+        "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 145,
+      "occurred_at": "2026-10-19T17:40:20.193Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 4,
+        "rule_id": "BLOCK_COMMUNITY_REPORTED",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 146,
+      "occurred_at": "2026-10-19T17:40:20.194Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 5,
+        "rule_id": "BLOCK_OVER_HARD_CAP",
+        "phase": "blocking",
+        "matched": false,
+        "weight": null
+      }
+    },
+    {
+      "event_id": 147,
+      "occurred_at": "2026-10-19T17:40:20.194Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 6,
+        "rule_id": "PAYEE_UNKNOWN",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 148,
+      "occurred_at": "2026-10-19T17:40:20.194Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 7,
+        "rule_id": "OVER_LIMIT",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 149,
+      "occurred_at": "2026-10-19T17:40:20.194Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 8,
+        "rule_id": "AMOUNT_HIGH",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "20.00"
+      }
+    },
+    {
+      "event_id": 150,
+      "occurred_at": "2026-10-19T17:40:20.194Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 9,
+        "rule_id": "COMMUNITY_REPORTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 151,
+      "occurred_at": "2026-10-19T17:40:20.195Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 10,
+        "rule_id": "RAPID_TRANSFERS",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 152,
+      "occurred_at": "2026-10-19T17:40:20.195Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "rule_checked",
+      "risk_code": null,
+      "method": null,
+      "status": "NOT_FIRED",
+      "details": {
+        "sequence": 11,
+        "rule_id": "AI_SCAM_SUSPECTED",
+        "phase": "scoring",
+        "matched": false,
+        "weight": "40.00"
+      }
+    },
+    {
+      "event_id": 153,
+      "occurred_at": "2026-10-19T17:40:20.195Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "decision_recorded",
+      "risk_code": null,
+      "method": null,
+      "status": "APPROVE",
+      "details": {
+        "risk_score": "0.00",
+        "outcome_band": "APPROVE",
+        "config_version": "2026-10-17.1",
+        "timestamp": "2026-10-19T17:40:20.193Z"
+      }
+    },
+    {
+      "event_id": 154,
+      "occurred_at": "2026-10-19T17:40:20.327Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "ai_assessment",
+      "risk_code": null,
+      "method": null,
+      "status": "OK",
+      "details": {
+        "suspicious": false,
+        "tactics": [],
+        "model": "gemini-3.5-flash-lite",
+        "errors": []
+      }
+    },
+    {
+      "event_id": 155,
+      "occurred_at": "2026-10-19T17:40:20.328Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "shadow_risk_score",
+      "risk_code": null,
+      "method": null,
+      "status": "SHADOW",
+      "details": {
+        "mode": "shadow",
+        "model_version": "paysim-logreg-2026-10-18",
+        "score": 0.0,
+        "would_flag": false,
+        "features": {
+          "is_transfer": 0.0,
+          "log_amount_to_balance": 0.05998270460171046,
+          "empties_balance": 0.0,
+          "night_hour": 1.0
+        }
+      }
+    },
+    {
+      "event_id": 156,
+      "occurred_at": "2026-10-19T17:40:20.339Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "voice_keyword_unrecognized",
+      "risk_code": null,
+      "method": "voice",
+      "status": "PENDING",
+      "details": {
+        "recognized_keyword": null
+      }
+    },
+    {
+      "event_id": 157,
+      "occurred_at": "2026-10-19T17:40:20.357Z",
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "event": "transaction_cancelled",
+      "risk_code": null,
+      "method": "tap",
+      "status": "CANCELLED",
+      "details": {}
+    },
+    {
+      "event_id": 158,
+      "occurred_at": "2026-10-19T17:41:59.384Z",
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "event": "transaction_expired",
+      "risk_code": "PAYEE_UNKNOWN",
+      "method": null,
+      "status": "EXPIRED",
+      "details": {
+        "reason": "TTL_ELAPSED",
+        "expired_at": "2026-10-19T17:41:56.350Z"
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "created_at": "2026-10-19T17:39:56.272Z",
+      "status": "EXPIRED",
+      "risk_code": "PAYEE_UNKNOWN",
+      "risk_score": 80,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "PAYEE_UNKNOWN",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "PAYEE_UNKNOWN",
+        "timestamp": "2026-10-19T17:39:56.273Z",
+        "total_score": "80.00",
+        "weights": {
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "created_at": "2026-10-19T17:39:59.015Z",
+      "status": "DONE",
+      "risk_code": null,
+      "risk_score": 0,
+      "outcome_band": "APPROVE",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "APPROVE",
+        "outcome_band": "APPROVE",
+        "risk_code_shown": null,
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [],
+        "stopped_after": null,
+        "template_code": "PAYMENT_CONFIRMATION",
+        "timestamp": "2026-10-19T17:39:59.015Z",
+        "total_score": "0.00",
+        "weights": {}
+      }
+    },
+    {
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "created_at": "2026-10-19T17:40:02.487Z",
+      "status": "CANCELLED",
+      "risk_code": null,
+      "risk_score": 0,
+      "outcome_band": "APPROVE",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "APPROVE",
+        "outcome_band": "APPROVE",
+        "risk_code_shown": null,
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [],
+        "stopped_after": null,
+        "template_code": "PAYMENT_CONFIRMATION",
+        "timestamp": "2026-10-19T17:40:02.488Z",
+        "total_score": "0.00",
+        "weights": {}
+      }
+    },
+    {
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "created_at": "2026-10-19T17:40:04.770Z",
+      "status": "DONE",
+      "risk_code": "PAYEE_UNKNOWN",
+      "risk_score": 80,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "PAYEE_UNKNOWN",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "PAYEE_UNKNOWN",
+        "timestamp": "2026-10-19T17:40:04.770Z",
+        "total_score": "80.00",
+        "weights": {
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "created_at": "2026-10-19T17:40:07.666Z",
+      "status": "BLOCKED",
+      "risk_code": "SCAM_SIGNAL",
+      "risk_score": 0,
+      "outcome_band": null,
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "BLOCK",
+        "outcome_band": null,
+        "risk_code_shown": "SCAM_SIGNAL",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 3,
+            "matched": true,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2,
+            "weight": null
+          }
+        ],
+        "stopped_after": "BLOCK_SCAM_KEYWORD",
+        "template_code": "SCAM_SIGNAL",
+        "timestamp": "2026-10-19T17:40:07.666Z",
+        "total_score": "0.00",
+        "weights": {}
+      }
+    },
+    {
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "created_at": "2026-10-19T17:40:10.417Z",
+      "status": "REJECTED",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "risk_score": 120,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "AI_SCAM_SUSPECTED",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "AI_SCAM_SUSPECTED",
+        "timestamp": "2026-10-19T17:40:10.418Z",
+        "total_score": "120.00",
+        "weights": {
+          "AI_SCAM_SUSPECTED": "40.00",
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "created_at": "2026-10-19T17:40:13.085Z",
+      "status": "PENDING",
+      "risk_code": "COMMUNITY_REPORTED",
+      "risk_score": 160,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "COMMUNITY_REPORTED",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 1,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "COMMUNITY_REPORTED",
+        "timestamp": "2026-10-19T17:40:13.085Z",
+        "total_score": "160.00",
+        "weights": {
+          "AI_SCAM_SUSPECTED": "40.00",
+          "COMMUNITY_REPORTED": "40.00",
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "created_at": "2026-10-19T17:40:15.580Z",
+      "status": "REJECTED",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "risk_score": 120,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "AI_SCAM_SUSPECTED",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "AI_SCAM_SUSPECTED",
+        "timestamp": "2026-10-19T17:40:15.580Z",
+        "total_score": "120.00",
+        "weights": {
+          "AI_SCAM_SUSPECTED": "40.00",
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "d7be8a9f3fff4737aae18163efb2f66f",
+      "created_at": "2026-10-19T17:40:17.646Z",
+      "status": "REJECTED",
+      "risk_code": "PAYEE_UNKNOWN",
+      "risk_score": 80,
+      "outcome_band": "REVIEW",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "PAYEE_UNKNOWN",
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": true,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [
+          {
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          }
+        ],
+        "stopped_after": null,
+        "template_code": "PAYEE_UNKNOWN",
+        "timestamp": "2026-10-19T17:40:17.646Z",
+        "total_score": "80.00",
+        "weights": {
+          "OVER_LIMIT": "40.00",
+          "PAYEE_UNKNOWN": "40.00"
+        }
+      }
+    },
+    {
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "created_at": "2026-10-19T17:40:20.193Z",
+      "status": "CANCELLED",
+      "risk_code": null,
+      "risk_score": 0,
+      "outcome_band": "APPROVE",
+      "decision_record": {
+        "config_version": "2026-10-17.1",
+        "outcome": "APPROVE",
+        "outcome_band": "APPROVE",
+        "risk_code_shown": null,
+        "rule_trace": [
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "DATA_INSUFFICIENT",
+            "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+            "sequence": 1
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_SCAM_KEYWORD",
+            "sequence": 2
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+            "sequence": 3
+          },
+          {
+            "match_count": 0,
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "SCAM_SIGNAL",
+            "rule_id": "BLOCK_COMMUNITY_REPORTED",
+            "sequence": 4
+          },
+          {
+            "matched": false,
+            "phase": "blocking",
+            "risk_code": "OVER_HARD_CAP",
+            "rule_id": "BLOCK_OVER_HARD_CAP",
+            "sequence": 5
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "PAYEE_UNKNOWN",
+            "rule_id": "PAYEE_UNKNOWN",
+            "sequence": 6,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "OVER_LIMIT",
+            "rule_id": "OVER_LIMIT",
+            "sequence": 7,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AMOUNT_HIGH",
+            "rule_id": "AMOUNT_HIGH",
+            "sequence": 8,
+            "weight": "20.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "COMMUNITY_REPORTED",
+            "rule_id": "COMMUNITY_REPORTED",
+            "sequence": 9,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "RAPID_TRANSFERS",
+            "rule_id": "RAPID_TRANSFERS",
+            "sequence": 10,
+            "weight": "40.00"
+          },
+          {
+            "matched": false,
+            "phase": "scoring",
+            "risk_code": "AI_SCAM_SUSPECTED",
+            "rule_id": "AI_SCAM_SUSPECTED",
+            "sequence": 11,
+            "weight": "40.00"
+          }
+        ],
+        "rules_fired": [],
+        "stopped_after": null,
+        "template_code": "PAYMENT_CONFIRMATION",
+        "timestamp": "2026-10-19T17:40:20.193Z",
+        "total_score": "0.00",
+        "weights": {}
+      }
+    }
+  ]
+}

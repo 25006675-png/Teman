@@ -4,3 +4,6 @@ instance/
 .env
 tts_output/
 eval/speech_audio/
+.env*
+.pytest_cache/
+team/

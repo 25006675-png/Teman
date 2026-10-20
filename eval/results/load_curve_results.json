@@ -1,0 +1,104 @@
+{
+ "machine": "AMD64 Family 25 Model 116 Stepping 1, AuthenticAMD, 16 logical CPUs, Windows 11, one uvicorn process, SQLite",
+ "levels": [
+  {
+   "simultaneous": 1,
+   "rounds": 3,
+   "confirm_p50_ms": 46.6,
+   "confirm_p95_ms": 95.3,
+   "analyze_p50_ms": 80.2,
+   "analyze_p95_ms": 90.8,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 5,
+   "rounds": 3,
+   "confirm_p50_ms": 102.3,
+   "confirm_p95_ms": 159.9,
+   "analyze_p50_ms": 104.1,
+   "analyze_p95_ms": 168.4,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 10,
+   "rounds": 3,
+   "confirm_p50_ms": 177.3,
+   "confirm_p95_ms": 547.2,
+   "analyze_p50_ms": 213.9,
+   "analyze_p95_ms": 748.6,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 25,
+   "rounds": 3,
+   "confirm_p50_ms": 273.6,
+   "confirm_p95_ms": 880.8,
+   "analyze_p50_ms": 522.7,
+   "analyze_p95_ms": 1178.4,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 50,
+   "rounds": 3,
+   "confirm_p50_ms": 193.1,
+   "confirm_p95_ms": 1969.7,
+   "analyze_p50_ms": 760.1,
+   "analyze_p95_ms": 1891.3,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 100,
+   "rounds": 3,
+   "confirm_p50_ms": 174.8,
+   "confirm_p95_ms": 2144.6,
+   "analyze_p50_ms": 976.7,
+   "analyze_p95_ms": 2352.6,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  },
+  {
+   "simultaneous": 200,
+   "rounds": 3,
+   "confirm_p50_ms": 463.3,
+   "confirm_p95_ms": 1125.2,
+   "analyze_p50_ms": 5112.3,
+   "analyze_p95_ms": 5798.2,
+   "charges_per_round": [
+    1,
+    1,
+    1
+   ],
+   "server_errors": 0
+  }
+ ],
+ "passed": true
+}

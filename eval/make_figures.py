@@ -238,9 +238,138 @@ def fig_tests():
     finish(ax, "7-tests-by-property.png", "Every test runs on a temporary database and never calls the real AI.")
 
 
+# ---- 8. Decision map: what the rules decide for every amount ------------------------------
+# outcome bands are states, so they use the fixed status palette, always with a text label
+BAND_STYLE = {
+    "APPROVE": ("#0ca30c", INK, "Pays on her hold"),
+    "WARN": ("#fab219", INK, "Warns; she can still pay"),
+    "REVIEW": ("#ec835a", INK, "Her son must approve"),
+    "BLOCK": (CRITICAL, "white", "Blocked; nobody can pay"),
+}
+BAND_SHORT = {"APPROVE": "Pay", "WARN": "Warn", "REVIEW": "Son", "BLOCK": "Blocked"}
+
+
+def fig_decision_map():
+    import math
+    data = load("decision_map.json")
+    rows = data["rows"]
+    lo, hi = 1.0, data["max_minor"] / 100
+    fig, ax = plt.subplots(figsize=(8.2, 4.4))
+    for y, row in enumerate(rows):
+        for seg in row["segments"]:
+            start, end = max(seg["from_minor"] / 100, lo), seg["to_minor"] / 100
+            if end <= lo:
+                continue
+            fill, ink, _ = BAND_STYLE[seg["band"]]
+            ax.barh(y, end - start, left=start, height=0.62, color=fill, edgecolor=SURFACE, linewidth=2)
+            if math.log10(end) - math.log10(start) > 0.17:
+                score = "" if seg["band"] == "BLOCK" else f" · {float(seg['score']):g}"
+                ax.text(math.sqrt(start * end), y, BAND_SHORT[seg["band"]] + score, ha="center", va="center",
+                        color=ink, fontsize=8.5, fontweight="bold")
+    ax.set_xscale("log")
+    ax.set_xlim(lo, hi)
+    ax.set_xticks([1, 10, 100, 500, 1000])
+    ax.set_xticklabels(["RM 1", "RM 10", "RM 100", "RM 500", "RM 1,000"], fontsize=8.5)
+    ax.minorticks_off()
+    # the narrow warn band on the TNB row: label its edges above the bar
+    ax.text(46.08, -0.42, "RM 46.08 ", ha="right", va="bottom", fontsize=7.5, color=INK_2)
+    ax.text(57.60, -0.42, " RM 57.60", ha="left", va="bottom", fontsize=7.5, color=INK_2)
+    ax.text(math.sqrt(46.09 * 57.60), -0.72, "Warn · 20", ha="center", va="bottom", fontsize=8, color=INK,
+            fontweight="bold")
+    ax.axvline(500, color=INK, linewidth=1, linestyle=(0, (3, 3)))
+    ax.text(500, -0.72, "RM 500 hard cap ", ha="right", va="bottom", fontsize=8, color=INK)
+    ax.set_yticks(range(len(rows)))
+    ax.set_yticklabels([r["label"] for r in rows], fontsize=9)
+    ax.set_ylim(len(rows) - 0.4, -0.95)
+    ax.set_xlabel("amount requested (log scale)")
+    handles = [plt.Rectangle((0, 0), 1, 1, color=BAND_STYLE[b][0]) for b in BAND_STYLE]
+    ax.legend(handles, [BAND_STYLE[b][2] for b in BAND_STYLE], loc="upper center", bbox_to_anchor=(0.42, -0.16),
+              ncol=4, fontsize=8.5, handlelength=1.2, columnspacing=1.4)
+    ax.set_title("One rule set decides every amount, and an unknown payee always needs her son")
+    finish(ax, "8-decision-map.png",
+           "Outcome by amount, computed to the sen by the real rules engine (rules.py). Numbers are risk scores.",
+           note="TNB: median past bill RM 38.40; above 1.2× (RM 46.08) warns, above 1.5× (RM 57.60) goes to her son. "
+                "Fewer than 3 past bills: RM 50 limit. Reproduce: python eval/run_decision_map.py",
+           note_y=-0.3)
+
+
+# ---- 9. Randomised attack test (Monte Carlo) ---------------------------------------------------
+def fig_fuzz():
+    data = load("invariant_fuzz_results.json")
+    per = sorted(data["per_action"].items(), key=lambda kv: -kv[1]["count"])
+    labels = [name for name, _ in per]
+    segments = [
+        ("Money moved", BLUE, [v.get("Money moved", 0) for _, v in per]),
+        ("Refused by the server", ORANGE, [v.get("Refused", 0) for _, v in per]),
+        ("Allowed, no money moved", AQUA, [v.get("Allowed, no money moved", 0) for _, v in per]),
+    ]
+    fig, ax = plt.subplots(figsize=(8, 4.6))
+    left = [0] * len(labels)
+    for name, color, values in segments:  # no numbers inside: only the payments count matters, shown at the end
+        ax.barh(labels, values, left=left, color=color, height=0.55, edgecolor=SURFACE, linewidth=2, label=name)
+        left = [a + b for a, b in zip(left, values)]
+    for y, (_, v) in enumerate(per):
+        paid = v.get("Money moved", 0)
+        ax.text(v["count"] + 25, y, f"{v['count']:,}" + (f"  ·  {paid} paid" if paid else ""), va="center",
+                fontsize=8.5, color=INK)
+    ax.invert_yaxis()
+    ax.set_xlim(0, max(v["count"] for _, v in per) * 1.22)
+    ax.set_xlabel("random actions")
+    ax.tick_params(axis="y", labelsize=9)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.35, -0.13), ncol=3, fontsize=9)
+    broken = data["violation_count"]
+    ax.set_title(f"{data['actions']:,} random actions, {broken} safety rules broken")
+    finish(ax, "9-randomised-attack-test.png",
+           f"{data['sequences']} random sequences of {data['steps_per_sequence']} actions on the real app; "
+           f"{len(data['rules'])} safety rules checked after every action ({data['rule_checks']:,} checks).",
+           note="Rules checked: never charged twice · blocked never paid · amount and payee frozen · balance adds up · "
+                "review needs the son's right PIN · her payments safe or acknowledged only · never to the son's account · "
+                "nothing after its deadline · finished stays finished · every payment logged · log only grows. "
+                "Self-check: with the PIN check or the own-account check switched off, the same test reports violations. "
+                f"Seed {data['seed']}; reproduce: python eval/run_invariant_fuzz.py",
+           note_y=-0.25)
+
+
+# ---- 10. Load curve ------------------------------------------------------------------------------
+def fig_load():
+    data = load("load_curve_results.json")
+    lv = data["levels"]
+    xs = [x["simultaneous"] for x in lv]
+    fig, ax = plt.subplots(figsize=(7.5, 3.8))
+    series = [
+        ("Pay (confirm), median", BLUE, "-", "confirm_p50_ms"),
+        ("Pay (confirm), 95th percentile", BLUE, (0, (4, 3)), "confirm_p95_ms"),
+        ("New bill check, median", ORANGE, "-", "analyze_p50_ms"),
+        ("New bill check, 95th percentile", ORANGE, (0, (4, 3)), "analyze_p95_ms"),
+    ]
+    for name, color, style, key in series:
+        ax.plot(xs, [x[key] for x in lv], color=color, linestyle=style, linewidth=2, marker="o", markersize=5,
+                markeredgecolor=SURFACE, markeredgewidth=1.5, label=name)
+    ax.set_xscale("log")
+    ax.set_xticks(xs)
+    ax.set_xticklabels([str(x) for x in xs])
+    ax.minorticks_off()
+    ax.set_xlabel("simultaneous requests")
+    ax.set_ylabel("response time (ms)")
+    ax.set_ylim(bottom=0)
+    ax.grid(axis="y", color=GRID, linewidth=0.8)
+    ax.legend(loc="upper center", bbox_to_anchor=(0.45, -0.2), ncol=2, fontsize=8.5, handlelength=3.2)
+    rounds = [c for x in lv for c in x["charges_per_round"]]
+    one_charge = sum(1 for c in rounds if c == 1)
+    ax.set_title("More simultaneous requests: slower answers, still exactly one charge")
+    cpus = re.search(r"(\d+) logical CPUs", data["machine"])
+    finish(ax, "10-load-curve.png", f"Exactly 1 charge in {one_charge} of {len(rounds)} rounds; 0 server errors. "
+           f"Real server on a laptop ({cpus.group(1) if cpus else '?'} logical CPUs): one process, one SQLite file.",
+           note="Each level fires N identical 'pay' taps on one bill, and N new bill checks through the full rules path, "
+                f"{lv[0]['rounds']} rounds per level. Duplicate taps are refused quickly, so the pay median stays low. "
+                "A production deployment would use the bank's database. Reproduce: python eval/run_load_curve.py",
+           note_y=-0.42)
+
+
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
-    for make in (fig_scam, fig_photos, fig_stress, fig_tests, fig_speech, fig_latency):
+    for make in (fig_scam, fig_photos, fig_stress, fig_tests, fig_speech, fig_latency,
+                 fig_decision_map, fig_fuzz, fig_load):
         try:
             make()
         except FileNotFoundError as missing:

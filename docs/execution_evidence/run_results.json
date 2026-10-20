@@ -1,0 +1,3355 @@
+{
+  "meta": {
+    "run_at": "2026-10-19T17:39:53+00:00",
+    "server": "http://127.0.0.1:8765",
+    "approval_mode": "signed",
+    "ai_key_present": true,
+    "opening_balance_minor": 85000,
+    "closing_balance_minor": 68750,
+    "payments": 2
+  },
+  "steps": [
+    {
+      "scenario": "8. Son never answers",
+      "action": "Ask my child, then no answer",
+      "http_status": 200,
+      "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+      "status": "AWAITING_GUARDIAN",
+      "outcome": "REVIEW",
+      "risk_code": "PAYEE_UNKNOWN",
+      "expected": "AWAITING_GUARDIAN",
+      "result": "PASS",
+      "note": "left unanswered on purpose",
+      "response": {
+        "ok": true,
+        "transaction": {
+          "tx_id": "6ff35f3e06cb43369dad09e4e819b303",
+          "status": "AWAITING_GUARDIAN",
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "currency": "MYR",
+          "risk_code": "PAYEE_UNKNOWN",
+          "risk_score": 80,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "PAYEE_UNKNOWN",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "PAYEE_UNKNOWN",
+            "timestamp": "2026-10-19T17:39:56.273Z",
+            "total_score": "80.00",
+            "weights": {
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:41:56.350Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        }
+      }
+    },
+    {
+      "scenario": "1. Today's budget",
+      "action": "GET /budget",
+      "http_status": 200,
+      "expected": "daily limit shown, no money moves",
+      "result": "PASS",
+      "note": "opening balance RM 850.00",
+      "response": {
+        "status": "ACTIVE",
+        "severity": "INFO",
+        "income_minor": 150000,
+        "fixed_costs_minor": 25000,
+        "fixed_cost_gap_minor": 0,
+        "available_balance_minor": 85000,
+        "essential_costs_remaining_minor": 50000,
+        "days_left_in_month": 12,
+        "daily_limit_minor": 2916,
+        "message": "After setting aside RM 500.00 for essentials, RM 350.00 is available over 12 days: RM 29.16 per day.",
+        "calculation": {
+          "formula": "(remaining money - essential costs) / days left",
+          "remaining_money_minor": 85000,
+          "essential_costs_minor": 50000,
+          "days_left": 12,
+          "rounding": "ROUND_DOWN_TO_MINOR_UNIT",
+          "available_after_essentials_minor": 35000,
+          "daily_limit_minor": 2916,
+          "calculation_text": "(RM 850.00 - RM 500.00) / 12 days = RM 350.00 / 12 = RM 29.16 per day (rounded down to cents)"
+        }
+      }
+    },
+    {
+      "scenario": "2. Pay electricity bill (photo)",
+      "action": "Snap 1-tnb-electricity-bill.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "status": "PENDING",
+      "outcome": "APPROVE",
+      "risk_code": null,
+      "expected": "APPROVE, RM 42.50",
+      "result": "PASS",
+      "note": "read from photo: {'payee_id': 'tnb', 'payee_name': 'Tenaga Nasional Berhad', 'amount_minor': 4250, 'due_date': '2026-10-28'}",
+      "response": {
+        "tx_id": "a54291f4bd774ad98276c129ead37282",
+        "outcome": "APPROVE",
+        "outcome_band": "APPROVE",
+        "risk_code_shown": null,
+        "template_code": "PAYMENT_CONFIRMATION",
+        "message": "Would you like me to pay this bill for you?",
+        "actions": [
+          "confirm",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "confirm",
+            "route": "VERIFY_APPROVAL_THEN_EXECUTE"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": null,
+        "risk_score": "0.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [],
+          "weights": {},
+          "total_score": "0.00",
+          "outcome_band": "APPROVE",
+          "risk_code_shown": null,
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:39:59.015Z",
+          "outcome": "APPROVE",
+          "template_code": "PAYMENT_CONFIRMATION",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "a54291f4bd774ad98276c129ead37282",
+          "status": "PENDING",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "risk_code": null,
+          "risk_score": 0,
+          "outcome_band": "APPROVE",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "APPROVE",
+            "outcome_band": "APPROVE",
+            "risk_code_shown": null,
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [],
+            "stopped_after": null,
+            "template_code": "PAYMENT_CONFIRMATION",
+            "timestamp": "2026-10-19T17:39:59.015Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": "2026-10-19T17:49:59.015Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": false,
+          "tactics": [],
+          "labels_en": [],
+          "labels_zh_yue": [],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.048790164169432,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "要唔要我幫你交呢張單？",
+        "read_from_photo": {
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "due_date": "2026-10-28"
+        }
+      }
+    },
+    {
+      "scenario": "2. Pay electricity bill (photo)",
+      "action": "Double-tap test: confirm #1 (sent at the same instant)",
+      "http_status": 200,
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "status": "DONE",
+      "outcome": "APPROVE",
+      "risk_code": null,
+      "expected": "exactly one of the two executes",
+      "result": "PASS",
+      "note": "executed=True; total charged RM 42.50",
+      "response": {
+        "ok": true,
+        "executed": true,
+        "transaction": {
+          "tx_id": "a54291f4bd774ad98276c129ead37282",
+          "status": "DONE",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "risk_code": null,
+          "risk_score": 0,
+          "outcome_band": "APPROVE",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "APPROVE",
+            "outcome_band": "APPROVE",
+            "risk_code_shown": null,
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [],
+            "stopped_after": null,
+            "template_code": "PAYMENT_CONFIRMATION",
+            "timestamp": "2026-10-19T17:39:59.015Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": "2026-10-19T17:49:59.015Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "payment": {
+          "tx_id": "a54291f4bd774ad98276c129ead37282",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "executed_at": "2026-10-19T17:39:59.469Z"
+        }
+      }
+    },
+    {
+      "scenario": "2. Pay electricity bill (photo)",
+      "action": "Double-tap test: confirm #2 (sent at the same instant)",
+      "http_status": 200,
+      "tx_id": "a54291f4bd774ad98276c129ead37282",
+      "status": "DONE",
+      "outcome": "APPROVE",
+      "risk_code": null,
+      "expected": "exactly one of the two executes",
+      "result": "PASS",
+      "note": "executed=False; total charged RM 42.50",
+      "response": {
+        "ok": true,
+        "executed": false,
+        "already_final": true,
+        "transaction": {
+          "tx_id": "a54291f4bd774ad98276c129ead37282",
+          "status": "DONE",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "risk_code": null,
+          "risk_score": 0,
+          "outcome_band": "APPROVE",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "APPROVE",
+            "outcome_band": "APPROVE",
+            "risk_code_shown": null,
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [],
+            "stopped_after": null,
+            "template_code": "PAYMENT_CONFIRMATION",
+            "timestamp": "2026-10-19T17:39:59.015Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": "2026-10-19T17:49:59.015Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "payment": {
+          "tx_id": "a54291f4bd774ad98276c129ead37282",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "executed_at": "2026-10-19T17:39:59.469Z",
+          "method": "tap"
+        }
+      }
+    },
+    {
+      "scenario": "3. Pay later",
+      "action": "Snap 5-air-selangor-bill.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+      "status": "PENDING",
+      "outcome": "APPROVE",
+      "risk_code": null,
+      "expected": "APPROVE, RM 19.20",
+      "result": "PASS",
+      "note": "",
+      "response": {
+        "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+        "outcome": "APPROVE",
+        "outcome_band": "APPROVE",
+        "risk_code_shown": null,
+        "template_code": "PAYMENT_CONFIRMATION",
+        "message": "Would you like me to pay this bill for you?",
+        "actions": [
+          "confirm",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "confirm",
+            "route": "VERIFY_APPROVAL_THEN_EXECUTE"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": null,
+        "risk_score": "0.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [],
+          "weights": {},
+          "total_score": "0.00",
+          "outcome_band": "APPROVE",
+          "risk_code_shown": null,
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:02.488Z",
+          "outcome": "APPROVE",
+          "template_code": "PAYMENT_CONFIRMATION",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+          "status": "PENDING",
+          "payee_id": "air_selangor",
+          "payee_name": "Air Selangor",
+          "amount_minor": 1920,
+          "currency": "MYR",
+          "risk_code": null,
+          "risk_score": 0,
+          "outcome_band": "APPROVE",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "APPROVE",
+            "outcome_band": "APPROVE",
+            "risk_code_shown": null,
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [],
+            "stopped_after": null,
+            "template_code": "PAYMENT_CONFIRMATION",
+            "timestamp": "2026-10-19T17:40:02.488Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": "2026-10-19T17:50:02.487Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": false,
+          "tactics": [],
+          "labels_en": [],
+          "labels_zh_yue": [],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.023498817161818317,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "要唔要我幫你交呢張單？",
+        "read_from_photo": {
+          "payee_id": "air_selangor",
+          "payee_name": "Air Selangor",
+          "amount_minor": 1920,
+          "due_date": "2026-10-30"
+        }
+      }
+    },
+    {
+      "scenario": "3. Pay later",
+      "action": "Pay later (到期先交)",
+      "http_status": 200,
+      "expected": "saved, pay_on = due date - 2 days",
+      "result": "PASS",
+      "note": "due 2026-10-30, pays on 2026-10-28",
+      "response": {
+        "ok": true,
+        "scheduled": {
+          "id": 1,
+          "created_at": "2026-10-19T17:40:02.577Z",
+          "updated_at": "2026-10-19T17:40:02.577Z",
+          "payee_id": "air_selangor",
+          "payee_name": "Air Selangor",
+          "amount_minor": 1920,
+          "due_date": "2026-10-30",
+          "pay_on": "2026-10-28",
+          "source_tx_id": "eb3797e283544921ae94d31bbcfdc4aa",
+          "paid_tx_id": null,
+          "status": "SCHEDULED",
+          "note": null
+        }
+      }
+    },
+    {
+      "scenario": "4. Family co-sign",
+      "action": "Snap 2-klinik-baru-bill.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "status": "PENDING",
+      "outcome": "REVIEW",
+      "risk_code": "PAYEE_UNKNOWN",
+      "expected": "REVIEW (PAYEE_UNKNOWN)",
+      "result": "PASS",
+      "note": "",
+      "response": {
+        "tx_id": "9ae700f033a74421829505ebe98a1931",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "PAYEE_UNKNOWN",
+        "template_code": "PAYEE_UNKNOWN",
+        "message": "We don't recognise this payee. Please check the details or ask your child before deciding.",
+        "actions": [
+          "ask_child",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "ask_child",
+            "route": "PENDING_TO_AWAITING_GUARDIAN"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": {
+          "approve": "AWAITING_GUARDIAN_TO_DONE_ONLY_IF_VALID_AND_STILL_REVIEW",
+          "reject": "AWAITING_GUARDIAN_TO_REJECTED",
+          "expire": "AWAITING_GUARDIAN_TO_EXPIRED_WITHOUT_PAYMENT"
+        },
+        "risk_score": "80.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "weight": "40.00"
+            }
+          ],
+          "weights": {
+            "PAYEE_UNKNOWN": "40.00",
+            "OVER_LIMIT": "40.00"
+          },
+          "total_score": "80.00",
+          "outcome_band": "REVIEW",
+          "risk_code_shown": "PAYEE_UNKNOWN",
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:04.770Z",
+          "outcome": "REVIEW",
+          "template_code": "PAYEE_UNKNOWN",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "9ae700f033a74421829505ebe98a1931",
+          "status": "PENDING",
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "currency": "MYR",
+          "risk_code": "PAYEE_UNKNOWN",
+          "risk_score": 80,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "PAYEE_UNKNOWN",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "PAYEE_UNKNOWN",
+            "timestamp": "2026-10-19T17:40:04.770Z",
+            "total_score": "80.00",
+            "weights": {
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:50:04.770Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": false,
+          "tactics": [],
+          "labels_en": [],
+          "labels_zh_yue": [],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.1385497393847786,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "我哋未能確認呢個收款人。請先核對資料，或者問屋企人。",
+        "read_from_photo": {
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "due_date": "2026-10-25"
+        }
+      }
+    },
+    {
+      "scenario": "4. Family co-sign",
+      "action": "Ask my child",
+      "http_status": 200,
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "status": "AWAITING_GUARDIAN",
+      "outcome": "REVIEW",
+      "risk_code": "PAYEE_UNKNOWN",
+      "expected": "AWAITING_GUARDIAN",
+      "result": "PASS",
+      "note": "",
+      "response": {
+        "ok": true,
+        "transaction": {
+          "tx_id": "9ae700f033a74421829505ebe98a1931",
+          "status": "AWAITING_GUARDIAN",
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "currency": "MYR",
+          "risk_code": "PAYEE_UNKNOWN",
+          "risk_score": 80,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "PAYEE_UNKNOWN",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "PAYEE_UNKNOWN",
+            "timestamp": "2026-10-19T17:40:04.770Z",
+            "total_score": "80.00",
+            "weights": {
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:42:04.814Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        }
+      }
+    },
+    {
+      "scenario": "4. Family co-sign",
+      "action": "Son approves with a wrong PIN",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "WRONG_PIN",
+      "expected": "403 WRONG_PIN, not paid",
+      "result": "PASS",
+      "note": "attempts left: 2",
+      "response": {
+        "error": "WRONG_PIN",
+        "attempts_left": 2,
+        "message": "Wrong PIN. 2 tries left."
+      }
+    },
+    {
+      "scenario": "4. Family co-sign",
+      "action": "Son approves with the right PIN, request also carries amount=1 and payee=Attacker",
+      "http_status": 200,
+      "tx_id": "9ae700f033a74421829505ebe98a1931",
+      "status": "DONE",
+      "outcome": "REVIEW",
+      "risk_code": "PAYEE_UNKNOWN",
+      "expected": "DONE; stored RM 120.00 to Klinik Baru paid, extra fields ignored",
+      "result": "PASS",
+      "note": "paid RM 120.00 to Klinik Baru (demo)",
+      "response": {
+        "ok": true,
+        "executed": true,
+        "transaction": {
+          "tx_id": "9ae700f033a74421829505ebe98a1931",
+          "status": "DONE",
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "currency": "MYR",
+          "risk_code": "PAYEE_UNKNOWN",
+          "risk_score": 80,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "PAYEE_UNKNOWN",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "PAYEE_UNKNOWN",
+            "timestamp": "2026-10-19T17:40:04.770Z",
+            "total_score": "80.00",
+            "weights": {
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:42:04.814Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "payment": {
+          "tx_id": "9ae700f033a74421829505ebe98a1931",
+          "payee_id": null,
+          "payee_name": "Klinik Baru (demo)",
+          "amount_minor": 12000,
+          "currency": "MYR",
+          "executed_at": "2026-10-19T17:40:05.133Z"
+        }
+      }
+    },
+    {
+      "scenario": "5. Hidden-instruction scam",
+      "action": "Snap 3-prize-scam-message.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "13d88d7731e54df0a048570f120b89bc",
+      "status": "BLOCKED",
+      "outcome": "BLOCK",
+      "risk_code": "SCAM_SIGNAL",
+      "expected": "BLOCKED (SCAM_SIGNAL)",
+      "result": "PASS",
+      "note": "",
+      "response": {
+        "tx_id": "13d88d7731e54df0a048570f120b89bc",
+        "outcome": "BLOCK",
+        "outcome_band": null,
+        "risk_code_shown": "SCAM_SIGNAL",
+        "template_code": "SCAM_SIGNAL",
+        "message": "This payment was stopped because it matches a safety warning. Do not pay; check with an official channel.",
+        "actions": [
+          "cancel",
+          "check_officially"
+        ],
+        "next_steps": [
+          {
+            "action": "cancel",
+            "route": "DISMISS_BLOCKED_CARD"
+          },
+          {
+            "action": "check_officially",
+            "route": "SHOW_OFFICIAL_CHANNEL"
+          }
+        ],
+        "guardian_follow_up": null,
+        "risk_score": "0.00",
+        "guardian_alert_required": true,
+        "decision_record": {
+          "rules_fired": [
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "weight": null
+            }
+          ],
+          "weights": {},
+          "total_score": "0.00",
+          "outcome_band": null,
+          "risk_code_shown": "SCAM_SIGNAL",
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:07.666Z",
+          "outcome": "BLOCK",
+          "template_code": "SCAM_SIGNAL",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": true,
+              "match_count": 3
+            }
+          ],
+          "stopped_after": "BLOCK_SCAM_KEYWORD"
+        },
+        "matched_scam_group_ids": [
+          "safe_account",
+          "unfreeze_payment",
+          "prompt_injection_demo"
+        ],
+        "transaction": {
+          "tx_id": "13d88d7731e54df0a048570f120b89bc",
+          "status": "BLOCKED",
+          "payee_id": null,
+          "payee_name": "Acct #9910-SCAM",
+          "amount_minor": 80000,
+          "currency": "MYR",
+          "risk_code": "SCAM_SIGNAL",
+          "risk_score": 0,
+          "outcome_band": null,
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "BLOCK",
+            "outcome_band": null,
+            "risk_code_shown": "SCAM_SIGNAL",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 3,
+                "matched": true,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2,
+                "weight": null
+              }
+            ],
+            "stopped_after": "BLOCK_SCAM_KEYWORD",
+            "template_code": "SCAM_SIGNAL",
+            "timestamp": "2026-10-19T17:40:07.666Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": null,
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": true,
+          "tactics": [
+            "prize_or_refund_bait",
+            "urgency",
+            "move_money_to_protect_it",
+            "unusual_payee_request",
+            "secrecy"
+          ],
+          "labels_en": [
+            "Promises a prize or refund",
+            "Pressure to act quickly",
+            "Asks you to move money to 'protect' it",
+            "Asks you to pay a personal or unknown account",
+            "Asks you to keep it secret"
+          ],
+          "labels_zh_yue": [
+            "話你中獎或者有退款",
+            "催你即刻做",
+            "叫你轉錢去「保護」啲錢",
+            "叫你轉錢去私人或者唔識嘅戶口",
+            "叫你唔好話俾人知"
+          ],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.7717903078790584,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "呢筆付款因為符合安全警示，已經停止。請唔好付款，先用官方渠道查證。",
+        "read_from_photo": {
+          "payee_id": null,
+          "payee_name": "Acct #9910-SCAM",
+          "amount_minor": 80000,
+          "due_date": null
+        }
+      }
+    },
+    {
+      "scenario": "5. Hidden-instruction scam",
+      "action": "Ah Por tries to confirm",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "BLOCKED",
+      "expected": "refused, no payment",
+      "result": "PASS",
+      "note": "BLOCKED",
+      "response": {
+        "error": "BLOCKED",
+        "message": "This transaction is blocked and cannot be approved."
+      }
+    },
+    {
+      "scenario": "5. Hidden-instruction scam",
+      "action": "Ah Por tries Ask my child",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "BLOCKED",
+      "expected": "refused, no payment",
+      "result": "PASS",
+      "note": "BLOCKED",
+      "response": {
+        "error": "BLOCKED",
+        "message": "This transaction is blocked and cannot be approved."
+      }
+    },
+    {
+      "scenario": "5. Hidden-instruction scam",
+      "action": "Son tries to approve with the right PIN",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "BLOCKED",
+      "expected": "refused, no payment",
+      "result": "PASS",
+      "note": "BLOCKED",
+      "response": {
+        "error": "BLOCKED",
+        "message": "This transaction is blocked and cannot be approved."
+      }
+    },
+    {
+      "scenario": "5. Hidden-instruction scam",
+      "action": "Voice says confirm",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "BLOCKED",
+      "expected": "refused, no payment",
+      "result": "PASS",
+      "note": "BLOCKED",
+      "response": {
+        "error": "BLOCKED",
+        "message": "This transaction is blocked and cannot be approved."
+      }
+    },
+    {
+      "scenario": "6. No-keyword scam",
+      "action": "Snap 4-inspector-lim-message.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "status": "PENDING",
+      "outcome": "REVIEW",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "expected": "REVIEW (goes to son)",
+      "result": "PASS",
+      "note": "AI analyst: status=ok, tactics=['impersonation', 'urgency', 'secrecy', 'move_money_to_protect_it', 'threat', 'unusual_payee_request']",
+      "response": {
+        "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "AI_SCAM_SUSPECTED",
+        "template_code": "AI_SCAM_SUSPECTED",
+        "message": "This request shows warning signs of a scam. Don't pay yet. Ask your child or check with an official channel first.",
+        "actions": [
+          "ask_child",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "ask_child",
+            "route": "PENDING_TO_AWAITING_GUARDIAN"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": {
+          "approve": "AWAITING_GUARDIAN_TO_DONE_ONLY_IF_VALID_AND_STILL_REVIEW",
+          "reject": "AWAITING_GUARDIAN_TO_REJECTED",
+          "expire": "AWAITING_GUARDIAN_TO_EXPIRED_WITHOUT_PAYMENT"
+        },
+        "risk_score": "120.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "weight": "40.00"
+            }
+          ],
+          "weights": {
+            "PAYEE_UNKNOWN": "40.00",
+            "OVER_LIMIT": "40.00",
+            "AI_SCAM_SUSPECTED": "40.00"
+          },
+          "total_score": "120.00",
+          "outcome_band": "REVIEW",
+          "risk_code_shown": "AI_SCAM_SUSPECTED",
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:10.418Z",
+          "outcome": "REVIEW",
+          "template_code": "AI_SCAM_SUSPECTED",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+          "status": "PENDING",
+          "payee_id": null,
+          "payee_name": "Lim Holdings 5521 (demo)",
+          "amount_minor": 30000,
+          "currency": "MYR",
+          "risk_code": "AI_SCAM_SUSPECTED",
+          "risk_score": 120,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "AI_SCAM_SUSPECTED",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "AI_SCAM_SUSPECTED",
+            "timestamp": "2026-10-19T17:40:10.418Z",
+            "total_score": "120.00",
+            "weights": {
+              "AI_SCAM_SUSPECTED": "40.00",
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:50:10.417Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": true,
+          "tactics": [
+            "impersonation",
+            "urgency",
+            "secrecy",
+            "move_money_to_protect_it",
+            "threat",
+            "unusual_payee_request"
+          ],
+          "labels_en": [
+            "Pretends to be police, a bank or the government",
+            "Pressure to act quickly",
+            "Asks you to keep it secret",
+            "Asks you to move money to 'protect' it",
+            "Threatens arrest or a penalty",
+            "Asks you to pay a personal or unknown account"
+          ],
+          "labels_zh_yue": [
+            "冒認警察、銀行或者政府",
+            "催你即刻做",
+            "叫你唔好話俾人知",
+            "叫你轉錢去「保護」啲錢",
+            "恐嚇話會拉你或者罰你",
+            "叫你轉錢去私人或者唔識嘅戶口"
+          ],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.3621146672345506,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "呢個要求有啲似騙案嘅跡象。請先唔好付款，問下仔女或者用官方渠道查證。",
+        "read_from_photo": {
+          "payee_id": null,
+          "payee_name": "Lim Holdings 5521 (demo)",
+          "amount_minor": 30000,
+          "due_date": null
+        }
+      }
+    },
+    {
+      "scenario": "6. No-keyword scam",
+      "action": "Son: It's a scam - report & reject",
+      "http_status": 200,
+      "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+      "status": "REJECTED",
+      "outcome": "REVIEW",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "expected": "REJECTED, payee reported",
+      "result": "PASS",
+      "note": "report count 1",
+      "response": {
+        "ok": true,
+        "payee_key": "lim holdings 5521 (demo)",
+        "report_count": 1,
+        "transaction": {
+          "tx_id": "fddc74b8aad24e429d6f19485aca05a0",
+          "status": "REJECTED",
+          "payee_id": null,
+          "payee_name": "Lim Holdings 5521 (demo)",
+          "amount_minor": 30000,
+          "currency": "MYR",
+          "risk_code": "AI_SCAM_SUSPECTED",
+          "risk_score": 120,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "AI_SCAM_SUSPECTED",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "AI_SCAM_SUSPECTED",
+            "timestamp": "2026-10-19T17:40:10.418Z",
+            "total_score": "120.00",
+            "weights": {
+              "AI_SCAM_SUSPECTED": "40.00",
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:42:10.503Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        }
+      }
+    },
+    {
+      "scenario": "6. No-keyword scam",
+      "action": "Same account asked for money again",
+      "http_status": 200,
+      "tx_id": "535e1b4d89d1487e859dcdce90365543",
+      "status": "PENDING",
+      "outcome": "REVIEW",
+      "risk_code": "COMMUNITY_REPORTED",
+      "expected": "COMMUNITY_REPORTED fires (+40)",
+      "result": "PASS",
+      "note": "one family's report protects others",
+      "response": {
+        "tx_id": "535e1b4d89d1487e859dcdce90365543",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "COMMUNITY_REPORTED",
+        "template_code": "COMMUNITY_REPORTED",
+        "message": "A Teman family has reported this account as a scam. Please ask your child before paying.",
+        "actions": [
+          "ask_child",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "ask_child",
+            "route": "PENDING_TO_AWAITING_GUARDIAN"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": {
+          "approve": "AWAITING_GUARDIAN_TO_DONE_ONLY_IF_VALID_AND_STILL_REVIEW",
+          "reject": "AWAITING_GUARDIAN_TO_REJECTED",
+          "expire": "AWAITING_GUARDIAN_TO_EXPIRED_WITHOUT_PAYMENT"
+        },
+        "risk_score": "160.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "weight": "40.00"
+            }
+          ],
+          "weights": {
+            "PAYEE_UNKNOWN": "40.00",
+            "OVER_LIMIT": "40.00",
+            "COMMUNITY_REPORTED": "40.00",
+            "AI_SCAM_SUSPECTED": "40.00"
+          },
+          "total_score": "160.00",
+          "outcome_band": "REVIEW",
+          "risk_code_shown": "COMMUNITY_REPORTED",
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:13.085Z",
+          "outcome": "REVIEW",
+          "template_code": "COMMUNITY_REPORTED",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 1
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "535e1b4d89d1487e859dcdce90365543",
+          "status": "PENDING",
+          "payee_id": null,
+          "payee_name": "Lim Holdings 5521 (demo)",
+          "amount_minor": 30000,
+          "currency": "MYR",
+          "risk_code": "COMMUNITY_REPORTED",
+          "risk_score": 160,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "COMMUNITY_REPORTED",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 1,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "COMMUNITY_REPORTED",
+            "timestamp": "2026-10-19T17:40:13.085Z",
+            "total_score": "160.00",
+            "weights": {
+              "AI_SCAM_SUSPECTED": "40.00",
+              "COMMUNITY_REPORTED": "40.00",
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:50:13.085Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": true,
+          "tactics": [
+            "unusual_payee_request"
+          ],
+          "labels_en": [
+            "Asks you to pay a personal or unknown account"
+          ],
+          "labels_zh_yue": [
+            "叫你轉錢去私人或者唔識嘅戶口"
+          ],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0025,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 1.0,
+            "log_amount_to_balance": 0.3621146672345506,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "有 Teman 家庭舉報過呢個戶口係騙案。付款之前請先問下仔女。"
+      }
+    },
+    {
+      "scenario": "7. Son's own account",
+      "action": "Snap 7-ah-ming-own-account-message.png (real OCR)",
+      "http_status": 200,
+      "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+      "status": "PENDING",
+      "outcome": "REVIEW",
+      "risk_code": "AI_SCAM_SUSPECTED",
+      "expected": "REVIEW, pays_guardian = true",
+      "result": "PASS",
+      "note": "",
+      "response": {
+        "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+        "outcome": "REVIEW",
+        "outcome_band": "REVIEW",
+        "risk_code_shown": "AI_SCAM_SUSPECTED",
+        "template_code": "AI_SCAM_SUSPECTED",
+        "message": "This request shows warning signs of a scam. Don't pay yet. Ask your child or check with an official channel first.",
+        "actions": [
+          "ask_child",
+          "cancel"
+        ],
+        "next_steps": [
+          {
+            "action": "ask_child",
+            "route": "PENDING_TO_AWAITING_GUARDIAN"
+          },
+          {
+            "action": "cancel",
+            "route": "PENDING_TO_CANCELLED"
+          }
+        ],
+        "guardian_follow_up": {
+          "approve": "AWAITING_GUARDIAN_TO_DONE_ONLY_IF_VALID_AND_STILL_REVIEW",
+          "reject": "AWAITING_GUARDIAN_TO_REJECTED",
+          "expire": "AWAITING_GUARDIAN_TO_EXPIRED_WITHOUT_PAYMENT"
+        },
+        "risk_score": "120.00",
+        "guardian_alert_required": false,
+        "decision_record": {
+          "rules_fired": [
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "weight": "40.00"
+            }
+          ],
+          "weights": {
+            "PAYEE_UNKNOWN": "40.00",
+            "OVER_LIMIT": "40.00",
+            "AI_SCAM_SUSPECTED": "40.00"
+          },
+          "total_score": "120.00",
+          "outcome_band": "REVIEW",
+          "risk_code_shown": "AI_SCAM_SUSPECTED",
+          "config_version": "2026-10-17.1",
+          "timestamp": "2026-10-19T17:40:15.580Z",
+          "outcome": "REVIEW",
+          "template_code": "AI_SCAM_SUSPECTED",
+          "rule_trace": [
+            {
+              "sequence": 1,
+              "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+              "risk_code": "DATA_INSUFFICIENT",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 2,
+              "rule_id": "BLOCK_SCAM_KEYWORD",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 3,
+              "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 4,
+              "rule_id": "BLOCK_COMMUNITY_REPORTED",
+              "risk_code": "SCAM_SIGNAL",
+              "phase": "blocking",
+              "matched": false,
+              "match_count": 0
+            },
+            {
+              "sequence": 5,
+              "rule_id": "BLOCK_OVER_HARD_CAP",
+              "risk_code": "OVER_HARD_CAP",
+              "phase": "blocking",
+              "matched": false
+            },
+            {
+              "sequence": 6,
+              "rule_id": "PAYEE_UNKNOWN",
+              "risk_code": "PAYEE_UNKNOWN",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 7,
+              "rule_id": "OVER_LIMIT",
+              "risk_code": "OVER_LIMIT",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 8,
+              "rule_id": "AMOUNT_HIGH",
+              "risk_code": "AMOUNT_HIGH",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "20.00"
+            },
+            {
+              "sequence": 9,
+              "rule_id": "COMMUNITY_REPORTED",
+              "risk_code": "COMMUNITY_REPORTED",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 10,
+              "rule_id": "RAPID_TRANSFERS",
+              "risk_code": "RAPID_TRANSFERS",
+              "phase": "scoring",
+              "matched": false,
+              "weight": "40.00"
+            },
+            {
+              "sequence": 11,
+              "rule_id": "AI_SCAM_SUSPECTED",
+              "risk_code": "AI_SCAM_SUSPECTED",
+              "phase": "scoring",
+              "matched": true,
+              "weight": "40.00"
+            }
+          ],
+          "stopped_after": null
+        },
+        "transaction": {
+          "tx_id": "32aa15a5ed1c4e4c9386412447480b5b",
+          "status": "PENDING",
+          "payee_id": null,
+          "payee_name": "Tan Ah Ming (Maybank 5512)",
+          "amount_minor": 40000,
+          "currency": "MYR",
+          "risk_code": "AI_SCAM_SUSPECTED",
+          "risk_score": 120,
+          "outcome_band": "REVIEW",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "REVIEW",
+            "outcome_band": "REVIEW",
+            "risk_code_shown": "AI_SCAM_SUSPECTED",
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": true,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [
+              {
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "stopped_after": null,
+            "template_code": "AI_SCAM_SUSPECTED",
+            "timestamp": "2026-10-19T17:40:15.580Z",
+            "total_score": "120.00",
+            "weights": {
+              "AI_SCAM_SUSPECTED": "40.00",
+              "OVER_LIMIT": "40.00",
+              "PAYEE_UNKNOWN": "40.00"
+            }
+          },
+          "expires_at": "2026-10-19T17:50:15.580Z",
+          "guardian_extended": false,
+          "pays_guardian": true
+        },
+        "ai_assessment": {
+          "status": "ok",
+          "suspicious": true,
+          "tactics": [
+            "impersonation",
+            "secrecy"
+          ],
+          "labels_en": [
+            "Pretends to be police, a bank or the government",
+            "Asks you to keep it secret"
+          ],
+          "labels_zh_yue": [
+            "冒認警察、銀行或者政府",
+            "叫你唔好話俾人知"
+          ],
+          "model": "gemini-3.5-flash-lite",
+          "errors": []
+        },
+        "shadow_model": {
+          "mode": "shadow",
+          "model_version": "paysim-logreg-2026-10-18",
+          "score": 0.0,
+          "would_flag": false,
+          "features": {
+            "is_transfer": 0.0,
+            "log_amount_to_balance": 0.4585749334221128,
+            "empties_balance": 0.0,
+            "night_hour": 1.0
+          }
+        },
+        "message_zh_yue": "呢個要求有啲似騙案嘅跡象。請先唔好付款，問下仔女或者用官方渠道查證。",
+        "read_from_photo": {
+          "payee_id": null,
+          "payee_name": "Tan Ah Ming (Maybank 5512)",
+          "amount_minor": 40000,
+          "due_date": null
+        }
+      }
+    },
+    {
+      "scenario": "7. Son's own account",
+      "action": "Son approves with the right PIN",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "SELF_APPROVAL",
+      "expected": "403 SELF_APPROVAL, not paid",
+      "result": "PASS",
+      "note": "SELF_APPROVAL",
+      "response": {
+        "error": "SELF_APPROVAL",
+        "message": "This payment goes to your own account, so you can't approve it. Mum can pay at the bank, or ask another trusted person."
+      }
+    },
+    {
+      "scenario": "9. Wrong PINs",
+      "action": "Wrong PIN #1",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "WRONG_PIN",
+      "expected": "WRONG_PIN",
+      "result": "PASS",
+      "note": "WRONG_PIN, attempts left 2",
+      "response": {
+        "error": "WRONG_PIN",
+        "attempts_left": 2,
+        "message": "Wrong PIN. 2 tries left."
+      }
+    },
+    {
+      "scenario": "9. Wrong PINs",
+      "action": "Wrong PIN #2",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "WRONG_PIN",
+      "expected": "WRONG_PIN",
+      "result": "PASS",
+      "note": "WRONG_PIN, attempts left 1",
+      "response": {
+        "error": "WRONG_PIN",
+        "attempts_left": 1,
+        "message": "Wrong PIN. 1 try left."
+      }
+    },
+    {
+      "scenario": "9. Wrong PINs",
+      "action": "Wrong PIN #3",
+      "http_status": 403,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "PIN_LOCKED",
+      "expected": "PIN_LOCKED on #3",
+      "result": "PASS",
+      "note": "PIN_LOCKED, attempts left 0",
+      "response": {
+        "error": "PIN_LOCKED",
+        "attempts_left": 0,
+        "message": "Too many wrong PINs. The payment was stopped; nothing was paid."
+      }
+    },
+    {
+      "scenario": "9. Wrong PINs",
+      "action": "Right PIN after lock-out",
+      "http_status": 409,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "INVALID_STATE",
+      "expected": "refused (already stopped)",
+      "result": "PASS",
+      "note": "INVALID_STATE",
+      "response": {
+        "error": "INVALID_STATE",
+        "message": "This action is not allowed for the transaction's current state."
+      }
+    },
+    {
+      "scenario": "10. Unclear voice",
+      "action": "Voice keyword not recognised",
+      "http_status": 200,
+      "tx_id": "84d58037875c4805831fc954ba99c6d6",
+      "status": "PENDING",
+      "outcome": "APPROVE",
+      "risk_code": null,
+      "expected": "nothing executed, 'please tap a button'",
+      "result": "PASS",
+      "note": "I didn't catch that. Please tap a button.",
+      "response": {
+        "ok": true,
+        "executed": false,
+        "code": "VOICE_UNRECOGNIZED",
+        "message": "I didn't catch that. Please tap a button.",
+        "transaction": {
+          "tx_id": "84d58037875c4805831fc954ba99c6d6",
+          "status": "PENDING",
+          "payee_id": "tnb",
+          "payee_name": "Tenaga Nasional Berhad",
+          "amount_minor": 4250,
+          "currency": "MYR",
+          "risk_code": null,
+          "risk_score": 0,
+          "outcome_band": "APPROVE",
+          "decision_record": {
+            "config_version": "2026-10-17.1",
+            "outcome": "APPROVE",
+            "outcome_band": "APPROVE",
+            "risk_code_shown": null,
+            "rule_trace": [
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "DATA_INSUFFICIENT",
+                "rule_id": "BLOCK_MISSING_REQUIRED_FIELDS",
+                "sequence": 1
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_SCAM_KEYWORD",
+                "sequence": 2
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_BLACKLISTED_PAYEE",
+                "sequence": 3
+              },
+              {
+                "match_count": 0,
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "SCAM_SIGNAL",
+                "rule_id": "BLOCK_COMMUNITY_REPORTED",
+                "sequence": 4
+              },
+              {
+                "matched": false,
+                "phase": "blocking",
+                "risk_code": "OVER_HARD_CAP",
+                "rule_id": "BLOCK_OVER_HARD_CAP",
+                "sequence": 5
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "PAYEE_UNKNOWN",
+                "rule_id": "PAYEE_UNKNOWN",
+                "sequence": 6,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "OVER_LIMIT",
+                "rule_id": "OVER_LIMIT",
+                "sequence": 7,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AMOUNT_HIGH",
+                "rule_id": "AMOUNT_HIGH",
+                "sequence": 8,
+                "weight": "20.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "COMMUNITY_REPORTED",
+                "rule_id": "COMMUNITY_REPORTED",
+                "sequence": 9,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "RAPID_TRANSFERS",
+                "rule_id": "RAPID_TRANSFERS",
+                "sequence": 10,
+                "weight": "40.00"
+              },
+              {
+                "matched": false,
+                "phase": "scoring",
+                "risk_code": "AI_SCAM_SUSPECTED",
+                "rule_id": "AI_SCAM_SUSPECTED",
+                "sequence": 11,
+                "weight": "40.00"
+              }
+            ],
+            "rules_fired": [],
+            "stopped_after": null,
+            "template_code": "PAYMENT_CONFIRMATION",
+            "timestamp": "2026-10-19T17:40:20.193Z",
+            "total_score": "0.00",
+            "weights": {}
+          },
+          "expires_at": "2026-10-19T17:50:20.193Z",
+          "guardian_extended": false,
+          "pays_guardian": false
+        }
+      }
+    },
+    {
+      "scenario": "8. Son never answers",
+      "action": "After 2 minutes: son tries to approve late",
+      "http_status": 409,
+      "tx_id": null,
+      "status": null,
+      "outcome": null,
+      "risk_code": "INVALID_STATE",
+      "expected": "EXPIRED, no payment",
+      "result": "PASS",
+      "note": "status after window: EXPIRED",
+      "response": {
+        "error": "INVALID_STATE",
+        "message": "This action is not allowed for the transaction's current state."
+      }
+    }
+  ]
+}

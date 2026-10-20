@@ -1,0 +1,234 @@
+{
+ "max_minor": 100000,
+ "rows": [
+  {
+   "label": "TNB bill, 3 past bills",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 4608,
+     "band": "APPROVE",
+     "score": "0.00",
+     "fired": []
+    },
+    {
+     "from_minor": 4609,
+     "to_minor": 5760,
+     "band": "WARN",
+     "score": "20.00",
+     "fired": [
+      "AMOUNT_HIGH"
+     ]
+    },
+    {
+     "from_minor": 5761,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "60.00",
+     "fired": [
+      "AMOUNT_HIGH",
+      "OVER_LIMIT"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Air Selangor bill, 1 past bill",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 5000,
+     "band": "APPROVE",
+     "score": "0.00",
+     "fired": []
+    },
+    {
+     "from_minor": 5001,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "40.00",
+     "fired": [
+      "OVER_LIMIT"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Recognised biller, AI flags a tactic",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 4608,
+     "band": "REVIEW",
+     "score": "40.00",
+     "fired": [
+      "AI_SCAM_SUSPECTED"
+     ]
+    },
+    {
+     "from_minor": 4609,
+     "to_minor": 5760,
+     "band": "REVIEW",
+     "score": "60.00",
+     "fired": [
+      "AI_SCAM_SUSPECTED",
+      "AMOUNT_HIGH"
+     ]
+    },
+    {
+     "from_minor": 5761,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "100.00",
+     "fired": [
+      "AI_SCAM_SUSPECTED",
+      "AMOUNT_HIGH",
+      "OVER_LIMIT"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "New payee (never paid before)",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 5000,
+     "band": "REVIEW",
+     "score": "40.00",
+     "fired": [
+      "PAYEE_UNKNOWN"
+     ]
+    },
+    {
+     "from_minor": 5001,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "80.00",
+     "fired": [
+      "OVER_LIMIT",
+      "PAYEE_UNKNOWN"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Transfer, 2 transfers already today",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 5000,
+     "band": "REVIEW",
+     "score": "80.00",
+     "fired": [
+      "PAYEE_UNKNOWN",
+      "RAPID_TRANSFERS"
+     ]
+    },
+    {
+     "from_minor": 5001,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "120.00",
+     "fired": [
+      "OVER_LIMIT",
+      "PAYEE_UNKNOWN",
+      "RAPID_TRANSFERS"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Payee reported by 1 family",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 5000,
+     "band": "REVIEW",
+     "score": "80.00",
+     "fired": [
+      "COMMUNITY_REPORTED",
+      "PAYEE_UNKNOWN"
+     ]
+    },
+    {
+     "from_minor": 5001,
+     "to_minor": 50000,
+     "band": "REVIEW",
+     "score": "120.00",
+     "fired": [
+      "COMMUNITY_REPORTED",
+      "OVER_LIMIT",
+      "PAYEE_UNKNOWN"
+     ]
+    },
+    {
+     "from_minor": 50001,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Payee reported by 2 families",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  },
+  {
+   "label": "Message contains a scam phrase",
+   "segments": [
+    {
+     "from_minor": 1,
+     "to_minor": 100000,
+     "band": "BLOCK",
+     "score": "0.00",
+     "fired": []
+    }
+   ]
+  }
+ ]
+}

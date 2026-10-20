@@ -1,0 +1,38 @@
+[
+  {
+    "attempt": "Edit an audit log entry",
+    "sql": "UPDATE logs SET status = 'EDITED' WHERE id = (SELECT MIN(id) FROM logs)",
+    "refused": true,
+    "error": "logs are append-only"
+  },
+  {
+    "attempt": "Delete an audit log entry",
+    "sql": "DELETE FROM logs WHERE id = (SELECT MIN(id) FROM logs)",
+    "refused": true,
+    "error": "logs are append-only"
+  },
+  {
+    "attempt": "Change a sandbox payment amount",
+    "sql": "UPDATE sandbox_payments SET amount_minor = 1",
+    "refused": true,
+    "error": "sandbox payments are append-only"
+  },
+  {
+    "attempt": "Delete a sandbox payment",
+    "sql": "DELETE FROM sandbox_payments",
+    "refused": true,
+    "error": "sandbox payments are append-only"
+  },
+  {
+    "attempt": "Move a paid transaction back to PENDING",
+    "sql": "UPDATE transactions SET status = 'PENDING' WHERE status = 'DONE'",
+    "refused": true,
+    "error": "invalid transaction state transition"
+  },
+  {
+    "attempt": "Revive a blocked scam as PENDING",
+    "sql": "UPDATE transactions SET status = 'PENDING' WHERE status = 'BLOCKED'",
+    "refused": true,
+    "error": "invalid transaction state transition"
+  }
+]
